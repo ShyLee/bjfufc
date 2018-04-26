@@ -1,0 +1,155 @@
+<view version="2.0">
+	<title translatable="true">B zzf jf approve</title>
+	<js file="asc-bj-usms-house-ldjf-approve.js"/>
+	
+	<layout id="main">
+        <north	id="applySite" autoScroll="true" initialSize="100%"/>
+        <center id="dealSite"/>
+    </layout>
+	
+	<dataSource id="zzfJfDs">
+		<table name="bjfu_zzf_jf" role="main"/>
+        <field table="bjfu_zzf_jf" name="id"/>
+        <field table="bjfu_zzf_jf" name="archive_id"/>
+        <field table="bjfu_zzf_jf" name="gzbm"/>
+        <field table="bjfu_zzf_jf" name="em_id"/>
+        <field table="bjfu_zzf_jf" name="xm"/>
+        <field table="bjfu_zzf_jf" name="xb"/>
+        <field table="bjfu_zzf_jf" name="dv_name"/>
+        <field table="bjfu_zzf_jf" name="sfzh"/>
+        <field table="bjfu_zzf_jf" name="zw_jb_name"/>
+        <field table="bjfu_zzf_jf" name="zc_jb_name"/>
+        <field table="bjfu_zzf_jf" name="zw_name"/>
+        <field table="bjfu_zzf_jf" name="zc_name"/>
+        <field table="bjfu_zzf_jf" name="phone"/>
+        <field table="bjfu_zzf_jf" name="date_come_sch"/>
+        <field table="bjfu_zzf_jf" name="is_sworker"/>
+        <field table="bjfu_zzf_jf" name="has_children"/>
+        <field table="bjfu_zzf_jf" name="has_tqgjj"/>
+        <field table="bjfu_zzf_jf" name="rm_addr"/>
+        <field table="bjfu_zzf_jf" name="zf_type_name"/>
+        <field table="bjfu_zzf_jf" name="po_xm"/>
+        <field table="bjfu_zzf_jf" name="po_sfzh"/>
+        <field table="bjfu_zzf_jf" name="date_apply"/>
+        <field table="bjfu_zzf_jf" name="score_parents"/>
+        <field table="bjfu_zzf_jf" name="score_children"/>
+        <field table="bjfu_zzf_jf" name="score_rz"/>
+        <field table="bjfu_zzf_jf" name="score_zl"/>
+        <field table="bjfu_zzf_jf" name="score_gl"/>
+        <field table="bjfu_zzf_jf" name="score_xl"/>
+        <field table="bjfu_zzf_jf" name="score_total"/>
+        <field table="bjfu_zzf_jf" name="status"/>
+        <field table="bjfu_zzf_jf" name="date_approve"/>
+        <field table="bjfu_zzf_jf" name="gd_status"/>
+        <field table="bjfu_zzf_jf" name="date_gd"/>
+        <field table="bjfu_zzf_jf" name="xf_addr"/>
+        <field table="bjfu_zzf_jf" name="date_rz"/>
+        <field table="bjfu_zzf_jf" name="date_tz"/>
+        <field table="bjfu_zzf_jf" name="xf_area_jianzhu"/>
+        <field table="bjfu_zzf_jf" name="batch_gd"/>
+        
+        <sortField table="bjfu_zzf_jf" name="score_total" ascending="false"/>
+        <sortField table="bjfu_zzf_jf" name="score_children" ascending="false"/>
+        <sortField table="bjfu_zzf_jf" name="score_parents" ascending="false"/>
+        <sortField table="bjfu_zzf_jf" name="date_come_sch"/>
+    </dataSource>
+    
+    <dataSource id="zzfJfxfDs">
+		<table name="bjfu_zzf_jfxf" role="main"/>
+        <field table="bjfu_zzf_jfxf" name="id"/>
+        <field table="bjfu_zzf_jfxf" name="bl_id"/>
+        <field table="bjfu_zzf_jfxf" name="bl_name"/>
+        <field table="bjfu_zzf_jfxf" name="fl_id"/>
+        <field table="bjfu_zzf_jfxf" name="rm_id"/>
+        <field table="bjfu_zzf_jfxf" name="area_jianzhu"/>
+       <field table="bjfu_zzf_jfxf" name="huxing"/>
+        <field table="bjfu_zzf_jfxf" name="area_yt"/>
+        <field table="bjfu_zzf_jfxf" name="date_rz"/>
+        <field table="bjfu_zzf_jfxf" name="status"/>
+    </dataSource>
+		     
+     <panel type="grid" id="applyInfoGrid"  dataSource="zzfJfDs" multipleSelectionEnabled="true" layoutRegion="applySite">
+            <title translatable="true">Apply Info</title>
+            <action id="selectYear"></action>
+            <action id="deal">
+	            <title translatable="true">Deal</title>
+	        </action>
+	        <action id="file">
+	            <title translatable="true">File</title>
+	        </action>
+            
+            <field id="Num">
+            	<title translatable="true">No.</title>
+            </field>
+            
+            <field table="bjfu_zzf_jf" name="id" hidden="true"/>
+            <field table="bjfu_zzf_jf" name="em_id"/>
+	        <field table="bjfu_zzf_jf" name="archive_id"/>
+	        <field table="bjfu_zzf_jf" name="xm"/>
+	        <field table="bjfu_zzf_jf" name="xb"/>
+	        <field table="bjfu_zzf_jf" name="sfzh"/>
+	        <field table="bjfu_zzf_jf" name="status"/>
+	        <field table="bjfu_zzf_jf" name="gd_status"/>
+	        <field table="bjfu_zzf_jf" name="score_total"/>	
+	        <field table="bjfu_zzf_jf" name="score_parents"/>
+	        <field table="bjfu_zzf_jf" name="score_children"/>
+	        <field table="bjfu_zzf_jf" name="score_rz"/>
+	        <field table="bjfu_zzf_jf" name="score_zl"/>
+	        <field table="bjfu_zzf_jf" name="score_gl"/>
+	        <field table="bjfu_zzf_jf" name="score_xl"/>
+     </panel>
+	
+	<panel type="form" id="dealForm"  dataSource="zzfJfDs" columns="3" showOnLoad="false" layoutRegion="dealSite">
+            <title translatable="true">Deal Info</title>
+            <action id="print">
+	            <title translatable="true">Print</title>
+	        </action>
+            <action id="save">
+	            <title translatable="true">Save</title>
+	        </action>
+	        <action id="return">
+	            <title translatable="true">Return</title>
+	        </action>
+	        
+            <field table="bjfu_zzf_jf" name="id" hidden="true"/>
+            <field table="bjfu_zzf_jf" name="em_id" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="archive_id" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="xm" readOnly="true"/>
+	        <field table="bjfu_zzf_jf" name="xb" readOnly="true"/>
+	        <field table="bjfu_zzf_jf" name="sfzh" readOnly="true"/>
+	        <field table="bjfu_zzf_jf" name="status"/>
+	        <field table="bjfu_zzf_jf" name="rm_addr" readOnly="true"/>
+        	<field table="bjfu_zzf_jf" name="zf_type_name" readOnly="true"/>
+        	<field table="bjfu_zzf_jf" name="date_tz"/>
+	        <field table="bjfu_zzf_jf" name="xf_addr">
+	        	<action id="selectTable">
+	                <title translatable="false">...</title>
+	                <tooltip>Select Value</tooltip>
+	                <command type="selectValue"
+	                        fieldNames="bjfu_zzf_jf.xf_addr,bjfu_zzf_jf.xf_area_jianzhu,bjfu_zzf_jf.date_rz"
+	                        selectFieldNames="bjfu_zzf_jfxf.id,bjfu_zzf_jfxf.area_jianzhu,bjfu_zzf_jfxf.date_rz"
+	                        visibleFieldNames="bjfu_zzf_jfxf.bl_id,bjfu_zzf_jfxf.bl_name,bjfu_zzf_jfxf.fl_id,bjfu_zzf_jfxf.rm_id,bjfu_zzf_jfxf.area_jianzhu,bjfu_zzf_jfxf.area_yt,bjfu_zzf_jfxf.huxing,bjfu_zzf_jfxf.date_rz"
+							restriction=" bjfu_zzf_jfxf.status = '2' "
+							actionListener="selectRm"/>
+	            </action>
+	        </field>
+	        <field table="bjfu_zzf_jf" name="xf_area_jianzhu"/>
+	        <field table="bjfu_zzf_jf" name="date_rz"/>
+	        <field table="bjfu_zzf_jf" name="date_approve" />
+     </panel>
+	
+	 <dataSource id="rmDetail">
+        <table name="rm" role="main"/>
+        <table name="bl" role="standard"/>
+        <field table="bl" name="name"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="area_jianzhu"/>
+        <field table="rm" name="area_yangtai"/>
+        <field table="rm" name="huxing"/>
+        <field table="rm" name="rm_cat"/>
+        <field table="rm" name="rm_type"/>
+    </dataSource>
+	
+</view>

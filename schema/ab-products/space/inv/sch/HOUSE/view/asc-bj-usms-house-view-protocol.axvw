@@ -1,0 +1,103 @@
+<view version="2.0">
+    <title>Protocol List</title>
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north split="true" initialSize="12%"/>
+        <center/>
+    </layout> 
+    
+    <dataSource id="zzfCardDs">
+        <table name="sc_zzfcard" role="main"/>
+        <tabel name="bl" role="standard"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="sc_zzfcard" name="card_type"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="color"/>
+		<sortField table="sc_zzfcard" name="card_id" />
+		<sortField table="sc_zzfcard" name="em_id" />
+        
+        <parameter name="colorRes" dataType="verbatim" value=" 1=1 "/>
+        <restriction type="sql" sql="card_status in ('yrz','yxq') and ${parameters['colorRes']}"/>
+    </dataSource>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfCardDs" layout="mainLayout" region="center">
+        <title translatable="true">Protocol List</title>
+        <field id="quit" controlType="button" hidden="true">
+            <title>Quit</title>
+        </field>
+        <field id="renew" controlType="button" hidden="true">
+            <title>Renew</title>
+        </field>
+		<action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+            <title></title>
+            <action>
+                <title>Export</title>
+                <command type="exportPanel" outputType="xls" panelId="zzf_fee_detail"/>
+            </action>
+        </action>
+		<indexField table="sc_zzfcard" name="card_id" />
+		<indexField table="sc_zzfcard" name="em_id" />
+        <field table="sc_zzfcard" name="color" controlType="color"/>
+        <field table="sc_zzfcard" name="card_id" hidden="true"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="card_type" hidden="true"/>
+    </panel>
+    
+    <panel type="html" id="color2" layout="mainLayout" region="north">
+        <title translatable="true">tulishuoming</title>
+        <action id="showAll">
+            <title translatable="true">show all</title>
+        </action>
+        <html>
+            <table width="1000" height="35" border="0" style="margin:10px auto;">
+                <tr>
+                    <td width="100" style="background-color:green"></td>
+                    <td width="100">
+                        <a href="#" class="changeColor" value="14 0 3 65280">
+                            <span id="idd1" style="font-size:12px"></span>
+                        </a>
+                    </td>
+                    <td></td>
+                    <td width="100" style="background-color:yellow"></td>
+                    <td width="100">
+                        <a href="#" class="changeColor" value="14 0 2 16776960">
+                            <span id="idd2" style="font-size:12px"></span>
+                        </a>
+                    </td>
+                    <td></td>
+                    <td width="100" style="background-color:red"></td>
+                    <td width="100">
+                        <a href="#" class="changeColor" value="14 0 1 16711680">
+                            <span id="idd3" style="font-size:12px"></span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </html>
+    </panel>
+    
+    <js file="asc-bj-usms-house-view-protocol.js"/>
+</view>

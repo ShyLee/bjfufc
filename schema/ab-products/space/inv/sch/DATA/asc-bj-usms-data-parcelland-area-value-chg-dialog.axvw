@@ -1,0 +1,105 @@
+  <view version="2.0">
+    <title translatable="true">parcelland area and value change</title>
+    <message name="wrongNoChangeValue" translatable="true">It's invalid no change on area_market or value_market!!!</message>
+    <message name="wantCancel" translatable="true">If you want cancel,please select cancel button</message>
+    <message name="success" translatable="true">Changed successful!!!</message>
+    <message name="blName" translatable="true">Parcelland-</message>
+	<dataSource id="valuemarketDS">
+	  <table name="sc_land_change" role="main"/>
+	  <field table="sc_land_change" name="parcelland_record_id"/>
+	  <field table="sc_land_change" name="land_code"/>
+	  <field table="sc_land_change" name="area_book" showTotals="true"/>
+	  <field table="sc_land_change" name="area_add" showTotals="true"/>
+	  <field table="sc_land_change" name="area_market" showTotals="true"/>
+	  
+	  <field table="sc_land_change" name="value_book" showTotals="true"/>
+	  <field table="sc_land_change" name="value_add" showTotals="true"/>
+	  <field table="sc_land_change" name="value_market" showTotals="true"/>
+	  
+	  <field table="sc_land_change" name="change_cause"/>
+	  <field table="sc_land_change" name="change_date"/> 
+	  <field table="sc_land_change" name="approver"/>
+	  <field table="sc_land_change" name="operator"/>
+	  <field table="sc_land_change" name="parcelland_address"/>
+	  <field table="sc_land_change" name="sys_date"/>
+	  <field table="sc_land_change" name="type"/>
+	</dataSource>
+	
+	<dataSource id="parcellandDs">
+	  <table name="sc_parcelland" role="main"/>
+	  <field table="sc_parcelland" name="land_code" />
+	  <field table="sc_parcelland" name="area_tudi"/>
+	  <field table="sc_parcelland" name="value_book"/>	
+	</dataSource>
+
+	
+	<panel type="form" id="marketForm" dataSource="valuemarketDS" columns="2" showOnLoad="false" >
+	 <title translatable="true"></title>
+	  <action id="save">
+	  	<title translatable="true">save</title>
+	  </action>
+	  <action id="cancel">
+	  	<title translatable="true">cancel</title>
+	  	<command type="closeDialog" panelId="marketForm"/>
+	  </action>
+	  <field table="sc_land_change" name="parcelland_record_id" hidden="true"/>
+	  <field table="sc_land_change" name="land_code" hidden="false" readOnly="true">
+	  	<title translatable="true">Land Code</title>
+	  </field>
+	  <field table="sc_land_change" name="parcelland_address" hidden="false" readOnly="true">
+	  	<title translatable="true">Land Address</title>
+	  </field>
+	 
+	  <field table="sc_land_change" name="change_date" required="true"/>
+	  <field table="sc_land_change" name="approver"/>
+	  <field table="sc_land_change" name="operator" value="${user.name}" readOnly="true"/>
+	  <field table="sc_land_change" name="sys_date" hidden="false" value="new Date()"/>
+	  <field table="sc_land_change" name="type" hidden="false" onchange="abDataParcellandMngtChgController.change()"/>
+	  <field></field>
+	  
+	  <field table="sc_land_change" name="area_book" readOnly="true">
+	   	<title translatable="true">Area Book</title>
+	  </field>
+	  <field table="sc_land_change" name="area_add" readOnly="true" hidden="true"/>
+	  <field table="sc_land_change" name="area_market" readOnly="false">
+	  	<title translatable="true">Area Market</title>
+	  </field>
+	  <field table="sc_land_change" name="value_book" readOnly="true"/>
+	  <field table="sc_land_change" name="value_add" readOnly="true" hidden="true"/>
+	  <field table="sc_land_change" name="value_market"/>
+	   <field table="sc_land_change" name="change_cause" colspan="2"/>
+	</panel>
+	
+	<panel type="grid" id="historyGrid" dataSource="valuemarketDS" showOnLoad="false" showCounts="true">
+	 <title translatable="true"></title>
+	 
+	  <field table="sc_land_change" name="parcelland_record_id" hidden="true"/>
+	  <field table="sc_land_change" name="land_code" hidden="false" >
+	  	<title translatable="true">Land Code</title>
+	  </field>
+	  <field table="sc_land_change" name="parcelland_address" hidden="false" >
+	  	<title translatable="true">Land Address</title>
+	  </field>
+	  <field table="sc_land_change" name="change_cause" />
+	  <field table="sc_land_change" name="change_date" />
+	  <field table="sc_land_change" name="approver"/>
+	  <field table="sc_land_change" name="operator" />
+	  <field table="sc_land_change" name="sys_date" hidden="false" />
+	  <field table="sc_land_change" name="type" hidden="false" />
+	  
+	  
+	  <field table="sc_land_change" name="area_book" showTotals="true">
+	  	<title translatable="true">Area Book</title>
+	  </field>
+	  <field table="sc_land_change" name="area_market" showTotals="true">
+	  	<title translatable="true">Area Market</title>
+	  </field>
+	  <field table="sc_land_change" name="area_add" showTotals="true"/>
+	  
+	  <field table="sc_land_change" name="value_book"  showTotals="true"/>
+	  <field table="sc_land_change" name="value_market" showTotals="true"/>
+	  <field table="sc_land_change" name="value_add" showTotals="true" />
+	</panel>
+	
+   <js file="asc-bj-usms-data-parcelland-area-value-chg-dialog.js"/>
+</view>

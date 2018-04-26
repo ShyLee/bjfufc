@@ -1,0 +1,75 @@
+<view version="2.0">
+	<title translatable="true">Protocol Rm And Payment Item</title>
+	
+	<dataSource id="zzfProtocalRmDS">
+ 	<table name="bh_zzf_protocal_rm" role="main"/>
+    	<table name="bh_zzf_protocal_rm" role="standard"/>
+    	<field table="bh_zzf_protocal_rm" name="id"/>
+    	<field table="bh_zzf_protocal_rm" name="protocal_id"/>
+    	<field table="bh_zzf_protocal_rm" name="bl_id" dataType="text">
+    	   <sql dialect="generic">
+               (select name from bl where bl_id = bh_zzf_protocal_rm.bl_id)
+           </sql>
+    	</field>
+    	<field table="bh_zzf_protocal_rm" name="fl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="rm_id"/>
+    	<field table="bh_zzf_protocal_rm" name="area_jianZhu"/>
+    	<field table="bh_zzf_protocal_rm" name="area_rm"/>
+    	<field table="bh_zzf_protocal_rm" name="area_xy"/>
+    	<sortField table="bh_zzf_protocal_rm" name="id" ascending="true" />
+	</dataSource>
+	
+	<dataSource id="zzfProtocalFeesDS">
+		 <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+		<field table='bh_zzf_fees' name='end_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+		<sortField table="bh_zzf_fees" name="fees_id" ascending="true" />
+	</dataSource>
+	
+	
+	<panel type="grid" id="zzfProtocolRmPanel" dataSource="zzfProtocalRmDS" showOnLoad="false" showIndexAndFilterOnLoad="false">
+		<title translatable="true">Room List</title>
+		
+		<field table="bh_zzf_protocal_rm" name="id">
+			<title translatable="true">Xu Hao</title>
+		</field>
+    	<field table="bh_zzf_protocal_rm" name="protocal_id"/>
+    	<field table="bh_zzf_protocal_rm" name="bl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="fl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="rm_id"/>
+    	<field table="bh_zzf_protocal_rm" name="area_jianZhu"/>
+    	<field table="bh_zzf_protocal_rm" name="area_rm"/>
+    	<field table="bh_zzf_protocal_rm" name="area_xy"/>
+	</panel>
+
+	<panel type="grid" id="hdBizFeesPanel" dataSource="zzfProtocalFeesDS" showOnLoad="false" showIndexAndFilterOnLoad="false" sortEnabled="false">
+		<title translatable="true">Payment Item</title>
+		
+		<field table='bh_zzf_fees' name='fees_id'>
+			<title translatable="true">Xu Hao</title>
+		</field>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+		<field table='bh_zzf_fees' name='end_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+	</panel>
+	
+	<js file="asc-bj-usms-zzf-protocol-query-dialog.js"/>
+</view>

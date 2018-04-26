@@ -1,0 +1,188 @@
+<view version="2.0">
+    
+    <css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+    
+    <layout id="main">
+        <north id="sitePosition" initialSize="30%" split="true"/>
+        <center id="byDingePosition"/>
+		<south id="byGangWeiPosition" initialSize="45%" split="true"/>
+    </layout>
+    
+    <title translatable="true">XueXiao GeLeiRenYuan BanGong YongFang TongJi FenXi</title>
+    
+    <!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-off-em-ed-info_byDinge_grid_em" type="grouping">
+        <table name="em" role="main"/>
+        <table name="sc_dinge_jibie" role="standard"/>
+        
+        <field table="sc_dinge_jibie" name="dingejibie_id" groupBy="true"/>
+        <field table="sc_dinge_jibie" name="area" groupBy="true"/>
+        
+        <field table="em" name="count_em" formula="COUNT" dataType="number" baseField="em.em_id" decimals="0">
+            <title translatable="true">Employee Count</title>
+        </field>
+        <field table="em" name="total_area_shiyong" formula="SUM" dataType="number" baseField="em.area_rm" decimals="2">
+            <title translatable="true">Actual Total Usable Area</title>
+        </field>
+        <field table="em" name="avg_area" dataType="number" decimals="2">
+            <title translatable="true">Actual Average Area</title>
+            <sql dialect="generic">
+                CASE WHEN COUNT(*) = 0 THEN 0 ELSE SUM(em.area_rm)/COUNT(*) END
+            </sql>
+        </field>
+		<field table="em" name="diff_area" dataType="number" decimals="2">
+            <title translatable="true">RenJunChaE</title>
+            <sql dialect="generic">
+                CASE WHEN COUNT(*) = 0 THEN (0-sc_dinge_jibie.area) ELSE SUM(em.area_rm)/COUNT(*)-sc_dinge_jibie.area END
+            </sql>
+        </field>
+        <!--restriction type="sql" sql="em.dingejibie_id IS NOT NULL"/-->
+    </dataSource>
+	
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-off-em-ed-info_byGangweijibei_grid_em" type="grouping">
+        <table name="em" role="main"/>
+        <table name="sc_dinge_jibie" role="standard"/>
+		
+        <field table="sc_dinge_jibie" name="gangweijibie_id" groupBy="true"/>
+        <field table="sc_dinge_jibie" name="zhic_bz_id" groupBy="true"/>
+		<field table="sc_dinge_jibie" name="dingejibie_id" groupBy="true"/>
+        <field table="sc_dinge_jibie" name="area" groupBy="true"/>
+        
+        <field table="em" name="count_em" formula="COUNT" dataType="number" baseField="em.em_id" decimals="0">
+            <title translatable="true">Employee Count</title>
+        </field>
+        <field table="em" name="total_area_shiyong" formula="SUM" dataType="number" baseField="em.area_rm" decimals="2">
+            <title translatable="true">Actual Total Usable Area</title>
+        </field>
+        <field table="em" name="avg_area" dataType="number" decimals="2">
+            <title translatable="true">Actual Average Area</title>
+            <sql dialect="generic">
+                CASE WHEN COUNT(*) = 0 THEN 0 ELSE SUM(em.area_rm)/COUNT(*) END
+            </sql>
+        </field>
+        <!--restriction type="sql" sql="em.dingejibie_id IS NOT NULL"/-->
+    </dataSource>
+    
+    <!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-off-em-ed-info_basic_site">
+        <table name="site" role="main"/>
+        
+        <!--basic info-->
+        <field table="site" name="name"/>
+        <field table="site" name="address"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="telephone"/>
+        <field table="site" name="youbian"/>
+        
+        <parameter name="siteIdRes" dataType="text" value=""/>
+        <restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+    
+    <!-- dataSource for site summary panel -->
+    <dataSource id="ds_asc-bj-usms-overall-off-em-ed-info_sum_site" type="grouping">
+        <table name="site" role="main"/>
+        
+        <field name="total_guihuayongdi" formula="SUM" dataType="number" baseField="site.guihuayongdi" decimals="2"/>
+        <field name="total_jianzhuyongdi" formula="SUM" dataType="number" baseField="site.jianzhuyongdi" decimals="2"/>
+        <field name="total_bldgs" formula="SUM" dataType="number" baseField="site.no_bldgs" decimals="0"/>
+        
+        <field name="total_teacher_plan" formula="SUM" dataType="number" baseField="site.count_teacher_plan" decimals="2"/>
+        <field name="total_student_plan" formula="SUM" dataType="number" baseField="site.count_student_plan" decimals="2"/>
+        <field name="total_teacher_actual" formula="SUM" dataType="number" baseField="site.count_teacher_actual" decimals="2"/>
+        <field name="total_student_actual" formula="SUM" dataType="number" baseField="site.count_student_actual" decimals="2"/>
+        <field name="total_area_shiyong" formula="SUM" dataType="number"
+            baseField="site.area_rm" decimals="2"/>
+    </dataSource>
+    
+    <dataSource id="ds_asc-bj-usms-overall-off-em-ed-info_total_univer">
+        <sql dialect="generic">
+            SELECT (SELECT SUM(em.area_rm) FROM em ) ${sql.as} total_area_emp
+            FROM site
+        </sql>
+        <table name="site" role="main"/>
+        <field table="site" name="total_area_emp" dataType="number" decimals="2"/>
+    </dataSource>
+    
+    
+    <!-- base university info panel-->
+    <tabs id="campusTabs" layoutRegion="sitePosition">
+        <tab name="univer">
+            <title translatable="true">XueXiaoGanKuang</title>
+			
+            <panel type="columnReport" id="ascBjUsmsOverallOffEmEdInfo_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-off-em-ed-info_basic_site" columns="2" >
+                <title translatable="true">Whole School</title>
+                <field table="site" name="name"/>
+                <field table="site" name="address"/>
+                <field table="site" name="youbian"/>
+                <field table="site" name="telephone"/>
+            </panel>
+            
+            <!-- whole school summary data-->
+            <panel type="columnReport" id="ascBjUsmsOverallOffEmEdInfo_siteSumGrid" dataSource="ds_asc-bj-usms-overall-off-em-ed-info_sum_site" columns="3" >
+                <!-- row 1-->
+                <field name="total_guihuayongdi" dataType="number" decimals="2">
+                    <title translatable="true">Plan Land</title>
+                </field>
+                <field id="plan" labelClass="prominentLabel">
+                    <title translatable="true">Plan Person Quantity</title>
+                </field>
+                <field id="actual" labelClass="prominentLabel">
+                    <title translatable="true">Actial Person Quantity</title>
+                </field>
+				
+				<!-- row 2-->
+                <field name="total_jianzhuyongdi" dataType="number" decimals="2">
+                    <title translatable="true">Structure Land</title>
+                </field>
+                 <field name="total_teacher_plan" dataType="number" decimals="2">
+                    <title translatable="true">Plan Teacher Quantity</title>
+                </field>
+                <field name="total_teacher_actual" dataType="number" decimals="2">
+                    <title translatable="true">Actual Teacher Quantity</title>
+                </field>
+				
+				<!-- row 3-->
+                <field name="total_bldgs" dataType="number" decimals="0">
+                    <title translatable="true">Building Quantity</title>
+                </field>
+                <field name="total_student_plan" dataType="number" decimals="2">
+                    <title translatable="true">Plan Student Quantity</title>
+                </field>
+                <field name="total_student_actual" dataType="number" decimals="2">
+                    <title translatable="true">Actual Student Quantity</title>
+                </field>
+				<!-- row 4-->
+                <field name="total_area_shiyong" dataType="number" decimals="2">
+                    <title translatable="true">Total Usable Area</title>
+                </field>
+            </panel>
+            
+            <!-- whole school summary data-->
+            <panel type="columnReport" id="ascBjUsmsOverallOffEmEdInfo_univertotal" dataSource="ds_asc-bj-usms-overall-off-em-ed-info_total_univer" columns="2" >
+                <field name="total_area_emp" dataType="number" decimals="2">
+                    <title translatable="true">Employee Total Usable Area</title>
+                </field>
+            </panel>
+        </tab>
+    </tabs>
+    
+    
+    
+    
+    <!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallOffEmEdInfo_byDingeGrid" dataSource="ds_asc-bj-usms-overall-off-em-ed-info_byDinge_grid_em" layoutRegion="byDingePosition">
+        <title translatable="true">AnDingeJiBieTongJiFeiXiJiaoZhiGongShiJiShiYongMianJi</title>
+        <sortField table="sc_dinge_jibie" name="dingejibie_id" ascending="true"/>
+    </panel>
+    
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallOffEmEdInfo_byGangwJiBieGrid" dataSource="ds_asc-bj-usms-overall-off-em-ed-info_byGangweijibei_grid_em" layoutRegion="byGangWeiPosition">
+        <title translatable="true">AnGangWeiJiBeiHeBiaoZhunZhiChengTongJiFeiXiJiaoZhiGongShiJiShiYongMianJi</title>
+        <sortField table="sc_dinge_jibie" name="gangweijibie_id" ascending="true"/>
+		<sortField table="sc_dinge_jibie" name="zhic_bz_id" ascending="true"/>
+    </panel>
+    
+    <js file="asc-bj-usms-overall-off-em-ed-info.js"/>
+    <js file="asc-bj-usms-overall-common.js"/>
+</view>

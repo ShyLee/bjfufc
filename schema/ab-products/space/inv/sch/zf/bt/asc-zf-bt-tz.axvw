@@ -1,0 +1,160 @@
+<view version="2.0">
+	<title translatable="true">Zf TZ Bt</title>
+	<js url="/archibus/dwr/interface/BuTieService.js"/>
+	<js file="asc-zf-bt-tz.js"/>
+	
+	<dataSource id="zfBtDs">
+		<table name="sc_zfbt" role="main"/>
+        <field table="sc_zfbt" name="id"/>
+        <field table="sc_zfbt" name="date_apply"/>
+       	<field table="sc_zfbt" name="date_approve"/>
+       	<field table="sc_zfbt" name="date_pay_begin"/> 
+        <field table="sc_zfbt" name="em_id"/>
+        <field table="sc_zfbt" name="em_name"/>
+        <field table="sc_zfbt" name="em_sex"/>
+        <field table="sc_zfbt" name="salary_num"/>
+        <field table="sc_zfbt" name="zhiw_name"/>
+        <field table="sc_zfbt" name="zhic_name"/>
+        <field table="sc_zfbt" name="money"/>
+        <field table="sc_zfbt" name="mobile"/>
+        <field table="sc_zfbt" name="date_come_school"/>
+        <field table="sc_zfbt" name="status"/>
+    </dataSource>
+    
+    <dataSource id="zfbtTzDs">
+		<table name="sc_zfbt_tz" role="main"/>
+        <field table="sc_zfbt_tz" name="id"/>
+        <field table="sc_zfbt_tz" name="em_name"/>
+        <field table="sc_zfbt_tz" name="em_id"/>
+        <field table="sc_zfbt_tz" name="zhiw_name"/>
+        <field table="sc_zfbt_tz" name="zhic_name"/>
+        <field table="sc_zfbt_tz" name="zhiw_date"/>
+        <field table="sc_zfbt_tz" name="zhic_date"/>
+        <field table="sc_zfbt_tz" name="money_bz_zhiw"/>
+        <field table="sc_zfbt_tz" name="money_jc_zhiw"/>
+        <field table="sc_zfbt_tz" name="month_zhiw"/>
+        <field table="sc_zfbt_tz" name="money_bz_zhic"/>
+        <field table="sc_zfbt_tz" name="money_jc_zhic"/>
+        <field table="sc_zfbt_tz" name="month_zhic"/>
+        <field table="sc_zfbt_tz" name="money_total"/>
+        <field table="sc_zfbt_tz" name="pay_date"/>
+    </dataSource>
+    
+	<tabs id="detailTabs" workflow="enforced" tabRefreshPolicy="refreshOnLoad">
+    	<tab name="applyListTab" selected="true">
+			<title translatable="true">Apply List</title>
+			<panel type="grid" id="tzList" dataSource="zfBtDs" multipleSelectionEnabled="true">
+					<title translatable="true">ZFBT TZ List</title>
+					<action id="select"></action>
+			        <action id="manage">
+			            <title translatable="true">Manage</title>
+			        </action>
+			        <field table="sc_zfbt" name="id" hidden="true"/>
+			        <field table="sc_zfbt" name="em_id"/>
+			        <field table="sc_zfbt" name="em_name"/>
+			        <field table="sc_zfbt" name="em_sex"/>
+			        <field table="sc_zfbt" name="salary_num"/>
+			        <field table="sc_zfbt" name="zhiw_name"/>
+			        <field table="sc_zfbt" name="zhic_name"/>
+			        <field table="sc_zfbt" name="money" hidden="true"/>
+			        <field table="sc_zfbt" name="mobile"/>
+			        <field table="sc_zfbt" name="date_come_school"/>
+			        <field table="sc_zfbt" name="status" hidden="true"/>
+		     </panel>
+		</tab>
+		<tab name="applyInfoTab">
+			<title translatable="true">Basic Info</title>
+			<panel type="form" id="applyForm"  dataSource="zfBtDs" columns="3" >
+			 	<title translatable="true">Approve Info</title>
+			 		<action id="return">
+			            <title translatable="true">Return</title>
+			        </action>
+			        <field table="sc_zfbt" name="id" hidden="true"/>
+		        	<field table="sc_zfbt" name="date_apply"/>
+		        	<field table="sc_zfbt" name="date_approve"/>
+		        	<field table="sc_zfbt" name="date_pay_begin"/> 
+		     </panel>
+			 <panel type="form" id="currentBtInfo"  dataSource="zfBtDs" columns="3" >
+			 	<title translatable="true">Current Bt Info</title>
+			        <field table="sc_zfbt" name="id" hidden="true"/>
+		        	<field table="sc_zfbt" name="em_id" hidden="true"/>
+		        	<field table="sc_zfbt" name="em_name"/>
+		        	<field table="sc_zfbt" name="salary_num"/>
+		        	<field table="sc_zfbt" name="zhiw_name"/>
+		        	<field table="sc_zfbt" name="zhic_name"/>
+		        	<field table="sc_zfbt" name="money"/> 
+		      </panel>
+		      <panel type="grid" id="tzjlList"  dataSource="zfbtTzDs">
+				 	<title translatable="true">TZJL Info</title>
+				 	<action id="check">
+                        <title translatable="true">Check ZW ZC</title>
+                    </action>
+					<action id="add">
+			            <title translatable="true">Add</title>
+			        </action>
+			        
+			        <event type="onClickItem">
+			            <command type="callFunction" functionName="ascZfbtTZController.showEditForm()"/>
+			        </event>
+			        <field table="sc_zfbt_tz" name="id" hidden="true"/>
+			        <field table="sc_zfbt_tz" name="em_id" hidden="true"/>
+			        <field table="sc_zfbt_tz" name="zhiw_name"/>
+			        <field table="sc_zfbt_tz" name="zhiw_date"/>
+			        <field table="sc_zfbt_tz" name="zhic_name"/>
+			        <field table="sc_zfbt_tz" name="zhic_date"/>
+			        <field table="sc_zfbt_tz" name="money_bz_zhiw"/>
+			        <field table="sc_zfbt_tz" name="money_jc_zhiw"/>
+			        <field table="sc_zfbt_tz" name="month_zhiw"/>
+			        <field table="sc_zfbt_tz" name="money_bz_zhic"/>
+			        <field table="sc_zfbt_tz" name="money_jc_zhic"/>
+			        <field table="sc_zfbt_tz" name="month_zhic"/>
+			        <field table="sc_zfbt_tz" name="money_total"/>
+			        <field table="sc_zfbt_tz" name="pay_date"/>
+		      </panel>
+		      <panel type="form" id="tzForm"  dataSource="zfbtTzDs" columns="2" showOnLoad="false">
+		      		<action id="save">
+			            <title translatable="true">Save</title>
+			        </action>
+			        <action id="return">
+			            <title translatable="true">Return</title>
+			        </action>
+			        <field table="sc_zfbt_tz" name="id" hidden="false"/>
+			        <field table="sc_zfbt_tz" name="em_id" hidden="false"/>
+			        <field table="sc_zfbt_tz" name="zhiw_name">
+		                   <action>
+		                     <title>...</title>
+		                     <command
+		                        type="selectValue"
+		                        fieldNames="sc_zfbt_tz.zhiw_name"
+		                        selectFieldNames="sc_zw.zw_name"
+		                        visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name" 
+		                        actionListener="onChangeZwZc"/>
+		                    </action> 
+                    </field>
+			        <field table="sc_zfbt_tz" name="zhic_name">
+	                    <action>
+	                             <title>...</title>
+	                             <command
+	                                type="selectValue"
+	                                fieldNames="sc_zfbt_tz.zhic_name"
+	                                selectFieldNames="sc_zc.zc_name"
+	                                visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name" 
+	                                actionListener="onChangeZwZc"/>
+	                     </action> 
+                    </field>
+                    <field table="sc_zfbt_tz" name="zhiw_date" onchange="ascZfbtTZController.calBtDetail()"/>
+                    <field table="sc_zfbt_tz" name="zhic_date" onchange="ascZfbtTZController.calBtDetail()"/>
+			        <field table="sc_zfbt_tz" name="money_bz_zhiw"/>
+			        <field table="sc_zfbt_tz" name="money_bz_zhic"/>
+			        <field table="sc_zfbt_tz" name="money_jc_zhiw"/>
+			        <field table="sc_zfbt_tz" name="money_jc_zhic"/>
+			        <field table="sc_zfbt_tz" name="month_zhiw"/>
+			        <field table="sc_zfbt_tz" name="month_zhic"/>
+			        <field table="sc_zfbt_tz" name="money_total"/>
+			        <field table="sc_zfbt_tz" name="pay_date" onchange="ascZfbtTZController.calBtDetail()"/>
+		      </panel>
+			  
+		</tab>
+	 </tabs>
+	
+</view>

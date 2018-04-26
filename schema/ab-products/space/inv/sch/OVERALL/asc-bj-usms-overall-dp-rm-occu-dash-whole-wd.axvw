@@ -1,0 +1,134 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="9%" split="true"/>
+        <center />
+    </layout>
+	<layout id="nested_center" containingLayout="main" region="center">
+        <west  initialSize="50%" split="true"/>
+        <center />
+    </layout>
+	<layout id="nested_center_west" containingLayout="nested_center" region="west">
+        <center  id="teachDvChtPosition"/>
+        <south id="teachDvGridPosition" initialSize="39%" />
+    </layout>
+	<layout id="nested_center_center" containingLayout="nested_center" region="center">
+        <center  id="manageDvChtPosition"/>
+        <south id="manageDvGridPosition" initialSize="39%" />
+    </layout>
+    
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv">
+		<table name="dv" role="main" />
+		
+		<field table="dv" name="dv_name" />
+		<field table="dv" name="dv_id" />
+		<field table="dv" name="count_em" />
+		<field table="dv" name="count_rm" />
+		<field table="dv" name="count_student" />
+		<field table="dv" name="area_jianzhu"/>
+		<field table="dv" name="area_rm">
+			<title translatable="true">Total Usable Area</title>
+		</field>
+		
+		<sortField name="area_rm" table="dv" ascending="false" />
+		<parameter name="buClassRes" dataType="text" value=""/>
+		<restriction type="sql" sql="dv.bu_id =${parameters['buClassRes']}"/>
+	</dataSource>
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-dash-whole_basic_school">
+    	<table name="sc_school" role="main"/>
+		
+		<!--basic info-->
+		<field table="sc_school" name="sch_name"/>
+    </dataSource>
+	
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuDashWhole_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_basic_school" columns="3"  layoutRegion="sitePosition">
+		<title></title>
+        <field table="sc_school" name="sch_name">
+			<title translatable="true">Xiao Qu Name</title>
+		</field>
+    </panel>
+	
+	<!-- The Teaching Divisions Chart Panel -->
+	<panel 	id="ascBjUsmsOverallDeptOccuDashWholeTeachChtPie" 
+    		type="chart" 
+    		controlType="columnChart" 
+    		dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" 
+    		showLegendOnLoad="false"
+    		showLegendAsPopUp="false" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xc6e2ff" 
+    		fillColor="0xff0000"
+    		fillType="solid"
+			layoutRegion="teachDvChtPosition">
+		<title translatable="true">XueXiaoSuoYouJiaoXueKeYanDanWei</title>
+        <groupingAxis dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" table="dv" field="dv_id" labelRotation="45">
+            <title translatable="true">Jiao Xue Dan Wei</title>
+        </groupingAxis>
+        <dataAxis dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" table="dv" field="area_rm" labelPosition="callout">
+            <title translatable="true">Usable Area</title>
+        </dataAxis>
+    </panel>
+	
+	<!-- The Management Divisions Chart Panel -->
+	<panel 	id="ascBjUsmsOverallDeptOccuDashWholeMangeChtPie" 
+    		type="chart" 
+    		controlType="columnChart" 
+    		dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" 
+    		showLegendOnLoad="false"
+    		showLegendAsPopUp="false" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xc6e2ff" 
+    		fillColor="0xff0000"
+    		fillType="solid"
+			layoutRegion="manageDvChtPosition">
+		<title translatable="true">XueXiaoSuoYouDangZhengGuanLiDanWei</title>
+        <groupingAxis dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" table="dv" field="dv_id" labelRotation="45">
+            <title translatable="true">Dang Zheng Guan Li Dan Wei</title>
+        </groupingAxis>
+        <dataAxis dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" table="dv" field="area_rm" labelPosition="callout">
+            <title translatable="true">Usable Area</title>
+        </dataAxis>
+    </panel>
+	
+	<!-- The Teaching Divisions Summary Data -->
+    <panel type="grid" id="ascBjUsmsOverallDeptOccuDashWhole_teachDvSumGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" layoutRegion="teachDvGridPosition">
+    	<title translatable="true">Dan Wei Lei Xing : Jiao Xue Ke Yan</title>
+		<sortField name="area_rm" table="dv" ascending="false" />
+		<field table="dv" name="dv_name" >
+			<title translatable="true">Jiao Xue Ke Yan Dan Wei</title>
+		</field>
+		<field table="dv" name="area_rm" >
+			<title translatable="true">Total Usable Area</title>
+		</field>
+		<field table="dv" name="count_rm" />
+		<field table="dv" name="count_em" />
+		<field table="dv" name="count_student"/>
+    </panel>
+	
+	<!-- The Management Divisions Summary Data -->
+    <panel type="grid" id="ascBjUsmsOverallDeptOccuDashWhole_manageDvSumGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-dash-whole_grid_dv" layoutRegion="manageDvGridPosition">
+    	<title translatable="true">Dan Wei Lei Xing : Dang Zheng Guan Li</title>
+		<sortField name="area_rm" table="dv" ascending="false" />
+		<field table="dv" name="dv_name" >
+			<title translatable="true">Dang Zheng Guan Li Dan Wei</title>
+		</field>	
+		<field table="dv" name="area_rm">
+			<title translatable="true">Total Usable Area</title>
+		</field>
+		<field table="dv" name="count_rm" />
+		<field table="dv" name="count_em" />
+    </panel>
+	
+    
+    <js file="asc-bj-usms-overall-dp-rm-occu-dash-whole-wd.js"/>
+	<js file="asc-bj-usms-constant.js"/>
+</view>

@@ -1,0 +1,117 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-asgn-approve-req-approve-tab.js"/>
+    <js file="asc-bj-usms-proc-common.js"/>
+    
+	<dataSource id="applyTableDs">
+        <table name="bh_zzf_apply" role="main"/>     
+        <field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply" />
+        <field table="bh_zzf_apply" name="status"/>
+        <field table="bh_zzf_apply" name="em_apply" />
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile"/>
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source"/>
+        <field table="bh_zzf_apply" name="target"/>
+        <field table="bh_zzf_apply" name="benefit"/>
+        <field table="bh_zzf_apply" name="team_situation"/>
+        <field table="bh_zzf_apply" name="activity_log_id"/>
+    </dataSource> 
+	<panel type="form" columns="3" id="applyForm"  dataSource="applyTableDs" newRecord="true">
+        <title translatable="true">Apply for ZZF</title>
+		<action id="createRequest" mainAction="true">
+			   <title>Create New Request</title>
+		</action>
+		<action id="ReviewRequest" >
+			   <title>Review My Request</title>
+		</action>
+		<field table="bh_zzf_apply" name="activity_log_id" hidden="true"/>
+ 		<field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply"/>
+        <field table="bh_zzf_apply" name="status" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="em_apply" value="${user.name}"/>
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile" />
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source" colspan="3"/>
+        <field table="bh_zzf_apply" name="target"  colspan="3"/>
+        <field table="bh_zzf_apply" name="benefit"  colspan="3"/>
+        <field table="bh_zzf_apply" name="team_situation"  colspan="3"/>
+    </panel>
+    
+    <dataSource id="approvePopupDs">
+        <table name="activity_log" role="main"/>
+        <table name="activity_log_step_waiting" role="standard"/>
+        <field table="activity_log" name="activity_log_id"/>
+        <field table="activity_log" name="approved_by"/>
+        <field table="activity_log_step_waiting" name="activity_log_id"/>
+        <field table="activity_log_step_waiting" name="step"/>
+        <field table="activity_log_step_waiting" name="comments"/>
+        <field table="activity_log_step_waiting" name="step_code"/>
+        <field table="activity_log_step_waiting" name="step_log_id"/>
+        <field table="activity_log_step_waiting" name="user_name"/>
+        <field table="activity_log_step_waiting" name="em_id"/>
+    </dataSource>
+    
+	
+	
+	
+    <panel type="form" columns="2" id="approvePopupForm" dataSource="approvePopupDs" hidden="true" showOnLoad="false">
+        <title translatable="true">Approve Infomation</title>
+        
+        <action id="approve">
+            <title translatable="true">QueRen</title>
+        </action>
+        
+        <action id="reject">
+            <title translatable="true">Reject</title>
+        </action>
+        
+        <action id="forward" hidden="true">
+            <title translatable="true">Forward</title>
+        </action>
+        
+        <field colspan="2">
+            <title translatable="true">Comments</title>
+            <html>
+                <span id="activity_log_step_waiting.comments.required_star" style="font-size: 10px; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; color: red;" name="activity_log_step_waiting.comments.required_star">*</span>
+                <textarea id="comments" cols="65" rows="5" maxlength="1000" minlength="1" onchange="afm_form_values_changed=true;"
+                 onfocus="window.temp=this.value;" name="comments"></textarea>
+            </html>
+        </field>
+        
+        <field table="activity_log_step_waiting" name="step"/>
+        
+        <field table="activity_log_step_waiting" name="step_code" hidden="true"/>
+        <field table="activity_log_step_waiting" name="activity_log_id" hidden="true"/>
+        <field table="activity_log" name="activity_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="step_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="user_name" hidden="true"/>
+        <field table="activity_log_step_waiting" name="comments" hidden="true"/>
+        
+       <field table="activity_log" name="approved_by" hidden="true">
+            <title translatable="true">Forward To</title>
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.approved_by" selectFieldNames="em.em_id"
+                 visibleFieldNames="em.em_id,em.name,em.dv_id" showIndex="true"
+                 restriction="em.em_id in
+                        (select e.em_id from em e, afm_users a where a.user_name = e.em_id AND a.role_name = '${user.role}')">
+                    <title translatable="true">Forward To</title>
+                </command>
+            </action>
+        </field>
+    </panel>
+</view>

@@ -1,0 +1,59 @@
+<view version="2.0">
+    
+    <layout type="borderLayout" id="mainLayout">
+        <west id="top" initialSize="30%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <title translatable="true">Define Room XingZhi</title>
+    
+    <dataSource id="ScZfTypeDs">
+        <table name="sc_zf_type" role="main"/>
+		<field table="sc_zf_type" name="change_time"/>
+		<field table="sc_zf_type" name="super_type"/>
+		<field table="sc_zf_type" name="description"/>
+		<field table="sc_zf_type" name="zf_type_id"/>
+		<field table="sc_zf_type" name="zf_type_name"/>
+		<field table="sc_zf_type" name="is_fl"/>
+		
+    </dataSource>
+
+    <panel type="grid" id="gridPanel" dataSource="ScZfTypeDs" layout="mainLayout" region="west" recordLimit="0">
+        <title translatable="true">Room XingZhi</title>
+        <action id="addNew">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="formPanel" newRecord="true"/>
+        </action>
+        <field table="sc_zf_type" name="zf_type_id" controlType="link">
+            <command type="showPanel" panelId="formPanel"/>
+        </field>
+        <field table="sc_zf_type" name="zf_type_name" controlType="link">
+            <command type="showPanel" panelId="formPanel"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="formPanel" showOnLoad="false" columns="2" dataSource="ScZfTypeDs" layout="mainLayout" region="center">
+        <title translatable="true">Room XingZhi</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="gridPanel" applyParentRestriction="false"/>
+        </action>
+        <action id="delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="formPanel" show="false"/>
+            <command type="showPanel" panelId="gridPanel" applyParentRestriction="false"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="formPanel" show="false"/>
+        </action>
+        <field table="sc_zf_type" name="zf_type_id" />
+		<field table="sc_zf_type" name="zf_type_name" required="true"/>
+        <field table="sc_zf_type" name="super_type" required="true"/>
+		<field table="sc_zf_type" name="change_time" />
+        <field table="sc_zf_type" name="description" width="205"/>
+        <field table="sc_zf_type" name="is_fl"/>
+    </panel>
+	
+</view>

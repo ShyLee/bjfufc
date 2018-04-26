@@ -1,0 +1,188 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="26%" split="true"/>
+        <center id="rmcatPosition"/>
+    </layout>
+    
+	<!-- datasource for division summary data report -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-main_grid_dv" >
+		<table name="dv" role="main" />
+		
+		<field table="dv" name="bu_id" >
+			<title translatable="true">Division Type</title>
+        </field>
+		<field table="dv" name="dv_id" >
+			<title translatable="true">Division Name</title>
+        </field>
+		<field table="dv" name="count_em" >
+			<title translatable="true">Employee Count</title>
+        </field>
+		
+		<field table="dv" name="count_rm">
+			<title translatable="true">Room Count</title>
+        </field>
+		
+		<field table="dv" name="area_jianzhu">
+			<title translatable="true">Total Structure Area</title>
+		</field>
+		
+		<field table="dv" name="area_rm">
+			<title translatable="true">Total Usable Area</title>
+		</field>
+		
+		<!-- the following fields setting in the js, the data from the ds-->
+		<field name="dv_office_area"  dataType="number" decimals="2" >
+			<title translatable="true">Total Office Area</title>
+		</field>
+		<field name="dv_meeting_area"  dataType="number" decimals="2" >
+			<title translatable="true">Total Meeting Area</title>
+		</field>
+		<field name="dv_waijie_area"  dataType="number" decimals="2" >
+			<title translatable="true">Total Borrow Area</title>
+		</field>
+		
+		<restriction type="sql" sql="dv.site_id=${parameters['siteIdRes']}"/>
+		<parameter name="siteIdRes" dataType="text" value=""/>
+	</dataSource>
+	
+	<!-- dataSource for caculate the shiyong area of some special room type, used in the grid panel -->
+	<dataSource id="ds_asc-bj-usms-overall-dept-occu-main_grid_dvTypeSum" distinct="true">
+		<table name="rm" role="main" />
+		<table name="dv" role="standard" />
+		
+		<field table="dv" name="bu_id">
+			<title translatable="true">Division Type</title>
+        </field>
+		<field table="dv" name="dv_id">
+			<title translatable="true">Division Name</title>
+        </field>
+		<field table="bl" name="site_id">
+			<title translatable="true">Site Name</title>
+        </field>
+		<field table="rm" name="dv_office_area"  dataType="number" decimals="2">
+			<sql dialect="generic">
+ 				(SELECT SUM(rm.area) FROM rm ,bl WHERE rm.dv_id=dv.dv_id  and rm.bl_id=bl.bl_id and bl.acc_type='syz' and rm.rm_type=${parameters['officeTypeRes']})
+        	</sql>
+        </field>
+		<field table="rm" name="dv_meeting_area"  dataType="number" decimals="2">
+			<sql dialect="generic">
+ 				(SELECT SUM(rm.area) FROM rm ,bl WHERE rm.dv_id=dv.dv_id and rm.bl_id=bl.bl_id and bl.acc_type='syz'  and rm.rm_type=${parameters['meetingTypeRes']})
+        	</sql>
+        </field>
+		<field table="rm" name="dv_waijie_area"  dataType="number" decimals="2">
+			<sql dialect="generic">
+ 				(SELECT SUM(rm.area) FROM rm,bl WHERE rm.dv_id=dv.dv_id  and rm.bl_id=bl.bl_id and bl.acc_type='syz' and rm.rm_type=${parameters['borrowTypeRes']})
+        	</sql>
+        </field>
+		
+		<parameter name="officeTypeRes" dataType="text" value=""/>
+		<parameter name="meetingTypeRes" dataType="text" value=""/>
+		<parameter name="borrowTypeRes" dataType="text" value=""/>
+		
+		<parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="dv.site_id=${parameters['siteIdRes']}"/>
+		
+		<sortField name="bu_id" table="dv" ascending="true" />
+		<sortField name="dv_id" table="dv" ascending="true" />
+	</dataSource>
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-main_basic_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="site_id"/>
+		<field table="site" name="telephone"/>
+		<field table="site" name="youbian"/>
+		
+		<field table="site" name="guihuayongdi"/>
+		<field table="site" name="jianzhuyongdi"/>
+		<field table="site" name="no_bldgs"/>
+		<field table="site" name="count_teacher_plan"/>
+		<field table="site" name="count_student_plan"/>
+		<field table="site" name="count_teacher_actual"/>
+		<field table="site" name="count_student_actual"/>
+		
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+	<!-- dataSource for site summary panel,the total area of the special room type  -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-main_typeSum" type="grouping">
+    	<sql dialect="generic">
+    	    SELECT DISTINCT
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id and rm.rm_type=${parameters['officeTypeRes']})    ${sql.as} office_area,
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id and rm.rm_type=${parameters['meetingTypeRes']})   ${sql.as} meeting_area,
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id and rm.rm_type=${parameters['borrowTypeRes']})    ${sql.as} waijie_area 
+        	FROM rm,bl,dv WHERE rm.dv_id=dv.dv_id and rm.bl_id=bl.bl_id  and bl.acc_type='syz' and rm.dv_id is not null and bl.site_id=${parameters['siteIdRes']}
+        </sql>
+    	<table name="rm" role="main" />
+		
+		<field name="total_office_area"  formula="SUM" baseField="rm.office_area" dataType="number" decimals="2"/>
+		<field name="total_meeting_area" formula="SUM" baseField="rm.meeting_area" dataType="number" decimals="2"/>
+		<field name="total_waijie_area"  formula="SUM" baseField="rm.waijie_area" dataType="number" decimals="2"/>
+		
+		<parameter name="officeTypeRes" dataType="text" value=""/>
+		<parameter name="meetingTypeRes" dataType="text" value=""/>
+		<parameter name="borrowTypeRes" dataType="text" value=""/>
+		<parameter name="siteIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuMain_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-main_basic_site" columns="3"  layoutRegion="sitePosition">
+    	<!-- row 1-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field/>
+		<!-- row 2-->
+		<field table="site" name="youbian"/>
+		<field table="site" name="telephone"/>
+		<field/>
+		<!-- row 3-->
+		<field name="guihuayongdi" />
+		<field id="plan" labelClass="prominentLabel">
+           		 <title translatable="true">Plan Person Quantity</title>
+        </field>
+		<field id="actual" labelClass="prominentLabel">
+           		 <title translatable="true">Actial Person Quantity</title>
+        </field>
+		<!-- row 4-->
+		<field name="jianzhuyongdi" />
+		<field name="count_teacher_plan"/>
+		<field name="count_teacher_actual"/>
+		<!-- row 5-->
+		<field name="no_bldgs" />
+		<field name="count_student_plan"/>
+		<field name="count_student_actual"/>
+		
+    </panel>
+	
+	<!-- whole school  some special room type space summary data-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuMain_typeSumGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-main_typeSum" columns="3"  layoutRegion="sitePosition">
+		<field name="total_office_area" dataType="number" decimals="2">
+			<title translatable="true">Total Office Area</title>
+		</field>
+		<field name="total_meeting_area" dataType="number" decimals="2" >
+			<title translatable="true">Total Meeting Area</title>
+		</field>
+		<field name="total_waijie_area" dataType="number" decimals="2" >
+			<title translatable="true">Total Borrow Area</title>
+		</field>
+    </panel>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallDeptOccuMain_dvGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-main_grid_dv" layoutRegion="rmcatPosition">
+    	<title translatable="true">Xue Xiao Suo You Shi Yong Dan Wei</title>
+		<sortField name="bu_id" table="dv" ascending="true" />
+		<sortField name="dv_id" table="dv" ascending="true" />
+    </panel>
+	
+    
+    <js file="asc-bj-usms-overall-dp-rm-occu-main.js"/>
+</view>

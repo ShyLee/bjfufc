@@ -1,0 +1,75 @@
+
+<view version="2.0">
+
+  <!-- Divisions 
+  <dataSource id="highlightDivisionsDs" type="DrawingControlHighlight">
+     <title>Divisions</title>
+        <table name="rm" role="main"/>
+        <table name="dv" role="standard"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="rm_std"/>
+        <field table="rm" name="dv_id" />
+        <field table="dv" name="hpattern_acad"/>
+        <field table="dv" name="dv_name" legendKey="true"/>
+		<parameter name="occupancy" dataType="verbatim" value="1=1"/>
+        <restriction type="sql" sql="rm.dv_id IS NOT NULL and ${parameters['occupancy']}"/>
+  </dataSource>-->
+  
+    <dataSource id="highlightDivisionsDs" type="DrawingControlHighlight">
+     <title>Divisions</title>
+     <table name="rm" role="main"/>
+     <table name="dv" role="standard"/>
+     <table name="rmcat" role="standard"/>
+     <field table="rm" name = "bl_id"/>
+     <field table="rm" name = "fl_id"/>
+     <field table="rm" name = "rm_id"/>
+     <field table="dv" name="dv_name" legendKey="true"/>
+     <field table="dv" name="hpattern_acad"/>
+     
+     <restriction type="sql" sql="
+           ( (${parameters['dp_id']} AND ${parameters['dv_id']} ) AND (${parameters['organizationUnassigned']})
+                )
+            AND ${parameters['bl_id']}
+            AND ${parameters['fl_id']}
+            AND ${parameters['rm_id']}
+            AND
+             (
+               (${parameters['rm_cat']} AND ${parameters['rm_type']} ) AND (${parameters['typeUnassigned']})
+            )
+            
+            AND ${parameters['occupancy']} AND ${parameters['rm_std']} AND ${parameters['excludedHotalableRm']}
+        "/> 
+        
+        <parameter name="dv_id" dataType="verbatim" value="1=1"/>
+        <parameter name="dp_id" dataType="verbatim" value="1=1"/>
+        <parameter name="bl_id" dataType="verbatim" value="1=1"/>
+        <parameter name="fl_id" dataType="verbatim" value="1=1"/>
+        <parameter name="rm_id" dataType="verbatim" value="1=1"/>
+        <parameter name="rm_cat" dataType="verbatim" value="1=1"/>
+        <parameter name="rm_type" dataType="verbatim" value="1=1"/>
+        <parameter name="occupancy" dataType="verbatim" value="1=1"/>
+        <parameter name="rm_std" dataType="verbatim" value="1=1"/>
+        <parameter name="organizationUnassigned" dataType="verbatim" value="1=1"/>
+        <parameter name="typeUnassigned" dataType="verbatim" value="1=1"/>
+        <parameter name="excludedHotalableRm" dataType="verbatim" value="5=5"/>
+        <parameter name="having" dataType="verbatim" value=""/>
+  </dataSource>
+  
+  <!-- Room Type -->
+  <dataSource id="highlightTypesDs" type="DrawingControlHighlight">
+     <title>Room Types</title>
+     <table name="rm" role="main"/>
+     <table name="rmtype" role="standard"/>
+     <field table="rm" name = "bl_id"/>
+     <field table="rm" name = "fl_id"/>
+     <field table="rm" name = "rm_id"/>
+<!--      <field table="rm" name = "rm_type" legendKey="true"/> -->
+	 <field table="rmtype" name="rmtype_name" legendKey="true"/>
+     <field table="rmtype" name="hpattern_acad"/>
+
+      <parameter name="occupancy" dataType="verbatim" value="1=1"/>
+      <restriction type="sql" sql="${parameters['occupancy']}"/>
+  </dataSource>
+</view>

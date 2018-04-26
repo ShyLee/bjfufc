@@ -1,0 +1,124 @@
+<view version="2.0" type="dashboard">
+    <title translatable="true">XueXiaoGeLeiBieFangWuJianZhuMianJi yu 92ZhiBiaoBiJiao</title>
+    
+    <layout id="main">
+        <north  id="univBasicInfo" initialSize="15%" split="true" />
+        <center id="92stdCompare"/>
+		<south id="columnChart" initialSize="25%" split="true" />
+    </layout>
+    
+    <dataSource id="ds_asc-92-std_coumnReport_sc_scmpref">
+		<table name="sc_scmpref" role="main" />
+		
+		<field table="sc_scmpref" name="univ_cat" />
+		<field table="sc_scmpref" name="count_students"/>
+		<field table="sc_scmpref" name="count_teachers"/>
+		
+	</dataSource>
+	
+    <panel type="columnReport" id="ascBjUsmsUnvDetails" columns="2" dataSource="ds_asc-92-std_coumnReport_sc_scmpref" layoutRegion="univBasicInfo">
+        <title translatable="true">daxuexinxi</title>
+		<field table="sc_scmpref" name="univ_cat" />
+		<field/>
+		<field table="sc_scmpref" name="count_students"/>
+		<field table="sc_scmpref" name="count_teachers"/>
+    </panel>
+	
+	
+    <dataSource id="abSc92StdDash_grid_upDetailDS">
+    	<sql dialect="generic">
+            select std.xuhao,std.rm_cat,std.area_avg_student,std.area_jianzhu,
+			 detail.area_avg_student ${sql.as} area_avg_student_up,
+			 detail.area_jianzhu ${sql.as} area_jianzhu_up,
+       		 detail.area_avg_student_diff,detail.area_jianzhu_diff
+            from sc_92_std std,sc_92_up_detail detail 
+			where std.rm_cat = detail.rm_cat 
+			  and detail.year=${parameters['pyear']}
+        </sql>
+        <table name="sc_92_up_detail" role="main"/>
+		<field table="sc_92_up_detail" name="xuhao" dataType="text"/>
+        <field table="sc_92_up_detail" name="rm_cat" dataType="text"/>
+        <field table="sc_92_up_detail" name="area_avg_student" dataType="number" decimals="2"/>
+		<field table="sc_92_up_detail" name="area_jianzhu" dataType="number" decimals="2"/>
+        <field table="sc_92_up_detail" name="area_avg_student_up" dataType="number" decimals="2"/>
+		<field table="sc_92_up_detail" name="area_jianzhu_up" dataType="number" decimals="2"/>
+        <field table="sc_92_up_detail" name="area_avg_student_diff" dataType="number" decimals="2"/>
+        <field table="sc_92_up_detail" name="area_jianzhu_diff" dataType="number" decimals="2"/>
+        <sortField table="sc_92_up_detail" name="xuhao" ascending="true"/>
+		<parameter name="pyear" dataType="verbatim" value="2010"/>
+    </dataSource>
+	
+    <panel type="grid" controlType="reportGrid" id="ascBjUsms92StdDashGrid" dataSource="abSc92StdDash_grid_upDetailDS" layoutRegion="92stdCompare">
+    	<field name="xuhao" dataType="text">
+    		<title translatable="true">xuhao</title>
+		</field>
+		<field name="rm_cat" dataType="text">
+        	<title translatable="true">Fangwuleibie</title>
+		</field>
+        <field name="area_avg_student" dataType="number"  decimals="2">
+        	<title translatable="true">92zhibiao jianzhumianji meisheng</title>
+		</field>
+		<field name="area_jianzhu" dataType="number"  decimals="2">
+			<title translatable="true">92zhibiao zongjianzhumianji</title>
+		</field>
+		<field name="area_avg_student_up" dataType="number"  decimals="2">
+			<title translatable="true">xuexiaoshangbaoshuju jianzhumianjimeisheng</title>
+		</field>
+		<field name="area_jianzhu_up" dataType="number"  decimals="2">
+			<title translatable="true">xuexiaoshangbaoshuju zongjianzhumianji</title>
+		</field>
+		<field name="area_avg_student_diff" dataType="number"  decimals="2">
+			<title translatable="true">chae jianzhumianjimeisheng</title>
+		</field>
+		<field name="area_jianzhu_diff" dataType="number"  decimals="2">
+			<title translatable="true">chae zongjianzhumianji</title>
+		</field>
+    </panel>
+	
+    <dataSource id="abSc92StdDash_chart_upDetailDS">
+    	<sql dialect="generic">
+            select std.xuhao,std.rm_cat,std.area_jianzhu,
+			 detail.area_jianzhu ${sql.as} area_jianzhu_up
+            from sc_92_std std,sc_92_up_detail detail 
+			where std.rm_cat = detail.rm_cat 
+			  and detail.year=${parameters['pyear']}
+			  and ( not detail.rm_cat like ${parameters['qizhong']})
+        </sql>
+        <table name="sc_92_up_detail" role="main"/>
+		<field table="sc_92_up_detail" name="xuhao" dataType="text"/>
+        <field table="sc_92_up_detail" name="rm_cat" dataType="text"/>
+		<field table="sc_92_up_detail" name="area_jianzhu" dataType="number" decimals="2"/>
+		<field table="sc_92_up_detail" name="area_jianzhu_up" dataType="number" decimals="2"/>
+        <sortField table="sc_92_up_detail" name="xuhao" ascending="true"/>
+		<parameter name="pyear" dataType="verbatim" value="2010"/>
+		<parameter name="qizhong" dataType="text" value=""/>
+    </dataSource>
+	
+	<panel 	id="chartBar_chart" 
+    		type="chart" 
+    		controlType="columnChart" 
+    		dataSource="abSc92StdDash_chart_upDetailDS" 
+    		showLegendOnLoad="false"
+    		showLegendAsPopUp="false" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xFFFFFF" 
+    		fillColor="0xff0000"
+    		fillType="solid"
+			layoutRegion="columnChart">
+        <title>shangbaoshuju yu 92zhibiaoshuju duibi</title>
+        <groupingAxis dataSource="abSc92StdDash_chart_upDetailDS" table="sc_92_up_detail" field="rm_cat" showLabel="true" labelRotation="45">
+            <title>Fangwuleibie</title>
+        </groupingAxis>
+        <dataAxis dataSource="abSc92StdDash_chart_upDetailDS" table="sc_92_up_detail" field="area_jianzhu">
+            <title>92zhibiao zongjianzhumianji</title>
+        </dataAxis>
+		 <dataAxis dataSource="abSc92StdDash_chart_upDetailDS" table="sc_92_up_detail" field="area_jianzhu_up">
+             <title>xuexiaoshangbaoshuju zongjianzhumianji</title>
+        </dataAxis>
+    </panel>
+	
+	
+    
+    <js file="asc-bi-usms-dash-sch-area-92-std.js"/>
+</view>

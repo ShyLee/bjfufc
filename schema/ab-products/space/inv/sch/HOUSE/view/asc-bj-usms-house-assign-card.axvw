@@ -1,0 +1,59 @@
+<view version="2.0">
+    <title>Rent Assign</title>
+    <dataSource id="zzfFeeDs">
+        <table name="sc_zzf_fee" role="main"/>
+		<table name="sc_zzfcard" role="standard"/>
+        <field table="sc_zzf_fee" name="fee_id"/>
+        <field table="sc_zzf_fee" name="card_id"/>
+        <field table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="bl_id"/>
+        <field table="sc_zzf_fee" name="fl_id"/>
+        <field table="sc_zzf_fee" name="rm_id"/>
+		<field table="sc_zzfcard" name="area_manual"/>
+		<field table="sc_zzfcard" name="area_yangtai"/>
+		<field table="sc_zzfcard" name="gl_area"/>
+		<field table="sc_zzfcard" name="huxing"/>
+		<field table="sc_zzfcard" name="date_checkin"/>
+		<field table="sc_zzfcard" name="date_checkout_ought"/>
+		<field table="sc_zzfcard" name="rent_period"/>
+        <field table="sc_zzf_fee" name="pay_ought"/>
+        <field table="sc_zzf_fee" name="pay_actual"/>
+        <field table="sc_zzf_fee" name="date_payment"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="comments"/>
+        <field table="sc_zzf_fee" name="memo"/>
+    </dataSource>
+    
+    <panel id="assign_detail" type="form" columns="2" dataSource="zzfFeeDs">
+        <title>Assign</title>
+        <action id="save">
+            <title>Save</title>
+        </action>
+        <field table="sc_zzf_fee" name="fee_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="card_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_id" readOnly="true"/>
+        <field table="sc_zzf_fee" name="em_name" readOnly="true"/>
+        <field table="sc_zzf_fee" name="identi_code" readOnly="true"/>
+        <field table="sc_zzf_fee" name="bl_id" readOnly="true"/>
+        <field table="sc_zzf_fee" name="fl_id" readOnly="true"/>
+        <field table="sc_zzf_fee" name="rm_id" readOnly="true"/>
+		<field table="sc_zzfcard" name="area_manual" readOnly="true"/>
+        <field table="sc_zzfcard" name="area_yangtai" readOnly="true"/>
+        <field table="sc_zzfcard" name="gl_area" readOnly="true"/>
+        <field table="sc_zzfcard" name="huxing" readOnly="true"/>
+        <field table="sc_zzfcard" name="date_checkin" readOnly="true"/>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="true"/>
+        <field table="sc_zzfcard" name="rent_period" readOnly="true"/>
+        <field table="sc_zzf_fee" name="date_pay_begin" readOnly="true"/>
+        <field table="sc_zzf_fee" name="date_pay_end" readOnly="true"/>
+        <field table="sc_zzf_fee" name="pay_ought" readOnly="true"/>
+        <field table="sc_zzf_fee" name="date_payment" readOnly="true"/>
+        <field table="sc_zzf_fee" name="pay_actual"/>
+        <field table="sc_zzf_fee" name="memo" colspan="2"/>
+    </panel>
+    
+	<js file="asc-bj-usms-house-assign-card.js"/>
+</view>

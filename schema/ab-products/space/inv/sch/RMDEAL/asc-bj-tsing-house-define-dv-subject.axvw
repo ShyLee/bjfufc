@@ -1,0 +1,57 @@
+<view version="2.0">
+    <title translatable="true">Approve Request</title>
+    <layout type="borderLayout">
+        <west  id="searchWest" split="true" initialSize="45%"></west>
+        <center id="searchResult_center"></center>
+    </layout>
+    
+     <dataSource id="dv_kemuDs">
+      <table name="dv" role="main"/>     
+      <field name="dv_id" table="dv"/>
+      <field name="subject_id" table="dv"/>
+      <field name="subject_name" table="dv"/>             
+     </dataSource>
+      
+      <dataSource id="subjectDs">     
+      <table name="ts_subject" role="main"/>     
+      <field name="subject_id" table="ts_subject"/>
+      <field name="subject_name" table="ts_subject"/>
+      <field name="dv_id" table="ts_subject"/>            
+     </dataSource>
+    
+     
+     <panel id="ts_subject_Gridkemu" type="grid" dataSource="dv_kemuDs" layoutRegion="searchWest">
+      <title translatable="true">gong fang shi yong dan wei ke mu lie biao</title>
+      <action id="find">
+       <title translatable="true">cha kan wu ke mu de dan wei</title>
+      </action>
+      <action id="refresh">
+       <title translatable="true">refresh</title>
+      </action>
+      <field name="subject_id" table="dv" controlType="link">
+      <command type="showPanel" panelId="kemuEditForm"/>
+      </field>
+      <field name="subject_name" table="dv"/>
+      <field name="dv_id" table="dv" controlType="link">
+         <command type="showPanel" panelId="kemuEditForm"/>
+      </field>
+     </panel>
+                   
+    
+     <panel id="kemuEditForm" type="form" dataSource="dv_kemuDs" layoutRegion="searchResult_center" showOnLoad="false">
+        <title translatable="true">gong fang shi yong dan wei ke mu</title>
+        <action id="save">
+        <title translatable="true">save</title>
+        </action>
+         <action id="cancel">
+        <title translatable="true">cancel</title>
+        <command type="showPanel" panelId="kemuEditForm" show="false" />
+				
+        </action>
+       
+        <field name="subject_id" table="dv" readOnly="false"/>
+        <field name="subject_name" table="dv" readOnly="false"/>
+        <field name="dv_id" table="dv" readOnly="true"/>
+     </panel>
+   <js file="asc-bj-tsing-house-define-dv-subject.js"/>
+</view>

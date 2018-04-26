@@ -1,0 +1,1158 @@
+﻿<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="1173.75 -121696.78 76112 30744">
+  <style>.i0 { stroke:#000000;   } .body { stroke:#ff7f00;   } .rm { stroke:#00ffff;   } .gros { stroke:#ff00ff;   } .axis_text { stroke:#000000;   } .pub_wall { stroke:#c0c0c0;   } .pub_hatch { stroke:#808080;   } .rm-asset { stroke:#0000ff;   fill:#EEEEEE; fill-opacity:1;} .rmtc-asset { stroke:#0000ff;   } .rmtc { stroke:#00ffff;   } .rm-assettxt { stroke:#0000ff;   } .rmtc-assettxt { stroke:#0000ff;   } .cnc-0 { stroke:#ff7f00;  stroke-dasharray:0; } .cnc-1 { stroke:#ff7f00;  stroke-dasharray:0; } .blkclass0 { stroke:#ff7f00;  stroke-width:0.02;  fill:#ff7f00; fill-opacity:1; font-family:Arial; font-size:580.125; font-weight:normal; text-style:normal; text-anchor:start;} .blkclass1 { stroke:#ff7f00;  stroke-width:0.02;  fill:#ff7f00; fill-opacity:1; font-family:Arial; font-size:331.5; font-weight:normal; text-style:normal; text-anchor:start;}</style>
+  <view id="defaultView" viewBox="1173.75 -121696.78 76112 30744" />
+  <defs>
+    <symbol id="$TCHSYS$WIN2D_1600x370" overflow="visible" class="i0">
+      <path d="M-800,-185l1600,0" />
+      <path d="M-800,185l1600,0" />
+      <path d="M800,61.67l-1600,0" />
+      <path d="M800,-61.67l-1600,0" />
+      <path d="M-800,-185l0,370" />
+      <path d="M800,-185l0,370" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_1200x370" overflow="visible" class="i0">
+      <path d="M-600,-185l1200,0" />
+      <path d="M-600,185l1200,0" />
+      <path d="M600,61.67l-1200,0" />
+      <path d="M600,-61.67l-1200,0" />
+      <path d="M-600,-185l0,370" />
+      <path d="M600,-185l0,370" />
+    </symbol>
+    <symbol id="$DorLib2D$00000004" overflow="visible" class="i0">
+      <path d="M-0.48,0l0,-0.48" />
+      <path d="M-0.48,-0.48a0.49,0.49 0 0,1 0.49,0.48" />
+      <path d="M-0.01,0a0.49,0.49 0 0,1 0.49,-0.48" />
+      <path d="M0.48,0l0,-0.48" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_1700x370" overflow="visible" class="i0">
+      <path d="M-850,-185l1700,0" />
+      <path d="M-850,185l1700,0" />
+      <path d="M850,61.67l-1700,0" />
+      <path d="M850,-61.67l-1700,0" />
+      <path d="M-850,-185l0,370" />
+      <path d="M850,-185l0,370" />
+    </symbol>
+    <symbol id="$DorLib2D$00000003" overflow="visible" class="i0">
+      <path d="M0.47,0l0,-0.97" />
+      <path d="M-0.5,0a0.97,0.97 0 0,1 0.97,-0.97" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_1600x500" overflow="visible" class="i0">
+      <path d="M-800,-250l1600,0" />
+      <path d="M-800,250l1600,0" />
+      <path d="M800,83.33l-1600,0" />
+      <path d="M800,-83.33l-1600,0" />
+      <path d="M-800,-250l0,500" />
+      <path d="M800,-250l0,500" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_4900x200" overflow="visible" class="i0">
+      <path d="M-2450,-100l4900,0" />
+      <path d="M-2450,100l4900,0" />
+      <path d="M2450,33.33l-4900,0" />
+      <path d="M2450,-33.33l-4900,0" />
+      <path d="M-2450,-100l0,200" />
+      <path d="M2450,-100l0,200" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_1800x370" overflow="visible" class="i0">
+      <path d="M-900,-185l1800,0" />
+      <path d="M-900,185l1800,0" />
+      <path d="M900,61.67l-1800,0" />
+      <path d="M900,-61.67l-1800,0" />
+      <path d="M-900,-185l0,370" />
+      <path d="M900,-185l0,370" />
+    </symbol>
+    <symbol id="$TCHSYS$WIN2D_3400x200" overflow="visible" class="i0">
+      <path d="M-1700,-100l3400,0" />
+      <path d="M-1700,100l3400,0" />
+      <path d="M1700,33.33l-3400,0" />
+      <path d="M1700,-33.33l-3400,0" />
+      <path d="M-1700,-100l0,200" />
+      <path d="M1700,-100l0,200" />
+    </symbol>
+    <symbol id="_FZHK" overflow="visible" class="i0">
+      <path d="M-0.5,0.5l1,0l0,-1l-1,0z" />
+    </symbol>
+  </defs>
+  <g id="viewer">
+    <g id="mirror" transform="scale(1, 1)" stroke-width="0.09%">
+      <g id="background" fill="none">
+        <g id="layer-GROS-fills" class="gros">
+          <path d="M6415,-121059.11l12585,0l0,-315l1600,0l0,315l11600,0l0,-315l1600,0l0,315l11900,0l0,-315l1600,0l0,315l11600,0l0,-315l1600,0l0,315l11600,0l0,-315l1600,0l0,315l0,0l3585,0l0,14470l-1800,0l0,15000l-2970,0l0,315l-1600,0l0,-315l-6800,0l0,315l-1600,0l0,-315l-6815,0l0,315l-1600,0l0,-315l-7100,0l0,315l-1600,0l0,-315l-6800,0l0,315l-1600,0l0,-315l-6800,0l0,315l-1600,0l0,-315l-6800,0l0,315l-1600,0l0,-315l-6800,0l0,315l-1600,0l0,-315l-3585,0l0,-6400l-7037.14,0l9087.14,-7757.32l0,-3027.68l-3850,0l0,-12285z" />
+        </g>
+        <g id="layer-RM-fills" class="rm">
+          <path d="M27900,-106674.11l5600,0l0,5500l-5600,0z" />
+          <path d="M33870,-106674.11l3830,0l0,5500l-3830,0z" />
+          <path d="M40915,-106504.11l5015,0l0,5160l-5015,0z" />
+          <path d="M46770,-106674.11l3830,0l0,5500l-3830,0z" />
+        </g>
+        <g id="layer-body" class="cnc-0">
+          <path d="M8515,-108774.11l-2100,0" class="body" />
+          <path d="M6415,-108774.11l0,-1715" class="body" />
+          <circle r="375" cx="6790" cy="-109149.11" class="body" />
+          <path d="M8515,-121059.11l-2100,0" class="body" />
+          <path d="M6415,-121059.11l0,1800" class="body" />
+          <circle r="375" cx="6790" cy="-120684.11" class="body" />
+          <path d="M33800,-120689.11l800,0" />
+          <path d="M34600,-120689.11l0,-370" />
+          <path d="M34600,-121059.11l-800,0" />
+          <path d="M39600,-121059.11l-700,0" />
+          <path d="M38900,-121059.11l0,370" />
+          <path d="M38900,-120689.11l515,0" />
+          <path d="M36200,-120689.11l1100,0" />
+          <path d="M37300,-120689.11l0,-370" />
+          <path d="M37300,-121059.11l-1100,0" />
+          <path d="M36200,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="35400" y="-120874.11" transform="scale(-1,-1) translate(-70800,241748.22) rotate(0,35400,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.38) translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="38100" y="-120874.11" transform="scale(-1,-1) translate(-76200,241748.22) rotate(0,38100,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.37) translate(-690,-374.37)" font-size="580.125">C1624</text></g></use>
+          <path d="M47300,-120689.11l840,0" />
+          <path d="M48140,-120689.11l0,-370" />
+          <path d="M48140,-121059.11l-840,0" />
+          <path d="M53100,-121059.11l-740,0" />
+          <path d="M52360,-121059.11l0,370" />
+          <path d="M52360,-120689.11l555,0" />
+          <path d="M49740,-120689.11l1020,0" />
+          <path d="M50760,-120689.11l0,-370" />
+          <path d="M50760,-121059.11l-1020,0" />
+          <path d="M49740,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="48940" y="-120874.11" transform="scale(-1,-1) translate(-97880,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="51560" y="-120874.11" transform="scale(-1,-1) translate(-103120,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M60500,-120689.11l840,0" />
+          <path d="M61340,-120689.11l0,-370" />
+          <path d="M61340,-121059.11l-840,0" />
+          <path d="M66300,-121059.11l-740,0" />
+          <path d="M65560,-121059.11l0,370" />
+          <path d="M65560,-120689.11l555,0" />
+          <path d="M62940,-120689.11l1020,0" />
+          <path d="M63960,-120689.11l0,-370" />
+          <path d="M63960,-121059.11l-1020,0" />
+          <path d="M62940,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="62140" y="-120874.11" transform="scale(-1,-1) translate(-124280,241748.22) rotate(0,62140,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.38) translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="64760" y="-120874.11" transform="scale(-1,-1) translate(-129520,241748.22) rotate(0,64760,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.38) translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M73700,-121059.11l3585,0" />
+          <path d="M73700,-120689.11l3215,0" />
+          <path d="M76915,-120689.11l0,2915" />
+          <path d="M76915,-117774.11l370,0" />
+          <path d="M77285,-117774.11l0,-3285" />
+          <path d="M77285,-116074.11l0,-500" />
+          <path d="M77285,-116574.11l-370,0" />
+          <path d="M76915,-116574.11l0,400" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="77100" y="-117174.11" transform="scale(-1,1) translate(-154200,0) rotate(-90,77100,-117174.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,652.5) translate(-374.38,652.5)" font-size="580.125">C1215</text></g></use>
+          <path d="M77285,-106589.11l-1800,0" />
+          <path d="M76915,-106959.11l-1800,0" />
+          <path d="M75485,-106589.11l0,-100" />
+          <path d="M75115,-106959.11l0,85" />
+          <path d="M75115,-91959.11l-465,0" />
+          <path d="M74650,-91959.11l0,370" />
+          <path d="M74650,-91589.11l835,0" />
+          <path d="M72515,-91589.11l535,0" />
+          <path d="M73050,-91589.11l0,-370" />
+          <path d="M73050,-91959.11l-535,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="73850" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,73850,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.63) translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <path d="M54100,-91959.11l-900,0" />
+          <path d="M53200,-91959.11l0,370" />
+          <path d="M53200,-91589.11l900,0" />
+          <path d="M50700,-91589.11l900,0" />
+          <path d="M51600,-91589.11l0,-370" />
+          <path d="M51600,-91959.11l-715,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="52400" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,52400,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.63) translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <path d="M37000,-91959.11l-900,0" />
+          <path d="M36100,-91959.11l0,370" />
+          <path d="M36100,-91589.11l900,0" />
+          <path d="M33600,-91589.11l900,0" />
+          <path d="M34500,-91589.11l0,-370" />
+          <path d="M34500,-91959.11l-715,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="35300" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,35300,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <path d="M28600,-91959.11l-900,0" />
+          <path d="M27700,-91959.11l0,370" />
+          <path d="M27700,-91589.11l900,0" />
+          <path d="M25200,-91589.11l900,0" />
+          <path d="M26100,-91589.11l0,-370" />
+          <path d="M26100,-91959.11l-715,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="26900" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,26900,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M19615,-109144.11l-2365,0" />
+          <path d="M17250,-109144.11l0,370" />
+          <path d="M17250,-108774.11l2365,0" />
+          <path d="M13385,-108774.11l2365,0" />
+          <path d="M15750,-108774.11l0,-370" />
+          <path d="M15750,-109144.11l-2550,0" />
+          <use xlink:href="#$DorLib2D$00000004" x="11" y="-72.639" transform="scale(1500,1500) scale(-1,-1) translate(-22,145.28) rotate(-180,11,-72.64)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,820.62)" font-size="580.125">M1524</text></g></use>
+          <path d="M8885,-110859.11l-385,0" />
+          <path d="M8500,-110859.11l0,370" />
+          <path d="M8500,-110489.11l15,0" />
+          <path d="M6415,-110489.11l385,0" />
+          <path d="M6800,-110489.11l0,-370" />
+          <path d="M6800,-110859.11l-15,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1700x370" x="7650" y="-110674.11" transform="rotate(-180,7650,-110674.11)">.<g class="blkclass0"><text transform="translate(-682.5,-374.38)" font-size="580.125">C1727</text></g></use>
+          <path d="M6785,-118889.11l15.5,0" />
+          <path d="M6800.5,-118889.11l0,-370" />
+          <path d="M6800.5,-119259.11l-385.5,0" />
+          <path d="M8515,-119259.11l-14.5,0" />
+          <path d="M8500.5,-119259.11l0,370" />
+          <path d="M8500.5,-118889.11l14.5,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1700x370" x="7650.5" y="-119074.11" transform="scale(1,-1) translate(0,238148.22) rotate(0,7650.5,-119074.11)">.<g class="blkclass0"><text transform="translate(-682.5,-374.38)" font-size="580.125">C1727</text></g></use>
+          <path d="M8885,-119259.11l0,-14.5" />
+          <path d="M8885,-119273.61l-370,0" />
+          <path d="M8515,-119273.61l0,14.5" />
+          <path d="M8515,-121059.11l0,585.5" />
+          <path d="M8515,-120473.61l370,0" />
+          <path d="M8885,-120473.61l0,-85.5" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="8700" y="-119873.61" transform="rotate(-90,8700,-119873.61)">.<g class="blkclass0"><text transform="rotate(-90 820.63,682.5) translate(820.63,682.5)" font-size="580.125">C1227</text></g></use>
+          <path d="M13015,-108774.11l-2380,0" />
+          <path d="M13200,-109144.11l-2750,0" />
+          <path d="M75115,-99074.11l-2715,0" />
+          <path d="M72400,-99074.11l0,370" />
+          <path d="M72400,-98704.11l2715,0" />
+          <path d="M71285,-98704.11l115,0" />
+          <path d="M71400,-98704.11l0,-370" />
+          <path d="M71400,-99074.11l-300,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="71.9" y="-98.889" transform="scale(1000,1000) rotate(-180,71.9,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M70915,-91959.11l-845,0" />
+          <path d="M70070,-91959.11l0,370" />
+          <path d="M70070,-91589.11l845,0" />
+          <path d="M66900,-91589.11l1570,0" />
+          <path d="M68470,-91589.11l0,-370" />
+          <path d="M68470,-91959.11l-1470,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="69270" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,69270,-91774.11)">.<g class="blkclass0"><text transform="rotate(0 -690,820.63) translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="65860" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,65860,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M71100,-99074.11l-300,0" />
+          <path d="M70800,-99074.11l0,370" />
+          <path d="M70800,-98704.11l115,0" />
+          <path d="M67000,-98704.11l2800,0" />
+          <path d="M69800,-98704.11l0,-370" />
+          <path d="M69800,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="70.3" y="-98.889" transform="scale(1000,1000) scale(-1,1) translate(-140.6,0) rotate(-180,70.3,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,-289.38) translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M62515,-91959.11l-845,0" />
+          <path d="M61670,-91959.11l0,370" />
+          <path d="M61670,-91589.11l845,0" />
+          <path d="M59100,-91589.11l970,0" />
+          <path d="M60070,-91589.11l0,-370" />
+          <path d="M60070,-91959.11l-785,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="60870" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,60870,-91774.11)">.<g class="blkclass0"><text transform="rotate(0 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M62700,-99074.11l-300,0" />
+          <path d="M62400,-99074.11l0,370" />
+          <path d="M62400,-98704.11l115,0" />
+          <path d="M59285,-98704.11l2115,0" />
+          <path d="M61400,-98704.11l0,-370" />
+          <path d="M61400,-99074.11l-2300,0" />
+          <path d="M58915,-91959.11l-685,0" />
+          <path d="M58230,-91959.11l0,370" />
+          <path d="M58230,-91589.11l870,0" />
+          <path d="M55700,-91589.11l930,0" />
+          <path d="M56630,-91589.11l0,-370" />
+          <path d="M56630,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="57430" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,57430,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M59100,-99074.11l-300,0" />
+          <path d="M58800,-99074.11l0,370" />
+          <path d="M58800,-98704.11l115,0" />
+          <path d="M55000,-98704.11l2800,0" />
+          <path d="M57800,-98704.11l0,-370" />
+          <path d="M57800,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="58.3" y="-98.889" transform="scale(1000,1000) scale(-1,1) translate(-116.6,0) rotate(-180,58.3,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,-374.38) translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M50515,-91959.11l-985,0" />
+          <path d="M49530,-91959.11l0,370" />
+          <path d="M49530,-91589.11l1170,0" />
+          <path d="M47000,-91589.11l930,0" />
+          <path d="M47930,-91589.11l0,-370" />
+          <path d="M47930,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="48730" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,48730,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M50885,-99074.11l-485,0" />
+          <path d="M50400,-99074.11l0,200" />
+          <path d="M50400,-98874.11l115,0" />
+          <path d="M46685,-98874.11l2715,0" />
+          <path d="M49400,-98874.11l0,-200" />
+          <path d="M49400,-99074.11l-3085,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="49.9" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-99.8,0) rotate(-180,49.9,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-204.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M50885,-99074.11l0,0" />
+          <path d="M50515,-98874.11l0,-15" />
+          <path d="M46685,-98874.11l0,6600" />
+          <path d="M46315,-99074.11l0,6800" />
+          <path d="M46385,-99074.11l-485,0" />
+          <path d="M45900,-99074.11l0,200" />
+          <path d="M45900,-98874.11l115,0" />
+          <path d="M42185,-98874.11l2715,0" />
+          <path d="M44900,-98874.11l0,-200" />
+          <path d="M44900,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="45.4" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-90.8,0) rotate(-180,45.4,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,-289.38) translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M46385,-99074.11l0,6800" />
+          <path d="M46015,-98874.11l0,6600" />
+          <path d="M41815,-91959.11l-685,0" />
+          <path d="M41130,-91959.11l0,370" />
+          <path d="M41130,-91589.11l870,0" />
+          <path d="M38600,-91589.11l930,0" />
+          <path d="M39530,-91589.11l0,-370" />
+          <path d="M39530,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="40330" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,40330,-91774.11)">.<g class="blkclass0"><text transform="rotate(0 -690,820.63) translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <path d="M42000,-99074.11l-300,0" />
+          <path d="M41700,-99074.11l0,200" />
+          <path d="M41700,-98874.11l115,0" />
+          <path d="M37985,-98874.11l2715,0" />
+          <path d="M40700,-98874.11l0,-200" />
+          <path d="M40700,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="41.2" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-82.4,0) rotate(-180,41.2,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-360 -712.5,-289.38) translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M42185,-98874.11l0,6915" />
+          <path d="M41815,-98874.11l0,6915" />
+          <path d="M37800,-99074.11l-300,0" />
+          <path d="M37500,-99074.11l0,200" />
+          <path d="M37500,-98874.11l115,0" />
+          <path d="M33785,-98874.11l2715,0" />
+          <path d="M36500,-98874.11l0,-200" />
+          <path d="M36500,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="37" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-74,0) rotate(-180,37,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M37985,-98874.11l0,6600" />
+          <path d="M37615,-98874.11l0,6600" />
+          <path d="M33415,-91959.11l-685,0" />
+          <path d="M32730,-91959.11l0,370" />
+          <path d="M32730,-91589.11l870,0" />
+          <path d="M30200,-91589.11l930,0" />
+          <path d="M31130,-91589.11l0,-370" />
+          <path d="M31130,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="31930" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,31930,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,820.63)" font-size="580.125">C1624</text></g></use>
+          <path d="M33600,-99074.11l-300,0" />
+          <path d="M33300,-99074.11l0,200" />
+          <path d="M33300,-98874.11l115,0" />
+          <path d="M29585,-98874.11l2715,0" />
+          <path d="M32300,-98874.11l0,-200" />
+          <path d="M32300,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="32.8" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-65.6,0) rotate(-180,32.8,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M33785,-98874.11l0,6915" />
+          <path d="M33415,-98874.11l0,6915" />
+          <path d="M29400,-99074.11l-300,0" />
+          <path d="M29100,-99074.11l0,200" />
+          <path d="M29100,-98874.11l115,0" />
+          <path d="M25385,-98874.11l2715,0" />
+          <path d="M28100,-98874.11l0,-200" />
+          <path d="M28100,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="28.6" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-57.2,0) rotate(-180,28.6,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M29585,-98874.11l0,6600" />
+          <path d="M29215,-98874.11l0,6600" />
+          <path d="M25015,-91959.11l-685,0" />
+          <path d="M24330,-91959.11l0,370" />
+          <path d="M24330,-91589.11l870,0" />
+          <path d="M21800,-91589.11l930,0" />
+          <path d="M22730,-91589.11l0,-370" />
+          <path d="M22730,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="23530" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,23530,-91774.11)">.<g class="blkclass0"><text transform="rotate(0 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M25200,-99074.11l-300,0" />
+          <path d="M24900,-99074.11l0,200" />
+          <path d="M24900,-98874.11l115,0" />
+          <path d="M21185,-98874.11l2715,0" />
+          <path d="M23900,-98874.11l0,-200" />
+          <path d="M23900,-99074.11l-2900,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="24.4" y="-98.974" transform="scale(1000,1000) scale(-1,1) translate(-48.8,0) rotate(-180,24.4,-98.97)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-289.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M25385,-98874.11l0,6915" />
+          <path d="M25015,-98874.11l0,6915" />
+          <path d="M19985,-99074.11l0,-299.5" />
+          <path d="M19985,-99373.61l-370,0" />
+          <path d="M19615,-99373.61l0,299.5" />
+          <path d="M19615,-101174.11l0,700.5" />
+          <path d="M19615,-100473.61l370,0" />
+          <path d="M19985,-100473.61l0,-500.5" />
+          <path d="M75115,-106504.11l-11715.01,0" />
+          <path d="M75115,-106874.11l-11914.99,0" />
+          <path d="M66485,-120689.11l555,0" />
+          <path d="M67040,-120689.11l0,-370" />
+          <path d="M67040,-121059.11l-740,0" />
+          <path d="M72100,-121059.11l-840,0" />
+          <path d="M71260,-121059.11l0,370" />
+          <path d="M71260,-120689.11l840,0" />
+          <path d="M68640,-120689.11l1020,0" />
+          <path d="M69660,-120689.11l0,-370" />
+          <path d="M69660,-121059.11l-1020,0" />
+          <path d="M68640,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="67840" y="-120874.11" transform="scale(-1,-1) translate(-135680,241748.22) rotate(0,67840,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.38) translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="70460" y="-120874.11" transform="scale(-1,-1) translate(-140920,241748.22) rotate(0,70460,-120874.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-374.38) translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M53285,-120689.11l555,0" />
+          <path d="M53840,-120689.11l0,-370" />
+          <path d="M53840,-121059.11l-740,0" />
+          <path d="M58900,-121059.11l-840,0" />
+          <path d="M58060,-121059.11l0,370" />
+          <path d="M58060,-120689.11l840,0" />
+          <path d="M55440,-120689.11l1020,0" />
+          <path d="M56460,-120689.11l0,-370" />
+          <path d="M56460,-121059.11l-1020,0" />
+          <path d="M55440,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="54640" y="-120874.11" transform="scale(-1,-1) translate(-109280,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="57260" y="-120874.11" transform="scale(-1,-1) translate(-114520,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M39785,-120689.11l815,0" />
+          <path d="M40600,-120689.11l0,-370" />
+          <path d="M40600,-121059.11l-1000,0" />
+          <path d="M45700,-121059.11l-800,0" />
+          <path d="M44900,-121059.11l0,370" />
+          <path d="M44900,-120689.11l800,0" />
+          <path d="M42200,-120689.11l1100,0" />
+          <path d="M43300,-120689.11l0,-370" />
+          <path d="M43300,-121059.11l-1100,0" />
+          <path d="M42200,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="41400" y="-120874.11" transform="scale(-1,-1) translate(-82800,241748.22) rotate(-360,41400,-120874.11)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="44100" y="-120874.11" transform="scale(-1,-1) translate(-88200,241748.22) rotate(-360,44100,-120874.11)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M26585,-120689.11l515,0" />
+          <path d="M27100,-120689.11l0,-370" />
+          <path d="M27100,-121059.11l-700,0" />
+          <path d="M32200,-121059.11l-800,0" />
+          <path d="M31400,-121059.11l0,370" />
+          <path d="M31400,-120689.11l800,0" />
+          <path d="M28700,-120689.11l1100,0" />
+          <path d="M29800,-120689.11l0,-370" />
+          <path d="M29800,-121059.11l-1100,0" />
+          <path d="M28700,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="27900" y="-120874.11" transform="scale(-1,-1) translate(-55800,241748.22) rotate(-360,27900,-120874.11)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="30600" y="-120874.11" transform="scale(-1,-1) translate(-61200,241748.22) rotate(-360,30600,-120874.11)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M19615,-108874.11l0,100" />
+          <path d="M19985,-108974.11l0,15" />
+          <path d="M72715,-120374.11l0,2800" />
+          <path d="M72715,-117574.11l370,0" />
+          <path d="M73085,-117574.11l0,-2800" />
+          <path d="M73085,-116174.11l0,-400" />
+          <path d="M73085,-116574.11l-370,0" />
+          <path d="M72715,-116574.11l0,500" />
+          <path d="M76915,-115974.11l0,5400" />
+          <path d="M76915,-110574.11l370,0" />
+          <path d="M77285,-110574.11l0,-5500" />
+          <path d="M77285,-108874.11l0,-500" />
+          <path d="M77285,-109374.11l-370,0" />
+          <path d="M76915,-109374.11l0,400" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="77100" y="-109974.11" transform="rotate(-270,77100,-109974.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,652.5) translate(-374.38,652.5)" font-size="580.125">C1215</text></g></use>
+          <path d="M73085,-115974.11l0,3400" />
+          <path d="M72715,-116074.11l0,3600" />
+          <path d="M76915,-115974.11l-3015,0" />
+          <path d="M76915,-116174.11l-3115,0" />
+          <path d="M66115,-108974.11l0,-11715" />
+          <path d="M66485,-108974.11l0,-11715" />
+          <path d="M59515,-108974.11l0,-11400" />
+          <path d="M59885,-108974.11l0,-11400" />
+          <path d="M52915,-108974.11l0,-11715" />
+          <path d="M53285,-108974.11l0,-11715" />
+          <path d="M46315,-108774.11l0,-11600" />
+          <path d="M46685,-108974.11l0,-11400" />
+          <path d="M46015,-108974.11l0,-11400" />
+          <path d="M46385,-108774.11l0,-11600" />
+          <path d="M39415,-108974.11l0,-11715" />
+          <path d="M39785,-108974.11l0,-11715" />
+          <path d="M32815,-108974.11l0,-11400" />
+          <path d="M33185,-108974.11l0,-11400" />
+          <path d="M76915,-108774.11l0,350" />
+          <path d="M76915,-108424.11l370,0" />
+          <path d="M77285,-108424.11l0,-450" />
+          <path d="M77285,-106589.11l0,-635" />
+          <path d="M77285,-107224.11l-370,0" />
+          <path d="M76915,-107224.11l0,265" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="77100" y="-107824.11" transform="rotate(-270,77100,-107824.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,652.5) translate(-374.38,652.5)" font-size="580.125">C1215</text></g></use>
+          <path d="M76915,-108974.11l-1215,0" />
+          <path d="M75700,-108974.11l0,200" />
+          <path d="M75700,-108774.11l1215,0" />
+          <path d="M73800,-108774.11l400,0" />
+          <path d="M74200,-108774.11l0,-200" />
+          <path d="M74200,-108974.11l-300,0" />
+          <use xlink:href="#$DorLib2D$00000004" x="49.967" y="-72.583" transform="scale(1500,1500) rotate(-180,49.97,-72.58)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,-374.38) translate(-712.5,-374.38)" font-size="580.125">M1524</text></g></use>
+          <path d="M72715,-108974.11l-4715,0" />
+          <path d="M68000,-108974.11l0,200" />
+          <path d="M68000,-108774.11l4900,0" />
+          <path d="M66300,-108774.11l700,0" />
+          <path d="M67000,-108774.11l0,-200" />
+          <path d="M67000,-108974.11l-515,0" />
+          <path d="M66115,-108974.11l-4715,0" />
+          <path d="M61400,-108974.11l0,200" />
+          <path d="M61400,-108774.11l4900,0" />
+          <path d="M59700,-108774.11l700,0" />
+          <path d="M60400,-108774.11l0,-200" />
+          <path d="M60400,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="60.9" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,60.9,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-360 -712.5,735.62) translate(-712.5,735.62)" font-size="580.125">M1024</text></g></use>
+          <path d="M59515,-108974.11l-4715,0" />
+          <path d="M54800,-108974.11l0,200" />
+          <path d="M54800,-108774.11l4900,0" />
+          <path d="M53100,-108774.11l700,0" />
+          <path d="M53800,-108774.11l0,-200" />
+          <path d="M53800,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="54.3" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,54.3,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,735.63)" font-size="580.125">M1024</text></g></use>
+          <path d="M52915,-108974.11l-4715,0" />
+          <path d="M48200,-108974.11l0,200" />
+          <path d="M48200,-108774.11l4900,0" />
+          <path d="M46315,-108774.11l885,0" />
+          <path d="M47200,-108774.11l0,-200" />
+          <path d="M47200,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="47.7" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,47.7,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,735.63)" font-size="580.125">M1024</text></g></use>
+          <path d="M46015,-108974.11l-4715,0" />
+          <path d="M41300,-108974.11l0,200" />
+          <path d="M41300,-108774.11l5085,0" />
+          <path d="M39600,-108774.11l700,0" />
+          <path d="M40300,-108774.11l0,-200" />
+          <path d="M40300,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="40.8" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,40.8,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,735.63)" font-size="580.125">M1024</text></g></use>
+          <path d="M39415,-108974.11l-4715,0" />
+          <path d="M34700,-108974.11l0,200" />
+          <path d="M34700,-108774.11l4900,0" />
+          <path d="M33000,-108774.11l700,0" />
+          <path d="M33700,-108774.11l0,-200" />
+          <path d="M33700,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="34.2" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,34.2,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,735.63)" font-size="580.125">M1024</text></g></use>
+          <path d="M32815,-108974.11l-4715,0" />
+          <path d="M28100,-108974.11l0,200" />
+          <path d="M28100,-108774.11l4900,0" />
+          <path d="M26400,-108774.11l700,0" />
+          <path d="M27100,-108774.11l0,-200" />
+          <path d="M27100,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="27.6" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,27.6,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,735.62) translate(-712.5,735.62)" font-size="580.125">M1024</text></g></use>
+          <path d="M26215,-108974.11l-4715,0" />
+          <path d="M21500,-108974.11l0,200" />
+          <path d="M21500,-108774.11l4900,0" />
+          <path d="M19985,-108774.11l515,0" />
+          <path d="M20500,-108774.11l0,-200" />
+          <path d="M20500,-108974.11l-515,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="21" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,21,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,735.63)" font-size="580.125">M1024</text></g></use>
+          <path d="M75115,-100974.11l-11915.24,0" />
+          <path d="M75115,-101344.11l-11715.23,0" />
+          <path d="M20200,-91959.11l-930,0" />
+          <path d="M19270,-91959.11l0,370" />
+          <path d="M19270,-91589.11l930,0" />
+          <path d="M16800,-91589.11l870,0" />
+          <path d="M17670,-91589.11l0,-370" />
+          <path d="M17670,-91959.11l-820,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="18470" y="-91774.11" transform="scale(-1,-1) translate(-36940,183548.22) rotate(-180,18470,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M12415,-98704.11l0,129.95" />
+          <path d="M12415,-98574.16l370,0" />
+          <path d="M12785,-98574.16l0,-129.95" />
+          <path d="M12785,-92274.11l0,-5300.05" />
+          <path d="M12785,-97574.16l-370,0" />
+          <path d="M12415,-97574.16l0,5300.05" />
+          <use xlink:href="#$DorLib2D$00000003" x="12.6" y="-98.074" transform="scale(1000,1000) scale(-1,-1) translate(-25.2,196.15) rotate(-270,12.6,-98.07)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 818.33,1212.5) translate(818.33,1212.5)" font-size="580.125">M1024</text></g></use>
+          <path d="M6415,-110489.11l0,-8770" />
+          <path d="M6785,-110859.11l0,-8030" />
+          <path d="M19615,-109144.11l0,-11230" />
+          <path d="M19985,-108959.11l0,-11415" />
+          <path d="M8885,-120559.11l5015,0" />
+          <path d="M13900,-120559.11l0,-500" />
+          <path d="M13900,-121059.11l-5385,0" />
+          <path d="M19000,-121059.11l-800,0" />
+          <path d="M18200,-121059.11l0,500" />
+          <path d="M18200,-120559.11l800,0" />
+          <path d="M15500,-120559.11l1100,0" />
+          <path d="M16600,-120559.11l0,-500" />
+          <path d="M16600,-121059.11l-1100,0" />
+          <path d="M15500,-121059.11l0,500" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x500" x="14700" y="-120809.11" transform="scale(-1,-1) translate(-29400,241618.22) rotate(0,14700,-120809.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-439.38) translate(-690,-439.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x500" x="17400" y="-120809.11" transform="scale(-1,-1) translate(-34800,241618.22) rotate(0,17400,-120809.11)">.<g class="blkclass0"><text transform="rotate(0 -690,-439.38) translate(-690,-439.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M20600,-120689.11l800,0" />
+          <path d="M21400,-120689.11l0,-370" />
+          <path d="M21400,-121059.11l-800,0" />
+          <path d="M26400,-121059.11l-700,0" />
+          <path d="M25700,-121059.11l0,370" />
+          <path d="M25700,-120689.11l515,0" />
+          <path d="M23000,-120689.11l1100,0" />
+          <path d="M24100,-120689.11l0,-370" />
+          <path d="M24100,-121059.11l-1100,0" />
+          <path d="M23000,-121059.11l0,370" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="22200" y="-120874.11" transform="scale(-1,-1) translate(-44400,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="24900" y="-120874.11" transform="scale(-1,-1) translate(-49800,241748.22)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M26215,-108974.11l0,-11715" />
+          <path d="M26585,-108974.11l0,-11715" />
+          <path d="M46200,-120874.11l0,0" />
+          <path d="M46500,-120874.11l0,0" />
+          <path d="M46350,-120874.11l0,0" />
+          <path d="M11800,-91274.11l1600,0" />
+          <path d="M13400,-91274.11l0,-1000" />
+          <path d="M13400,-92274.11l-1600,0" />
+          <path d="M11800,-92274.11l0,1000" />
+          <path d="M20200,-91274.11l1600,0" />
+          <path d="M21800,-91274.11l0,-1000" />
+          <path d="M21800,-92274.11l-1600,0" />
+          <path d="M20200,-92274.11l0,1000" />
+          <path d="M28600,-91274.11l1600,0" />
+          <path d="M30200,-91274.11l0,-1000" />
+          <path d="M30200,-92274.11l-1600,0" />
+          <path d="M28600,-92274.11l0,1000" />
+          <path d="M37000,-91274.11l1600,0" />
+          <path d="M38600,-91274.11l0,-1000" />
+          <path d="M38600,-92274.11l-1600,0" />
+          <path d="M37000,-92274.11l0,1000" />
+          <path d="M45400,-91274.11l1600,0" />
+          <path d="M47000,-91274.11l0,-1000" />
+          <path d="M47000,-92274.11l-1600,0" />
+          <path d="M45400,-92274.11l0,1000" />
+          <path d="M45400,-91959.11l-900,0" />
+          <path d="M44500,-91959.11l0,370" />
+          <path d="M44500,-91589.11l900,0" />
+          <path d="M42000,-91589.11l900,0" />
+          <path d="M42900,-91589.11l0,-370" />
+          <path d="M42900,-91959.11l-715,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="43700" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,43700,-91774.11)">.<g class="blkclass0"><text transform="rotate(-360 -690,820.62) translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M54100,-91274.11l1600,0" />
+          <path d="M55700,-91274.11l0,-1000" />
+          <path d="M55700,-92274.11l-1600,0" />
+          <path d="M54100,-92274.11l0,1000" />
+          <path d="M62515,-91274.11l1600,0" />
+          <path d="M64115,-91274.11l0,-1000" />
+          <path d="M64115,-92274.11l-1600,0" />
+          <path d="M62515,-92274.11l0,1000" />
+          <path d="M70915,-91274.11l1600,0" />
+          <path d="M72515,-91274.11l0,-1000" />
+          <path d="M72515,-92274.11l-1600,0" />
+          <path d="M70915,-92274.11l0,1000" />
+          <path d="M19000,-120374.11l1600,0" />
+          <path d="M20600,-120374.11l0,-1000" />
+          <path d="M20600,-121374.11l-1600,0" />
+          <path d="M19000,-121374.11l0,1000" />
+          <path d="M32200,-120374.11l1600,0" />
+          <path d="M33800,-120374.11l0,-1000" />
+          <path d="M33800,-121374.11l-1600,0" />
+          <path d="M32200,-121374.11l0,1000" />
+          <path d="M45700,-120374.11l1600,0" />
+          <path d="M47300,-120374.11l0,-1000" />
+          <path d="M47300,-121374.11l-1600,0" />
+          <path d="M45700,-121374.11l0,1000" />
+          <path d="M58900,-120374.11l1600,0" />
+          <path d="M60500,-120374.11l0,-1000" />
+          <path d="M60500,-121374.11l-1600,0" />
+          <path d="M58900,-121374.11l0,1000" />
+          <path d="M72100,-120374.11l1600,0" />
+          <path d="M73700,-120374.11l0,-1000" />
+          <path d="M73700,-121374.11l-1600,0" />
+          <path d="M72100,-121374.11l0,1000" />
+          <path d="M8215,-97989.11l-7037.14,0" />
+          <path d="M8215,-98789.11l-4867.83,0" />
+          <path d="M1177.86,-97989.11l9087.14,-7757.32" />
+          <path d="M3347.17,-98789.11l7287.83,-6221.32" />
+          <path d="M19985,-105124.11l-370,0" class="cnc-1" />
+          <path d="M19615,-102724.11l370,0" class="cnc-1" />
+          <path d="M20815,-92274.11l0,-6430" />
+          <path d="M21185,-92274.11l0,-6600" />
+          <path d="M8215,-91589.11l0,-6400" />
+          <path d="M8585,-91959.11l0,-6723.61" />
+          <path d="M8215,-99074.11l4385,0" />
+          <path d="M8585,-98704.11l3830,0" />
+          <path d="M19985,-99074.11l1015,0" />
+          <path d="M19800,-98704.11l1015,0" />
+          <path d="M12600,-99074.11l415,0" />
+          <path d="M12785,-98704.11l415,0" />
+          <path d="M13200,-98704.11l2200,0" />
+          <path d="M15400,-98704.11l0,-370" />
+          <path d="M15400,-99074.11l-2015,0" />
+          <path d="M16800,-99074.11l-400,0" />
+          <path d="M16400,-99074.11l0,370" />
+          <path d="M16400,-98704.11l350,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="15.9" y="-98.889" transform="scale(1000,1000) scale(1,-1) translate(0,197.78) rotate(-360,15.9,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,-374.38) translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M75485,-98889.11l0,7300" />
+          <path d="M75115,-98704.11l0,6745" />
+          <path d="M71285,-98704.11l0,6430" />
+          <path d="M70915,-98704.11l0,6430" />
+          <path d="M62885,-98704.11l0,6430" />
+          <path d="M62515,-98704.11l0,6430" />
+          <path d="M59285,-98704.11l0,6745" />
+          <path d="M58915,-98704.11l0,6745" />
+          <path d="M50885,-98704.11l0,6745" />
+          <path d="M50515,-98889.11l0,6930" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="75300" y="-100024.11" transform="scale(1,-1) translate(0,200048.22) rotate(-90,75300,-100024.11)">.<g class="blkclass0"><text transform="rotate(-90 820.62,652.5) translate(820.62,652.5)" font-size="580.125">C1215</text></g></use>
+          <path d="M73700,-115974.11l-615,0" />
+          <path d="M73800,-116174.11l-715,0" />
+          <path d="M73800,-108774.11l-900,0" />
+          <path d="M73700,-108974.11l-615,0" />
+          <path d="M73900,-108974.11l0,-500" />
+          <path d="M73900,-109474.11l-200,0" />
+          <path d="M73700,-109474.11l0,500" />
+          <path d="M73700,-112374.11l0,2200" />
+          <path d="M73700,-110174.11l200,0" />
+          <path d="M73900,-110174.11l0,-2300" />
+          <path d="M73085,-112374.11l0,3400" />
+          <path d="M72715,-112474.11l0,3500" />
+          <path d="M73900,-112474.11l0,-1600" />
+          <path d="M73900,-114074.11l-200,0" />
+          <path d="M73700,-114074.11l0,1500" />
+          <path d="M73700,-115974.11l0,1200" />
+          <path d="M73700,-114774.11l200,0" />
+          <path d="M73900,-114774.11l0,-1200" />
+          <use xlink:href="#$DorLib2D$00000003" x="105.429" y="-163.463" transform="scale(700,700) scale(1,-1) translate(0,326.93) rotate(-270,105.43,-163.46)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 -289.38,727.5) translate(-289.38,727.5)" font-size="580.125">M0709</text></g></use>
+          <path d="M73085,-112574.11l615,0" />
+          <path d="M73085,-112374.11l615,0" />
+          <path d="M75115,-106504.11l0,1029.5" />
+          <path d="M75115,-105474.61l370,0" />
+          <path d="M75485,-105474.61l0,-1214.5" />
+          <path d="M75485,-101159.11l0,-615" />
+          <path d="M75485,-101774.11l-370,0" />
+          <path d="M75115,-101774.11l0,430" />
+          <path d="M75115,-104274.61l0,1300.5" />
+          <path d="M75115,-102974.11l370,0" />
+          <path d="M75485,-102974.11l0,-1300.5" />
+          <path d="M75485,-104274.61l-370,0" />
+          <path d="M19985,-106874.11l0,-299.51" />
+          <path d="M19985,-107173.62l-370,0" />
+          <path d="M19615,-107173.62l0,484.51" />
+          <path d="M19615,-108874.11l0,600.49" />
+          <path d="M19615,-108273.62l370,0" />
+          <path d="M19985,-108273.62l0,-500.49" />
+          <path d="M13015,-108774.11l0,845" />
+          <path d="M13015,-107929.11l370,0" />
+          <path d="M13385,-107929.11l0,-845" />
+          <path d="M13385,-99074.11l0,-805" />
+          <path d="M13385,-99879.11l-370,0" />
+          <path d="M13015,-99879.11l0,805" />
+          <path d="M13015,-107079.11l0,950" />
+          <path d="M13015,-106129.11l370,0" />
+          <path d="M13385,-106129.11l0,-950" />
+          <path d="M13385,-107079.11l-370,0" />
+          <path d="M13015,-105279.11l0,950" />
+          <path d="M13015,-104329.11l370,0" />
+          <path d="M13385,-104329.11l0,-950" />
+          <path d="M13385,-105279.11l-370,0" />
+          <path d="M13015,-103479.11l0,950" />
+          <path d="M13015,-102529.11l370,0" />
+          <path d="M13385,-102529.11l0,-950" />
+          <path d="M13385,-103479.11l-370,0" />
+          <path d="M13015,-101679.11l0,950" />
+          <path d="M13015,-100729.11l370,0" />
+          <path d="M13385,-100729.11l0,-950" />
+          <path d="M13385,-101679.11l-370,0" />
+          <path d="M13015,-107079.11l370,0" class="cnc-1" />
+          <path d="M13385,-107929.11l-370,0" class="cnc-1" />
+          <path d="M13015,-99879.11l370,0" class="cnc-1" />
+          <path d="M13385,-100729.11l-370,0" class="cnc-1" />
+          <path d="M13015,-101679.11l370,0" class="cnc-1" />
+          <path d="M13385,-102529.11l-370,0" class="cnc-1" />
+          <path d="M13015,-103479.11l370,0" class="cnc-1" />
+          <path d="M13385,-104329.11l-370,0" class="cnc-1" />
+          <path d="M13015,-105279.11l370,0" class="cnc-1" />
+          <path d="M13385,-106129.11l-370,0" class="cnc-1" />
+          <path d="M8885,-109144.11l0,-30" />
+          <path d="M8885,-109174.11l-370,0" />
+          <path d="M8515,-109174.11l0,400" />
+          <path d="M8515,-110489.11l0,115" />
+          <path d="M8515,-110374.11l370,0" />
+          <path d="M8885,-110374.11l0,-485" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="8700" y="-109774.11" transform="rotate(-90,8700,-109774.11)">.<g class="blkclass0"><text transform="rotate(-90 820.62,682.5) translate(820.62,682.5)" font-size="580.125">C1227</text></g></use>
+          <path d="M8515,-118889.11l370,0" />
+          <path d="M8885,-118889.11l0,-370" />
+          <path d="M8885,-119259.11l-370,0" />
+          <path d="M8515,-119259.11l0,370" />
+          <path d="M19985,-101344.11l0,-1380" />
+          <path d="M19985,-102724.11l-370,0" />
+          <path d="M19615,-102724.11l0,1550" />
+          <path d="M19615,-106689.11l0,1565" />
+          <path d="M19615,-105124.11l370,0" />
+          <path d="M19985,-105124.11l0,-1380" />
+          <path d="M27900,-100974.11l-7915,0" />
+          <path d="M27700,-101344.11l-7715,0" />
+          <path d="M27700,-106504.11l-7715,0" />
+          <path d="M27900,-106874.11l-7915,0" />
+          <path d="M27900,-100974.11l0,-507.5" />
+          <path d="M27900,-101481.61l-200,0" />
+          <path d="M27700,-101481.61l0,137.5" />
+          <path d="M27700,-106504.11l0,122.5" />
+          <path d="M27700,-106381.61l200,0" />
+          <path d="M27900,-106381.61l0,-492.5" />
+          <use xlink:href="#$TCHSYS$WIN2D_4900x200" x="27800" y="-103931.61" transform="rotate(-90,27800,-103931.61)">.<g class="blkclass0"><text transform="rotate(-90 735.63,720) translate(735.63,720)" font-size="580.125">C4924</text></g></use>
+          <path d="M33500,-101174.11l-350,0" />
+          <path d="M33150,-101174.11l0,200" />
+          <path d="M33150,-100974.11l450,0" />
+          <path d="M27900,-100974.11l350,0" />
+          <path d="M28250,-100974.11l0,-200" />
+          <path d="M28250,-101174.11l-350,0" />
+          <path d="M27900,-101174.11l0,200" />
+          <use xlink:href="#$TCHSYS$WIN2D_4900x200" x="30700" y="-101074.11" transform="scale(1,-1) translate(0,202148.22) rotate(-180,30700,-101074.11)">.<g class="blkclass0"><text transform="translate(-645,735.62)" font-size="580.125">C4921</text></g></use>
+          <path d="M33870,-101174.11l0,-900" />
+          <path d="M33870,-102074.11l-370,0" />
+          <path d="M33500,-102074.11l0,900" />
+          <path d="M33500,-106674.11l0,900" />
+          <path d="M33500,-105774.11l370,0" />
+          <path d="M33870,-105774.11l0,-900" />
+          <path d="M33870,-103274.11l0,-1300" />
+          <path d="M33870,-104574.11l-370,0" />
+          <path d="M33500,-104574.11l0,1300" />
+          <path d="M33500,-103274.11l370,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="33685" y="-102674.11" transform="scale(1,-1) translate(0,205348.22) rotate(-270,33685,-102674.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,675) translate(-374.38,675)" font-size="580.125">C1206</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="33685" y="-105174.11" transform="scale(-1,-1) translate(-67370,210348.22) rotate(-90,33685,-105174.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,675) translate(-374.38,675)" font-size="580.125">C1206</text></g></use>
+          <path d="M37700,-106674.11l-3830,0" />
+          <path d="M37900,-106874.11l-4300,0" />
+          <path d="M37900,-100974.11l-4300,0" />
+          <path d="M37700,-101174.11l-3830,0" />
+          <path d="M37900,-100974.11l0,-4576" />
+          <path d="M37900,-105550.11l-200,0" />
+          <path d="M37700,-105550.11l0,4376" />
+          <path d="M37700,-106674.11l0,224" />
+          <path d="M37700,-106450.11l200,0" />
+          <path d="M37900,-106450.11l0,-424" />
+          <use xlink:href="#$DorLib2D$00000003" x="42" y="-117.778" transform="scale(900,900) rotate(-90,42,-117.78)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 735.62,742.5) translate(735.62,742.5)" font-size="580.125">M0924</text></g></use>
+          <path d="M40915,-101344.11l0,-4206" />
+          <path d="M40915,-105550.11l-200,0" />
+          <path d="M40715,-105550.11l0,4576" />
+          <path d="M40715,-106874.11l0,424" />
+          <path d="M40715,-106450.11l200,0" />
+          <path d="M40915,-106450.11l0,-54" />
+          <use xlink:href="#$DorLib2D$00000003" x="45.35" y="-117.778" transform="scale(900,900) scale(1,-1) translate(0,235.56) rotate(-270,45.35,-117.78)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 -289.37,742.5) translate(-289.37,742.5)" font-size="580.125">M0924</text></g></use>
+          <path d="M46400,-100974.11l0,-5900" />
+          <path d="M46770,-101174.11l0,-5500" />
+          <path d="M45930,-106504.11l-5015,0" />
+          <path d="M46300,-106874.11l-5585,0" />
+          <path d="M46300,-100974.11l-5585,0" />
+          <path d="M45930,-101344.11l-5015,0" />
+          <path d="M46300,-100974.11l0,-2050" />
+          <path d="M46300,-103024.11l-370,0" />
+          <path d="M45930,-103024.11l0,1680" />
+          <path d="M45930,-106504.11l0,1680" />
+          <path d="M45930,-104824.11l370,0" />
+          <path d="M46300,-104824.11l0,-2050" />
+          <use xlink:href="#$TCHSYS$WIN2D_1800x370" x="46115" y="-103924.11" transform="scale(1,-1) translate(0,207848.22) rotate(-270,46115,-103924.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,675) translate(-374.38,675)" font-size="580.125">C1806</text></g></use>
+          <path d="M50700,-106874.11l-350,0" />
+          <path d="M50350,-106874.11l0,200" />
+          <path d="M50350,-106674.11l250,0" />
+          <path d="M46770,-106674.11l180,0" />
+          <path d="M46950,-106674.11l0,-200" />
+          <path d="M46950,-106874.11l-550,0" />
+          <path d="M50600,-101174.11l-300,0" />
+          <path d="M50300,-101174.11l0,200" />
+          <path d="M50300,-100974.11l400,0" />
+          <path d="M46400,-100974.11l500,0" />
+          <path d="M46900,-100974.11l0,-200" />
+          <path d="M46900,-101174.11l-130,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_3400x200" x="48600" y="-101074.11" transform="rotate(-180,48600,-101074.11)">.<g class="blkclass0"><text transform="translate(-645,-289.38)" font-size="580.125">C3421</text></g></use>
+          <path d="M50800,-101174.11l0,-350" />
+          <path d="M50800,-101524.11l-200,0" />
+          <path d="M50600,-101524.11l0,350" />
+          <path d="M50600,-106674.11l0,250" />
+          <path d="M50600,-106424.11l200,0" />
+          <path d="M50800,-106424.11l0,-80" />
+          <use xlink:href="#$TCHSYS$WIN2D_4900x200" x="50700" y="-103974.11" transform="rotate(-90,50700,-103974.11)">.<g class="blkclass0"><text transform="rotate(-90 735.62,645) translate(735.62,645)" font-size="580.125">C4921</text></g></use>
+          <path d="M75115,-100974.11l0,350" />
+          <path d="M75115,-100624.11l370,0" />
+          <path d="M75485,-100624.11l0,-535" />
+          <path d="M75485,-98889.11l0,-535" />
+          <path d="M75485,-99424.11l-370,0" />
+          <path d="M75115,-99424.11l0,350" />
+          <path d="M60800,-106504.11l-10000,0" />
+          <path d="M61000,-106874.11l-10300,0" />
+          <path d="M61000,-100974.11l-10300,0" />
+          <path d="M60800,-101174.11l-10000,0" />
+          <path d="M63399.99,-106504.11l-0.06,1330.11" />
+          <path d="M63200.01,-106874.11l-0.07,1600.1" />
+          <path d="M61000,-100974.11l0,-2200" />
+          <path d="M61000,-103174.11l-200,0" />
+          <path d="M60800,-103174.11l0,2000" />
+          <path d="M60800,-105174.11l0,500" />
+          <path d="M60800,-104674.11l200,0" />
+          <path d="M61000,-104674.11l0,-400" />
+          <path d="M33600,-106874.11l-350,0" />
+          <path d="M33250,-106874.11l0,200" />
+          <path d="M33250,-106674.11l250,0" />
+          <path d="M27899.76,-106674.11l450.24,0" />
+          <path d="M28350,-106674.11l0,-200" />
+          <path d="M28350,-106874.11l-450.24,0" />
+          <path d="M27899.76,-106874.11l0,200" />
+          <path d="M10265,-108774.11l-1750,0" />
+          <path d="M10450,-109144.11l-1565,0" />
+          <path d="M10265,-108774.11l370,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1700x370" x="10450" y="-107924.11" transform="scale(-1,1) translate(-20900,0) rotate(-90,10450,-107924.11)">.<g class="blkclass0"><text transform="rotate(-90 -374.38,682.5) translate(-374.38,682.5)" font-size="580.125">C1727</text></g></use>
+          <use xlink:href="#_FZHK" x="28.243" y="-288.889" transform="scale(370,370)" stroke-width="0.0002%">.</use>
+          <path d="M10635,-106704.11l0,1693.68" />
+          <path d="M10265,-106704.11l0,957.68" />
+          <path d="M8215,-98789.11l0,-285" />
+          <path d="M8585,-98682.72l0,-21.39" />
+          <path d="M11800,-91959.11l-790,0" />
+          <path d="M11010,-91959.11l0,370" />
+          <path d="M11010,-91589.11l790,0" />
+          <path d="M8215,-91589.11l1195,0" />
+          <path d="M9410,-91589.11l0,-370" />
+          <path d="M9410,-91959.11l-825,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="10210" y="-91774.11" transform="scale(1,-1) translate(0,183548.22) rotate(-180,10210,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,820.62)" font-size="580.125">C1624</text></g></use>
+          <path d="M16750,-91959.11l-820,0" />
+          <path d="M15930,-91959.11l0,370" />
+          <path d="M15930,-91589.11l870,0" />
+          <path d="M13400,-91589.11l930,0" />
+          <path d="M14330,-91589.11l0,-370" />
+          <path d="M14330,-91959.11l-930,0" />
+          <use xlink:href="#$TCHSYS$WIN2D_1600x370" x="15130" y="-91774.11" transform="scale(-1,1) translate(-30260,0) rotate(-180,15130,-91774.11)">.<g class="blkclass0"><text transform="translate(-690,-374.38)" font-size="580.125">C1624</text></g></use>
+          <path d="M16850,-98704.11l350,0" />
+          <path d="M17200,-98704.11l0,-370" />
+          <path d="M17200,-99074.11l-400,0" />
+          <path d="M19615,-99074.11l-1415,0" />
+          <path d="M18200,-99074.11l0,370" />
+          <path d="M18200,-98704.11l1600,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="17.7" y="-98.889" transform="scale(1000,1000) scale(-1,-1) translate(-35.4,197.78) rotate(-360,17.7,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M16850,-98704.11l0,6745" />
+          <path d="M16750,-98704.11l0,6745" />
+          <use xlink:href="#$TCHSYS$WIN2D_4900x200" x="30800" y="-106774.11" transform="scale(-1,-1) translate(-61600,213548.22) rotate(-180,30800,-106774.11)">.<g class="blkclass0"><text transform="translate(-645,735.62)" font-size="580.125">C4921</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_3400x200" x="48650" y="-106774.11" transform="scale(-1,-1) translate(-97300,213548.22) rotate(-180,48650,-106774.11)">.<g class="blkclass0"><text transform="rotate(-360 -645,735.62) translate(-645,735.62)" font-size="580.125">C3421</text></g></use>
+          <use xlink:href="#_FZHK" x="35.676" y="-317.092" transform="scale(370,370) rotate(-90,35.68,-317.09)" stroke-width="0.0002%">.</use>
+          <use xlink:href="#_FZHK" x="35.676" y="-303.984" transform="scale(370,370) rotate(-90,35.68,-303.98)" stroke-width="0.0002%">.</use>
+          <path d="M66800,-91959.11l-140,0" />
+          <path d="M66660,-91959.11l0,370" />
+          <path d="M66660,-91589.11l240,0" />
+          <path d="M64115,-91589.11l945,0" />
+          <path d="M65060,-91589.11l0,-370" />
+          <path d="M65060,-91959.11l-945,0" />
+          <path d="M66900,-99074.11l-300,0" />
+          <path d="M66600,-99074.11l0,370" />
+          <path d="M66600,-98704.11l200,0" />
+          <path d="M62885,-98704.11l2715,0" />
+          <path d="M65600,-98704.11l0,-370" />
+          <path d="M65600,-99074.11l-2900,0" />
+          <path d="M67000,-98704.11l0,6745" />
+          <path d="M66800,-98704.11l0,6745" />
+          <path d="M54900,-99074.11l-300,0" />
+          <path d="M54600,-99074.11l0,370" />
+          <path d="M54600,-98704.11l200,0" />
+          <path d="M50885,-98704.11l2715,0" />
+          <path d="M53600,-98704.11l0,-370" />
+          <path d="M53600,-99074.11l-2715,0" />
+          <path d="M55000,-98704.11l0,6430" />
+          <path d="M54800,-98704.11l0,6430" />
+          <path d="M22635,-102534.11l765,0l450,0" />
+          <path d="M22635,-105314.11l3815,0l0,2780l-1880,0l-450,0" />
+          <path d="M22770,-101344.11l1844.31,0" />
+          <path d="M24729.78,-101344.11l470.22,0" />
+          <path d="M22770,-103664.11l0,2320" />
+          <path d="M23040,-103664.11l0,2320" />
+          <path d="M23310,-103603.24l0,2259.13" />
+          <path d="M23580,-103664.11l0,328.52" />
+          <path d="M23580,-103135.59l0,1791.48" />
+          <path d="M23850,-103664.11l0,796.17" />
+          <path d="M23850,-102667.94l0,1323.83" />
+          <path d="M24120,-103664.11l0,1263.83" />
+          <path d="M24120,-102200.28l0,856.17" />
+          <path d="M24390,-103664.11l0,1731.48" />
+          <path d="M24390,-101732.63l0,388.52" />
+          <path d="M24660,-103664.11l0,2199.13" />
+          <path d="M24930,-103664.11l0,2320" />
+          <path d="M25200,-103664.11l0,2320" />
+          <path d="M22770,-103724.11l470.22,0" />
+          <path d="M23355.69,-103724.11l1844.31,0" />
+          <path d="M23355.69,-103724.11l634.39,1098.8" />
+          <path d="M23240.22,-103724.11l649.86,1125.6" />
+          <path d="M23890.08,-102598.51l172.35,-46.18" />
+          <path d="M24062.43,-102644.7l-172.89,206.04" />
+          <path d="M23889.54,-102438.65l180.4,-48.34" />
+          <path d="M24069.94,-102486.99l659.84,1142.88" />
+          <path d="M23969.94,-102460.19l644.37,1116.08" />
+          <path d="M25200,-106504.11l-2430,0" />
+          <path d="M25200,-104184.11l0,-2320" />
+          <path d="M24930,-104184.11l0,-2320" />
+          <path d="M24660,-104184.11l0,-2320" />
+          <path d="M24390,-104184.11l0,-2320" />
+          <path d="M24120,-104184.11l0,-2320" />
+          <path d="M23850,-104184.11l0,-2320" />
+          <path d="M23580,-104184.11l0,-2320" />
+          <path d="M23310,-104184.11l0,-2320" />
+          <path d="M23040,-104184.11l0,-2320" />
+          <path d="M22770,-104184.11l0,-2320" />
+          <path d="M25200,-104124.11l-2430,0" />
+          <path d="M22770,-104124.11l0,400" />
+          <path d="M22770,-103724.11l470.22,0" />
+          <path d="M23355.69,-103724.11l1844.31,0" />
+          <path d="M25200,-103724.11l0,-400" />
+          <path d="M25200,-104124.11l-2430,0" />
+          <path d="M22710,-104184.11l0,520" />
+          <path d="M22710,-103664.11l564.86,0" />
+          <path d="M23390.33,-103664.11l1869.67,0" />
+          <path d="M25260,-103664.11l0,-520" />
+          <path d="M25260,-104184.11l-2550,0" />
+          <path d="M25200,-101344.11l2500,0" />
+          <path d="M27700,-101344.11l0,-5160" />
+          <path d="M27700,-106504.11l-2500,0" />
+          <path d="M25200,-106504.11l0,2320" />
+          <path d="M25200,-103664.11l0,2320" />
+          <path d="M25200,-104124.11l0,400" />
+          <path d="M22770,-103724.11l0,-400" />
+          <path d="M76150,-111409.11l0,-3565l-1500,0l0,2845l0,450" />
+          <path d="M73900,-111544.11l0,-2430" />
+          <path d="M73900,-111814.11l1440,0" />
+          <path d="M73900,-112084.11l1440,0" />
+          <path d="M73900,-112354.11l1440,0" />
+          <path d="M73900,-112624.11l1440,0" />
+          <path d="M73900,-112894.11l1440,0" />
+          <path d="M73900,-113164.11l1440,0" />
+          <path d="M73900,-113434.11l1440,0" />
+          <path d="M73900,-113704.11l1440,0" />
+          <path d="M73900,-113974.11l1440,0" />
+          <path d="M75400,-111544.11l0,-2430" />
+          <path d="M73900,-111544.11l1440,0" />
+          <path d="M75340,-111544.11l60,0" />
+          <path d="M76900,-113974.11l0,2430" />
+          <path d="M76900,-113974.11l-1440,0" />
+          <path d="M76900,-113704.11l-1440,0" />
+          <path d="M76900,-113434.11l-1440,0" />
+          <path d="M76900,-113164.11l-1440,0" />
+          <path d="M76900,-112894.11l-1440,0" />
+          <path d="M76900,-112624.11l-1440,0" />
+          <path d="M76900,-112354.11l-1440,0" />
+          <path d="M76900,-112084.11l-1440,0" />
+          <path d="M76900,-111814.11l-1440,0" />
+          <path d="M76900,-111544.11l-1440,0" />
+          <path d="M75400,-113974.11l0,2430" />
+          <path d="M75340,-111544.11l0,-2490" />
+          <path d="M75340,-114034.11l120,0" />
+          <path d="M75460,-114034.11l0,2550" />
+          <path d="M75460,-111484.11l-1560,0" />
+          <path d="M75400,-111544.11l0,-2430" />
+          <path d="M75400,-113974.11l0,0" />
+          <path d="M75400,-113974.11l0,2430" />
+          <path d="M75400,-111544.11l-1500,0" />
+          <path d="M75340,-111544.11l60,0" />
+          <path d="M73900,-111484.11l0,-60" />
+          <path d="M76900,-113974.11l0,-2000" />
+          <path d="M76900,-115974.11l-3000,0" />
+          <path d="M73900,-115974.11l0,2000" />
+          <path d="M73900,-113974.11l1440,0" />
+          <path d="M75460,-113974.11l1440,0" />
+          <path d="M75400,-111544.11l0,0" />
+          <use xlink:href="#$DorLib2D$00000003" x="67.5" y="-108.874" transform="scale(1000,1000) scale(1,-1) translate(0,217.75) rotate(-180,67.5,-108.87)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(0 -712.5,735.62) translate(-712.5,735.62)" font-size="580.125">M1024</text></g></use>
+          <use xlink:href="#$DorLib2D$00000003" x="72.9" y="-117.074" transform="scale(1000,1000) rotate(-270,72.9,-117.07)" stroke-width="0.0001%" class="body">.<g class="blkclass1"><text transform="rotate(-90 -357.5,407.14) translate(-357.5,407.14)" font-size="331.5">M1024</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="75300" y="-102374.11" transform="scale(1,-1) translate(0,204748.22) rotate(-90,75300,-102374.11)">.<g class="blkclass0"><text transform="rotate(-90 820.62,652.5) translate(820.62,652.5)" font-size="580.125">C1215</text></g></use>
+          <use xlink:href="#$TCHSYS$WIN2D_1200x370" x="75300" y="-104874.61" transform="scale(1,-1) translate(0,209749.22) rotate(-90,75300,-104874.61)">.<g class="blkclass0"><text transform="rotate(-90 820.62,652.5) translate(820.62,652.5)" font-size="580.125">C1215</text></g></use>
+          <use xlink:href="#$DorLib2D$00000004" x="40.6" y="-69.283" transform="scale(1500,1500) rotate(-90,40.6,-69.28)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 735.62,712.5) translate(735.62,712.5)" font-size="580.125">M1524</text></g></use>
+          <use xlink:href="#$DorLib2D$00000004" x="42.2" y="-69.283" transform="scale(1500,1500) rotate(-270,42.2,-69.28)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 -289.4,712.49) translate(-289.4,712.49)" font-size="580.125">M1524</text></g></use>
+          <path d="M61000,-105074.11l349.96,0.01" />
+          <path d="M61349.96,-105074.09l0.01,-200" />
+          <path d="M61349.97,-105274.09l-349.97,-0.01" />
+          <path d="M63199.94,-105274.01l-349.97,-0.01" />
+          <path d="M62849.97,-105274.03l-0.01,200" />
+          <path d="M62849.96,-105074.03l349.97,0.01" />
+          <use xlink:href="#$DorLib2D$00000004" x="41.4" y="-70.116" transform="scale(1500,1500) rotate(-360,41.4,-70.12)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-360 -712.53,-1151.46) translate(-712.53,-1151.46)" font-size="580.125">M1524</text></g></use>
+          <path d="M60800,-105174.11l0,-1330" />
+          <path d="M61000,-105274.11l0,-1600" />
+          <path d="M63199.93,-105074.01l-0.02,399.89" />
+          <path d="M63199.91,-104674.12l200,0.01" />
+          <path d="M63399.91,-104674.11l0.02,-499.89" />
+          <path d="M63399.77,-101344.11l0.08,-1830" />
+          <path d="M63399.85,-103174.11l-200,-0.01" />
+          <path d="M63199.85,-103174.12l-0.09,2200.01" />
+          <use xlink:href="#$DorLib2D$00000003" x="54.1" y="-98.889" transform="scale(1000,1000) scale(-1,1) translate(-108.2,0) rotate(-180,54.1,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-360 -712.5,-374.38) translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <use xlink:href="#$DorLib2D$00000003" x="61.9" y="-98.889" transform="scale(1000,1000) scale(-1,1) translate(-123.8,0) rotate(-180,61.9,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <use xlink:href="#$DorLib2D$00000003" x="66.1" y="-98.889" transform="scale(1000,1000) scale(-1,1) translate(-132.2,0) rotate(-180,66.1,-98.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-360 -712.5,-374.38) translate(-712.5,-374.38)" font-size="580.125">M1024</text></g></use>
+          <path d="M19985,-100473.61l-370,0" class="cnc-1" />
+          <path d="M19615,-99373.61l370,0" class="cnc-1" />
+          <path d="M19985,-108273.62l-370,0" class="cnc-1" />
+          <path d="M19615,-107173.62l370,0" class="cnc-1" />
+          <use xlink:href="#$DorLib2D$00000003" x="105.429" y="-156.892" transform="scale(700,700) scale(-1,-1) translate(-210.86,313.78) rotate(-90,105.43,-156.89)" stroke-width="0.0001%">.<g class="blkclass0"><text transform="rotate(-90 -289.38,727.5) translate(-289.38,727.5)" font-size="580.125">M0709</text></g></use>
+        </g>
+      </g>
+      <g id="assets" fill="none">
+        <g id="rm-assets" class="rm-asset">
+          <path id="15014;F03;326" d="M6786.5,-118889.11l2098.5,0l0,-1670l10115,0l0,185l615,0l0,11230l-10730,0l0,-1715l-2100,0z" />
+          <path id="15014;F03;322" d="M39785,-120689.11l5915,0l0,315l315,0l0,11400l-6230,0l0,-11715z" />
+          <path id="15014;F03;325" d="M19985,-120374.11l615,0l0,-315l5615,0l0,11715l-6230,15z" />
+          <path id="15014;F03;318-1" d="M66485,-120689.11l5615,0l0,315l615,0l0,11400l-6230,0z" />
+          <path id="15014;F03;320" d="M53285,-120689.11l5615,0l0,315l615,0l0,11400l-6230,0l0,-11715z" />
+          <path id="15014;F03;324" d="M26585,-120689.11l5615,0l0,315l615,0l0,11400l-6230,0l0,-11715z" />
+          <path id="15014;F03;319" d="M59885,-120374.11l615,0l0,-315l5615,0l0,11715l-6230,0z" />
+          <path id="15014;F03;321" d="M46685,-120374.11l615,0l0,-315l5615,0l0,11715l-6230,0l0,-11400z" />
+          <path id="15014;F03;323" d="M33185,-120374.11l615,0l0,-315l5615,0l0,11715l-6230,0l0,-11400z" />
+          <path id="15014;F03;317" d="M63399.99,-106504.11l11715.01,0l0,5160l-11715.23,0z" />
+          <path id="15014;F03;316" d="M50800,-106504.11l10000,0l0,5330l-10000,0z" />
+          <path id="15014;F03;302" d="M16850,-98704.11l3965,0l0,6430l-615,0l0,315l-3350,0l0,-6745z" />
+          <path id="15014;F03;301外" d="M16750,-98704.11l0,6745l-3350,0l0,-315l-615,0l0,-6430l3965,0z" />
+          <path id="15014;F03;314" d="M67000,-98704.11l3915,0l0,6745l-3915,0z" />
+          <path id="15014;F03;309" d="M46685,-98874.11l3830,0l0,6915l-3515,0l0,-315l-315,0l0,-6600z" />
+          <path id="15014;F03;305" d="M29585,-98874.11l3830,0l0,6915l-3215,0l0,-315l-615,0l0,-6600z" />
+          <path id="15014;F03;308" d="M42185,-98874.11l3830,0l0,6600l-615,0l0,315l-3215,0l0,-6915z" />
+          <path id="15014;F03;303" d="M21185,-98874.11l3830,0l0,6915l-3215,0l0,-315l-615,0l0,-6600z" />
+          <path id="15014;F03;307" d="M37985,-98874.11l3830,0l0,6915l-3215,0l0,-315l-615,0z" />
+          <path id="15014;F03;304" d="M25385,-98874.11l3830,0l0,6600l-615,0l0,315l-3215,0l0,-6915z" />
+          <path id="15014;F03;306" d="M33785,-98874.11l3830,0l0,6600l-615,0l0,315l-3215,0z" />
+          <path id="15014;F03;311" d="M55000,-98704.11l3915,0l0,6745l-3215,0l0,-315l-700,0l0,-6430z" />
+          <path id="15014;F03;310" d="M54800,-98704.11l-3915,0l0,6745l3215,0l0,-315l700,0l0,-6430z" />
+          <path id="15014;F03;313" d="M62885,-98704.11l3915,0l0,6745l-2685,0l0,-315l-1230,0z" />
+          <path id="15014;F03;301内" d="M8585,-98704.11l3830,0l0,6430l-615,0l0,315l-3215,0l0,-6723.61" />
+          <path id="15014;F03;315" d="M71285,-98704.11l3830,0l0,6745l-2600,0l0,-315l-1230,0z" />
+          <path id="15014;F03;312" d="M59285,-98704.11l3230,0l0,6745l-3230,0z" />
+          <path id="15014;F03;318-2" d="M76915,-120689.11l-3215,0l0,315l-615,0l0,4200l3830,0z" />
+        </g>
+      </g>
+    </g>
+    <g id="text" font-family="Arial" font-size="658.29787234042544" font-weight="normal" text-style="normal" text-anchor="start" dominant-baseline="alphabetical" fill="#FFFFFF" xml:space="preserve">
+      <g id="layer-body-text">
+        <g transform="translate(22164.73,-102271.61)">
+          <text>上</text>
+        </g>
+        <g transform="translate(22192.66,-105051.61)">
+          <text>下</text>
+        </g>
+        <g transform="translate(76007.58,-110726.61)">
+          <text>下</text>
+        </g>
+      </g>
+    </g>
+    <g id="asset-labels" font-family="Arial" font-weight="bold" font-size="38.1em" text-anchor="middle">
+      <g id="rm-labels">
+        <g id="l-rm-15014;F03;326" transform="translate(13200,-114851.61)">
+          <text>326</text>
+        </g>
+        <g id="l-rm-15014;F03;322" transform="translate(42900,-114831.61)">
+          <text>322</text>
+        </g>
+        <g id="l-rm-15014;F03;325" transform="translate(23100,-114824.11)">
+          <text>325</text>
+        </g>
+        <g id="l-rm-15014;F03;318-1" transform="translate(69600,-114831.61)">
+          <text>318-1</text>
+        </g>
+        <g id="l-rm-15014;F03;320" transform="translate(56400,-114831.61)">
+          <text>320</text>
+        </g>
+        <g id="l-rm-15014;F03;324" transform="translate(29700,-114831.61)">
+          <text>324</text>
+        </g>
+        <g id="l-rm-15014;F03;319" transform="translate(63000,-114831.61)">
+          <text>319</text>
+        </g>
+        <g id="l-rm-15014;F03;321" transform="translate(49800,-114831.61)">
+          <text>321</text>
+        </g>
+        <g id="l-rm-15014;F03;323" transform="translate(36300,-114831.61)">
+          <text>323</text>
+        </g>
+        <g id="l-rm-15014;F03;317" transform="translate(69257.39,-103924.11)">
+          <text>317</text>
+        </g>
+        <g id="l-rm-15014;F03;316" transform="translate(55800,-103839.11)">
+          <text>316</text>
+        </g>
+        <g id="l-rm-15014;F03;302" transform="translate(18832.5,-95331.61)">
+          <text>302</text>
+        </g>
+        <g id="l-rm-15014;F03;301外" transform="translate(14767.5,-95331.61)">
+          <text>301外</text>
+        </g>
+        <g id="l-rm-15014;F03;314" transform="translate(68957.5,-95331.61)">
+          <text>314</text>
+        </g>
+        <g id="l-rm-15014;F03;309" transform="translate(48600,-95416.61)">
+          <text>309</text>
+        </g>
+        <g id="l-rm-15014;F03;305" transform="translate(31500,-95416.61)">
+          <text>305</text>
+        </g>
+        <g id="l-rm-15014;F03;308" transform="translate(44100,-95416.61)">
+          <text>308</text>
+        </g>
+        <g id="l-rm-15014;F03;303" transform="translate(23100,-95416.61)">
+          <text>303</text>
+        </g>
+        <g id="l-rm-15014;F03;307" transform="translate(39900,-95416.61)">
+          <text>307</text>
+        </g>
+        <g id="l-rm-15014;F03;304" transform="translate(27300,-95416.61)">
+          <text>304</text>
+        </g>
+        <g id="l-rm-15014;F03;306" transform="translate(35700,-95416.61)">
+          <text>306</text>
+        </g>
+        <g id="l-rm-15014;F03;311" transform="translate(56957.5,-95331.61)">
+          <text>311</text>
+        </g>
+        <g id="l-rm-15014;F03;310" transform="translate(52842.5,-95331.61)">
+          <text>310</text>
+        </g>
+        <g id="l-rm-15014;F03;313" transform="translate(64842.5,-95331.61)">
+          <text>313</text>
+        </g>
+        <g id="l-rm-15014;F03;301内" transform="translate(10500,-95331.61)">
+          <text>301内</text>
+        </g>
+        <g id="l-rm-15014;F03;315" transform="translate(73200,-95331.61)">
+          <text>315</text>
+        </g>
+        <g id="l-rm-15014;F03;312" transform="translate(60900,-95331.61)">
+          <text>312</text>
+        </g>
+        <g id="l-rm-15014;F03;318-2" transform="translate(75000,-118431.61)">
+          <text>318-2</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

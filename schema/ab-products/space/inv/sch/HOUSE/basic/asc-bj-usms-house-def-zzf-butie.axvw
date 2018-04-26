@@ -1,0 +1,51 @@
+<view version="2.0">
+    <title translatable="true">Define Employee Butie</title>
+    <layout type="borderLayout" id="mainLayout">
+        <west split="true" initialSize="30%"/>
+        <center autoScroll="true"/>
+    </layout>
+    <dataSource id="sc_zzfbutie_dataSource">
+        <table name="sc_zzf_butie" role="main"/>
+        <field table="sc_zzf_butie" name="btbz"/>
+        <field table="sc_zzf_butie" name="btmc"/>
+        <field table="sc_zzf_butie" name="bz"/>
+    </dataSource>
+    <panel type="grid" id="butie_list" dataSource="sc_zzfbutie_dataSource" layout="mainLayout" region="west">
+        <sortField table="sc_zzf_butie" name="btbz"/>
+        <title translatable="true">Butie List</title>
+        <action id="addNew">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="butie_details" newRecord="true"/>
+        </action>
+        <action id="refresh">
+            <title>Refresh</title>
+            <command type="showPanel" panelId="butie_list"></command>
+        </action>
+        <event type="onClickItem">
+            <command type="showPanel" panelId="butie_details"/>
+        </event>
+        <field table="sc_zzf_butie" name="btbz"/>
+        <field table="sc_zzf_butie" name="btmc"/>
+    </panel>
+    <panel type="form" id="butie_details" dataSource="sc_zzfbutie_dataSource" layout="mainLayout" region="center">
+        <title translatable="true">Butie Details</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="room_stander_view" applyParentRestriction="false"/>
+        </action>
+        <action enabled="${!panel.newRecord}">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="butie_details" show="false"/>
+            <command type="showPanel" panelId="butie_list" applyParentRestriction="false"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="butie_details" show="false"/>
+        </action>
+        <field table="sc_zzf_butie" name="btbz"/>
+        <field table="sc_zzf_butie" name="btmc"/>
+        <field table="sc_zzf_butie" name="bz"/>
+    </panel>
+</view>

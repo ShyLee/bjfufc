@@ -1,0 +1,12 @@
+<view version="2.0">
+    <title translatable="true">Review Request</title>
+    
+    <tabs workflow="enforced" id="reviewRequestTabs" tabRefreshPolicy="refreshOnSelect">
+        <tab name="selectRequestTab" selected="true" file="asc-bj-usms-proc-checkin-review-req-select-tab.axvw">
+            <title translatable="true">Select Request</title>
+        </tab>
+        <tab name="requestDetailsTab" file="asc-bj-usms-proc-checkin-review-req-details-tab.axvw">
+            <title translatable="true">Request Details</title>
+        </tab>
+    </tabs>
+</view>

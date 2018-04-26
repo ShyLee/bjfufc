@@ -1,0 +1,95 @@
+<view version="2.0">
+    <title translatable="true">View Employees Inventory by per Floor</title>
+    
+    <layout id="main">
+        <west id="treePosition" initialSize="20%" split="true"/>
+        <center id="rptPosition"/>
+    </layout>
+    
+    <message name="noSite" translatable="true">No Site</message>
+	<message name="treeTitle" translatable="true">Xiao Qu : {0}</message>
+	<message name="rptPanelTitle" translatable="true">Jian Zhu Wu : {0}</message>
+    
+	<!-- dataSource for site tree -->
+    <dataSource id="ds_ab-sc-rpt-em-inv-by-fl_tree_site">
+        <table name="site" role="main"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="name"/>
+		<restriction type="sql" sql="EXISTS(SELECT 1 FROM bl where bl.site_id=site.site_id)"/>
+    </dataSource>
+	
+	<!-- dataSource for building tree -->
+    <dataSource id="ds_ab-sc-rpt-em-inv-by-fl_tree_bl">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+    </dataSource>
+	
+	<!-- dataSource for floor tree -->
+    <dataSource id="ds_ab-sc-rpt-em-inv-by-fl_tree_fl">
+        <table name="fl" role="main"/>
+        <field table="fl" name="fl_id"/>
+        <field table="fl" name="bl_id"/>
+    </dataSource>
+    
+	<!-- dataSource for room -->
+    <dataSource id="ds_ab-sc-rpt-em-inv-by-fl_grid_em">
+        <table name="em" role="main"/>
+		<table name="rm" role="standard"/>
+		
+        <field table="em" name="em_id"/>
+		<field table="em" name="name"/>
+		<field table="em" name="sex"/>
+		<field table="em" name="zhiw_id"/>
+		<field table="em" name="zhic_id"/>
+		<field table="em" name="phone"/>
+		<field table="em" name="email"/>
+		<field table="em" name="bl_id"/>
+		<field table="em" name="fl_id"/>
+		<field table="em" name="rm_id"/>
+		<field table="rm" name="area"/>
+		<field table="em" name="area_rm"/>
+		<field table="em" name="dv_id"/>
+    </dataSource>
+	
+	<!-- tree panel -->
+    <panel type="tree" id="abScRptEmInv_SiteTree" dataSource="ds_ab-sc-rpt-em-inv-by-fl_tree_site" layoutRegion="treePosition">
+        <title translatable="true">Xiao Qu</title>
+
+        <panel type="tree" id="abScRptEmInv_BlTree" dataSource="ds_ab-sc-rpt-em-inv-by-fl_tree_bl">
+        	<event type="onClickNode">
+                <command type="callFunction" functionName="onBlTreeClick"/>
+            </event>
+            <field table="bl" name="bl_id"/>
+        </panel>
+		<panel type="tree" id="abScRptEmInv_FlTree" dataSource="ds_ab-sc-rpt-em-inv-by-fl_tree_fl">
+            <event type="onClickNode">
+                <command type="callFunction" functionName="onFlTreeClick"/>
+            </event>
+        </panel>
+    </panel>
+    
+    <panel type="grid" id="abScRptEmInv_SumGrid" dataSource="ds_ab-sc-rpt-em-inv-by-fl_grid_em" showOnLoad="false" layoutRegion="rptPosition">
+        <title translatable="true">Jian Zhu Wu</title>
+        <sortField table="em" name="em_id" ascending="true"/>
+		<action id="exportXLS">
+            <title>XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScRptEmInv_SumGrid"/>
+        </action>
+        <!--field table="em" name="em_id"/-->
+		<field table="em" name="name"/>
+		<field table="em" name="sex"/>
+		<field table="em" name="zhiw_id"/>
+		<field table="em" name="zhic_id"/>
+		<field table="em" name="phone"/>
+		<field table="em" name="email"/>
+		<field table="em" name="bl_id"/>
+		<field table="em" name="fl_id"/>
+		<field table="em" name="rm_id"/>
+		<field table="rm" name="area"/>
+		<field table="em" name="area_rm"/>
+		<field table="em" name="dv_id"/>
+    </panel>
+    
+    <js file="asc-bj-usms-bl-em-list.js"/>
+</view>

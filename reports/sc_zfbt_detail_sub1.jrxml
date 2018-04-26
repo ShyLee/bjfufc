@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sc_zfbt_detail_sub1" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3b9ca5b7-5e42-43ba-a9e4-00ee4c8d05fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pyyyymm" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    sc_zfbt.em_id,
+    sc_zfbt.salary_num,
+    sc_zfbt.em_name,
+    to_char(sc_zfbt.date_come_school,'YYYY-MM-DD') date_come_school,
+    sc_zfbt.money,
+    sc_zfbt.date_pay_begin,
+    sc_zfbt.zhiw_name zw_name,
+    to_char(SC_VIEW_ZF_ZWZC_CURRENT.zw_get_date,'YYYY-MM-DD') zw_get_date,
+    sc_zfbt.zhic_name zc_name,
+    to_char(SC_VIEW_ZF_ZWZC_CURRENT.zc_get_date,'YYYY-MM-DD') zc_get_date,
+    nvl((select money_total from sc_zfbt_tz
+            where sc_zfbt_tz.em_id = sc_zfbt.em_id
+                and to_char(sc_zfbt_tz.pay_date,'yyyymm') = $P!{pyyyymm}),0) tz_pay,
+   case
+        when sc_zfbt.date_pay_begin = $P!{pyyyymm} then sc_zfbt.money_bf
+        when sc_zfbt.date_pay_begin != $P!{pyyyymm} then 0
+    end back_pay,
+    （sc_zfbt.money + nvl((select money_total from sc_zfbt_tz
+            where sc_zfbt_tz.em_id = sc_zfbt.em_id
+                and to_char(sc_zfbt_tz.pay_date,'yyyymm') = $P!{pyyyymm}),0)
+	+ (case
+      		 when sc_zfbt.date_pay_begin = $P!{pyyyymm} then sc_zfbt.money_bf
+       		 when sc_zfbt.date_pay_begin != $P!{pyyyymm} then 0
+    	    end
+	)）sf_pay
+from sc_zfbt left outer join SC_VIEW_ZF_ZWZC_CURRENT
+    on SC_VIEW_ZF_ZWZC_CURRENT.em_id = sc_zfbt.em_id
+where sc_zfbt.em_id in (select em_id from sc_zfbt_pause where $P!{pyyyymm}= to_char(date_tf,'yyyymm'))]]>
+	</queryString>
+	<field name="EM_ID" class="java.lang.String"/>
+	<field name="SALARY_NUM" class="java.lang.String"/>
+	<field name="EM_NAME" class="java.lang.String"/>
+	<field name="DATE_COME_SCHOOL" class="java.lang.String"/>
+	<field name="MONEY" class="java.math.BigDecimal"/>
+	<field name="DATE_PAY_BEGIN" class="java.lang.String"/>
+	<field name="ZW_NAME" class="java.lang.String"/>
+	<field name="ZW_GET_DATE" class="java.lang.String"/>
+	<field name="ZC_NAME" class="java.lang.String"/>
+	<field name="ZC_GET_DATE" class="java.lang.String"/>
+	<field name="TZ_PAY" class="java.math.BigDecimal"/>
+	<field name="BACK_PAY" class="java.math.BigDecimal"/>
+	<field name="SF_PAY" class="java.math.BigDecimal"/>
+	<variable name="index" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{index}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="241" y="-1" width="50" height="30" uuid="31f26580-7846-4d1b-b6f4-79a6eed3686d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZC_GET_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="191" y="-1" width="50" height="30" uuid="8a454b39-9479-4f54-9de9-b2092b7aa1ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZC_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="-1" width="25" height="30" uuid="e838c173-6be4-4cb9-a7da-44ea19097fb4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{index}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="25" y="-1" width="66" height="30" uuid="3d4cd894-c49c-4590-8152-7f84de8ae6c3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALARY_NUM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="341" y="-1" width="50" height="30" uuid="ce8ad4cb-c886-4217-aee2-c7e0b2dc4aa1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZW_GET_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="291" y="-1" width="50" height="30" uuid="27e07a8f-d273-4f57-8af2-96329a221815"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZW_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="91" y="-1" width="50" height="30" uuid="a929412c-d3f4-4dba-a0e8-b7b3ed79db32"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EM_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="141" y="-1" width="50" height="30" uuid="ed91d8c9-802e-4301-b0ff-98c4eddaeced"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE_COME_SCHOOL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="495" y="-1" width="60" height="30" uuid="ff00a988-37cd-4217-bb97-5e40b1693fea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SF_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="-1" width="40" height="30" uuid="b1975026-e142-4550-b719-a20b7c2418e8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TZ_PAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="391" y="-1" width="30" height="30" uuid="6a688cb0-d8f7-48ed-a311-ce9a6e66347c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MONEY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="-1" width="34" height="30" uuid="c213f6df-86a8-48f7-b1c7-4ccb68f73b8d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BACK_PAY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

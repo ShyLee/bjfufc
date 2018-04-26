@@ -1,0 +1,133 @@
+<view version="2.0">
+    <title translatable="true">Search Division dinge area</title>
+	
+    <layout type="borderLayout" id="mainLayout">
+        <north id="north" initialSize="12%" split="true"/>
+        <center id="center" />
+    </layout>
+    
+    	<dataSource id="dv_bu_ds">
+        <table name="dv" role="main"/>
+		<table name="bu" role="standard"/>
+        <field table="dv" name="bu_id"/>
+        <field table="dv" name="dv_id"/>
+        <field table="dv" name="name"/>
+		<field table="bu" name="bu_class"/>
+		<restriction type="sql" sql="bu.bu_class =${parameters['buClass']}"/>
+		<parameter name="buClass" dataType="text" value=""/>
+    </dataSource>
+    
+    <panel type="console" id="consolePanel" columns="3" dataSource="dv_bu_ds" layoutRegion="north">
+        <title translatable="true">Filter</title>
+        <action id="search">
+            <title translatable="true">Show</title>
+        </action>
+         <action id="clear">
+            <title translatable="true">clear</title>
+        </action>
+        <field>
+	        <title translatable="true">year</title>
+	        <html>
+	              <input type="text" id="year" name="year" size="15" />
+	        </html>
+        </field>
+		<field>
+			<title translatable="true">DanWeiLeiXing</title> 
+			<html>
+					<select name="dv.bu_id" id="dv.bu_id" onChange="resetBuClass(this.value);" cssClass="inputField_box">
+						<option value="null"  selected="true">
+                        	<span translatable="false"> </span>
+                    	</option>
+						<option value="JXKY"  selected="true">
+                        	<span translatable="true">JiaoXueKeYan</span>
+                    	</option>
+						<option value="DZGL">
+                        	<span translatable="true">DangZhengGuanLi</span>
+                    	</option>
+					</select>
+			</html>
+        </field>
+		<field>
+			<title translatable="true">ShiYongDanWei</title>  
+			<html>
+					<select name="dv.name" id="dv.name" cssClass="inputField_box">
+					</select>
+			</html>
+		</field>	
+        <field table="dv" name="dv_id" hidden="true"/>
+    </panel>
+    
+     <dataSource id="sc_ts_dv_dinge_ds">
+        <table name="sc_ts_dv_dinge" role="main"/>
+        <table name="dv" role="standard"/>
+        <field table="dv" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="area_bg"/>
+        <field table="sc_ts_dv_dinge" name="area_dazl"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge"/>
+        <field table="sc_ts_dv_dinge" name="area_dv"/>
+        <field table="sc_ts_dv_dinge" name="area_ja"/>
+        <field table="sc_ts_dv_dinge" name="area_oa"/>
+        <field table="sc_ts_dv_dinge" name="area_ta"/>
+        <field table="sc_ts_dv_dinge" name="area_teac"/>
+        <field table="sc_ts_dv_dinge" name="area_yjs"/>
+        <field table="sc_ts_dv_dinge" name="area_za"/>
+        <field table="sc_ts_dv_dinge" name="area_zdxk"/>
+        <field table="sc_ts_dv_dinge" name="comments"/>
+        <field table="sc_ts_dv_dinge" name="count_bs"/>
+        <field table="sc_ts_dv_dinge" name="count_cx"/>
+        <field table="sc_ts_dv_dinge" name="count_em_jb"/>
+        <field table="sc_ts_dv_dinge" name="count_fg"/>
+        <field table="sc_ts_dv_dinge" name="count_fl"/>
+        <field table="sc_ts_dv_dinge" name="count_fx"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+        <field table="sc_ts_dv_dinge" name="count_qz"/>
+        <field table="sc_ts_dv_dinge" name="count_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_xz"/>
+        <field table="sc_ts_dv_dinge" name="count_ys"/>
+        <field table="sc_ts_dv_dinge" name="count_zc"/>
+        <field table="sc_ts_dv_dinge" name="count_zd"/>
+        <field table="sc_ts_dv_dinge" name="count_zf"/>
+        <field table="sc_ts_dv_dinge" name="count_zg"/>
+        <field table="sc_ts_dv_dinge" name="count_zl"/>
+        <field table="sc_ts_dv_dinge" name="count_zx"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="formula_id"/>
+        <field table="sc_ts_dv_dinge" name="money_month"/>
+        <field table="sc_ts_dv_dinge" name="money_y"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+        <parameter name="buClass" dataType="text" value=""/>
+		<parameter name="dvId" dataType="verbatim" value="and 1=1"/>
+		<parameter name="year" dataType="verbatim" value="and 1=1"/>
+        <restriction type="sql" sql="dv.bu_id in (SELECT bu_id FROM bu WHERE bu_class=${parameters['buClass']}) ${parameters['dvId']} ${parameters['year']}"/>
+    </dataSource>
+    
+    <panel type="grid" id="gridPanel" showOnLoad="false" dataSource="sc_ts_dv_dinge_ds" layoutRegion="center">
+         <title></title>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="money_y"/>
+        <field table="sc_ts_dv_dinge" name="area_oa"/>
+        <field table="sc_ts_dv_dinge" name="area_dv"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+        <field table="sc_ts_dv_dinge" name="money_month"/>
+        <field table="sc_ts_dv_dinge" name="area_bg"/>
+        <field table="sc_ts_dv_dinge" name="area_dazl"/>
+        <field table="sc_ts_dv_dinge" name="area_ja"/>
+        <field table="sc_ts_dv_dinge" name="area_ta"/>
+        <field table="sc_ts_dv_dinge" name="area_teac"/>
+        <field table="sc_ts_dv_dinge" name="area_yjs"/>
+        <field table="sc_ts_dv_dinge" name="area_za"/>
+        <field table="sc_ts_dv_dinge" name="area_zdxk"/>
+        <field table="sc_ts_dv_dinge" name="count_em_jb"/>
+        <field table="sc_ts_dv_dinge" name="count_bs"/>
+        <field table="sc_ts_dv_dinge" name="count_ss"/>
+        <field table="sc_ts_dv_dinge" name="formula_id"/>
+    </panel>
+    
+    <js file="asc-bj-usms-dinge-all-parts-area-rpt.js"/>
+    <js file="asc-bj-usms-overall-common.js"/>
+  	<js file="asc-bj-usms-constant.js"/>
+</view>

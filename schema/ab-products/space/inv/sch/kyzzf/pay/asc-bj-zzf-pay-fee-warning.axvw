@@ -1,0 +1,91 @@
+<view version="2.0">
+	<title translatable="true">ZZF Pay Fee Warning</title>
+	
+	<layout type="borderLayout" id="mainLayout">
+        <north id="lengendSite" autoScroll="true" split="true"/>
+        <center id="listSite" autoScroll="true"/>
+        <south id="southSite" initialSize="0"/>
+    </layout>
+	
+	<dataSource id="zzfFeesDS">
+		 <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+		<field table='bh_zzf_fees' name='end_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+		<field table="bh_zzf_fees" name="color"/>
+		
+		<sortField table="bh_zzf_fees" name="should_fees_date" ascending="true" />
+		<restriction type="sql" sql="bh_zzf_fees.should_fees_money != bh_zzf_fees.practical_fees_money and bh_zzf_fees.protocal_id in( select protocal_id from bh_zzf_protocal where bh_zzf_protocal.is_active = '1')"></restriction>
+	</dataSource>
+	
+	<panel type="html" id="legendPanel" layoutRegion="lengendSite">
+		<title translatable="true">Legend</title>
+		<action id="checkAllFees">
+			<title translatable="true">Check All Fees</title>
+		</action>
+        <html>
+            <table width="1000" height="35" border="0">
+                <tr>
+                	<td width="100"></td>
+                	<td width="200" style="background-color:yellow"></td><td width="200"><a href="#"><span id="idd1" onclick="zzfPayFeeController.idd1Click()" style="font-size:12px"></span></a></td><td></td>
+                    <td width="200" style="background-color:red"></td><td width="200"><a href="#"><span id="idd2" onclick="zzfPayFeeController.idd2Click()" style="font-size:12px"></span></a></td><td></td>
+                    <td width="200" style="background-color:blue"></td><td width="200"><a href="#"><span id="idd3" onclick="zzfPayFeeController.idd3Click()" style="font-size:12px"></span></a></td><td></td>
+               </tr>
+            </table>
+        </html>
+	</panel>
+	<panel type="grid" id="zzfFeesPanel" dataSource="zzfFeesDS" layoutRegion="listSite" showCounts="true">
+		<title translatable="true">Payment Item</title>
+		
+		<field controlType="button" width="100" id="pay">
+            <title translatable="true">Pay</title>
+        </field>
+		
+		<field table="bh_zzf_fees" name="color" controlType="color"/>
+		<field table='bh_zzf_fees' name='fees_id' hidden="true"/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+		<field table='bh_zzf_fees' name='end_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+		
+	</panel>
+	<panel type="form" id="zzfFeesForm" dataSource="zzfFeesDS" columns = "2" showOnLoad="false" layoutRegion="southSite">
+		<title translatable="true">Payment Registe</title>
+		<action id="pay">
+			<title translatable="true">Pay</title>
+		</action>
+		<action id="return">
+			<title translatable="true">Return</title>
+		</action>
+		
+		<field table='bh_zzf_fees' name='fees_id' hidden="true"/>
+        <field table='bh_zzf_fees' name='should_fees_date' readOnly="true"/>
+        <field table='bh_zzf_fees' name='should_fees_money' readOnly="true"/>
+        <field table='bh_zzf_fees' name='practical_fees_date' required="true"/>
+        <field table='bh_zzf_fees' name='practical_fees_money' required="true"/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+	</panel>
+	
+	
+	 <js file="asc-bj-zzf-pay-fee-warning.js"/>
+</view>

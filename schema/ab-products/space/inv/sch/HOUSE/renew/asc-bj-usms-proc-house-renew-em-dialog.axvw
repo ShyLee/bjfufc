@@ -1,0 +1,129 @@
+<view version="2.0">
+    <js file="asc-bj-usms-proc-house-renew-em-dialog.js"/>
+    
+   <dataSource id="renewDataSource">
+        <table name="sc_zzf_renew" role="main"/>
+        <table name="sc_zzfcard" role="standard"/>
+        <field table="sc_zzf_renew" name="renew_id"/>
+        <field table="sc_zzf_renew" name="renew_name"/>
+        <field table="sc_zzf_renew" name="is_activity"/>
+        <field table="sc_zzf_renew" name="htqx"/>
+        <field table="sc_zzf_renew" name="date_begin"/>
+        <field table="sc_zzf_renew" name="date_end"/>
+        <field table="sc_zzf_renew" name="pay_begin"/>
+        <field table="sc_zzf_renew" name="pay_way"/>
+        <field table="sc_zzf_renew" name="rent_period"/>
+        <field table="sc_zzf_renew" name="money_one"/>
+		<field table="sc_zzf_renew" name="xq_other_rent"/>
+        <field table="sc_zzf_renew" name="doc1"/>
+        <field table="sc_zzf_renew" name="doc2"/>
+        <field table="sc_zzf_renew" name="doc_rz"/>
+        <field table="sc_zzf_renew" name="card_id"/>
+        <field table="sc_zzf_renew" name="date_renew"/>
+        <field table="sc_zzfcard" name="djfr"/>
+        <field table="sc_zzf_renew" name="rent_std"/>
+    </dataSource>
+
+    <panel type="form" columns="4" id="emRenewPanel" dataSource="renewDataSource" layoutRegion="renewSite" newRecord="true">
+        <title translatable="true">Renew information</title>
+        <action id="save">
+            <title translatable="true">save</title>
+        </action>
+        <action id="cancel">
+            <title translatable="true">cancel</title>
+        </action>
+        <field table="sc_zzf_renew" name="renew_id" hidden="true" required="false"/>
+        <field table="sc_zzf_renew" name="card_id" hidden="true"/>
+        <field table="sc_zzf_renew" name="renew_name" hidden="true"/>
+        <field table="sc_zzf_renew" name="is_activity" hidden="true"/>
+        <field table="sc_zzf_renew" name="date_renew" hidden="true"/>
+        
+        <field table="sc_zzf_renew" name="htqx" readOnly="true"/>
+        <field table="sc_zzf_renew" name="date_begin" readOnly="true"/>
+        <field table="sc_zzf_renew" name="date_end" readOnly="true"/>
+        <field table="sc_zzf_renew" name="pay_begin" readOnly="true"/>
+        <field table="sc_zzf_renew" name="pay_way" readOnly="false"  onchange="renewEmController.changePaymentTo()"/>
+        <field table="sc_zzf_renew" name="rent_period" readOnly="false"/>
+        <field table="sc_zzfcard" name="djfr" required="false" hidden="true"/>
+        <field table="sc_zzf_renew" name="date_one_begin" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="date_one_end" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="rent_std"/>
+		<field table="sc_zzf_renew" name="xq_other_rent"/>
+        <field table="sc_zzf_renew" name="rate_one" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="date_two_begin" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="date_two_end" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="money_two" hidden="true"/>
+        <field table="sc_zzf_renew" name="rate_two" readOnly="true" hidden="true"/>
+        <field table="sc_zzf_renew" name="doc1"/>
+        <field table="sc_zzf_renew" name="doc2"/>
+        <field table="sc_zzf_renew" name="doc_rz"/>
+    </panel>
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+		<field table="sc_zzfcard" name="area_lease"/>
+		<field table="sc_zzfcard" name="rent_std"/>
+		<field table="sc_zzfcard" name="date_payrent_last"/>
+		<field table="sc_zzfcard" name="payment_to"/>
+		<field table="sc_zzfcard" name="rent_period"/>
+    </dataSource>
+    
+    
+    <!-- 判断周转房类型数据源 -->
+    <dataSource id="rmDs">
+    	<table name="rm" role="main"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+		<field table="rm" name="rm_cat"/>
+    </dataSource>
+    
+    <!-- 类型周转房数据源 -->
+    <dataSource id="rmTypeDs">
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+		<field table="sc_zzfcard" name="rent_std"/>
+		<field table="sc_zzfcard" name='rm_id'/>
+		<field table="sc_zzfcard" name='fl_id'/>
+		<field table="sc_zzfcard" name='bl_id'/>
+		<restriction type="sql" sql="rm_id||'~'||fl_id||'~'||bl_id in (select rm_id||'~'||fl_id||'~'||bl_id from rm where rm_type='${parameters['rmtypeRes']}')"/>
+		<parameter name="rmtypeRes" dataType="verbatim" value=""/>
+    </dataSource>
+    
+    <dataSource id="monthDs">
+    	<sql dialect="generic">
+    		select trunc(sum(addMonth)/365) as addMonth,card_id
+				from 
+				(
+				select card_id,date_begin,date_end,date_end-date_begin as addMonth from sc_zzf_renew where card_id='${parameters['cardId']}'
+				)sc_zzf_renew group by card_id
+    	</sql>
+        <table name="sc_zzf_renew" role="main"/>
+        <field table="sc_zzf_renew" name="addMonth" dataType="text"/>
+        <field table="sc_zzf_renew" name="card_id"/>
+        <parameter name="cardId" dataType="verbatim" value=""/>
+    </dataSource>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

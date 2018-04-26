@@ -1,0 +1,180 @@
+<view version="2.0">
+<js file="asc-bj-usms-house-rpt-rent.js"/>
+<title translatable="true">Rent Query Statistics</title>
+            <layout
+                    type="borderLayout"
+                    id="mainLayout">
+                    <north
+                        id="FilterBox"
+                        autoScroll="true"
+                        split="true"
+                        minSize="50"/>
+                    <center autoScroll="true"/>
+                </layout>
+            
+                <layout
+                    type="borderLayout"
+                    id="projectLayout"
+                    containingLayout="mainLayout"
+                    region="center">
+                    <north
+                        id="FirstFilter" 
+                        autoScroll="true"
+                        split="true"
+                        initialSize="250"
+                        minSize="200"/>
+                    <center id="PayRentRecords" autoScroll="true"/>
+                </layout>
+    
+    <dataSource id="sc_zzfcard_dataSource">
+       <table name="sc_zzfcard" role="main" />
+       <table name="bl" role="standard" />
+       <table name="rm" role="standard" />
+       <field table="sc_zzfcard" name="card_id"/>
+       <field table="sc_zzfcard" name="em_name"/>
+       <field table="sc_zzfcard" name="identi_code"/>
+       <field table="sc_zzfcard" name="em_id"/>
+       <field table="sc_zzfcard" name="sex"/>
+       
+       <field table="bl" name="name"/>
+       <field table="rm" name="fl_id"/>
+       <field table="rm" name="rm_id"/>
+       <field table="rm" name="name"/>
+       <field table="sc_zzfcard" name="area_lease"/>
+       <field table="sc_zzfcard" name="curr_addr"/>
+       <field table="sc_zzfcard" name="rent_situ"/>
+       <field table="sc_zzfcard" name="date_payoff"/>
+       <field table="sc_zzfcard" name="curr_rent_rate"/>
+       <field table="sc_zzfcard" name="date_checkin"/>
+       <field table="sc_zzfcard" name="date_checkout_ought"/>
+       <field table="sc_zzfcard" name="rent_period"/>
+       <field table="sc_zzfcard" name="payment_to"/>
+       <field table="sc_zzfcard" name="cash_deposit"/>
+       <field table="sc_zzfcard" name="card_status"/>
+       <restriction type="sql" sql="sc_zzfcard.bl_id = bl.bl_id"/>
+       <restriction type="sql" sql="sc_zzfcard.fl_id = rm.fl_id"/>
+       <restriction type="sql" sql="sc_zzfcard.rm_id = rm.rm_id"/>
+       <restriction type="sql" sql=" card_status='1'"/>
+    </dataSource>
+    
+    <dataSource id="sc_zzfrent_details_dataSource">
+       <table name="sc_zzfrent_details"/>
+       <field table="sc_zzfrent_details" name="card_id"/>
+       <field table="sc_zzfrent_details" name="em_id"/>
+       <field table="sc_zzfrent_details" name="em_name"/>
+       
+       <field table="sc_zzfrent_details" name="year"/> 
+       <field table="sc_zzfrent_details" name="month"/> 
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="operator"/>
+    </dataSource>
+    
+    <!-- 过滤条件面板 -->
+    <panel id="sc_zzfcard_Form" type="console"  dataSource="sc_zzfcard_dataSource" columns="4" layoutRegion="FilterBox">
+     <title translatable="true">find User</title>
+     <!-- 按照条件查询 -->
+     <action id="show">
+       <title translatable="true">show</title>
+     </action>
+     <!-- 清除过滤条件 -->
+     <action id="clear">
+       <title translatable="true">clear</title>
+       <command type="clearPanel" panelId="sc_zzfcard_Form"/>
+       <command type="clearPanel" panelId="sc_zzfcard_Grid"/>
+     </action>
+       <field table="sc_zzfcard" name="em_name"/>
+       <field table="sc_zzfcard" name="identi_code"/>
+       <field table="sc_zzfcard" name="em_id"/>
+       <field table="sc_zzfcard" name="payment_to"/>
+    </panel>
+    
+    <!-- 第一层过滤后结果 -->
+    <panel type="grid" id="sc_zzfcard_Grid" dataSource="sc_zzfcard_dataSource" showCounts="true"  showOnLoad="false" layoutRegion="FirstFilter">
+    <title translatable="true">User Information</title>
+       <field table="sc_zzfcard" name="em_name" controlType="link" >
+         <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       </field>
+       
+       <field table="sc_zzfcard" name="identi_code" controlType="link">
+         <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       </field>
+       <field table="sc_zzfcard" name="em_id" controlType="link">
+          <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       </field>
+       <field table="sc_zzfcard" name="sex" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="bl" name="name" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="rm" name="fl_id" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="rm" name="rm_id" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="rm" name="name" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="sc_zzfcard" name="curr_addr" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="sc_zzfcard" name="area_lease" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="sc_zzfcard" name="curr_rent_rate" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="sc_zzfcard" name="date_checkin" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       	</field>
+       <field table="sc_zzfcard" name="date_checkout_ought" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       </field>
+       <field table="sc_zzfcard" name="payment_to" controlType="link">
+       	 <command type="callFunction"
+                functionName="caDefEqController.onClickShowDetail()" />
+       </field>
+       <field table="sc_zzfcard" name="rent_period"/>
+       <field table="sc_zzfcard" name="cash_deposit"/>
+     
+    </panel>
+    <!-- 房屋使用人得具体缴费记录 -->
+    <!-- sc_zzfrent_details_Grid_Finance 财务处代扣 -->
+    <panel id="sc_zzfrent_details_Grid_Finance" type="grid"  dataSource="sc_zzfrent_details_dataSource" showCounts="true" showOnLoad="false" layoutRegion="PayRentRecords">
+     <title translatable="true">Rent Information</title>
+       <field table="sc_zzfrent_details" name="year"/> 
+       <field table="sc_zzfrent_details" name="month"/> 
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       
+    </panel>
+     <!-- sc_zzfrent_details_Grid_House 国资处自缴   按照季度缴费 操作人-->
+   <panel id="sc_zzfrent_details_Grid_House" type="grid"  dataSource="sc_zzfrent_details_dataSource" showCounts="true" showOnLoad="false" layoutRegion="PayRentRecords">
+      <title translatable="true" cssClass="titleStyle">Rent Information House</title>
+       <field table="sc_zzfrent_details" name="year"/> 
+       <field table="sc_zzfrent_details" name="month"/> 
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="operator"/>
+    </panel>
+</view>

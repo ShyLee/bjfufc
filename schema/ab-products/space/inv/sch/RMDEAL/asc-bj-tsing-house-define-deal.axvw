@@ -1,0 +1,379 @@
+<view version="2.0">
+    <title translatable="true">sheng cheng yong fang xie yi</title>
+     <layout id="main" type="borderLayout">
+        <north  id="searchNorth" split="true" initialSize="10%"></north>
+        <center/>
+    </layout>
+     <layout id="centerLayout"  containingLayout="main" region="center"  type="borderLayout">
+        <north  id="searchWest" split="true" initialSize="15%"></north>
+         <center  id="xieyiNorth"/>
+    </layout>
+    
+    <dataSource id="ts_dealDS">
+		<table name="ts_deal" role="main" />
+		<field table="ts_deal" name="deal_id" />
+		<field table="ts_deal" name="deal_name" />
+		<field table="ts_deal" name="deal_state" />
+		<field table="ts_deal" name="rq_rm_type" />
+		<field table="ts_deal" name="request_person_id" />
+		<field table="ts_deal" name="request_person_name" />
+		<field table="ts_deal" name="dv_id" />
+		<field table="ts_deal" name="request_person_phone" />
+		<field table="ts_deal" name="request_time" />
+		<field table="ts_deal" name="sure_em_id" />
+		<field table="ts_deal" name="sure_em_name" />
+		<field table="ts_deal" name="sure_time" />
+		<field table="ts_deal" name="subject_id" />
+		<field table="ts_deal" name="subject_name" />
+		<field table="ts_deal" name="wuye_price" />
+		<field table="ts_deal" name="rent_price" />
+		<field table="ts_deal" name="total_rent_area" />
+		<field table="ts_deal" name="total_cost" />
+		<field table="ts_deal" name="other_cost" />
+		<field table="ts_deal" name="duration_time" />
+		<field table="ts_deal" name="start_time" />
+		<field table="ts_deal" name="due_time" />
+		<field table="ts_deal" name="comments" />
+		<field table="ts_deal" name="cash_cost" />
+		<field table="ts_deal" name="cash_bill_num" />
+		<field table="ts_deal" name="charge_time" />
+		<field table="ts_deal" name="close_time" />
+		<field table="ts_deal" name="dv_comments" />
+		<field table="ts_deal" name="effect_time" />
+		<field table="ts_deal" name="handing_dv" />
+		<field table="ts_deal" name="handing_em_id" />
+		<field table="ts_deal" name="handing_em_name" />
+		<field table="ts_deal" name="doc1" />
+		<field table="ts_deal" name="doc2" />
+		<field table="ts_deal" name="pub_time" />
+		<field table="ts_deal" name="ts_index" />
+		<field table="ts_deal" name="pay_num" />
+		<field table="ts_deal" name="sure_em_id" />
+		<field table="ts_deal" name="sure_em_name" />
+		<field table="ts_deal" name="sure_time" />
+		<field table="ts_deal" name="start_time" />
+		<field table="ts_deal" name="cash_bill_num" />
+		<field table="ts_deal" name="cash_cost" />
+    </dataSource>
+    
+    <dataSource id="roomDS">
+      <table name="ts_deal_rm" role="main"/>
+      <field name="deal_rm_id" table="ts_deal_rm"/>
+      <field name="deal_id" table="ts_deal_rm"/>
+      <field name="bl_id" table="ts_deal_rm"/>
+      <field name="bl_name" table="ts_deal_rm"/>
+      <field name="fl_id" table="ts_deal_rm"/>
+      <field name="rm_area" table="ts_deal_rm"/>
+      <field name="charge_area" table="ts_deal_rm"/>      
+      <field name="site_id" table="ts_deal_rm"/>
+      <field name="pr_id" table="ts_deal_rm"/>
+      <field name="rm_id" table="ts_deal_rm"/>
+      <field name="begin_status" table="ts_deal_rm"/>   
+    </dataSource>  
+    
+    <dataSource id="emDS">
+      <table name="em" role="main"/>
+      <field name="em_id" table="em"/>
+      <field name="name" table="em"/>
+      <field name="phone" table="em"/>
+      <field name="dv_id" table="em"/>
+    </dataSource>
+    <dataSource id="rmDS">
+     <table name="rm" role="main"/>
+     <field name="bl_id" table="rm"/>
+     <field name="fl_id" table="rm"/>
+     <field name="rm_id" table="rm"/>
+     <field name="ruzhu_status" table="rm"/>
+     <field name="area" table="rm"/>
+     <field name="area_chargable" table="rm"/>
+     <field name="deal_id" table="rm"/>
+    </dataSource>
+    
+    <dataSource id="blDS">
+      <table name="bl" role="main"/>
+      <field name="bl_id" table="bl"/>
+      <field name="name" table="bl"/>
+      <field name="site_id" table="bl"/>
+      <field name="pr_id" table="bl"/>
+    </dataSource>
+    
+    <dataSource id="subjectDS">
+      <table name="ts_subject" role="main"/>
+      <field name="dv_id" table="ts_subject"/>
+      <field name="subject_name" table="ts_subject"/>
+      <field name="subject_id" table="ts_subject"/>
+    </dataSource>
+    
+    <panel id="searchConsole" type="console" columns="4" dataSource="ts_dealDS" layoutRegion="searchNorth">
+    <title translatable="true">search</title>   
+    <action id="new">
+      		<title translatable="true">new</title>
+   	  </action>
+    <action id="show">
+      <title translatable="true">show</title>
+    </action>
+    <action id="clear">
+      <title translatable="true">clear</title>
+      <command type="clearPanel" panelId="searchConsole"/>
+    </action>
+       <field name="rq_rm_type"  table="ts_deal" />
+       <field name="deal_state"  table="ts_deal" />
+       <field name="request_time"  table="ts_deal" alias="ts_deal.start">
+         <title translatable="true">start</title>
+       </field>
+        <field name="request_time"  table="ts_deal" alias="ts_deal.end" >
+         <title translatable="true">end</title>
+       </field>
+    </panel>
+    
+    <panel id="recordGrid" type="grid" dataSource="ts_dealDS" layoutRegion="searchWest"  showOnLoad="true">
+      <title translatable="true">yong fang xie yi lie biao</title>
+<!--        <action id="new"> -->
+<!--       		<title translatable="true">new</title> -->
+<!--    	  </action> -->
+      <field name="deal_id"  table="ts_deal" controlType="link">
+            <command type="callFunction"     functionName="ascDefineDealController.onClickGrid(false)"/>
+        </field>
+        <field name="rq_rm_type"  table="ts_deal" controlType="link">
+        <command type="callFunction"     functionName="ascDefineDealController.onClickGrid(false)"/>
+        </field>
+      <field name="dv_id"  table="ts_deal" controlType="link">
+            <command type="callFunction"     functionName="ascDefineDealController.onClickGrid(false)"/>
+        </field>
+      <field name="deal_state"  table="ts_deal"  controlType="link">
+            <command type="callFunction"     functionName="ascDefineDealController.onClickGrid(false)"/>
+        </field>
+        <field table="ts_deal" name="request_time"  controlType="link">
+        <command type="callFunction"     functionName="ascDefineDealController.onClickGrid(false)"/>
+        </field>
+        <sortField  name="request_time"  table="ts_deal"  ascending="false"/>
+       </panel>
+    
+    <panel id="dealForm" type="form" columns="3" dataSource="ts_dealDS"  showOnLoad="false" layoutRegion="xieyiNorth">
+     <title translatable="true">ji ben xin xi</title>
+     <action id="save">
+       <title translatable="true">save</title>
+     </action>
+     <action id="publish">
+       <title translatable="true">publish</title>
+     </action>
+        <action id="paySheet">
+            <title translatable="true">PaySheet</title>
+        </action>
+        <action id="effective">
+            <title translatable="true">EffectiveAndArchive</title>
+        </action>
+        <action id="delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+             <command type="showPanel" panelId="formDocPanel" show="false"/>
+             <command type="showPanel" panelId="dealForm" show="false"/>
+             <command type="showPanel" panelId="roomGrid" show="false"/>
+            <command type="showPanel" panelId="recordGrid" applyParentRestriction="false"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="dealForm" show="false"/>
+            <command type="showPanel" panelId="formDocPanel" show="false"/>
+             <command type="showPanel" panelId="roomGrid" show="false"/>
+        </action>
+      <field name="deal_id"  table="ts_deal"/>
+      <field name="deal_name"  table="ts_deal"  required="true"/>
+      <field name="deal_state"  table="ts_deal" readOnly="true"/>
+      <field name="rq_rm_type"  table="ts_deal"/>
+      <field name="request_person_id"  table="ts_deal" required="true">
+         <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	    fieldNames="ts_deal.request_person_id,ts_deal.request_person_name,ts_deal.request_person_phone,ts_deal.dv_id"
+					selectFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					actionListener="autoGetSubject"
+					showIndex="true"/>
+	    	</action>
+        
+      </field>
+      <field name="request_person_name"  table="ts_deal" required="true">
+       <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	    fieldNames="ts_deal.request_person_id,ts_deal.request_person_name,ts_deal.request_person_phone,ts_deal.dv_id"
+					selectFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					actionListener="autoGetSubject"
+					showIndex="true"/>
+	    	</action>
+      </field>
+      <field name="request_person_phone"  table="ts_deal" >
+       <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	    fieldNames="ts_deal.request_person_id,ts_deal.request_person_name,ts_deal.request_person_phone,ts_deal.dv_id"
+					selectFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					actionListener="autoGetSubject"
+					showIndex="true"/>
+	    	</action>
+      </field>
+      <field name="dv_id"  table="ts_deal" required="true">
+       <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	    fieldNames="ts_deal.request_person_id,ts_deal.request_person_name,ts_deal.request_person_phone,ts_deal.dv_id"
+					selectFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id" 
+					actionListener="autoGetSubject"
+					showIndex="true"/>
+	    	</action>
+      </field>
+      <field name="request_time"  table="ts_deal"/>
+      <field name="subject_id"  table="ts_deal" hidden="true"/>
+      <field name="wuye_price"  table="ts_deal" required="true" />
+      <field name="rent_price"  table="ts_deal" required="true" onchange="changeAreaAndCost()"/>
+	  <field table="ts_deal" name="cash_bill_num" />
+	  <field table="ts_deal" name="cash_cost" required="true"/>
+      <field name="total_rent_area"  table="ts_deal" readOnly="true"/>
+      <field name="total_cost"  table="ts_deal" readOnly="true"/>
+      <field name="duration_time"  table="ts_deal" required="true"/>
+	  <field  name="start_time"  table="ts_deal" required="true"/>
+      <field name="due_time"  table="ts_deal" required="true"/>
+      <field name="comments"  table="ts_deal" colspan="2" />   
+       <field name="subject_name"  table="ts_deal" readOnly="true"/>
+      <field name="handing_em_id"  table="ts_deal" readOnly="true"/>
+      <field name="handing_em_name"  table="ts_deal" readOnly="true"/>
+      <field name="handing_dv"  table="ts_deal" readOnly="true"/>
+	  <field table="ts_deal" name="sure_em_id" readOnly="true"/>
+	  <field table="ts_deal" name="sure_em_name" readOnly="true"/>
+	  <field table="ts_deal" name="sure_time" readOnly="true"/>
+	  <field  name="pay_num"  table="ts_deal" readOnly="true"/> 
+    </panel>
+    
+    <panel id="formDocPanel" type="form" columns="2" dataSource="ts_dealDS" layoutRegion="xieyiNorth"  showOnLoad="false">
+    <title translatable="true">tian jia fu jian</title>
+   
+      <field name="deal_id"  table="ts_deal" hidden="true"/>
+      <field name="doc1"  table="ts_deal"/>
+      <field name="doc2"  table="ts_deal"/>  
+    </panel>
+    
+    <panel id="roomGrid" type="grid" dataSource="roomDS"  layoutRegion="xieyiNorth" showOnLoad="false">
+     <title translatable="true">shen qing fang jian lie biao</title>
+     <action id="insert">
+       <title translatable="true">insert</title>
+     </action>
+     
+      <field controlType="button" id="delete">
+            <title translatable="true">delete</title>
+      </field>
+      <field controlType="button" id="edit">
+            <title translatable="true">edit</title>
+      </field>
+      <field name="deal_rm_id" table="ts_deal_rm" hidden="true"/>
+      <field name="site_id" table="ts_deal_rm"/>
+      <field name="pr_id" table="ts_deal_rm"/>
+      <field name="bl_id" table="ts_deal_rm" hidden="true" />
+      <field name="bl_name" table="ts_deal_rm"/>
+      <field name="fl_id" table="ts_deal_rm"/>
+      <field name="rm_id" table="ts_deal_rm"/> 
+      <field name="deal_rm_id" table="ts_deal_rm" hidden="true"/>
+      <field name="deal_id" table="ts_deal_rm" hidden="true"/>
+      <field name="rm_area" table="ts_deal_rm"/>
+      <field name="charge_area" table="ts_deal_rm"/>      
+    </panel>
+    
+    <panel id="roomWindow" type="form" columns="2" dataSource="roomDS" showOnLoad="false">
+      <title translatable="true">tian jia fang jian</title>
+      <action id="saveroom">
+       		<title translatable="true">sure</title>
+      </action>
+      <action id="cancel">
+	       <title translatable="true">cancel</title>
+      </action>
+    <action id="clear">
+      <title translatable="true">clear</title>
+      <command type="clearPanel" panelId="roomWindow"/>
+    </action>
+      <field name="deal_id" table="ts_deal_rm" hidden="true"/>
+      <field name="site_id" table="ts_deal_rm" required="true">
+         <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id"
+					selectFieldNames="site.site_id" 
+					visibleFieldNames="site.site_id,site.name" 
+					showIndex="true"/>
+	    </action>
+      </field>
+      <field name="pr_id" table="ts_deal_rm" required="true">
+        <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id,ts_deal_rm.pr_id"
+					selectFieldNames="property.site_id,property.pr_id" 
+					visibleFieldNames="property.site_id,property.pr_id" 
+					showIndex="true"/>
+	    </action>
+      </field>
+      <field name="bl_id" table="ts_deal_rm" required="true">
+      		<action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id,ts_deal_rm.pr_id,ts_deal_rm.bl_id,ts_deal_rm.bl_name"
+					selectFieldNames="bl.site_id,bl.pr_id,bl.bl_id,bl.name" 
+					visibleFieldNames="bl.site_id,bl.pr_id,bl.bl_id,bl.name" 
+					showIndex="true"/>
+	       </action>
+      </field>
+      <field name="bl_name" table="ts_deal_rm" required="true">
+      <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id,ts_deal_rm.pr_id,ts_deal_rm.bl_id,ts_deal_rm.bl_name"
+					selectFieldNames="bl.site_id,bl.pr_id,rm.bl_id,bl.name" 
+					visibleFieldNames="bl.site_id,bl.pr_id,rm.bl_id,bl.name" 
+					showIndex="true"/>
+	    </action>
+      </field>
+      <field name="fl_id" table="ts_deal_rm" required="true">
+      <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id,ts_deal_rm.pr_id,ts_deal_rm.bl_id,ts_deal_rm.bl_name,ts_deal_rm.fl_id"
+					selectFieldNames="bl.site_id,bl.pr_id,bl.bl_id,bl.name,fl.fl_id" 
+					visibleFieldNames="bl.site_id,bl.pr_id,bl.bl_id,bl.name,fl.fl_id" 
+					showIndex="true"/>
+	    </action>
+      </field>
+      <field name="rm_id" table="ts_deal_rm" required="true">
+         <action>
+	        	<title>...</title>
+	        	<tooltip>Select Value</tooltip>
+	        	<command type="selectValue" 
+	        	     fieldNames="ts_deal_rm.site_id,ts_deal_rm.pr_id,ts_deal_rm.bl_id,ts_deal_rm.bl_name,ts_deal_rm.fl_id,ts_deal_rm.rm_id,ts_deal_rm.rm_area,ts_deal_rm.begin_status"
+					selectFieldNames="bl.site_id,bl.pr_id,rm.bl_id,bl.name,rm.fl_id,rm.rm_id,rm.area,rm.ruzhu_status" 
+					visibleFieldNames="bl.site_id,bl.pr_id,rm.bl_id,bl.name,rm.fl_id,rm.rm_id,rm.area,rm.ruzhu_status" 
+					restriction="rm.ruzhu_status='0' or rm.ruzhu_status='1'"
+					actionListener="autoGetChangeArea"
+					showIndex="true"/>
+	      </action>
+      </field> 
+      <field name="begin_status" table="ts_deal_rm" hidden="true"/>
+      <field name="deal_rm_id" table="ts_deal_rm" hidden="true"/>
+      
+      <field name="rm_area" table="ts_deal_rm" readOnly="true"/>
+      <field name="charge_area" table="ts_deal_rm"  required="true"/>  
+    </panel>
+   
+   <js file="asc-bj-tsing-house-define-deal.js"/>
+<!--    <js file="asc-bj-swu-bt-common.js"/> -->
+   <js file="asc-bj-usms-overall-common.js" />
+</view>

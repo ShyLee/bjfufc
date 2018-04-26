@@ -1,0 +1,262 @@
+<view version="2.0">
+    
+    <layout id="main">
+        <north id="blPosition" initialSize="50%" split="true"/>
+        <center id="rmPosition" initialSize="50%"/>
+    </layout>
+    
+    <!-- datasource for bl -->
+    <dataSource id="ds_asc-bj-usms-overall-bl-rm_grid_bl">
+        <table name="bl" role="main"/>
+        <table name="site" role="standard"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="bl" name="site_id"/>
+        <field table="site" name="name"/>
+        <field table="bl" name="pr_id"/>
+        <field table="bl" name="land_code"/>
+        <field table="bl" name="area_building_manual"/>
+        <field table="bl" name="area_jianzhu_yuan"/>
+        <field table="bl" name="area_rm"/>
+        <field table="bl" name="area_bl_comn_gp"/>
+        <field table="bl" name="gongtanlv" dataType="number" decimals="4">
+            <sql dialect="generic">
+                  round(bl.gongtanlv,4) 
+            </sql>
+        </field>
+		<field table="bl" name="share_serv_rate" dataType="number" decimals="4">
+            <sql dialect="generic">
+                  round(bl.gongtanlv,4) 
+            </sql>
+        </field>
+        <field table="bl" name="use_status"/>
+        <field table="bl" name="use1"/>
+        <field table="bl" name="old_bl_name"/>
+        <field table="bl" name="construction_type"/>
+        <field table="bl" name="height"/>
+		<field table="bl" name="date_use"/>
+        <field table="bl" name="quake_grade"/>
+        <field table="bl" name="count_upground"/>
+        <field table="bl" name="count_underground"/>
+        <field table="bl" name="asset_num"/>
+        <field table="bl" name="asset_name"/>
+        <field table="bl" name="atype_name"/>
+        <field table="bl" name="bl_use_type"/>
+        <field table="bl" name="area_upground"/>
+        <field table="bl" name="area_underground"/>
+        <field table="bl" name="acc_type"/>
+        <field table="bl" name="date_use"/>
+        <field table="bl" name="srcid"/>
+        <field table="bl" name="date_acquire"/>
+        <field table="bl" name="cgzzxs_id"/>
+        <field table="bl" name="ownship_shape"/>
+        <field table="bl" name="quansxz"/>
+        <field table="bl" name="quanszh"/>
+        <field table="bl" name="quanszm"/>
+        <field table="bl" name="date_faz"/>
+        <field table="bl" name="address1"/>
+        <field table="bl" name="guzhuwu_unit"/>
+        <field table="bl" name="mesure_unit"/>
+        <field table="bl" name="account_proof"/>
+        <field table="bl" name="value_fiscal_alloc"/>
+        <field table="bl" name="value_income"/>
+        <field table="bl" name="ysw_income"/>
+        <field table="bl" name="other_funds"/>
+        <field table="bl" name="other_surplus_funds"/>
+        <field table="bl" name="build_company"/>
+        <field table="bl" name="plan_number"/>
+        <field table="bl" name="project_reply_docno"/>
+        <field table="bl" name="construction_permit"/>
+        <field table="bl" name="project_code"/>
+        <field table="bl" name="project_super_org"/>
+        <field table="bl" name="design_org"/>
+        <field table="bl" name="designer"/>
+        <field table="bl" name="supervis_org"/>
+        <field table="bl" name="supervisor"/>
+        <field table="bl" name="build_org"/>
+        <field table="bl" name="qa_period"/>
+        <field table="bl" name="date_begin"/>
+        <field table="bl" name="date_examine"/>
+        <field table="bl" name="date_building_end"/>
+        <field table="bl" name="date_dv_use"/>
+        <field table="bl" name="date_last_daxiu"/>
+        <field table="bl" name="years_plan_use"/>
+        <field table="bl" name="value_type"/>
+        <field table="bl" name="fund_src"/>
+        <field table="bl" name="value_book"/>
+        <field table="bl" name="value_original"/>
+        <field table="bl" name="value_net"/>
+        <field table="bl" name="avg_price"/>
+        <field table="bl" name="area_ziyong"/>
+        <field table="bl" name="value_ziyong"/>
+        <field table="bl" name="area_rent"/>
+        <field table="bl" name="value_rent"/>
+        <field table="bl" name="area_lend"/>
+        <field table="bl" name="value_lend"/>
+        <field table="bl" name="area_invest"/>
+        <field table="bl" name="value_invest"/>
+        <field table="bl" name="area_danbao"/>
+        <field table="bl" name="value_danbao"/>
+        <field table="bl" name="area_other"/>
+        <field table="bl" name="value_other"/>
+        <field table="bl" name="lend_df_dp"/>
+        <field table="bl" name="rent_df_dp"/>
+        <field table="bl" name="zhejiu_status"/>
+        <field table="bl" name="deprec_method"/>
+        <field table="bl" name="deprec_months"/>
+        <field table="bl" name="remain_rate"/>
+        <field table="bl" name="depre_reserves"/>
+        <field table="bl" name="prate"/>
+        <field table="bl" name="state_desc"/>
+        <restriction type="sql" sql="bl.acc_type!='yxz' and bl.site_id is not null"/>
+    </dataSource>
+    
+    <!-- dataSource for rm -->
+    <dataSource id="ds_asc-bj-usms-overall-bl-rm_grid_rm">
+        <table name="rm" role="main"/>
+        <table name="bl" role="standard"/>
+        <table name="rmuse" role="standard"/>
+        <table name="rmcat" role="standard"/>
+        <table name="rmtype" role="standard"/>
+        <table name="dv" role="standard"/>
+        <table name="dp" role="standard"/>
+        <field table="rm" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="name"/>
+        <field table="rm" name="rm_use"/>
+        <field table="rmuse" name="rmuse_name"/>
+        <field table="rm" name="rm_cat"/>
+        <field table="rmcat" name="rmcat_name"/>
+        <field table="rm" name="rm_type"/>
+        <field table="rmtype" name="rmtype_name"/>
+        <field table="rm" name="area"/>
+        <field table="rm" name="area_manual"/>
+        <field table="rm" name="dv_id"/>
+        <field table="dv" name="dv_name"/>
+        <field table="rm" name="dp_id"/>
+        <field table="dp" name="dp_name"/>
+        <field table="rm" name="rm_std"/>
+        <field table="rm" name="cap_em"/>
+        <field table="rm" name="count_design"/>
+        <field table="rm" name="count_em"/>
+        <field table="rm" name="phone"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="rm" name="tfyq"/>
+        <field table="rm" name="wdyq"/>
+        <field table="rm" name="dyyq"/>
+        <field table="rm" name="xfyq"/>
+        <field table="rm" name="sdswyq"/>
+        <field table="rm" name="wsyq"/>
+        <field table="rm" name="notes"/>
+    </dataSource>
+    
+    <panel type="console" id="locationFilter" dataSource="ds_asc-bj-usms-overall-bl-rm_grid_bl" layoutRegion="blPosition" columns="3">
+        <title>Locations</title>
+        
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="use1"/>
+        <!-- Action buttons on the right (using CSS class). First action button is right-most. -->
+        <action id="filterLocations" mainAction="true">
+            <title>Filter</title>
+        </action>
+        <action id="clearLocations">
+            <title>Clear</title>
+        </action>
+        <action id="moreOptions">
+            <title>More</title>
+        </action>
+    </panel>
+    <panel type="console" id="locationFilterOptions" dataSource="ds_asc-bj-usms-overall-bl-rm_grid_bl" showOnLoad="false" collapsed="true" layoutRegion="blPosition">
+        <fieldset layout="fluid">
+            <field>
+                <html>
+                    <div style="float: left; margin-left: 20px;">
+                        <div class="checkbox-container">
+                            <span translatable="true">Other options:</span>
+                        </div>
+                        <div style="float: left;">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="occupancyWithJianzhuArea"/>
+                                <span translatable="true" style="margin-left: 3px">With Jianzhu Area</span>
+                            </div>
+                            <div class="checkbox-container" style="margin-left: 24px">
+                                <input id="jianzhuArea" name="jianzhuArea" style="width: 100px;" ></input>
+								~
+								<input id="jianzhuArea2" name="jianzhuArea2" style="width: 100px;" ></input>
+                            </div>
+                        </div>
+                        <div style="float: left; margin-left: 150px; margin-right: 150px;">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="occupancyWithShiyongArea"/>
+                                <span translatable="true">With ShiYong Area</span>
+                            </div>
+                            <div class="checkbox-container" style="margin-left: 24px">
+                                <input id="shiyongArea" name="shiyongArea" style="width: 100px;"></input>
+                                ~
+                                <input id="shiyongArea2" name="shiyongArea2" style="width: 100px;" ></input>
+                            </div>
+                        </div>
+						<div style="float: left;">
+							<div class="checkbox-container">
+								<input type="checkbox" id="occupancyWithRuzhangTime"/>
+								<span translatable="true">With Ruzhang Time</span>
+							</div>
+							<div>
+                                <input id="ruzhangTime" name="ruzhangTime" style="width: 100px;" ></input>
+								~
+                                <input id="ruzhangTime2" name="ruzhangTime2" style="width: 100px;" ></input>
+							</div>
+						</div>
+                    </div>
+                </html>
+            </field>
+        </fieldset>
+    </panel>
+    
+    <!-- bl data -->
+    <panel type="grid" id="ascBjUsmsOverallBlRm_blGrid" dataSource="ds_asc-bj-usms-overall-bl-rm_grid_bl" showCounts="true" layoutRegion="blPosition">
+        <title translatable="true">XueXiao SuoYou JianZhuWu</title>
+		<action type="menu" imageName="/schema/ab-core/graphics/icons/view/gear.png">
+	        <action id="selectFields">
+	            <title translatable="true">select fields</title>
+	            <command type="selectFields" panelId="ascBjUsmsOverallBlRm_blGrid"/>
+	        </action>
+		</action>	
+        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/export.png">
+            <action>
+                <title>Export</title>
+                <command type="exportPanel" outputType="xls" panelId="ascBjUsmsOverallBlRm_blGrid"/>
+            </action>
+        </action>
+        <sortField name="bl_id" table="bl" ascending="true"/>
+        <indexField name="bl_id" table="bl"/>
+    </panel>
+    
+    <!-- rm data -->
+    <panel type="grid" id="ascBjUsmsOverallBlRm_rmGrid" dataSource="ds_asc-bj-usms-overall-bl-rm_grid_rm" showCounts="true" layoutRegion="rmPosition">
+        <title translatable="true">XueXiao SuoYou FangJian</title>
+		<action id="showAll">
+			<title translatable="true">show all rooms</title>
+			<command type="showPanel" panelId="ascBjUsmsOverallBlRm_rmGrid" clearRestriction="true"/>
+		</action>
+		<action type="menu" imageName="/schema/ab-core/graphics/icons/view/gear.png">
+	        <action id="selectFields">
+	            <title translatable="true">select fields</title>
+	            <command type="selectFields" panelId="ascBjUsmsOverallBlRm_rmGrid"/>
+	        </action>
+		</action>
+        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/export.png">
+            <action>
+                <title>Export</title>
+                <command type="exportPanel" outputType="xls" panelId="ascBjUsmsOverallBlRm_rmGrid"/>
+            </action>
+        </action>
+        <indexField table="rm" name="bl_id"/>
+    </panel>
+    
+    <js file="asc-bj-usms-overall-bl-rm.js"/>
+    
+</view>

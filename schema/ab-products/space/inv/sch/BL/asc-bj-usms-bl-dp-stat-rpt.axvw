@@ -1,0 +1,105 @@
+<view version="2.0">
+    <message name="reportTitle" translatable="true">Jian Zhu Wu :</message>
+	<message name="treeTitle" translatable="true">Xiao Qu :</message>
+	<message name="noSite" translatable="true">No Site</message>
+	<message name="total" translatable="true">Total</message>
+	
+    <title translatable="true">View Divisions by Building</title>
+	
+    <layout type="borderLayout" id="mainLayout">
+        <west id="treePosition" initialSize="20%" split="true"/>
+        <center id="rptPosition" autoScroll="true"/>
+    </layout>
+    
+    <!-- dataSource for site tree -->
+    <dataSource id="abScDvRmcatStack_tree_siteDS">
+        <table name="site" role="main"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="name"/>
+		<restriction type="sql" sql="EXISTS(SELECT 1 FROM bl where bl.site_id=site.site_id)"/>
+    </dataSource>
+	
+	<!-- dataSource for building tree -->
+    <dataSource id="abScDvRmcatStack_tree_blDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="name"/>
+    </dataSource>
+    
+	<!-- site tree panel-->
+	<panel type="tree" id="abScDvRmcatStackSite_tree" dataSource="abScDvRmcatStack_tree_siteDS" layoutRegion="treePosition">
+        <title translatable="true">Xiao Qu</title>
+
+        <panel type="tree" id="abScDvRmcatStackBl_tree" dataSource="abScDvRmcatStack_tree_blDS">
+            <event type="onClickNode">
+                <command type="callFunction" functionName="onClickBlNode"/>
+            </event>
+            <field table="bl" name="bl_id"/>
+        </panel>
+    </panel>
+	
+    <dataSource id="ds_ab-sc-rpt-dv-rmcat-by-bl_rm">
+    	<sql dialect="generic">
+            (SELECT rm.bl_id  ${sql.as} bl_id,
+              dv.dv_id ${sql.as} dv_id,
+            rm.rm_cat ${sql.as} rm_cat,
+          COUNT(rm.rm_id) ${sql.as} count_rm,
+          SUM(rm.area) ${sql.as} dv_bl_area_shiyong
+       FROM rm,bl,dv
+           WHERE rm.bl_id=bl.bl_id and rm.dv_id=dv.dv_id and rm.dv_id IS NOT NULL and bl.site_id is not null
+           GROUP BY rm.bl_id, dv.dv_id, rm.rm_cat)
+   UNION ALL
+   (
+        SELECT bl.bl_id ${sql.as} bl_id,
+   bl.dv_use ${sql.as} dv_id,
+   bl.building_cat ${sql.as} rm_cat,
+   bl.count_rm_keyong ${sql.as} count_rm,
+   bl.area_rm ${sql.as} dv_bl_area_shiyong
+        FROM bl,dv
+    WHERE bl.dv_use=dv.dv_id  and bl.dv_use is not null and bl.site_id is not null
+    )
+           UNION ALL (
+           SELECT br.bl_id ${sql.as} bl_id,
+           dv.dv_id ${sql.as} dv_id,
+           br.rm_cat ${sql.as} rm_cat,
+           br.count_rm ${sql.as} count_rm,
+           br.area_shiyong ${sql.as} dv_bl_area_shiyong
+            FROM bl,sc_bl_rmcat br,dv
+      WHERE bl.bl_id = br.bl_id and br.dv_use=dv.dv_id and bl.dv_use is null and bl.site_id is not null
+        ) 
+        
+        </sql>
+        <table name="dv" role="main"/>
+		
+		<field name="dv_id" dataType="text">
+			<title translatable="true">ShiYongDanWei</title>
+        </field>
+        <field name="rm_cat" dataType="text">
+        	<title translatable="true">Fangwuleibie</title>
+        </field>
+        
+        <field name="count_rm" dataType="number" decimals="0">
+        	<title translatable="true">Room Count</title>
+        </field>	
+        
+        <field name="dv_bl_area_shiyong" dataType="number" decimals="2">
+        	<title translatable="true">Usable Area</title>
+		</field>	
+		
+		<restriction type="sql" sql="dv.bl_id=${parameters['blIdRes']}"/>
+		<parameter name="blIdRes" dataType="text" value=""/>
+    </dataSource>
+    	
+    <!-- cross table report-->
+	<panel id="abScDvRmcatRptPanel" type="grid" controlType="reportGrid"  dataSource="ds_ab-sc-rpt-dv-rmcat-by-bl_rm" showOnLoad="false"  layoutRegion="rptPosition">
+		<title translatable="true">Jian Zhu Wu</title>
+		<sortField name="dv_id" table="dv" ascending="true"/>
+		<action id="exportXLS">
+            <title>XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScDvRmcatRptPanel"/>
+        </action>
+	</panel>
+ 
+    <js file="asc-bj-usms-bl-dp-stat-rpt.js"/>
+</view>

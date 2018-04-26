@@ -1,0 +1,128 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-common.js"/>
+    <js file="asc-bj-usms-proc-asgn-asgn-req-asgn-tab.js"/>
+	<js file="asc-bj-usms-def-common.js"/>
+    
+    <dataSource id="ascBjUsmsProcAsgnAsgnReqAsgnTabRmDS">
+        <table name="rm" role="main"/>
+        <table name="rmcat" role="standard"/>
+        <table name="rmtype" role="standard"/>
+        
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="rm_cat" table="rm"/>
+        <field name="rm_type" table="rm"/>
+        <field name="rm_std" table="rm"/>
+        <field name="area" table="rm"/>
+        <field name="cap_em" table="rm"/>
+        <field name="count_em" table="rm"/>
+        <field name="dv_id" table="rm"/>
+		<field name="name" table="rm"/>
+		<field name="rm_cat" table="rmcat"/>
+		<field name="name" table="rmcat"/>
+		<field name="rm_type" table="rmtype"/>
+		<field name="name" table="rmtype"/>
+    </dataSource>
+    
+    <panel type="console" columns="3" id="ascBjUsmsProcAsgnAsgnReqAsgnTabConsole" dataSource="ascBjUsmsProcAsgnAsgnReqAsgnTabRmDS">
+        
+        <title translatable="true">Search Room</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="selectTabPage" tabPageName="detailsTab" clearRestriction="true"/>
+        </action>
+        
+        <action id="show">
+            <title translatable="true">Show</title>
+            <command type="showPanel" panelId="ascBjUsmsProcAsgnAsgnReqAsgnTabGrid"/>
+        </action>
+        
+        <field name="bl_id" table="rm" required="false"/>
+        <field name="fl_id" table="rm" required="false"/>
+        <field name="rm_id" table="rm" required="false"/>
+        <field name="rm_cat" table="rm"/>
+        <field name="name" table="rmcat" required="false" readOnly="false">
+            <action>
+                <title>...</title>
+                                  <command type="selectValue" 
+                                   fieldNames="rm.rm_cat,rmcat.name"
+                                   selectFieldNames="rmcat.rm_cat,rmcat.name"
+                                   visibleFieldNames="rmcat.rm_cat,rmcat.name"
+							       showIndex="false" />
+            </action>
+        </field>
+        <field name="rm_type" table="rm"/>
+        <field name="name" table="rmtype" required="false" readOnly="false">
+            <action>
+                <title>...</title>
+                                  <command type="selectValue" 
+                                   fieldNames="rm.rm_type,rmtype.name,rm.rm_cat,rmcat.name"
+                                   selectFieldNames="rmtype.rm_type,rmtype.name,rmcat.rm_cat,rmcat.name"
+                                   visibleFieldNames="rmtype.rm_type,rmtype.name,rmcat.rm_cat,rmcat.name"
+							       showIndex="false" />
+            </action>
+        </field>
+        <field name="rm_std" table="rm"/>
+        <field name="area" table="rm" alias="rm.area.from" op="&gt;=">
+            <title translatable="true">Area &gt;=</title>
+        </field>
+        <field name="cap_em" table="rm" alias="rm.cap_em.from" op="&gt;=">
+            <title translatable="true">Capacity &gt;=</title>
+        </field>
+        <field name="count_em" table="rm" alias="rm.count_em.from" op="&gt;=">
+            <title translatable="true">Headcount &gt;=</title>
+        </field>
+        <field name="area" table="rm" alias="rm.area.to" op="&lt;=">
+            <title translatable="true">Area &lt;=</title>
+        </field>
+        <field name="cap_em" table="rm" alias="rm.cap_em.to" op="&lt;=">
+            <title translatable="true">Capacity &lt;=</title>
+        </field>
+        <field name="count_em" table="rm" alias="rm.count_em.to" op="&lt;=">
+            <title translatable="true">Headcount &lt;=</title>
+        </field>
+    </panel>
+    
+	<!--multipleSelectionEnabled="true"-->
+    <panel type="grid" id="ascBjUsmsProcAsgnAsgnReqAsgnTabGrid" showCounts="true" showOnLoad="false" dataSource="ascBjUsmsProcAsgnAsgnReqAsgnTabRmDS">
+        
+        <title translatable="true">Available Rooms</title>
+        
+        <action id="OK">
+            <title translatable="true">OK</title>
+        </action>
+        
+        <indexField name="bl_id" table="rm"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+<!--         <field name="rm_cat" table="rm"/> -->
+<!--         <field name="rm_type" table="rm"/> -->
+		<field name="rm_cat" table="rmcat" hidden="true"/>
+		<field name="name" table="rmcat"/>
+		<field name="rm_type" table="rmtype" hidden="true"/>
+		<field name="name" table="rmtype"/>
+        <field name="rm_std" table="rm"/>
+        <field name="area" table="rm"/>
+        <field name="cap_em" table="rm"/>
+        <field name="count_em" table="rm"/>
+        <field name="dv_id" table="rm"/>
+		<field name="name" table="rm"/>
+		
+        
+        <field controlType="radiobutton"/>
+    </panel>
+    
+    <dataSource id="ascBjUsmsProcAsgnAsgnReqAsgnTabEmDS">
+        <table name="em" role="main"/>
+        
+        <field name="bl_id" table="em"/>
+        <field name="fl_id" table="em"/>
+        <field name="rm_id" table="em"/>
+        <field name="em_id" table="em"/>
+		<field name="name" table="em"/>
+    </dataSource>
+</view>

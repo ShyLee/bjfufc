@@ -1,0 +1,52 @@
+<view version="2.0">
+  <title>Select Over Area</title>
+  <layout id="main">
+    <north id="filterPanel"  initialSize="120" />
+    <center id="gridPanel" autoScroll="true" initialSize="200"/>
+  </layout>
+
+  <dataSource id="sc_dv_area_log_ds">
+    <table name="sc_dv_area_log" role="main"/>
+    <field table="sc_dv_area_log" name="dv_name"/>
+    <field table="sc_dv_area_log" name="area_dinge" />
+    <field table="sc_dv_area_log" name="area" showTotals="true"/>
+    <field table="sc_dv_area_log" name="area_over" showTotals="true"/>
+    <field table="sc_dv_area_log" name="year"/>
+    <field table="sc_dv_area_log" name="month"/>
+    <field table="sc_dv_area_log" name="dv_id"/>
+	<restriction type="sql"
+            sql="dv_id in(select dv_id from dv where bu_id in (select bu_id from bu where bu_class='DZGL'))"></restriction>
+  </dataSource>
+  
+  
+  <panel id="filterPanel" columns="3" dataSource="sc_dv_area_log_ds" type="console" layoutRegion="filterPanel" labelsPosition="top">
+  <title>filter</title>
+    <action id="show">
+        <title>filter</title>
+        <command type="showPanel" panelId="gridPanel"/>  
+    </action>
+    <action id="clear">
+        <title>clear</title>
+		<command type="clearPanel" panelId="filterPanel"/>
+    </action>
+    <field table="sc_dv_area_log" name="year"/>
+    <field table="sc_dv_area_log" name="month"/>
+    <field table="sc_dv_area_log" name="dv_name"/>
+  </panel>
+  <panel id="gridPanel" type="grid" dataSource="sc_dv_area_log_ds"  layoutRegion="gridPanel" multipleSelectionEnabled="false" showOnLoad="false">
+  <title>grid</title>
+    <action id="export">
+            <title>export</title>
+            <command type="exportPanel" outputType="xls" panelId="gridPanel"/>
+    </action>
+    <indexField table="sc_dv_area_log" name="month"/><!-- 添加索引 -->
+    <sortField table="sc_dv_area_log" name="month" ascending="false"/>
+    <field table="sc_dv_area_log" name="dv_name"/>
+    <field table="sc_dv_area_log" name="area_dinge"/>
+    <field table="sc_dv_area_log" name="area"/>
+    <field table="sc_dv_area_log" name="area_over" showTotals="true"/>
+    <field table="sc_dv_area_log" name="year"/>
+    <field table="sc_dv_area_log" name="month"/>
+  </panel>
+
+</view>

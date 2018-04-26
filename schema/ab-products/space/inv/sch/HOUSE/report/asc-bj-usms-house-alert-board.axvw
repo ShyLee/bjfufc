@@ -1,0 +1,425 @@
+<view version="2.0">
+<js file="asc-bj-usms-house-alert-board.js"/>
+<title translatable="true">Rent query statistics</title>
+    <dataSource id="RoomDs">
+        <table name="sc_zzfcard" role="main"/>
+        <table name="rm" role="standard"/>
+        <table name="sc_zzfrent_details" role="standard"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="ruzhu_status" table="rm"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="date_payrent_last"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="rent_period"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="sponsor_name"/>
+        <field table="sc_zzfcard" name="payment_to"/>
+        <field table="sc_zzfcard" name="rent_period"/>
+        <field table="sc_zzfcard" name="date_payrent_last"/>
+        <field table="sc_zzfrent_details" name="card_id"/>
+       <field table="sc_zzfrent_details" name="month"/>
+       <field table="sc_zzfrent_details" name="year"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="area_lease"/>
+       <field table="sc_zzfrent_details" name="note1"/>
+       
+       <parameter name="cardId" dataType="verbatim" value="1=1"/>
+       <restriction  type="sql" sql="sc_zzfcard.payment_to='house' and sc_zzfcard.date_payrent_last!=sc_zzfcard.date_checkout_ought 
+        and sysdate>date_checkin
+        and ${parameters['cardId']} and sc_zzfcard.bl_id=rm.bl_id 
+        and sc_zzfcard.fl_id=rm.fl_id
+        and sc_zzfcard.rm_id=rm.rm_id
+        and sc_zzfcard.card_status='1' and rm.ruzhu_status='1'"/>
+    </dataSource>
+
+     <dataSource id="ds_asc-bj-usms-house-alert-board1" >
+        <table name="sc_zzfcard" role="main"/>
+        <table name="sc_zzfrent_details" role="standard"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="date_payrent_last"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="rent_period"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="sponsor_name"/>
+         <field table="sc_zzfcard" name="payment_to"/>
+         <field table="sc_zzfcard" name="date_payrent_last"/>
+       
+        <field table="sc_zzfrent_details" name="card_id"/>
+        <field table="sc_zzfrent_details" name="month"/>
+       <field table="sc_zzfrent_details" name="year"/>
+        <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="area_lease"/>
+       <field table="sc_zzfrent_details" name="note1"/>
+       <restriction type="sql" sql="sc_zzfcard.payment_to='house'"/>
+    </dataSource>
+    
+    <dataSource id="sc_zzfrent_details_dataSource">
+       <table name="sc_zzfcard" role="main"/>
+        <table name="sc_zzfrent_details" role="standard"/>
+        <table name="rm" role="standard"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="ruzhu_status" table="rm"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+       <field table="sc_zzfcard" name="em_id"/>
+       <field table="sc_zzfcard" name="identi_code"/>
+       <field table="sc_zzfcard" name="bl_id"/>
+       <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="phone"/>
+       <field table="sc_zzfcard" name="dv_name"/>
+       <field table="sc_zzfcard" name="date_checkin"/>
+       <field table="sc_zzfcard" name="date_checkout_ought"/>
+       <field table="sc_zzfcard" name="rent_period"/>
+       <field table="sc_zzfcard" name="sponsor"/>
+       <field table="sc_zzfcard" name="sponsor_name"/>
+       <field table="sc_zzfrent_details" name="card_id"/>
+       <field table="sc_zzfrent_details" name="em_id"/>
+       <field table="sc_zzfrent_details" name="em_name"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="month"/>
+       <field table="sc_zzfrent_details" name="year"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="area_lease"/>
+       <field table="sc_zzfrent_details" name="note1"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+    </dataSource>
+    
+ <tabs workflow="free" id="console_tabs" tabRefreshPolicy="refreshOnLoad">
+     <tab name="financePayTab " selected="true">
+              <title translatable="true">selfGzcPay</title>
+            <panel type="html" id="color">
+               
+                <html>
+                    <table width="600" height="25" border="0">
+                        <tr>
+                            <td width="100" style="background-color:#00CC66"></td><td width="200"><span id="idd1"></span></td><td></td>
+                            <td width="100" style="background-color:#FFFF00"></td><td width="200"><span id="idd2"></span></td><td></td>
+                            <td width="100" style="background-color:#FF3333"></td><td width="200"><span id="idd3"></span></td><td></td>
+                        </tr>
+                    </table>
+                </html>
+            </panel>
+           <panel type="grid" id="detailsconsole" dataSource="RoomDs">
+                <field controlType="button" id="select"> 
+                  <title translatable="true">Select</title> 
+                </field> 
+                <field table="sc_zzfcard" name="rm_id"/>
+                <field table="sc_zzfcard" name="bl_id"/>
+                <field table="sc_zzfcard" name="em_name"/>
+                <field table="sc_zzfcard" name="em_id"/>
+                <field table="sc_zzfcard" name="dv_name"/>
+                <field table="sc_zzfcard" name="date_checkin" />
+                <field table="sc_zzfcard" name="date_checkout_ought" />
+                <field table="sc_zzfcard" name="date_payrent_last"/>
+                <field table="sc_zzfcard" name="rent_period"/>
+                <field table="sc_zzfrent_details" name="month_rent"/>
+                <field table="sc_zzfcard" name="phone"/>
+                <field table="sc_zzfcard" name="card_id" hidden="true"/>
+         </panel>  
+         <panel type="form" id="formWindow" columns="3" dataSource="ds_asc-bj-usms-house-alert-board1" showOnLoad="false">
+	           <title translatable="true">information</title> 
+	           <field table="sc_zzfrent_details" name="year" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="month" readOnly="true" required="false"/>
+	           <field table="sc_zzfcard" name="em_name" readOnly="true" required="false"/>
+	           <field table="sc_zzfcard" name="em_id" readOnly="true"/>
+	           <field table="sc_zzfcard" name="identi_code" readOnly="true"/>
+	           <field table="sc_zzfcard" name="bl_id" readOnly="true" required="false"/>
+	           <field table="sc_zzfcard" name="rm_id" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="area_lease" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="date_payrent" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="amount_payrent" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="actual_payoff" readOnly="true" required="false"/>
+	           <field table="sc_zzfrent_details" name="note1" readOnly="true" required="false"/>
+	           <field table="sc_zzfcard" name="phone" readOnly="true"/>
+	           <field table="sc_zzfcard" name="dv_name" readOnly="true"/>
+	           <field table="sc_zzfcard" name="date_checkin" readOnly="true"/>
+	           <field table="sc_zzfcard" name="rent_period" readOnly="true"/>
+	           <field table="sc_zzfcard" name="date_payrent_last" readOnly="true"/>
+	           <field table="sc_zzfcard" name="sponsor" readOnly="true"/>
+	           <field table="sc_zzfcard" name="sponsor_name" readOnly="true"/>
+       </panel>
+     </tab> 
+  <tab name="selfGzcPayTab">
+  <title translatable="true">cai wu chu dai kou</title>
+   <dataSource id="ds_asc-bj-usms-house-alert-board2" >
+        <table name="sc_zzfcard" role="main"/>
+        <table name="sc_zzfrent_details" role="standard"/>
+        <table name="rm" role="standard"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="ruzhu_status" table="rm"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="date_payrent_last"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="rent_period"/>
+        <field table="sc_zzfcard" name="sponsor"/>
+        <field table="sc_zzfcard" name="sponsor_name"/>
+        <field table="sc_zzfcard" name="payment_to"/>
+       
+        <field table="sc_zzfrent_details" name="card_id"/>
+        <field table="sc_zzfrent_details" name="month"/>
+       <field table="sc_zzfrent_details" name="year"/>
+        <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="area_lease"/>
+       <field table="sc_zzfrent_details" name="note1"/>
+       <restriction  type="sql" sql="
+       sc_zzfcard.payment_to='finance'
+        and sc_zzfrent_details.actual_payoff != sc_zzfrent_details.month_rent
+        and rm.rm_type in
+            (SELECT rm.rm_type FROM rm,rmtype
+            WHERE
+            rm.rm_type=rmtype.rm_type and
+            rm.rm_cat=rmtype.rm_cat and
+            rmtype.rm_type
+            in
+            (select rm_type from rmtype where is_zzf=1) ) and rm.ruzhu_status=1 
+            "/>
+    </dataSource>
+  
+  
+    <panel type="grid" id="selfGzcPayForm"  dataSource="ds_asc-bj-usms-house-alert-board2">
+    <title translatable="true">cai wu chu dai kou  weikou zhuhu</title>
+       <field controlType="button" id="dkselect">
+            <title translatable="true">Select</title>
+       </field>
+       
+       <field table="sc_zzfcard" name="em_name"/>
+       <field table="sc_zzfcard" name="em_id"/>
+       
+       <field table="sc_zzfcard" name="rm_id"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+   </panel>
+   
+   <panel type="form" id="formwindow3" columns="3" dataSource="sc_zzfrent_details_dataSource" showOnLoad="false">
+       <title translatable="true">information</title>
+       <action id="edit">
+          <title translatable="true">edit</title>
+       </action>
+       <action id="close">
+          <title translatable="true">close</title>
+          <command type="callFunction" functionName="View.panels.get('formwindow3').closeWindow()"/>
+       </action>
+       <field table="sc_zzfcard" name="card_id" hidden="true"/>
+       <field table="sc_zzfrent_details" name="year" readOnly="true" required="false"/>
+       <field table="sc_zzfrent_details" name="month" readOnly="true" required="false"/>
+       <field table="sc_zzfcard" name="em_name" readOnly="true" required="false"/>
+       <field table="sc_zzfcard" name="em_id" readOnly="true"/>
+       <field table="sc_zzfcard" name="identi_code" readOnly="true"/>
+       <field table="sc_zzfcard" name="bl_id" readOnly="true" required="false"/>
+       <field table="sc_zzfcard" name="rm_id" readOnly="true" required="false"/>
+       <field table="sc_zzfrent_details" name="area_lease" readOnly="true" required="false"/>
+       <field table="sc_zzfrent_details" name="date_payrent" readOnly="true" required="false"/>
+      <field table="sc_zzfrent_details" name="month_rent" readOnly="true" required="false"/>
+       <field table="sc_zzfrent_details" name="actual_payoff" readOnly="true" required="false"/>
+       <field table="sc_zzfrent_details" name="note1" readOnly="true" required="false"/>
+       <field table="sc_zzfcard" name="phone" readOnly="true"/>
+       <field table="sc_zzfcard" name="dv_name" readOnly="true"/>
+       <field table="sc_zzfcard" name="date_checkin" readOnly="true"/>
+       <field table="sc_zzfcard" name="rent_period" readOnly="true"/>
+       <field table="sc_zzfcard" name="sponsor" readOnly="true"/>
+       <field table="sc_zzfcard" name="sponsor_name" readOnly="true"/>
+   </panel>
+   
+   <dataSource id="formwindow4DS">
+       <table name="sc_zzfrent_details" role="main"/>
+       <field table="sc_zzfrent_details" name="card_id"/>
+       <field table="sc_zzfrent_details" name="em_id"/>
+       <field table="sc_zzfrent_details" name="em_name"/>
+       <field table="sc_zzfrent_details" name="dv_name"/>
+       <field table="sc_zzfrent_details" name="month"/>
+       <field table="sc_zzfrent_details" name="year"/>
+       <field table="sc_zzfrent_details" name="month_rent"/>
+       <field table="sc_zzfrent_details" name="actual_payoff"/>
+       <field table="sc_zzfrent_details" name="amount_payrent"/>
+       <field table="sc_zzfrent_details" name="date_payrent"/>
+       <field table="sc_zzfrent_details" name="area_lease"/>
+       <field table="sc_zzfrent_details" name="note1"/>
+   </dataSource>
+   <panel type="form" id="formwindow4"  dataSource="formwindow4DS" showOnLoad="false">
+       <title translatable="true">Edit</title>
+       <action id="save">
+          <title translatable="true">save</title>
+<!--           <command type="saveForm" panelId="formwindow4"/> -->
+       </action>
+       <action id="clear">
+          <title translatable="true">clear</title>
+          <command type="clearForm" panelId="formwindow4"/>
+       </action>
+       <action id="close">
+          <title translatable="true">close</title>
+          <command type="callFunction" functionName="View.panels.get('formwindow4').closeWindow()"/>
+       </action>
+       <field table="sc_zzfrent_details" name="card_id" hidden="true"/>
+       <field table="sc_zzfrent_details" name="em_name" hidden="true"/>
+       <field table="sc_zzfrent_details" name="month" hidden="true"/>
+       <field table="sc_zzfrent_details" name="year" hidden="true"/>
+       <field table="sc_zzfrent_details" name="actual_payoff" readOnly="false"/>
+       <field table="sc_zzfrent_details" name="date_payrent" readOnly="false"/>
+       <field table="sc_zzfrent_details" name="note1" readOnly="false"/>
+       
+   </panel>
+  </tab>
+    <tab name="endLeaseTab">
+     <title translatable="true">zu qi dao alert</title>
+    
+        
+    <dataSource id="ds_asc-bj-usms-zzf-alert-board1" distinct="true">
+        <table name="sc_zzfcard" role="main"/>
+        <table name="rm" role="standard"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="ruzhu_status" table="rm"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field name="xiangchatianshu"  dataType="number" size="6" decimals="0">
+            <sql dialect="generic">
+            (sc_zzfcard.date_checkout_ought-${sql.currentDate})
+            </sql>
+        </field>    
+        <sortField name="date_checkout_ought" table="sc_zzfcard" ascending="true"/>
+    <restriction type="sql" sql=" ((sc_zzfcard.date_checkout_ought-${sql.currentDate}) &lt;= 60 and
+    (sc_zzfcard.date_checkout_ought-${sql.currentDate}) &gt;= 0
+     and sc_zzfcard.card_status='1'
+     and rm.rm_type in
+            (SELECT rm.rm_type FROM rm,rmtype
+            WHERE
+            rm.rm_type=rmtype.rm_type and
+            rm.rm_cat=rmtype.rm_cat and
+            rmtype.rm_type
+            in
+            (select rm_type from rmtype where is_zzf=1)) and rm.ruzhu_status=1) 
+     or ((sc_zzfcard.date_checkout_ought-${sql.currentDate}) &lt; 0 and sc_zzfcard.card_status='1'
+     and rm.rm_type in
+            (SELECT rm.rm_type FROM rm,rmtype
+            WHERE
+            rm.rm_type=rmtype.rm_type and
+            rm.rm_cat=rmtype.rm_cat and
+           rmtype.rm_type
+            in
+            (select rm_type from rmtype where is_zzf=1)) and rm.ruzhu_status=1)"/>
+    </dataSource>
+     <panel type="html" id="color2">
+                <title translatable="true">zuqi dao zhuhu</title>
+                <html>
+                    <table width="600" height="25" border="0">
+                        <tr>
+                            <td width="100" style="background-color:#00CC66"></td><td width="200"><span id="idd4"></span></td><td></td>
+                            <td width="100" style="background-color:#FFFF00"></td><td width="200"><span id="idd5"></span></td><td></td>
+                            <td width="100" style="background-color:#FF3333"></td><td width="200"><span id="idd6"></span></td><td></td>
+                        </tr>
+                    </table>
+                </html>
+            </panel>
+    
+    <panel type="grid" id="abScDefDeAreaGrid" dataSource="ds_asc-bj-usms-zzf-alert-board1">
+        <field controlType="button">
+            <title translatable="true">Select</title>
+               <command type="callFunction" functionName="caDefEq.filterFn()"/>
+        </field>
+        <field name="xiangchatianshu" dataType="number" size="6" decimals="0" hidden="true"/>
+        <field table="sc_zzfcard" name="card_id" hidden="true"/>
+        <field table="sc_zzfcard" name="rm_id" />
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="phone"/>
+    </panel>  
+    
+    <panel type="form" id="formwindowshow" columns="1" dataSource="sc_zzfrent_details_dataSource" showOnLoad="false">
+           <title translatable="true">history</title>
+           <action id="showhistory">
+            <title translatable="true">show</title>
+           </action>
+           <field table="sc_zzfcard" name="card_id" hidden="true"/>
+           <field table="sc_zzfrent_details" name="year" readOnly="false"/>
+           <field table="sc_zzfrent_details" name="month" readOnly="false"/>
+          
+    </panel>  
+    <panel type="form" id="formwindow2" columns="2" dataSource="formwindow4DS" showOnLoad="false">
+           <title translatable="true">information</title>
+           <field table="sc_zzfrent_details" name="card_id" hidden="true" />
+           <field table="sc_zzfrent_details" name="em_name" readOnly="true"/>
+           <field table="sc_zzfrent_details" name="year" required="false"/>
+           <field table="sc_zzfrent_details" name="month" required="false"/>
+<!--            <field table="sc_zzfcard" name="card_id" hidden="true"/> -->
+           <field table="sc_zzfrent_details" name="month_rent" readOnly="true"/>
+           <field table="sc_zzfrent_details" name="actual_payoff" readOnly="true"/>
+           <field table="sc_zzfrent_details" name="date_payrent" readOnly="true"/>
+           <field table="sc_zzfrent_details" name="area_lease" readOnly="true"/>
+           <field table="sc_zzfrent_details" name="note1" readOnly="true"/>
+    </panel>   
+    </tab>
+   </tabs>
+</view>
+
+

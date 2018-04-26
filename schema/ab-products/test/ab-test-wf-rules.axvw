@@ -1,0 +1,14 @@
+<view version="2.0">
+  
+  <js file="arc-test-wfr.js"/>
+  
+
+  
+  <panel type="html" id="testPanel" >
+    <title translatable="true">Employee Move</title>
+    <action id="run">
+      <title translatable="true">Test Work Flow</title>
+    </action>
+  </panel>
+
+</view>

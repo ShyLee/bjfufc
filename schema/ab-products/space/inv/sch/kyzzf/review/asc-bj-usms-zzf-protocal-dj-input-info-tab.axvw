@@ -1,0 +1,291 @@
+<view version="2.0">
+    <js file="asc-bj-usms-zzf-protocal-dj-input-info-tab.js"/>
+    <!-- <js file="asc-bj-usms-proc-common.js"/> -->
+    
+     <css> .button{ background-position: center center;
+				    background-repeat: no-repeat;
+				    cursor: pointer;
+				    height: 25px;
+				    padding: 0;
+				    white-space: nowrap
+				    } </css>
+    
+    <dataSource id="activityLogDs">
+        <table name="activity_log" role="main"/>
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="protocal_id" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+    </dataSource>
+  
+	   <panel id="loginNumber" type="html">
+	     <html>
+	        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+	          <tr>
+	          	 <td align="left">
+	          	 	<label id='labelForDJH' for='protocal_dj_id'>login no:</label>
+	          	 	<input id='protocal_dj_id' value=""></input>
+	          	 </td>
+	             <td align="right">
+	             	<input id="save" class="button" type="button" value="save"  onclick="ascBjUsmsZZFProtacalRmDjController.saveProtocal()"></input>
+	                <input id="print" class="button" type="button" value="print" disabled="true" onclick="displayPreview()"></input>
+	                <input id="back" class="button" type="button" value="back" onclick="ascBjUsmsZZFProtacalRmDjController.onBack()"></input>
+	             </td>
+	           </tr>
+	        </table>
+	      </html>
+	  </panel>
+    
+    <dataSource id='zzf_protocol_ds'>
+        <table name='bh_zzf_protocal' role='main'/>
+        <field table='bh_zzf_protocal' name='protocal_id'/>
+        <field table='bh_zzf_protocal' name='protocal_sq_id'/>
+        <field table='bh_zzf_protocal' name='protocal_dj_id'/>
+        <field table='bh_zzf_protocal' name='payment_type'/>
+        <field table='bh_zzf_protocal' name='payment_num'/>
+        <field table='bh_zzf_protocal' name='date_begin'/>
+        <field table='bh_zzf_protocal' name='date_end'/>
+        <field table='bh_zzf_protocal' name='live_time'/>
+        <field table='bh_zzf_protocal' name='pay_period'/>
+        <field table='bh_zzf_protocal' name='party_b'/>
+        <field table='bh_zzf_protocal' name='party_b_rep'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_b_contacts'/>
+        <field table='bh_zzf_protocal' name='party_b_con_tel'/>
+        <field table='bh_zzf_protocal' name='party_a'/>
+        <field table='bh_zzf_protocal' name='party_a_rep'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_a_contacts'/>
+        <field table='bh_zzf_protocal' name='party_a_con_tel'/>
+        <field table='bh_zzf_protocal' name='date_apply'/>
+        <field table='bh_zzf_protocal' name='rm_use'/>
+        <field table='bh_zzf_protocal' name='rm_address'/>
+        <field table='bh_zzf_protocal' name='area_rent'/>
+        <field table='bh_zzf_protocal' name='area_protocal'/>
+        <field table='bh_zzf_protocal' name='price_rent'/>
+        <field table='bh_zzf_protocal' name='price_rent_std'/>
+        <field table='bh_zzf_protocal' name='price_total_rent'/>
+        <field table='bh_zzf_protocal' name='preparer'/>
+        <field table='bh_zzf_protocal' name='status_protocal'/>
+        <field table='bh_zzf_protocal' name='is_active'/>
+        <field table='bh_zzf_protocal' name='examine_context'/>
+        <field table='bh_zzf_protocal' name='examine_people'/>
+        <field table='bh_zzf_protocal' name='date_examine'/>
+        <field table='bh_zzf_protocal' name='time_pre'/>
+    </dataSource>
+    
+    <dataSource id='zzf_protocal_rm_ds'>
+        <table name='bh_zzf_protocal_rm' role='main'/>
+        <table name='bl' role='standard'/>
+        <field table='bh_zzf_protocal_rm' name='id'/>
+        <field table='bl' name='name'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+        <field table='bh_zzf_protocal_rm' name='bl_id'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='is_active'/>
+        <field table='bh_zzf_protocal_rm' name='protocal_id'/>
+        <field table='bh_zzf_protocal_rm' name='rm_id'/>
+        <parameter name="activityLogId" dataType="text" value=""/>
+        <restriction type="sql" sql=" bh_zzf_protocal_rm.protocal_id = ${parameters['activityLogId']} "/>
+    </dataSource>
+    
+    <panel id='leaseTerm' type="form" dataSource='zzf_protocol_ds' columns="2">
+        <title translatable="true">step1: select lease term</title>
+        <field table='bh_zzf_protocal' name='protocal_id' hidden="true"/>
+        <field table='bh_zzf_protocal' name='date_begin' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='date_end' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='live_time' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='time_pre' required="true"/>
+    </panel>
+    
+    <panel id='protocalRm' type='grid' dataSource='zzf_protocal_rm_ds'>
+        <title>step2: show protocal rooms</title>
+        
+        <field table='bl' name='name'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+    </panel>
+    
+    <panel id='protocolInfo' type='form' dataSource='zzf_protocol_ds' columns="2">
+        <title>step3: protocal info</title>
+        <action id="checkRentedRoom">
+            <title translatable="true">check rented room</title>
+        </action>
+        <field table='bh_zzf_protocal' name='protocal_id' hidden="true"/>
+        <field table='bh_zzf_protocal' name='protocal_dj_id' hidden="true"/>
+        <field table='bh_zzf_protocal' name='time_pre' hidden="true"/>
+        <field table='bh_zzf_protocal' name='party_b' readOnly="true" hidden='true'/>
+        <field table='bh_zzf_protocal' name='party_b_rep' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_rep_tel' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_rep_dv' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_rep_email' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_contacts' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_con_tel' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='payment_type' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='payment_num' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='date_apply' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='rm_use' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='rm_address' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='area_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='area_protocal' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_rent_std' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_total_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='protocal_sq_id' readOnly="true" hidden='true'/>
+        <field table='bh_zzf_protocal' name='pay_period' onchange="ascBjUsmsZZFProtacalRmDjController.showFees()"/>
+        <field table='bh_zzf_protocal' name='party_a' required="true"/>
+        <field table='bh_zzf_protocal' name='party_a_rep' required="true">
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_tel' required="true">
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_dv' >
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_a_contacts' required="true"/>
+        <field table='bh_zzf_protocal' name='party_a_con_tel' required="true"/>
+    </panel>
+    
+    <dataSource id='zzf_fees_ds'>
+        <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </dataSource>
+    
+    <panel id='feesInfo' type='grid' dataSource='zzf_fees_ds' showOnLoad="false" showIndexAndFilterOnLoad="false" sortEnabled="false">
+        <title>calculate fees</title>
+        <field table='bh_zzf_fees' name='protocal_id' hidden='true'/> 
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </panel>
+    
+      
+    <dataSource id="ascBjUsmsProcAsgnApproveReqApproveTabHistoryPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <table name="em" role="standard"/>
+        
+        <table name="afm_wf_steps" role="standard"/>
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+        <field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    
+    
+    <dataSource id="ascBjUsmsProcAsgnApproveReqApproveTabApproveFormDS">
+        <table name="activity_log" role="main"/>
+        <table name="activity_log_step_waiting" role="standard"/>
+        
+        <field table="activity_log" name="activity_log_id"/>
+        <field table="activity_log" name="approved_by"/>
+        <field table="activity_log_step_waiting" name="activity_log_id"/>
+        <field table="activity_log_step_waiting" name="step"/>
+        <field table="activity_log_step_waiting" name="comments"/>
+        <field table="activity_log_step_waiting" name="step_code"/>
+        <field table="activity_log_step_waiting" name="step_log_id"/>
+        <field table="activity_log_step_waiting" name="user_name"/>
+        <field table="activity_log_step_waiting" name="em_id"/>
+    </dataSource>
+    
+    <!--*******************************************-->
+    
+    <!-- <panel type="grid" id="ascBjUsmsProcAsgnApproveReqApproveTabHistoryPanel" controlType="reportGrid" dataSource="ascBjUsmsProcAsgnApproveReqApproveTabHistoryPanelDS" showOnLoad="true">
+        <title translatable="true">
+            History
+        </title>
+        
+        <field name="step_log_id" table="helpdesk_step_log" hidden="true"/>
+        <field name="user_name" table="helpdesk_step_log" hidden="true"/>
+        <field name="name" table="em" hidden="true"/>
+        <field name="vn_id" table="helpdesk_step_log">
+            <title translatable="true">
+                Step Responded By
+            </title>
+        </field>
+        <field name="date_response" table="helpdesk_step_log">
+            <title translatable="true">
+                On
+            </title>
+        </field>
+        <field name="time_response" table="helpdesk_step_log" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">
+                Workflow Step
+            </title>
+        </field>
+        <field name="status" table="afm_wf_steps">
+            <title translatable="true">
+                Status
+            </title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">
+                Step Status After
+            </title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">
+                Comments
+            </title>
+        </field>
+    </panel> -->
+</view>
+

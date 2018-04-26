@@ -1,0 +1,82 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-asgn-review-req-select-tab.js"/>
+    <js file="ab-helpdesk-common-v2.js"/>
+    <dataSource id="ascBjUsmsProcAsgnReviewReqSelectTabDS">
+   		<table name="activity_log" role="main" />
+		<field table="activity_log" name="activity_log_id" />
+		<field table="activity_log" name="requestor" />
+		<field table="activity_log" name="date_requested" />
+		<field table="activity_log" name="status" />
+		<field table="activity_log" name="activity_type" />
+		<field table="activity_log" name="prob_type" />
+		<field table="activity_log" name="created_by" />
+		<parameter name="activityType" dataType="verbatim" value="1=1"/>
+        <restriction type="sql" sql="activity_log.requestor =${sql.literal(user.name)}  AND ${parameters['activityType']}"/>		
+        
+    </dataSource>
+    
+<dataSource id="consoleDS">
+		<table name="activity_log" role="main" />
+		<field table="activity_log" name="activity_log_id" />
+		<field table="activity_log" name="status" />
+		<field table="activity_log" name="date_requested" />
+		<field table="activity_log" name="activity_type" />
+	</dataSource>
+
+	<panel type="console" columns="4" labelsPosition="top"
+		id="requestConsole" dataSource="consoleDS">
+		<title translatable="true">Filter</title>
+
+		<action id="filter">
+			<title translatable="true">Show</title>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			 <command type="clearPanel" panelId="requestConsole"/>
+		</action>
+
+		<field table="activity_log" name="activity_type" value="">
+			<title translatable="true">Request Type</title>
+			<action>
+				<title>...</title>
+				<command type="callFunction" functionName="ABHDC_onSelectActivityType('activity_log','requestConsole')" />
+			</action>
+		</field>
+		<field table="activity_log" name="status" />
+
+		<field table="activity_log" name="date_requested"
+			alias="activity_log.date_requested.from">
+			<title translatable="true">Date Requested From</title>
+		</field>
+		<field table="activity_log" name="date_requested"
+			alias="activity_log.date_requested.to">
+			<title translatable="true">Date Requested To</title>
+		</field>
+	</panel>
+    
+    <panel type="grid" id="ascBjUsmsProcAsgnReviewReqSelectTabGrid"  controlType="reportGrid" dataSource="ascBjUsmsProcAsgnReviewReqSelectTabDS">
+        <title translatable="true">Requests</title>
+        
+        <sortField table="activity_log" name="activity_log_id" ascending="false"/>
+        
+        <field controlType="button">
+            <title translatable="true">Select</title>
+            <command type="callFunction" functionName="selectNextTab(this.restriction['activity_log.activity_log_id'])"/>
+        </field>
+        <field name="activity_log_id" table="activity_log" width="100">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="prob_type" table="activity_log">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field name="requestor" table="activity_log" hidden="true"/>
+		<!--<field name="name" table="em">
+			<title translatable="true">ShenQingRen</title>
+        </field>-->
+        <field name="status" table="activity_log"/>
+        <field name="date_requested" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+    </panel>
+</view>

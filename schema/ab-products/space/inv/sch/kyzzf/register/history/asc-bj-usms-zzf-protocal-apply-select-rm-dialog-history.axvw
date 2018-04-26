@@ -1,0 +1,51 @@
+<view version="2.0">
+	<js file="asc-bj-usms-zzf-protocal-apply-select-rm-dialog.js"/>
+	<!-- 
+		/*
+	   	    协议无效后，准备期内不显示房间
+	  	*/
+	 	 select bh_zzf_protocal_rm.rm_id
+	    from bh_zzf_protocal_rm, bh_zzf_protocal
+	   where bh_zzf_protocal_rm.protocal_id = bh_zzf_protocal.protocal_id
+	     and bh_zzf_protocal_rm.is_active = '0'
+	     and (systemdate - bh_zzf_protocal.date_end) <  bh_zzf_protocal.time_pre
+	 -->
+	 <dataSource id="rentalAgreementRoomDS">
+     	<table name="rm" role="main"/>
+     	<table name="bl" role="standard"/>
+    	<field table="rm" name="bl_id"/>
+    	<field table="rm" name="fl_id"/>
+    	<field table="rm" name="rm_id"/>
+		<field table="rm" name="area_fcz"/>
+    	<field table="rm" name="area"/>
+    	<field table="rm" name="protocal_rm_type"/>
+    	<field table="bl" name="name"/>
+    	<field table="bl" name="rent_std"/>
+    	<restriction type="sql" sql=" rm.protocal_rm_type != 'fxy' and rm.bl_id||'-'||rm.fl_id||'-'||rm.rm_id not in(select bh_zzf_protocal_rm.bl_id||'-'||bh_zzf_protocal_rm.fl_id||'-'||bh_zzf_protocal_rm.rm_id from bh_zzf_protocal_rm where bh_zzf_protocal_rm.is_active = '1')  AND  ${parameters['selectedRm']}"/>
+    	<!-- 选择过的不重复出现 -->
+	    <parameter name="selectedRm" dataType="verbatim" value="1=1"/>
+    	
+    </dataSource>
+
+	 <panel type="grid" id="selectXYRmGrid" multipleSelectionEnabled="true" showOnLoad="true" dataSource="rentalAgreementRoomDS">
+	 	<title translatable="true">Add Room Rental Agreement</title>
+        <action id="add">
+            <title translatable="true">Add</title>
+        </action>
+        <action id="return">
+            <title translatable="true">Return</title>
+        </action>
+         
+    	<field table="rm" name="bl_id"/>
+    	<field table="bl" name="name"/>
+    	<field table="rm" name="fl_id"/>
+    	<field table="rm" name="rm_id"/>
+		<field table="rm" name="area_fcz"/>
+    	<field table="rm" name="area"/>
+    	<field table="rm" name="protocal_rm_type"/>
+		<field table="rm" name="area">
+			 <title translatable="true">Protocal Area</title>
+		</field>
+    	<field table="bl" name="rent_std"/>
+    </panel>
+</view>

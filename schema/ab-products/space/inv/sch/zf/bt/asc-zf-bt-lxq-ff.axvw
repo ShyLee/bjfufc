@@ -1,0 +1,149 @@
+<view version="2.0">
+	<js file="asc-zf-bt-lxq-ff.js"/>
+	<layout id="main">
+        <west initialSize="30%" split="true" />
+        <center id="ffSite"/>
+    </layout>
+    <layout id="gzjlSite" containingLayout="main" region="west">
+        <north id="haSite" initialSize="50%" split="true" />
+        <center id="hbSite"/>
+    </layout>
+    
+    <dataSource id="scZfBtHaDs">
+		<table name="sc_zfbt_ha" role="main" />
+        <field table="sc_zfbt_ha" name="id" />
+        <field table="sc_zfbt_ha" name="em_id" />
+        <field table="sc_zfbt_ha" name="money" />
+        <field table="sc_zfbt_ha" name="month" />
+	</dataSource>
+    
+    <dataSource id="scZfBtHbDs">
+		<table name="sc_zfbt_hb" role="main" />
+        <field table="sc_zfbt_hb" name="id" />
+        <field table="sc_zfbt_hb" name="em_id" />
+        <field table="sc_zfbt_hb" name="money" />
+        <field table="sc_zfbt_hb" name="month" />
+	</dataSource>
+	
+	<dataSource id="scZfBtLxqFFDs">
+		<table name="sc_zfbt_lxq" role="main" />
+        <field table="sc_zfbt_lxq" name="em_id" />
+        <field table="sc_zfbt_lxq" name="em_name" />
+        <field table="sc_zfbt_lxq" name="salary_num" />
+        <field table="sc_zfbt_lxq" name="dv_name" />
+        <field table="sc_zfbt_lxq" name="money_h" />
+        <field table="sc_zfbt_lxq" name="btxs" />
+        <field table="sc_zfbt_lxq" name="month_h" />
+        <field table="sc_zfbt_lxq" name="gl_h" />
+        <field table="sc_zfbt_lxq" name="btbz_h" />
+        <field table="sc_zfbt_lxq" name="money_glbt" />
+        <field table="sc_zfbt_lxq" name="salary_hj" />
+        <field table="sc_zfbt_lxq" name="money_a" />
+        <field table="sc_zfbt_lxq" name="money_b" />
+        <field table="sc_zfbt_lxq" name="money_c" />
+        <field table="sc_zfbt_lxq" name="money_hj" />
+        
+        <field table="sc_zfbt_lxq" name="date_begin_work" />
+        <field table="sc_zfbt_lxq" name="date_come_sch" />
+        <field table="sc_zfbt_lxq" name="sfzh" />
+        <field table="sc_zfbt_lxq" name="zw_name" />
+        <field table="sc_zfbt_lxq" name="zc_name" />
+        <field table="sc_zfbt_lxq" name="date_first_gjj"/>
+        <field table="sc_zfbt_lxq" name="zw_date"/>
+        <field table="sc_zfbt_lxq" name="zc_date"/>
+        <field table="sc_zfbt_lxq" name="zw_h" />
+        <field table="sc_zfbt_lxq" name="zc_h" />
+        <field table="sc_zfbt_lxq" name="po_name" />
+        <field table="sc_zfbt_lxq" name="po_sfzh" />
+        <field table="sc_zfbt_lxq" name="is_fl" />
+        <field table="sc_zfbt_lxq" name="money_yf" />
+	</dataSource>		
+	
+	<panel type="grid" id="zfBtAList" dataSource="scZfBtHaDs" multipleSelectionEnabled="true" layoutRegion="haSite">
+            <title translatable="true">99 - 04</title>
+           	<action id="add">
+             	<title translatable="true">Add</title> 
+       		</action>
+       		<action id="delete">
+             	<title translatable="true">Delete</title> 
+       		</action>
+            <field table="sc_zfbt_ha" name="id" hidden="true"/>
+	        <field table="sc_zfbt_ha" name="em_id" hidden="true"/>
+	        <field table="sc_zfbt_ha" name="money" />
+	        <field table="sc_zfbt_ha" name="month" />		
+     </panel>
+     <panel type="form" id="zfBtAForm" dataSource="scZfBtHaDs" showOnLoad = "false">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+       		<action id="return">
+             	<title translatable="true">Return</title> 
+       		</action>
+            <field table="sc_zfbt_ha" name="id" hidden="true"/>
+	        <field table="sc_zfbt_ha" name="em_id" hidden="true"/>
+	        <field table="sc_zfbt_ha" name="money" required="true"/>
+	        <field table="sc_zfbt_ha" name="month" required="true"/>		
+     </panel>
+     <panel type="grid" id="zfBtBList" dataSource="scZfBtHbDs" multipleSelectionEnabled="true" layoutRegion="hbSite">
+            <title translatable="true">after 05</title>
+           	<action id="add">
+             	<title translatable="true">Add</title> 
+       		</action>
+       		<action id="delete">
+             	<title translatable="true">Delete</title> 
+       		</action>
+            <field table="sc_zfbt_hb" name="id" hidden="true"/>
+	        <field table="sc_zfbt_hb" name="em_id" hidden="true"/>
+	        <field table="sc_zfbt_hb" name="money" />
+	        <field table="sc_zfbt_hb" name="month" />		
+     </panel>
+	 <panel type="form" id="zfBtBForm" dataSource="scZfBtHbDs" showOnLoad = "false">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+       		<action id="return">
+             	<title translatable="true">Return</title> 
+       		</action>
+            <field table="sc_zfbt_hb" name="id" hidden="true"/>
+	        <field table="sc_zfbt_hb" name="em_id" hidden="true"/>
+	        <field table="sc_zfbt_hb" name="money" required="true"/>
+	        <field table="sc_zfbt_hb" name="month" required="true"/>	
+     </panel>
+	 <panel type="form" id="ffForm" dataSource="scZfBtLxqFFDs" layoutRegion="ffSite" columns="2">
+            <title translatable="true">BT Info</title>
+            <action id="return">
+             	<title translatable="true">Return</title> 
+       		</action>
+            <action id="calculate">
+             	<title translatable="true">Calculate</title> 
+       		</action>
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+       		<action id="report">
+             	<title translatable="true">Report</title> 
+       		</action>
+            <field table="sc_zfbt_lxq" name="em_id" hidden="true"/>
+	        <field table="sc_zfbt_lxq" name="em_name" />
+	        <field table="sc_zfbt_lxq" name="salary_num" />
+	        <field table="sc_zfbt_lxq" name="dv_name" />
+	        <field table="sc_zfbt_lxq" name="money_h" />
+	        <field table="sc_zfbt_lxq" name="btxs" />
+	        <field table="sc_zfbt_lxq" name="month_h" />
+	        <field table="sc_zfbt_lxq" name="gl_h" />
+	        <field table="sc_zfbt_lxq" name="btbz_h" />
+	        <field table="sc_zfbt_lxq" name="money_glbt" />
+	        <field table="sc_zfbt_lxq" name="salary_hj" />
+	        <field></field>
+	        <field></field>
+	        <field></field>
+	        <field></field>
+	        <field table="sc_zfbt_lxq" name="money_a" />
+	        <field></field>
+	        <field table="sc_zfbt_lxq" name="money_b" />
+	        <field></field>
+	        <field table="sc_zfbt_lxq" name="money_c" />
+	        <field table="sc_zfbt_lxq" name="money_yf" />
+	        <field table="sc_zfbt_lxq" name="money_hj" />	
+     </panel>
+</view>

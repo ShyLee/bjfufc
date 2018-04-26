@@ -1,0 +1,162 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="28%" split="true"/>
+        <center id="rmcatPosition"/>
+    </layout>
+    
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-bl-whole_grid_bl">
+		<table name="bl" role="main" />
+		
+		<field table="bl" name="bl_id"/>
+		<field table="bl" name="area_building_manual"/>
+		<field table="bl" name="construction_type"/>
+		<field table="bl" name="use1" />
+		<field table="bl" name="count_upground"/>
+		<field table="bl" name="count_underground"/>
+		<field table="bl" name="area_underground"/>
+		<field table="bl"  name="count_rm_keyong">
+			<title translatable="true">Room Count</title>
+		</field>
+		<field table="bl" name="area_rm"/>
+		<field name="common_area"  dataType="number" decimals="2">
+			<title translatable="true">Common Area</title>
+			<sql dialect="generic">
+    	          (bl.area_building_manual - bl.area_rm)  
+            </sql>
+		</field>
+		<field name="gongtanlv" dataType="number" decimals="4">
+			<sql dialect="generic">
+    	          round(bl.gongtanlv,4)  
+            </sql>
+		</field>
+		<restriction type="sql" sql="bl.site_id is not null  and  bl.acc_type!='yxz'"/>
+	</dataSource>
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-bl-whole_basic_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="site_id"/>
+		<field table="site" name="telephone"/>
+		<field table="site" name="youbian"/>
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+	<!-- dataSource for site summary panel -->
+    <dataSource id="ds_asc-bj-usms-overall-bl-whole_sum_site" type="grouping">
+    	<table name="site" role="main"/>
+		
+		<field name="total_guihuayongdi" formula="SUM" dataType="number" baseField="site.guihuayongdi" decimals="2"/>
+		<field name="total_jianzhuyongdi" formula="SUM" dataType="number" baseField="site.jianzhuyongdi" decimals="2"/>
+		<field name="total_bldgs" formula="SUM" dataType="number" baseField="site.no_bldgs" decimals="0"/>
+		
+		<field name="total_teacher_plan" formula="SUM" dataType="number" baseField="site.count_teacher_plan" decimals="2"/>
+		<field name="total_student_plan" formula="SUM" dataType="number" baseField="site.count_student_plan" decimals="2"/>
+		<field name="total_teacher_actual" formula="SUM" dataType="number" baseField="site.count_teacher_actual" decimals="2"/>
+		<field name="total_student_actual" formula="SUM" dataType="number" baseField="site.count_student_actual" decimals="2"/>
+		<field name="total_area_shiyong" formula="SUM" dataType="number" 
+			baseField="site.area_rm" decimals="2"/>
+		<field name="total_area_jianzhu" formula="SUM" dataType="number" 
+			baseField="site.area_gross_int" decimals="2" />
+		<field name="total_area_bground" formula="SUM" dataType="number" 
+			baseField="site.area_underground" decimals="2" />	
+    </dataSource>
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallBlWhole_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-bl-whole_basic_site" columns="2"  layoutRegion="sitePosition">
+    	<action id="fixedReport">
+			<title translatable="true">GuDingBaoBiao</title>
+		</action>
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="youbian"/>
+		<field table="site" name="telephone"/>
+    </panel>
+	
+	<!-- whole school summary data-->
+    <panel type="columnReport" id="ascBjUsmsOverallBlWhole_siteSumGrid" dataSource="ds_asc-bj-usms-overall-bl-whole_sum_site" columns="3"  layoutRegion="sitePosition">
+	    
+		<field name="total_guihuayongdi" dataType="number" decimals="2">
+			<title translatable="true">Plan Land</title>
+		</field>
+		<field id="plan" labelClass="prominentLabel">
+           		 <title translatable="true">Plan Person Quantity</title>
+        </field>
+		<field id="actual" labelClass="prominentLabel">
+           		 <title translatable="true">Actial Person Quantity</title>
+        </field>
+		
+		<field name="total_jianzhuyongdi" dataType="number"  decimals="2">
+			<title translatable="true">Structure Land</title>
+		</field>
+		<field name="total_teacher_plan" dataType="number" decimals="2">
+			<title translatable="true">Plan Teacher Quantity</title>
+		</field>
+		<field name="total_teacher_actual" dataType="number"  decimals="2">
+			<title translatable="true">Actual Teacher Quantity</title>
+		</field>
+		
+		<field name="total_bldgs" dataType="number"  decimals="0">
+			<title translatable="true">Building Quantity</title>
+		</field>
+		<field name="total_student_plan"  dataType="number"  decimals="2">
+			<title translatable="true">Plan Student Quantity</title>
+		</field>
+		<field name="total_student_actual"  dataType="number"  decimals="2">
+			<title translatable="true">Actual Student Quantity</title>
+		</field>
+		
+		<field name="total_area_jianzhu" dataType="number" decimals="2">
+			<title translatable="true">School Total Structure Area</title>
+		</field>
+		<field name="total_area_shiyong" dataType="number" decimals="2" >
+			<title translatable="true">School Total Usable Area</title>
+		</field>
+		<field name="total_area_bground" dataType="number" decimals="2" >
+			<title translatable="true">Area of Floors under Ground</title>
+		</field>
+		
+    </panel>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallBlWhole_blGrid" dataSource="ds_asc-bj-usms-overall-bl-whole_grid_bl" layoutRegion="rmcatPosition">
+        <title translatable="true">XueXiao SuoYou JianZhuWu</title>
+		<sortField name="bl_id" table="bl" ascending="true" />
+		
+		<field id="showBlInfo" controlType="button">
+			<title translatable="true">ChaKanXiangQing</title>
+		</field>
+		<field table="bl" name="bl_id"/>
+		<field table="bl" name="area_building_manual"/>
+		<field table="bl" name="construction_type"/>
+		<field table="bl" name="use1" />
+		<field table="bl" name="count_upground"/>
+		<field table="bl" name="count_underground"/>
+		<field table="bl" name="area_underground"/>
+		<field table="bl"  name="count_rm_keyong">
+			<title translatable="true">Room Count</title>
+		</field>
+		<field table="bl" name="area_rm"/>
+		<field name="common_area"  dataType="number" decimals="2">
+			<title translatable="true">Common Area</title>
+			<sql dialect="generic">
+    	          (bl.area_building_manual - bl.area_rm)  
+            </sql>
+		</field>
+		<field name="gongtanlv" dataType="number" decimals="4"/>
+		
+    </panel>
+	
+    
+    <js file="asc-bj-usms-overall-bl-whole.js"/>
+	<js file="asc-bj-usms-overall-common.js"/>
+</view>

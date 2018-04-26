@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view version="2.0"><title>资金账户</title><designInfo isAlterable="true" pattern="ab-viewdef-grid" type="grid"/><dataSource id="smartClientDataTransferDataSource"><table name="ac" role="main"/><field name="ac_id" table="ac"/><field name="description" table="ac"/><field name="company" table="ac"/><sortField name="ac_id" table="ac" ascending="true"/></dataSource><panel id="smartClientDataTransferDataSource_grid" type="grid" dataSource="smartClientDataTransferDataSource"><title>资金账户</title></panel></view>

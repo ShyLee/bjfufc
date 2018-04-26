@@ -1,0 +1,161 @@
+<view version="2.0">
+    <js file="asc-bj-usms-proc-house-renew.js"/>
+    <title translatable="true">Renew List</title>
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north id="consoleSite" autoScroll="true" split="true" initialSize="9%"/>
+        <center id="listSite" autoScroll="true"/>
+        <south id="renewSite" initialSize="0"/>
+    </layout>
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="em_id" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard"/>
+        <field name="sex" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="date_work_begin" table="sc_zzfcard"/>
+        <field name="marriage_stat" table="sc_zzfcard"/>
+        <field name="is_working_parents" table="sc_zzfcard"/>
+        <field name="po_name" table="sc_zzfcard"/>
+        <field name="po_dv_id" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="unit_code" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="date_created" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard"/>
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="desposit_payoff" table="sc_zzfcard"/>
+        <field name="date_register" table="sc_zzfcard"/>
+        <field name="eq_desc_chkout" table="sc_zzfcard"/>
+        <field name="date_checkin" table="sc_zzfcard"/>
+        <field name="date_checkout_ought" table="sc_zzfcard"/>
+        <field name="all_payoff" table="sc_zzfcard"/>
+        <field name="actual_payoff" table="sc_zzfcard"/>
+        <field name="date_payrent_last" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="cause_checkout" table="sc_zzfcard"/>
+        <field name="sponsor" table="sc_zzfcard"/>
+        <field name="sponsor_name" table="sc_zzfcard"/>
+        <field name="date_checkout_actual" table="sc_zzfcard"/>
+        <field name="is_refund" table="sc_zzfcard"/>
+        <field name="address_bt" table="sc_zzfcard"/>
+        <field name="area_fuli" table="sc_zzfcard"/>
+        <field name="po_em_id" table="sc_zzfcard"/>
+        <field name="po_identi_code" table="sc_zzfcard"/>
+        <field name="pr_id" table="sc_zzfcard"/>
+        <field name="is_rc" table="sc_zzfcard"/>
+        <field name="sponsor_dv" table="sc_zzfcard"/>
+        <field name="yxhx" table="sc_zzfcard"/>
+        <field name="site_id" table="sc_zzfcard"/>
+        <field name="amount_months" table="sc_zzfcard"/>
+        <field table="sc_zzfcard" name="doc1"/>
+        <field table="sc_zzfcard" name="doc2"/>
+        <field table="sc_zzfcard" name="doc_lease"/>
+        <field table="sc_zzfcard" name="rent_type"/>
+        <field table="sc_zzfcard" name="date_first_pay"/>
+        <field table="sc_zzfcard" name="area_manual"/>
+        <field table="sc_zzfcard" name="area_yangtai"/>
+        <field table="sc_zzfcard" name="gl_area"/>
+        <field table="sc_zzfcard" name="huxing"/>
+        <field table="sc_zzfcard" name="ttqx"/>
+        <field table="sc_zzfcard" name="htqx"/>
+        <field table="sc_zzfcard" name="xueli"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field name="rm_type" table="sc_zzfcard"/>
+        <field name="card_type" table="sc_zzfcard"/>
+        <sortField table="sc_zzfcard" name="card_id"/>
+        <sortField table="sc_zzfcard" name="em_id"/>
+        <restriction type="sql" 
+			sql="(sc_zzfcard.card_status = 'yrz' or sc_zzfcard.card_status = 'yxq') and sysdate >= sc_zzfcard.date_checkout_ought"/>
+    </dataSource>
+
+	<panel type="console" columns="5" id="consolePanel"  dataSource="sc_zzfcardDataSource" layoutRegion="consoleSite">
+        <title translatable="true">Filter</title>
+        <action id="filter">
+            <title translatable="true">Show</title>
+           <!--  <command type="showPanel" panelId="sc_zzfCardListPanel"/> -->
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <!-- <command type="clearPanel" panelId="consolePanel"/> -->
+        </action>
+        
+        <field table="sc_zzfcard" name="date_checkin" readOnly="false" alias="date_checkin_from" required="false" op="&gt;=">
+            <!-- <title translatable="true">Date Requested From</title> -->
+        </field>
+        <field table="sc_zzfcard" name="date_checkin" readOnly="false" alias="date_checkin_to" required="false" op="&lt;=">
+            <title translatable="true">~</title>
+        </field>
+        <field></field>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="false" alias="date_checkout_ought_from" required="false" op="&gt;=">
+           <!--  <title translatable="true">Date Requested From</title> -->
+        </field>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="false" alias="date_checkout_ought_to" required="false" op="&lt;=">
+            <title translatable="true">~</title>
+        </field>
+    </panel>
+       
+    <panel type="grid" id="sc_zzfCardListPanel" dataSource="sc_zzfcardDataSource" layoutRegion="listSite">
+        <title translatable="true">Rent List</title>
+        
+        <field controlType="button">
+            <title translatable="true">Select</title>
+            <command type="callFunction" functionName="renewController.renew()"/>
+        </field>
+		<indexField table="sc_zzfcard" name="card_id"/>
+		<indexField table="sc_zzfcard" name="em_id"/>
+        <field name="card_id" table="sc_zzfcard" hidden="false">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="card_type" table="sc_zzfcard" hidden="true"/>
+        <field name="em_id" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="em_name" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="identi_code" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="is_em" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="is_rc" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="rm_type" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="bl_id" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="fl_id" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="rm_id" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="date_checkin" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        <field name="date_checkout_ought" table="sc_zzfcard" controlType="link">
+        	<command type="callFunction" functionName="renewController.checkDetail()"/>
+        </field>
+        
+        <field name="date_work_begin" table="sc_zzfcard" hidden="false"/>
+    </panel>
+
+    
+</view>

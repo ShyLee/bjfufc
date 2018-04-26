@@ -1,0 +1,108 @@
+<view version="2.0">
+	<title translatable="true">House Rm List</title>
+	<js file="asc-bj-zzf-house-rm-list.js"/>
+	
+	 <dataSource id="roomDS">
+     	<table name="rm" role="main"/>
+     	<table name="bl" role="standard"/>
+    	<field table="rm" name="bl_id"/>
+    	<field table="bl" name="name"/>
+    	<field table="rm" name="fl_id"/>
+    	<field table="rm" name="rm_id"/>
+    	<field table="rm" name="area_comn_rm"/>
+    	<field table="rm" name="price"/>
+    	<field table="rm" name="huxing"/>
+		<field table="rm" name="kzlzys"/>
+		<field table="rm" name="yzlzys"/>
+		<field table="rm" name="rent_allowed" dataType="number" decimals="0">
+		   <title translatable="true">allowed resource</title>
+           <sql dialect="generic">
+               rm.kzlzys - rm.yzlzys
+           </sql>
+       </field>
+		<field table="rm" name="notes"/>
+		<field table="rm" name="rm_use_name" dataType="text">
+		   <sql dialect="generic">
+               (select rmuse_name from rmuse where rmuse.rm_use = rm.rm_use)
+           </sql>
+		</field>
+		
+    	<field table="rm" name="rm_cat_name" dataType="text">
+    	   <sql dialect="generic">
+               (select rmcat_name from rmcat where rmcat.rm_cat = rm.rm_cat)
+           </sql>
+    	</field>
+    	<field table="rm" name="rm_type_name" dataType="text">
+    	   <sql dialect="generic">
+               (select rmtype_name from rmtype where rmtype.rm_type = rm.rm_type)
+           </sql>
+    	</field>
+    	<field table="rm" name="dv_id_name" dataType="text">
+    	   <sql dialect="generic">
+               (select dv_name from dv where dv.dv_id = rm.dv_id)
+           </sql>
+    	</field>
+    	<field table="rm" name="dv_manage"/>
+    	
+    	<restriction type="sql" sql="${parameters['isKZF']}"/>
+	    <parameter name="isKZF" dataType="verbatim" value="1=1"/>
+    </dataSource>
+
+	 <panel type="grid" id="bizHouseRmGrid" dataSource="roomDS">
+	 	<title translatable="true">Room List</title>
+        <action id="isKZF">
+            <title translatable="true">Kong Zhi Fang</title>
+        </action>
+        <action id="isWMF">
+            <title translatable="true">Wei Man Fang</title>
+        </action>
+        <action id="all">
+            <title translatable="true">All Room</title>
+        </action>
+        <action id="export:XLS">
+	      <title>XLS</title>
+	      <command type="exportPanel" outputType="xls" panelId="bizHouseRmGrid"/>
+	    </action>
+    	<indexField table="rm" name="bl_id"/>
+    	
+    	<field table="rm" name="bl_id"/>
+    	<field table="bl" name="name"/>
+    	<field table="rm" name="fl_id"/>
+    	<field table="rm" name="rm_id"/>
+    	<field table="rm" name="area_comn_rm">
+    		<title translatable="true">Building Area</title>
+    	</field>
+    	<field table="rm" name="price"/>
+    	<field table="rm" name="huxing"/>
+    	<field table="rm" name="dv_id_name" dataType="text">
+    		<title translatable="true">Dv Name</title>
+    	</field>
+		<field table="rm" name="dv_manage"/>
+		<field table="rm" name="kzlzys"/>
+		<field table="rm" name="yzlzys"/>
+		<field table="rm" name="rent_allowed" dataType="number" decimals="0">
+			<title translatable="true">allowed resource</title>
+		</field>
+    	<field table="rm" name="rm_use_name" dataType="text">
+    	   <title translatable="true">Room Use</title>
+		   <sql dialect="generic">
+               (select rmuse_name from rmuse where rmuse.rm_use = rm.rm_use)
+           </sql>
+		</field>
+		
+    	<field table="rm" name="rm_cat_name" dataType="text">
+    	   <title translatable="true">Room Cat</title>
+    	   <sql dialect="generic">
+               (select rmcat_name from rmcat where rmcat.rm_cat = rm.rm_cat)
+           </sql>
+    	</field>
+    	<field table="rm" name="rm_type_name" dataType="text">
+    	   <title translatable="true">Room Type</title>
+    	   <sql dialect="generic">
+               (select rmtype_name from rmtype where rmtype.rm_type = rm.rm_type)
+           </sql>
+    	</field>
+    	<field table="rm" name="notes"/>
+    </panel>
+	
+</view>

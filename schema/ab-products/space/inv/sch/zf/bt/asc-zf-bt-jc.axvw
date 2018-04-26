@@ -1,0 +1,133 @@
+<view version="2.0">
+	<title translatable="true">Zf Bt JC</title>
+	<js file="asc-zf-bt-jc.js"/>
+	
+    <dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+        <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="em_id" />
+        <field table="sc_zf_em" name="xm" />
+        <field table="sc_zf_em" name="sfzh" />
+        <field table="sc_zf_em" name="xb" />
+        <field table="sc_zf_em" name="gzbm" />
+        
+        <field table="sc_zf_em" name="em_type" />
+        <field table="sc_zf_em" name="date_first_gjj" />
+        <field table="sc_zf_em" name="date_come_sch" />
+        <field table="sc_zf_em" name="date_begin_work" />
+        <field table="sc_zf_em" name="date_retired" />
+        <field table="sc_zf_em" name="zw_name" />
+        <field table="sc_zf_em" name="zc_name" />
+        <field table="sc_zf_em" name="area_jz_std"/>
+    	<field table="sc_zf_em" name="area_bt_has"/>
+    	<field table="sc_zf_em" name="area_jc"/>
+    	<field table="sc_zf_em" name="date_jc"/>
+	</dataSource>
+    
+    <dataSource id="scZfBtJcDs">
+		<table name="sc_zfbt_jc" role="main" />
+        <field table="sc_zfbt_jc" name="id" />
+        <field table="sc_zfbt_jc" name="em_id" />
+        <field table="sc_zfbt_jc" name="em_name" />
+        <field table="sc_zfbt_jc" name="salary_num" />
+        <field table="sc_zfbt_jc" name="dv_name" />
+        <field table="sc_zfbt_jc" name="date_work_begin" />
+        <field table="sc_zfbt_jc" name="date_gjj" />
+        <field table="sc_zfbt_jc" name="gl_gjj" />
+        <field table="sc_zfbt_jc" name="zw_x" />
+        <field table="sc_zfbt_jc" name="zw_y" />
+        <field table="sc_zfbt_jc" name="zc_x" />
+        <field table="sc_zfbt_jc" name="zc_y" />
+        <field table="sc_zfbt_jc" name="btbz_x" />
+        <field table="sc_zfbt_jc" name="btbz_y"/>
+    	<field table="sc_zfbt_jc" name="ndjz"/>
+    	<field table="sc_zfbt_jc" name="ndgl"/>
+    	<field table="sc_zfbt_jc" name="area_jc"/>
+    	<field table="sc_zfbt_jc" name="money_bt"/>
+    	<field table="sc_zfbt_jc" name="date_ff"/>
+    	
+    	<sortField table="sc_zfbt_jc" name="date_ff" ascending="true"/>
+	</dataSource>
+	<tabs id="detailTabs" workflow="enforced" tabRefreshPolicy="refreshOnLoad">
+    	<tab name="applyListTab" selected="true">
+			<title translatable="true">Apply List</title>
+			<panel type="grid" id="applyList" dataSource="scZfEmDs" multipleSelectionEnabled="true">
+				<title translatable="true">JC No Deal List</title>
+				<action id="select">
+		        </action>
+		        <action id="deal">
+		            <title translatable="true">Deal</title>
+		        </action>
+		        <field table="sc_zf_em" name="archive_id" hidden="true"/>
+		        <field table="sc_zf_em" name="em_id" hidden="true"/>
+		        <field table="sc_zf_em" name="gzbm" />
+		        <field table="sc_zf_em" name="xm" />
+		        <field table="sc_zf_em" name="xb" />
+		        <field table="sc_zf_em" name="sfzh" />
+		        <field table="sc_zf_em" name="zw_name" />
+		        <field table="sc_zf_em" name="zc_name" />
+		        <field table="sc_zf_em" name="area_jz_std"/>
+		    	<field table="sc_zf_em" name="area_bt_has"/>
+		    	<field table="sc_zf_em" name="area_jc" hidden="true"/>
+		    	<field table="sc_zf_em" name="date_first_gjj" hidden="true"/>
+        		<field table="sc_zf_em" name="date_begin_work" hidden="true"/>
+		    </panel>
+		</tab>
+		<tab name="basicInfoTab">
+			<title translatable="true">Basic Info</title>
+			 <panel type="form" id="jcBtForm" dataSource="scZfBtJcDs"  columns="2">
+		    	<title translatable="true">JC Bt Form</title>
+		    	<action id="save">
+		            <title translatable="true">Save</title>
+		        </action>
+		        <!-- <action id="delete">
+		            <title translatable="true">Delete</title>
+		        </action> -->
+		        <action id="return">
+		            <title translatable="true">Return</title>
+		        </action>
+		        <field table="sc_zfbt_jc" name="id" hidden="true"/>
+		        <field table="sc_zfbt_jc" name="em_id" hidden="true"/>
+		        <field table="sc_zfbt_jc" name="em_name" />
+		        <field table="sc_zfbt_jc" name="salary_num" />
+		        <field table="sc_zfbt_jc" name="dv_name" />
+		        <field table="sc_zfbt_jc" name="date_work_begin" />
+		        <field table="sc_zfbt_jc" name="date_gjj" />
+		        <field table="sc_zfbt_jc" name="gl_gjj" />
+		        <field table="sc_zfbt_jc" name="zw_x" />
+		        <field table="sc_zfbt_jc" name="zw_y" />
+		        <field table="sc_zfbt_jc" name="zc_x" />
+		        <field table="sc_zfbt_jc" name="zc_y" />
+		        <field table="sc_zfbt_jc" name="btbz_x" />
+		        <field table="sc_zfbt_jc" name="btbz_y"/>
+		    	<field table="sc_zfbt_jc" name="ndjz"/>
+		    	<field table="sc_zfbt_jc" name="ndgl"/>
+		    	<field table="sc_zfbt_jc" name="area_jc"/>
+		    	<field table="sc_zfbt_jc" name="money_bt"/>
+		    	<field table="sc_zfbt_jc" name="date_ff" hidden="true"/>
+		    </panel>
+			<panel type="grid" id="jcBtGrid" dataSource="scZfBtJcDs">
+				<title translatable="true">JC Bt List</title>
+				<action id="return">
+		            <title translatable="true">Return</title>
+		        </action>
+		        <event type="onClickItem">
+		            <command type="callFunction" functionName="ascZfbtJCController.showEditForm()"/>
+		        </event>
+		        
+				<field table="sc_zfbt_jc" name="id" hidden="true"/>
+		        <field table="sc_zfbt_jc" name="em_id" hidden="true"/>
+		        <field table="sc_zfbt_jc" name="zw_x" />
+		        <field table="sc_zfbt_jc" name="zw_y" />
+		        <field table="sc_zfbt_jc" name="zc_x" />
+		        <field table="sc_zfbt_jc" name="zc_y" />
+		        <field table="sc_zfbt_jc" name="btbz_x" />
+		        <field table="sc_zfbt_jc" name="btbz_y"/>
+		    	<field table="sc_zfbt_jc" name="area_jc"/>
+		    	<field table="sc_zfbt_jc" name="money_bt"/>
+		    	<field table="sc_zfbt_jc" name="date_ff"/>
+		    </panel>
+		</tab>
+	 </tabs>
+	
+</view>

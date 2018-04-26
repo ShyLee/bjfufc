@@ -1,0 +1,276 @@
+<view version="2.0">
+    <js file="asc-bj-zzf-common.js" />
+	<js file="asc-bj-zzf-register-common.js" />
+    <js file="asc-bj-usms-zzf-generate-protocal-detail.js"/>
+    <layout type="borderLayout" id="mainLayout">
+        <north id="step2Layout" autoScroll="true" split="true" initialSize="12%"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout id="subLayout" containingLayout="mainLayout" region="center">
+        <north id="protocalFormLayout" initialSize="60%" split="true"/>
+        <center id="feesInfoLayout"  autoScroll="true"/>
+    </layout>
+
+	
+  	<dataSource id="applyTableDs">
+        <table name="bh_zzf_apply" role="main"/>     
+        <field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply" />
+        <field table="bh_zzf_apply" name="status"/>
+        <field table="bh_zzf_apply" name="em_apply" />
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile"/>
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+    </dataSource> 
+	
+	<dataSource id="rentStdDetailDs">
+        <table name="bh_zzf_rent_std_detail" role="main"/>
+        <field table="bh_zzf_rent_std_detail" name="rent_std"/>
+        <field table="bh_zzf_rent_std_detail" name="area_begin"/>
+        <field table="bh_zzf_rent_std_detail" name="area_end"/>
+        <field table="bh_zzf_rent_std_detail" name="fee"/>
+    </dataSource>
+	
+	 <dataSource id="protocalTableDs">
+        <table name="bh_zzf_protocal" role="main"/>
+        <table name="em" role="standard"/>
+        <table name="dv" role="standard"/>
+        <field table="em" name="name"/>
+        <field table="dv" name="dv_name"/>
+        <field table="bh_zzf_protocal" name="protocal_id"/>
+        <field table="bh_zzf_protocal" name="protocal_sq_id"/>
+        <field table="bh_zzf_protocal" name="date_begin"/>
+        <field table="bh_zzf_protocal" name="date_end"/>
+        <field table="bh_zzf_protocal" name="live_time"/>
+		<field table="bh_zzf_protocal" name="pay_period"/>
+        <field table="bh_zzf_protocal" name="party_b"/>
+        <field table="bh_zzf_protocal" name="party_b_rep"/>
+        <field table="bh_zzf_protocal" name="party_b_rep_tel"/>
+        <field table="bh_zzf_protocal" name="party_b_rep_dv"/>
+        <field table="bh_zzf_protocal" name="party_b_rep_email"/>
+        <field table="bh_zzf_protocal" name="party_b_contacts"/>
+        <field table="bh_zzf_protocal" name="party_b_con_tel"/>
+        <field table="bh_zzf_protocal" name="party_a"/>
+        <field table="bh_zzf_protocal" name="party_a_rep"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_tel"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_dv"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_email"/>
+        <field table="bh_zzf_protocal" name="party_a_contacts"/>
+        <field table="bh_zzf_protocal" name="party_a_con_tel"/>
+        <field table="bh_zzf_protocal" name="payment_type"/>
+        <field table="bh_zzf_protocal" name="payment_num"/>
+        <field table="bh_zzf_protocal" name="date_apply"/>
+        <field table="bh_zzf_protocal" name="rm_use"/>
+        <field table="bh_zzf_protocal" name="rm_address"/>
+        <field table="bh_zzf_protocal" name="area_rent"/>
+        <field table="bh_zzf_protocal" name="area_protocal"/>
+        <field table="bh_zzf_protocal" name="price_rent"/>
+        <field table="bh_zzf_protocal" name="price_rent_std"/>
+        <field table="bh_zzf_protocal" name="price_total_rent"/>
+        <field table="bh_zzf_protocal" name="preparer"/>
+        <field table="bh_zzf_protocal" name="status_protocal"/>
+        <field table="bh_zzf_protocal" name="is_active"/>
+        <field table="bh_zzf_protocal" name="examine_context"/>
+        <field table="bh_zzf_protocal" name="examine_people"/>
+        <field table="bh_zzf_protocal" name="date_examine"/>
+        <field table="bh_zzf_protocal" name="time_pre"/>
+        <field table='bh_zzf_protocal' name='party_a_address'/>
+        <field table='bh_zzf_protocal' name='party_b_address'/>
+        <sortField name="protocal_id" table="bh_zzf_protocal" ascending="false"/>
+    </dataSource> 
+	
+	
+	<dataSource id="partyADs">
+        <table name="bh_zzf_protocal" role="main"/>
+        <field table="bh_zzf_protocal" name="party_a"/>
+        <field table="bh_zzf_protocal" name="party_a_rep"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_tel"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_dv"/>
+        <field table="bh_zzf_protocal" name="party_a_rep_email"/>
+        <field table="bh_zzf_protocal" name="party_a_contacts"/>
+        <field table="bh_zzf_protocal" name="party_a_con_tel"/>
+        <restriction type="sql" sql="bh_zzf_protocal.protocal_id=(select max(protocal_id) from bh_zzf_protocal)"/>       
+    </dataSource> 
+	<dataSource id="rentalAgreementRoomDS">
+     	<table name="bh_zzf_protocal_rm" role="main"/>
+    	<table name="bl" role="standard"/>
+    	<table name="rm" role="standard"/>
+    	<field table="bl" name="name"/>
+    	<field table="rm" name="protocal_rm_type"/>
+    	<field table="bl" name="rent_std"/>
+    	<field table="bh_zzf_protocal_rm" name="id"/>
+    	<field table="bh_zzf_protocal_rm" name="protocal_id"/>
+    	<field table="bh_zzf_protocal_rm" name="bl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="fl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="rm_id"/>
+    	<field table="bh_zzf_protocal_rm" name="area_jianZhu"/>
+    	<field table="bh_zzf_protocal_rm" name="area_rm"/>
+    	<field table="bh_zzf_protocal_rm" name="area_xy"/>
+    	<field table="bh_zzf_protocal_rm" name="is_active"/>	
+    	<restriction type="sql" sql=" bh_zzf_protocal_rm.protocal_id is null "/>
+    </dataSource>
+	
+	<dataSource id="protocalRmDs">
+     	<table name="bh_zzf_protocal_rm" role="main"/>
+    	<field table="bh_zzf_protocal_rm" name="id"/>
+    	<field table="bh_zzf_protocal_rm" name="protocal_id"/>
+    	<field table="bh_zzf_protocal_rm" name="bl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="fl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="rm_id"/>
+    	<field table="bh_zzf_protocal_rm" name="area_jianZhu"/>
+    	<field table="bh_zzf_protocal_rm" name="area_rm"/>
+    	<field table="bh_zzf_protocal_rm" name="area_xy"/>
+  
+    </dataSource>
+	
+	<panel type="grid" id="step2" showOnLoad="true" dataSource="rentalAgreementRoomDS" showIndexAndFilterOnLoad="false" sortEnabled="false"
+        layoutRegion="step2Layout">
+        <title translatable="true">step2:choice room rental agreement</title>
+        <action id="add">
+            <title translatable="true">Add Room</title>
+        </action>
+	   	<action id="saveAndGenerateProtocal" mainAction="true">
+            <title>Confirm Protocal</title>
+        </action>
+        <action id="print">
+            <title>Print</title>
+        </action>
+		
+         <field controlType="button" width="100" id="delete">
+            <title translatable="true">Delete</title>
+        </field>
+
+		  <field controlType="button" width="100" id="modify">
+            <title translatable="true">Modify XyArea</title>
+        </field>
+    	<field table="bl" name="name"/>
+    	<field table="bh_zzf_protocal_rm" name="bl_id" hidden="true"/>
+    	<field table="bh_zzf_protocal_rm" name="fl_id"/>
+    	<field table="bh_zzf_protocal_rm" name="rm_id"/>
+    	<field table="bh_zzf_protocal_rm" name="area_jianZhu"/>
+    	<field table="bh_zzf_protocal_rm" name="area_rm"/>
+    	<field table="bh_zzf_protocal_rm" name="area_xy"/>
+    	<field table="rm" name="protocal_rm_type"/>
+    	<field table="bl" name="rent_std"/>
+    </panel>
+	
+	   
+    <panel type="form" columns="3" id="protocalForm" showOnLoad="true" dataSource="protocalTableDs" newRecord="true"
+        layoutRegion="protocalFormLayout">
+        <title translatable="true">step3: input basic info</title>
+        <action id="checkRentedRoom">
+        	 <title translatable="true">Checked Rented Room</title>
+        </action>
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field table="bh_zzf_protocal" name="protocal_sq_id" hidden="true"/>
+		<field table="bh_zzf_protocal" name="protocal_id"/>
+		<field/>
+		<field/> 	
+     		
+		<field table="bh_zzf_protocal" name="date_begin" onchange="ascBjUsmsZZFProtocalInputTabController.calculateDate()"/>
+        <field table="bh_zzf_protocal" name="date_end" onchange="ascBjUsmsZZFProtocalInputTabController.calculateDate()"/>
+        <field table="bh_zzf_protocal" name="live_time"/>
+        
+        <field table="bh_zzf_protocal" name="party_b_rep" hidden="true"/>
+         <field table="em" name="name">
+            <title translatable="true">Em Name</title>
+         </field>
+      
+        <field table="bh_zzf_protocal" name="party_b_rep_tel" readOnly="true" required="false"/>
+        <field table="bh_zzf_protocal" name="party_b_rep_dv" readOnly="true" hidden="true"/>
+        <field table="dv" name="dv_name" readOnly="true" required="false"/>
+
+        <field table="bh_zzf_protocal" name="party_b_rep_email" readOnly="true"/>
+        <field table="bh_zzf_protocal" name="party_b_contacts" required="true"/>
+        <field table="bh_zzf_protocal" name="party_b_con_tel" required="true"/>
+        <field table="bh_zzf_protocal" name="payment_type"/>
+        <field table="bh_zzf_protocal" name="payment_num" required="true"/>
+		<field table='bh_zzf_protocal' name='rm_use' />
+        <field table='bh_zzf_protocal' name='rm_address' colspan="3" rowspan="2" />
+        <field table='bh_zzf_protocal' name='area_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='area_protocal' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_rent' />
+        <field table='bh_zzf_protocal' name='price_rent_std' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_total_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='protocal_sq_id' readOnly="true" hidden='true'/>
+        <field table='bh_zzf_protocal' name='pay_period'/>
+        <field table='bh_zzf_protocal' name='party_a' required="true"/>
+        <field table='bh_zzf_protocal' name='party_a_rep' required="true">
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.dv_name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_tel' required="true">
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.dv_name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_dv' >
+        	<action>
+        		<title>...</title>
+        		<tooltip>Select Value</tooltip>
+        		<command type="selectValue" 
+        			fieldNames="bh_zzf_protocal.party_a_rep,bh_zzf_protocal.party_a_rep_tel,bh_zzf_protocal.party_a_rep_dv" 
+        			selectFieldNames="em.em_id,em.phone,em.dv_id" 
+        			visibleFieldNames="em.em_id,em.name,em.phone,em.dv_id,dv.dv_name"
+        			/>
+      		</action>
+        </field>
+        <field table='bh_zzf_protocal' name='party_a_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_a_contacts' required="true"/>
+        <field table='bh_zzf_protocal' name='party_a_con_tel' required="true"/>
+        <field table='bh_zzf_protocal' name='party_a_address' required="true" colspan="1" rowspan="2" width="207" />
+        <field table='bh_zzf_protocal' name='party_b_address' required="true" colspan="1" rowspan="2" width="207" />
+    </panel>
+	
+	
+	<dataSource id='zzf_fees_ds'>
+        <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+		<field table='bh_zzf_fees' name='end_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </dataSource>
+    
+    <panel id='feesInfo' type='grid' dataSource='zzf_fees_ds' showOnLoad="false" showIndexAndFilterOnLoad="false" sortEnabled="false"
+       layoutRegion="feesInfoLayout">
+        <title>calculate fees</title>
+		<action id="showFees">
+            <title>Cal Fee</title>
+        </action>
+        <field table='bh_zzf_fees' name='protocal_id' hidden='true'/> 
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='end_date' hidden='true'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </panel>
+ </view>

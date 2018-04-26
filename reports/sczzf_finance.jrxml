@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sczzf_finance" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e93bd739-07b0-49db-a0ca-c001f4a69b38">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="yyyymm" class="java.lang.String"/>
+	<parameter name="yyyymmstr" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT sc_zzf_fee.fee_id,
+        (select sc_zf_em.gzbm from sc_zf_em where sc_zzf_fee.identi_code = sc_zf_em.sfzh) gzbm,
+        sc_zzf_fee.em_name,
+        sc_zzf_fee.rm_rent_fee,
+        sc_zzf_fee.health_fee,
+        sc_zzf_fee.other_fee,
+        sc_zzf_fee.water_num,
+        sc_zzf_fee.water_fee,
+        sc_zzf_fee.rm_rent_fee,
+        sc_zzf_fee.pay_ought,
+        TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+        TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+        sc_zzf_fee.memo
+        FROM sc_zzf_fee
+        LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+        WHERE    sc_zzfcard.payment_to = 'finance' and TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy-mm') = $P{yyyymm}]]>
+	</queryString>
+	<field name="FEE_ID" class="java.math.BigDecimal"/>
+	<field name="GZBM" class="java.lang.String"/>
+	<field name="EM_NAME" class="java.lang.String"/>
+	<field name="RM_RENT_FEE" class="java.math.BigDecimal"/>
+	<field name="HEALTH_FEE" class="java.math.BigDecimal"/>
+	<field name="OTHER_FEE" class="java.math.BigDecimal"/>
+	<field name="WATER_NUM" class="java.math.BigDecimal"/>
+	<field name="WATER_FEE" class="java.math.BigDecimal"/>
+	<field name="PAY_OUGHT" class="java.math.BigDecimal"/>
+	<field name="YEAR" class="java.lang.String"/>
+	<field name="MONTH" class="java.lang.String"/>
+	<field name="MEMO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="383" y="14" width="158" height="20" uuid="a0d17b7b-ea1a-40c2-8a21-003980a57cad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{yyyymmstr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="22" uuid="d7a111ba-4431-40d5-ba5b-41a3b9e7f14c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[工资编码]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="70" height="22" uuid="2479f81e-da33-4891-aa3f-1d1a7a58380a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="70" height="22" uuid="8f35f879-175a-40c5-8bf5-fc062082840b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[房租]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="0" width="70" height="22" uuid="346839a2-d46c-4674-962c-9c1479261c72"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[卫生费]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="70" height="22" uuid="05bec653-c3ed-4a10-a82b-b9e7aca5666a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[其他费用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="70" height="22" uuid="e23aa0a2-2064-4888-8d7d-640a56f820af"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[用水量]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="58" height="22" uuid="3ad2c301-27d8-4e1c-9d6a-69b870381f9c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[水费]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="0" width="77" height="22" uuid="9fb87592-17f6-4d8f-beb8-c720f49c6845"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[合计]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="70" height="22" uuid="fd1112ec-d1ae-4828-844d-be5d60af4429"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GZBM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="0" width="70" height="22" uuid="04698294-4fa3-44d0-83d2-41d34aa089d7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EM_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="478" y="0" width="77" height="22" uuid="b39a992b-41e9-4c53-8ff5-348b4cc16d52"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PAY_OUGHT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="70" height="22" uuid="1814bb0b-c934-4e7e-9a1a-37944f00197f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RM_RENT_FEE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="70" height="22" uuid="387ec251-490a-41ad-a178-b5eda1749a35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HEALTH_FEE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="69" height="22" uuid="a079d96e-20f3-42c2-bf77-e7aa88ed415d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OTHER_FEE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="71" height="22" uuid="333f4bea-c6fe-4a11-89bb-d8319bb6fc2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WATER_NUM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="58" height="22" uuid="d19ecf7d-fe61-4808-b1b6-c02f804c9d03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WATER_FEE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,225 @@
+
+<view version="2.0">
+	<!-- Layout -->
+	<layout type="borderLayout" id="mainLayout">
+		<north id="consoleLayout" initialSize="80"  split="true" />
+		<center  />
+	</layout>
+	<layout id="gridLayoutF" type="borderLayout" containingLayout="mainLayout"
+		region="center">
+		<north id="emGridLayout" initialSize="40%"  split="true"   />
+		<center id="recordGridLayout"  />
+	</layout>
+	<title>Zi jiao fang zu deng ji</title>
+	<dataSource id="scZzfcardScZzfrentDetailsDs">
+		<table name="sc_zzfcard" role="main" />
+		<table name="bl" role="standard" />
+		<field table="sc_zzfcard" name="identi_code" />
+		<field table="sc_zzfcard" name="em_id" />
+		<field table="sc_zzfcard" name="em_name" />
+		<field table="sc_zzfcard" name="dv_name" />
+		<field table="sc_zzfcard" name="sex" />
+		<field table="bl" name="name" />
+		<field table="sc_zzfcard" name="curr_addr" />
+		<field table="sc_zzfcard" name="bl_id" />
+		<field table="sc_zzfcard" name="fl_id" />
+		<field table="sc_zzfcard" name="rm_id" />
+		<field table="sc_zzfcard" name="area_lease" />
+		<field table="sc_zzfcard" name="rent_period" />
+		<field table="sc_zzfcard" name="curr_rent_rate" />
+		<field table="sc_zzfcard" name="card_id" />
+		<field table="sc_zzfcard" name="date_checkin" />
+		<field table="sc_zzfcard" name="date_checkout_ought" />
+		<field table="sc_zzfcard" name="date_payrent_last" />
+		<field table="sc_zzfcard" name="desposit_payoff" />
+		<field table="sc_zzfcard" name="actual_payoff" />
+		<field table="sc_zzfcard" name="card_status"/>
+			<restriction type="sql"
+			sql=" sc_zzfcard.payment_to in
+			(SELECT sc_zzfcard.payment_to FROM sc_zzfcard
+			WHERE
+			sc_zzfcard.payment_to='house') and card_status='1' and date_checkin is not null "/>
+	</dataSource>
+	<dataSource id="scZzfcardCardDs">
+		<table name="sc_zzfcard" role="main" />
+		<table name="sc_zzfrent_details" role="standard" />
+		<field table="sc_zzfrent_details" name="year"/>
+		<field table="sc_zzfcard" name="card_id"/>
+		<field table="sc_zzfcard" name="date_payrent_last" />
+		<field table="sc_zzfcard" name="dv_name" />
+		<field table="sc_zzfcard" name="em_id" />
+		<field table="sc_zzfcard" name="curr_addr" />
+		<field table="sc_zzfcard" name="em_name" />
+		<field table="sc_zzfcard" name="identi_code" />
+		<field table="sc_zzfcard" name="sex" />
+		<field table="sc_zzfcard" name="actual_payoff" />
+	</dataSource>
+	
+	
+	<dataSource id="scZzfrentDetailsHistoryDs">
+		<table name="sc_zzfrent_details" role="main" />
+		<table name="sc_zzfcard" role="standard" />
+		<field table="sc_zzfcard" name="rent_period"/>
+		<field table="sc_zzfrent_details" name="card_id"/>
+		<field table="sc_zzfrent_details" name="em_name"/>
+		<field table="sc_zzfrent_details" name="year"/>
+		<field table="sc_zzfrent_details" name="month"/>
+		<field table="sc_zzfrent_details" name="amount_payrent"/>
+		<field table="sc_zzfrent_details" name="actual_payoff" />
+		<field table="sc_zzfrent_details" name="operator"/>
+		<field table="sc_zzfrent_details" name="date_payrent"/>
+		<field table="sc_zzfrent_details" name="note1"/>
+	</dataSource>
+	
+	<panel id="addForm" dataSource="scZzfcardScZzfrentDetailsDs" columns="2"
+		type="form" showOnLoad="false">
+		<title>Deng ji</title>
+		<action id="abCadSetAtxtVisibility_afmTyp_save">
+			<title translatable="true">Save</title>
+			<command type="callFunction"
+				functionName="ascBjUsmsHousePaymentRentRegister.saveScZzfrentDetailsForm()" />
+			<command type="closeDialog" />
+		</action>
+		<field table="sc_zzfcard" name="em_id"  readOnly="true"/>
+		<field table="sc_zzfcard" name="em_name" readOnly="true" />
+		<field table="sc_zzfcard" name="identi_code" readOnly="true" />
+		<field table="sc_zzfcard" name="sex" readOnly="true" />
+		<field table="sc_zzfcard" name="dv_name" readOnly="true"/>
+		<field table="bl" name="name" readOnly="true" />
+		<field table="sc_zzfcard" name="curr_addr" readOnly="true" />
+		<field table="sc_zzfcard" name="bl_id" readOnly="true" />
+		<field table="sc_zzfcard" name="fl_id" readOnly="true" />
+		<field table="sc_zzfcard" name="rm_id" readOnly="true" />
+		<field table="sc_zzfcard" name="area_lease" readOnly="true" />
+		<field table="sc_zzfcard" name="date_checkin"  readOnly="true"/>
+		<field table="sc_zzfcard" name="date_checkout_ought"  readOnly="true"/>
+		<field table="sc_zzfcard" name="rent_period" readOnly="true" />
+		<field table="sc_zzfcard" name="desposit_payoff" readOnly="true" />
+		<field table="sc_zzfcard" name="actual_payoff" readOnly="true" />
+		<field table="sc_zzfcard" name="date_payrent_last" readOnly="true"/>
+		<field>
+			<title translatable="true">Yue zu jin</title>
+			<html>
+				<input type="text" id="monthRentText" readOnly="true"/>
+			</html>
+		</field>
+		<field table="sc_zzfcard" name="curr_rent_rate"  readOnly="true"/>
+		
+		<field >
+			<title translatable="true">Ying jiao zu jin</title>
+			<html>
+				<input type="text" id="amountPayrentText" readOnly="true"/>
+				<input type="text" id="numMonth" readOnly="true" hidden="true" style="display:none"/>
+			</html>
+		</field>
+		<field>
+			<title translatable="true">Shi jiao zu jin</title>
+			<html>
+				<input type="text" id="actualPayoffText" />
+			</html>
+		</field>
+		<field></field>
+		<field colspan="2">
+			<title translatable="true">Bei zhu</title>
+			<html>
+				<textarea id="note1Text" rows="2" cols="50"></textarea>
+			</html>
+		</field>
+	</panel>
+	
+	<panel id="codeConsole" type="console" dataSource="scZzfcardCardDs"
+		labelsPosition="top" layoutRegion="consoleLayout" columns="4">
+		<title>Cha xun tiao jian</title>
+		<action id="show">
+			<title>Show</title>
+		</action>
+		<action id="clear">
+			<title>Clear</title>
+			<command type="clearPanel" panelId="codeConsole" />
+		</action>
+		<field table="sc_zzfcard" name="identi_code" showSelectValueAction="false"/>
+		<field table="sc_zzfcard" name="em_id"  showSelectValueAction="false"/>
+		<field table="sc_zzfcard" name="em_name"  showSelectValueAction="false"/>
+		<field table="sc_zzfrent_details" name="year" showSelectValueAction="false"/>
+		
+	</panel>
+	
+	<panel id="emGrid" type="grid" dataSource="scZzfcardScZzfrentDetailsDs"
+		controlType="reportGrid" layoutRegion="emGridLayout" showOnLoad="false">
+		<title>zhu hu</title>
+		<field controlType="button">
+			<title>ShowRecord</title>
+			<command type="callFunction"
+				functionName="ascBjUsmsHousePaymentRentRegister.showRecord()"/>
+		</field>
+		<field table="sc_zzfcard" name="em_name" >
+			<title>Zhu hu xing ming</title>
+		</field>
+		<field table="sc_zzfcard" name="card_id" hidden="true"/>
+		<field table="sc_zzfcard" name="identi_code" />
+		<field table="sc_zzfcard" name="em_id" />
+		<field table="bl" name="name" />
+		<field table="sc_zzfcard" name="rm_id" />
+		<field table="sc_zzfcard" name="curr_addr" />
+	</panel>
+	
+	<dataSource id="scZzfrentDetailsDs">
+		<table name="sc_zzfrent_details" role="main" />
+		<field table="sc_zzfrent_details" name="em_id"/>
+		<field table="sc_zzfrent_details" name="em_name"/>
+		<field table="sc_zzfrent_details" name="month_rent"/>
+		<field table="sc_zzfrent_details" name="area_lease"/>
+		<field table="sc_zzfrent_details" name="per_rent"/>
+		<field table="sc_zzfrent_details" name="actual_payoff"/>
+		<field table="sc_zzfrent_details" name="amount_payrent"/>
+		<field table="sc_zzfrent_details" name="note1"/>
+		<field table="sc_zzfrent_details" name="dv_name"/>
+		<field table="sc_zzfrent_details" name="operator"/>
+		<field table="sc_zzfrent_details" name="year"/>
+		<field table="sc_zzfrent_details" name="month"/>
+		<field table="sc_zzfrent_details" name="card_id" />
+		<field table="sc_zzfrent_details" name="date_payrent"/>
+	</dataSource>
+	
+	<dataSource id="cardMainDs">
+        <table name="sc_zzfrent" role="main"/>
+        <field name="year" table="sc_zzfrent" />
+        <field name="month" table="sc_zzfrent" />
+        <field name="operator" table="sc_zzfrent" />
+        <field name="area" table="sc_zzfrent" />
+        <field name="count_rm" table="sc_zzfrent" />
+        <field name="count_em" table="sc_zzfrent" />
+        <field name="tot_rent" table="sc_zzfrent" />
+        <field name="all_rm_count" table="sc_zzfrent" />
+        <field name="all_em_count" table="sc_zzfrent" />
+    </dataSource> 
+	
+	
+	<panel id="historyGrid" type="grid" showOnLoad="false"
+		layoutRegion="recordGridLayout" controlType="reportGrid" dataSource="scZzfrentDetailsHistoryDs">
+		<title>History</title>
+		<action id="dengji">
+			<title>Deng ji</title>
+			<command type="callFunction" functionName="ascBjUsmsHousePaymentRentRegister.dengji()" />
+		</action>
+		<field table="sc_zzfrent_details" name="em_name">
+			<title>Zhu hu xing ming</title>
+		</field>
+		<field table="sc_zzfrent_details" name="year"/>
+		<field table="sc_zzfrent_details" name="month"/>
+		<field table="sc_zzfrent_details" name="card_id" hidden="true"/>
+		
+		<field table="sc_zzfrent_details" name="amount_payrent"/>
+		<field table="sc_zzfrent_details" name="actual_payoff">
+			<title>Shi jiao zu jin</title>
+		</field>
+		<field table="sc_zzfcard" name="rent_period"/>
+		<field table="sc_zzfrent_details" name="operator"/>
+		<field table="sc_zzfrent_details" name="date_payrent"/>
+		<field table="sc_zzfrent_details" name="note1"/>
+	</panel>
+	 
+
+	
+	<js file="asc-bj-usms-house-payment-rent-register.js" />
+</view>

@@ -1,0 +1,133 @@
+<view version="2.0">
+    
+    <title>Daikou Warn</title>
+    
+    <dataSource id="zzfFeeDs">
+        <sql dialect="generic">
+            SELECT sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            sc_zzf_fee.em_id,
+            sc_zzf_fee.em_id_z,
+            sc_zzf_fee.em_name,
+            sc_zzf_fee.identi_code,
+            (select dv_name from sc_zzfcard where card_id = sc_zzf_fee.card_id) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_manual,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            sc_zzf_fee.memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'finance'  AND  djfr is null))
+            union all
+            SELECT
+            sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            (select em_id from em where em.em_zh=sc_zzfcard.djfr) as em_id,
+            sc_zzfcard.djfr as em_id_z,
+            (select name from em where em.em_zh=sc_zzfcard.djfr) as em_name,
+            (select identi_code from em where em.em_zh=sc_zzfcard.djfr) as identi_code,
+            (select dv_name from dv where dv_id = (select dv_id from em where em_zh = sc_zzfcard.djfr)) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_manual,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            (case when sc_zzf_fee.em_name is not null Then ${parameters['descBefore']} || sc_zzf_fee.em_name|| ${parameters['descAfter']}Else ''End) as memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'finance'  AND  djfr is not null))
+        </sql>
+        <table name="sc_zzf_fee" role="main"/>
+        <field table="sc_zzf_fee" name="fee_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="card_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id_z" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="identi_code" dataType="text"/>
+        <field table="sc_zzf_fee" name="dv_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="fl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="rm_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="area_manual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="area_lease" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="price" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="rate" dataType="int"/>
+        <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="memo" dataType="text"/>
+        <field table="sc_zzf_fee" name="year" dataType="text"/>
+        <field table="sc_zzf_fee" name="month" dataType="text"/>
+		<sortField table="sc_zzf_fee" name="fee_id"/>
+		<sortField table="sc_zzf_fee" name="em_id"/>
+        <parameter name="descBefore" dataType="verbatim" value="1111"/>
+        <parameter name="descAfter" dataType="verbatim" value="1111"/>
+        <restriction type="sql" sql="card_id in (select card_id from sc_zzfcard where sc_zzfcard.payment_to = 'finance') and pay_actual != pay_ought"/>
+    </dataSource>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfFeeDs" layout="mainLayout" region="center">
+        <title translatable="true">Room Rent List</title>
+        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+            <title></title>
+            <action>
+                <title>Export</title>
+                <command type="exportPanel" outputType="xls" panelId="zzf_fee_detail"/>
+            </action>
+        </action>
+		<indexField table="sc_zzf_fee" name="fee_id"/>
+        <indexField table="sc_zzf_fee" name="em_id"/>
+		<!--
+        <field id="pay" controlType="button">
+            <title translatable="true">Pay</title>
+        </field>
+		-->
+        <field table="sc_zzf_fee" name="fee_id" dataType="text" hidden="true"/>
+        <field table="sc_zzf_fee" name="card_id" dataType="text" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id_z" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="identi_code" dataType="text"/>
+        <field table="sc_zzf_fee" name="dv_name" dataType="text">
+            <title>Dv Name</title>
+        </field>
+        <field table="sc_zzf_fee" name="bl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text">
+        	<title>Building Name</title>
+        </field>
+        <field table="sc_zzf_fee" name="fl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="rm_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="year" dataType="text">
+            <title>Year</title>
+        </field>
+        <field table="sc_zzf_fee" name="month" dataType="text">
+            <title>Month</title>
+        </field>
+        <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="memo" dataType="text"/>
+    </panel>
+    
+    <js file="asc-bj-usms-house-view-daikou-rent.js"/>
+</view>

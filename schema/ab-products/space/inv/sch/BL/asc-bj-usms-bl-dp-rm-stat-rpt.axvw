@@ -1,0 +1,82 @@
+<view version="2.0">
+	<message name="noSite" translatable="true">No Site</message>
+	<message name="total" translatable="true">Total</message>
+	
+	<message name="treeTitle" translatable="true">Xiao Qu : {0}</message>
+    <title translatable="true">View Division Rooms by Building</title>
+	
+    <layout type="borderLayout" id="mainLayout">
+        <west id="treePosition" initialSize="20%" split="true"/>
+        <center id="rptPosition" autoScroll="true"/>
+    </layout>
+    
+    <!-- dataSource for site tree -->
+    <dataSource id="abScDvRmRpt_tree_siteDS">
+        <table name="site" role="main"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="name"/>
+		<restriction type="sql" sql="EXISTS(SELECT 1 FROM bl where bl.site_id=site.site_id)"/>
+    </dataSource>
+	
+	<!-- dataSource for building tree -->
+    <dataSource id="abScDvRmRpt_tree_blDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+    </dataSource>
+	
+	<!-- dataSource for divison tree -->
+    <dataSource id="abScDvRmRpt_tree_dvDS" distinct="true">
+        <table name="rm" role="main"/>
+		<table name="dv" role="standard"/>
+        <field table="dv" name="dv_id" />
+        <field table="dv" name="name"  />
+		<field table="rm" name="bl_id" />
+		<restriction type="sql" sql="rm.dv_id IS NOT NULL"/>
+    </dataSource>
+    
+	<!-- site tree panel-->
+	<panel type="tree" id="abScDvRmRptSite_tree" dataSource="abScDvRmRpt_tree_siteDS" layoutRegion="treePosition">
+        <title translatable="true">Xiao Qu</title>
+
+        <panel type="tree" id="abScDvRmRptBl_tree" dataSource="abScDvRmRpt_tree_blDS">
+            <field table="bl" name="bl_id"/>
+            <field table="bl" name="name"/>
+        </panel>
+		<panel type="tree" id="abScDvRmRptDv_tree" dataSource="abScDvRmRpt_tree_dvDS">
+            <event type="onClickNode">
+                	<command type="callFunction" functionName="onClickDvNode"/>
+            </event>
+            <field table="dv" name="dv_id"/>
+       	 </panel>
+    </panel>
+	
+    <dataSource id="ds_ab-sc-rpt-dv-rm-by-bl_rm">
+        <table name="rm" role="main"/>
+		
+		<field table="rm" name="rm_id" />
+        <field table="rm" name="bl_id" />
+		<field table="rm" name="fl_id" />
+		<field table="rm" name="area" />
+		<field table="rm" name="rm_cat" />
+        <field table="rm" name="rm_type" />
+        <field table="rm" name="name" />
+      	<field table="rm" name="phone" />
+		<field table="rm" name="count_em" />
+		<restriction type="sql" sql="rm.bl_id=${parameters['blIdRes']} and rm.dv_id=${parameters['dvIdRes']}"/>
+		<parameter name="blIdRes" dataType="text" value=""/>
+		<parameter name="dvIdRes" dataType="text" value=""/>
+    </dataSource>
+    	
+    <!-- cross table report-->
+	<panel id="abScDvRmRptPanel" type="grid" controlType="reportGrid" dataSource="ds_ab-sc-rpt-dv-rm-by-bl_rm" showOnLoad="false"  layoutRegion="rptPosition">
+		<title translatable="true"></title>
+		<sortField name="rm_id" table="rm" ascending="true"/>
+		<action id="exportXLS">
+            <title>XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScDvRmRptPanel"/>
+        </action>
+	</panel>
+	
+    <js file="asc-bj-usms-bl-dp-rm-stat-rpt.js"/>
+</view>

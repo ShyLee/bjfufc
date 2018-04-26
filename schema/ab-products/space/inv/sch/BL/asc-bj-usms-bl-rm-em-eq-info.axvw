@@ -1,0 +1,269 @@
+<view version="2.0">
+
+    
+    <title translatable="true">FangJianJiBanGongRenYuanXinXi</title>
+    
+	<!-- dataSource for rm -->
+    <dataSource id="ds_asc-bj-usms-bl-rm-em-eq-info_columnReport_rm">
+        <table name="rm" role="main"/>
+		<table name="dv" role="standard"/>
+		<table name="rmcat" role="standard"/>
+		<table name="rmtype" role="standard"/>
+		<field table="dv" name="dv_name"/>
+		<field table="rmcat" name="rmcat_name"/>
+		<field table="rmtype" name="rmtype_name"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+		<field table="rm" name="rm_id"/>
+		<field table="rm" name="name"/>
+		<field table="rm" name="dv_id"/>
+		<field table="rm" name="rm_cat"/>
+        <field table="rm" name="rm_type"/>
+		<field table="rm" name="rm_std"/>
+        <field table="rm" name="count_em"/>
+        <field table="rm" name="area"/>
+	
+		<restriction type="sql" sql="rm.bl_id=${parameters['blIdRes']} and rm.fl_id=${parameters['flIdRes']} and rm.rm_id=${parameters['rmIdRes']}"/>
+		<parameter name="blIdRes" dataType="text" value=""/>
+		<parameter name="flIdRes" dataType="text" value=""/>
+		<parameter name="rmIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<dataSource id="tsyqds">
+        <table name="rm" role="main"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+		<field table="rm" name="rm_id"/>
+		<field table="rm" name="tfyq"/>
+		<field table="rm" name="wdyq"/>
+        <field table="rm" name="dyyq"/>
+        <field table="rm" name="xfyq"/>
+		<field table="rm" name="sdswyq"/>
+        <field table="rm" name="wsyq"/>
+		<restriction type="sql" sql="rm.bl_id=${parameters['blIdRes']} and rm.fl_id=${parameters['flIdRes']} and rm.rm_id=${parameters['rmIdRes']}"/>
+		<parameter name="blIdRes" dataType="text" value=""/>
+		<parameter name="flIdRes" dataType="text" value=""/>
+		<parameter name="rmIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<!-- dataSource for em -->
+    <dataSource id="ds_asc-bj-usms-bl-rm-em-eq-info_grid_em">
+        <table name="em" role="main"/>
+        <table name="dv" role="standard"/>
+        <field table="em" name="em_id"/>
+		<field table="em" name="name"/>
+		<field table="em" name="zw_id"/>
+		<field table="em" name="zc_id"/>
+		<field table="em" name="phone"/>
+		<field table="em" name="email"/>
+		<field table="em" name="bl_id"/>
+		<field table="em" name="fl_id"/>
+		<field table="em" name="rm_id"/>
+		<field table="em" name="area_rm"/>
+		<field table="em" name="dv_id"/>
+		<field table="dv" name="dv_name"/>
+		<restriction type="sql" sql="em.bl_id=${parameters['blIdRes']} and em.fl_id=${parameters['flIdRes']} and em.rm_id=${parameters['rmIdRes']}"/>
+		<parameter name="blIdRes" dataType="text" value=""/>
+		<parameter name="flIdRes" dataType="text" value=""/>
+		<parameter name="rmIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	
+	<dataSource id="rmDs">
+        <table name="rm" role="main"/>
+        <table name="rmuse" role="standard"/>
+        <table name="rmcat" role="standard"/>
+        <table name="rmtype" role="standard"/>
+        <table name="dv" role="standard"/>
+        <table name="dp" role="standard"/>
+        <field table="rmuse" name="rm_use"/>
+        <field table="rmuse" name="rmuse_name"/>
+        <field table="rmcat" name="rm_cat"/>
+        <field table="rmcat" name="rmcat_name"/>
+        <field table="rmtype" name="rm_type"/>
+        <field table="rmtype" name="rmtype_name"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="fl_id"/>
+		<field table="rm" name="name"/>
+		<field table="rm" name="tfyq"/>
+        <field table="rm" name="wdyq"/>
+        <field table="rm" name="dyyq"/>
+        <field table="rm" name="xfyq"/>
+		<field table="rm" name="sdswyq"/>
+		<field table="rm" name="wsyq"/>
+		<field table="rm" name="rm_use"/>
+		<field table="rm" name="rm_cat"/>
+        <field table="rm" name="rm_type"/>
+        <field table="rm" name="rm_bianma"/>
+        <field table="rm" name="rm_std"/>
+        <field table="rm" name="cap_em"/>
+		<field table="rm" name="count_design"/>
+		<field table="rm" name="area"/>
+		<field table="rm" name="area_manual"/>
+		<field table="rm" name="option1"/>
+		<!-- <field table="rm" name="bu"/> -->
+	
+		<!--<field table="rm" name="use_desc"/>-->
+        <field table="rm" name="count_em"/>
+        <field table="rm" name="dv_id"/>
+        <field table="dv" name="dv_name"/>
+		<field table="rm" name="dv_manage"/>
+        <field table="rm" name="dp_id"/>
+        <field table="dp" name="dp_name"/>
+        <field table="rm" name="phone"/>
+		<field table="rm" name="rm_photo"/>  
+        <field table="rm" name="notes"/>
+		<field table="rm" name="chaoxiang" />
+		
+		<field table="rm" name="window_count" />
+		<field table="rm" name="net_export_count" />
+		<field table="rm" name="door_size" />
+		<field table="rm" name="window_size" />
+    </dataSource>
+
+    <tabs id="EditTabs" workflow="free">
+        <tab name="basic_info" selected="true">
+            <title translatable="true">Basic Info</title>
+			    <panel type="columnReport" id="ascBjUsmsBlRmDetails" columns="4" dataSource="ds_asc-bj-usms-bl-rm-em-eq-info_columnReport_rm" >
+			        <title translatable="true">FanJianXinXi</title>
+			        <action id="eidt">
+			            <title translatable="true">Edit</title>
+			        </action>
+				        <field table="rm" name="bl_id"/>
+				        <field table="rm" name="fl_id"/>
+						<field table="rm" name="rm_id"/>
+						<field table="rm" name="name"/>
+						<field table="rm" name="dv_id" hidden="true"/>
+						<field table="rm" name="rm_cat" hidden="true"/>
+				        <field table="rm" name="rm_type" hidden="true"/>
+						<field table="dv" name="dv_name"/>
+						<field table="rmcat" name="rmcat_name"/>
+						<field table="rmtype" name="rmtype_name"/>
+						<field table="rm" name="rm_std"/>
+				        <field table="rm" name="count_em"/>
+				        <field table="rm" name="area"/>
+			    </panel>
+				<panel type="html" id="rmPhotos" dataSource="ds_asc-bj-usms-bl-rm-em-eq-info_columnReport_rm">
+			        <title translatable="true">room</title>
+					    <field table="rm" name="bl_id"/>
+                        <field table="rm" name="fl_id"/>
+                        <field table="rm" name="rm_id"/>
+			            <html>
+			                <div style="padding:10px">
+			                <img id="rm_photo"  style="width:100%;height:75%;" />
+			                </div>
+			            </html>
+			    
+			    </panel>
+        </tab>
+        <tab name="em_info"  >
+            <title translatable="true">Em Info</title>
+				<panel type="grid" controlType="reportGrid" id="ascBjUsmsBlRmEmDetails" dataSource="ds_asc-bj-usms-bl-rm-em-eq-info_grid_em">
+			        <title translatable="true">BanGongRenYuan</title>
+			        <sortField table="em" name="em_id" ascending="true"/>
+			        <!--field table="em" name="em_id"/-->
+					<field table="em" name="name"/>
+					<field table="em" name="zw_id"/>
+					<field table="em" name="zc_id"/>
+					<field table="em" name="area_rm"/>
+					<field table="em" name="phone"/>
+					<field table="em" name="email"/>
+					<field table="em" name="dv_id"/>
+					<field table="dv" name="dv_name"/>
+			    </panel>
+        </tab>
+ 
+        <tab name="resourcesReservation" >
+            <title translatable="true">Other Info</title>
+			<panel type="columnReport" id="tsyqgrid" dataSource="tsyqds" columns="2">
+		        <title translatable="true">Tsyq Info</title>
+				<field table="rm" name="bl_id" hidden="true"/>
+		        <field table="rm" name="fl_id" hidden="true"/>
+				<field table="rm" name="rm_id" hidden="true"/>
+				<field table="rm" name="tfyq"/>
+				<field table="rm" name="wdyq"/>
+		        <field table="rm" name="dyyq"/>
+		        <field table="rm" name="xfyq"/>
+				<field table="rm" name="sdswyq"/>
+		        <field table="rm" name="wsyq"/>
+		    </panel>
+        </tab>
+        
+        
+        <tab name="editRmInformation" >
+            <title translatable="true">Edit Information</title>
+			<panel type="form" id="editRoomPanel" dataSource="rmDs" columns="2" showOnLoad="false">
+		        <action id="save">
+                    <title translatable="true">Save</title>
+                    <command type="saveForm" panelId="editRoomPanel"/>
+                </action>
+				<!-- 基本信息  -->
+				<field labelClass="labelFieldset" colspan="2">
+                            <title>Basic Information</title>
+                </field>
+                <field table="rm" name="bl_id" readOnly="true"/>
+                <field table="rm" name="fl_id" readOnly="true"/>
+				<field table="rm" name="rm_id"/>
+				<field table="rm" name="name"/>
+				<field table="rm" name="area" readOnly="true"/>
+				<field table="rm" name="area_manual"/>
+				
+				
+				<!-- 房间场地信息  -->
+				<field labelClass="labelFieldset" colspan="2">
+                            <title>Fangjianchangdi Information</title>
+                </field>
+				<field table="rm" name="cap_em"/>   
+                <field table="rm" name="count_design"/>
+				<field table="rm" name="rm_std" width="207"/>
+				<field table="rm" name="option1" />
+				<field table="rm" name="chaoxiang" />
+				<field table="rm" name="window_count" />
+				<field table="rm" name="net_export_count" />
+				<field table="rm" name="door_size" />
+				<field table="rm" name="window_size" />
+				<field table="rm" name="phone"/>
+				
+				
+				<!-- 特殊要求说明  -->
+				<field labelClass="labelFieldset" colspan="2">
+                            <title>Teshu Information</title>
+                </field>
+				<field table="rm" name="tfyq"/>
+                <field table="rm" name="wdyq"/>
+                <field table="rm" name="dyyq"/>
+                <field table="rm" name="xfyq"/>
+                <field table="rm" name="sdswyq"/>
+                <field table="rm" name="wsyq"/>
+				
+				<!-- 其他信息  -->
+				<field labelClass="labelFieldset" colspan="2">
+                            <title>Qita Information</title>
+                </field>
+				
+				<field table="rm" name="notes" width="207"/> 
+		    </panel>
+		    
+        </tab>
+    </tabs>
+	
+    <panel type="form" id="ascBjUsmsBlRmEditDetails" showOnLoad="false" columns="1" dataSource="rmDs" hidden="true">
+        <title translatable="true">EidtRoomName</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+        </action>
+         <action id="cancel">
+            <title translatable="true">Cancel</title>
+			<command type="closeDialog"/>
+        </action>
+        <field table="rm" name="bl_id" readOnly='true'/>
+        <field table="rm" name="fl_id" readOnly='true'/>
+		<field table="rm" name="rm_id" readOnly='true'/>
+        <field table="rm" name="name"/> 
+    </panel>
+    
+    
+    
+    <js file="asc-bj-usms-bl-rm-em-eq-info.js"/>
+</view>

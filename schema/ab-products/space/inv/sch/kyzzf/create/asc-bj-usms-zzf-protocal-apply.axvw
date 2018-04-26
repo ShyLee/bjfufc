@@ -1,0 +1,13 @@
+<view version="2.0">
+    <title translatable="true">Create Apply</title>
+    
+    <tabs workflow="enforced" id="createRequestTabs" tabRefreshPolicy="refreshOnLoad">
+        <tab name="selectTab" selected="true" file="asc-bj-usms-zzf-protocal-apply-select-type-tab.axvw">
+            <title translatable="true">Select Problem Type</title>
+        </tab>
+		
+        <tab name="basicInputTab" file="asc-bj-usms-zzf-protocal-apply-input-info-tab.axvw">
+            <title translatable="true">Input Apply Information</title>
+        </tab>
+    </tabs>
+</view>

@@ -1,0 +1,490 @@
+<view version="2.0">
+	<js file="asc-zf-audit-fc-info.js"/>
+	
+	<layout type="borderLayout" id="mainLayout">
+        <north id="cqfGridPosition" split="true" initialSize="50%"/>
+        <center  id="hcqfGridPosition"/>
+    </layout>
+	
+	<dataSource id="scZfhcqDs">
+		<table name="sc_zf_hcq" role="main" />
+		<field table="sc_zf_hcq" name="auto_id" />
+        <field table="sc_zf_hcq" name="archive_id"/>
+        <field table="sc_zf_hcq" name="em_id" />
+        <field table="sc_zf_hcq" name="xm" />
+        <field table="sc_zf_hcq" name="dv_id" />
+        <field table="sc_zf_hcq" name="dv_name" />
+        <field table="sc_zf_hcq" name="bl_id" />
+        <field table="sc_zf_hcq" name="bl_name" />
+        <field table="sc_zf_hcq" name="fl_id" />
+        <field table="sc_zf_hcq" name="unit_id" />
+        <field table="sc_zf_hcq" name="rm_id" />
+        <field table="sc_zf_hcq" name="rm_addr" />
+        <field table="sc_zf_hcq" name="community" />
+        <field table="sc_zf_hcq" name="super_type" />
+        <field table="sc_zf_hcq" name="zf_type_id" />
+        <field table="sc_zf_hcq" name="zf_type_name" />
+        <field table="sc_zf_hcq" name="owner_names" />
+        <field table="sc_zf_hcq" name="cqz_code" />
+        <field table="sc_zf_hcq" name="date_building_end" />
+        <field table="sc_zf_hcq" name="area_jianzhu" />
+        <field table="sc_zf_hcq" name="ytys" />
+        <field table="sc_zf_hcq" name="area_yt" />
+        <field table="sc_zf_hcq" name="area_sy" />
+        <field table="sc_zf_hcq" name="area_hd" />
+        <field table="sc_zf_hcq" name="bl_type" />
+        <field table="sc_zf_hcq" name="chaoxiang" />
+        <field table="sc_zf_hcq" name="huxing_id" />
+        <field table="sc_zf_hcq" name="huxing" />
+        <field table="sc_zf_hcq" name="date_gf" />
+        <field table="sc_zf_hcq" name="price_unit" />
+        <field table="sc_zf_hcq" name="price_sum" />
+        <field table="sc_zf_hcq" name="zw_jb_id" />
+        <field table="sc_zf_hcq" name="zw_jb_name" />
+        <field table="sc_zf_hcq" name="zw_id" />
+        <field table="sc_zf_hcq" name="zw_name" />
+        <field table="sc_zf_hcq" name="zc_jb_id" />
+        <field table="sc_zf_hcq" name="zc_jb_name" />
+        <field table="sc_zf_hcq" name="zc_id" />
+        <field table="sc_zf_hcq" name="zc_name" />
+        <field table="sc_zf_hcq" name="p_zw_jb_id" />
+        <field table="sc_zf_hcq" name="p_zw_jb_name" />
+        <field table="sc_zf_hcq" name="p_zw_id" />
+        <field table="sc_zf_hcq" name="p_zw_name" />
+        <field table="sc_zf_hcq" name="p_zc_jb_id" />
+        <field table="sc_zf_hcq" name="p_zc_jb_name" />
+        <field table="sc_zf_hcq" name="p_zc_id" />
+        <field table="sc_zf_hcq" name="p_zc_name" />
+        <field table="sc_zf_hcq" name="dw_sale_rm" />
+        <field table="sc_zf_hcq" name="wxjjbz" />
+        <field table="sc_zf_hcq" name="doc_fcz" />
+        <field table="sc_zf_hcq" name="description" />
+        <field table="sc_zf_hcq" name="change_time" />
+        <field table="sc_zf_hcq" name="c_deal" />
+        <field table="sc_zf_hcq" name="c_date_jy" />
+        <field table="sc_zf_hcq" name="c_price_je" />
+        <field table="sc_zf_hcq" name="c_em_id" />
+        <field table="sc_zf_hcq" name="c_archive_id" />
+        <field table="sc_zf_hcq" name="c_sfzh" />
+		<field table="sc_zf_hcq" name="is_audit_admin" />
+	</dataSource>
+	
+	
+	<dataSource id="scZfcqDs">
+		<table name="sc_zf_cq" role="main" />
+		<field table="sc_zf_cq" name="auto_id" />
+        <field table="sc_zf_cq" name="archive_id"/>
+        <field table="sc_zf_cq" name="em_id" />
+        <field table="sc_zf_cq" name="xm" />
+        <field table="sc_zf_cq" name="dv_id" />
+        <field table="sc_zf_cq" name="dv_name" />
+        <field table="sc_zf_cq" name="bl_id" />
+        <field table="sc_zf_cq" name="bl_name" />
+        <field table="sc_zf_cq" name="fl_id" />
+        <field table="sc_zf_cq" name="unit_id" />
+        <field table="sc_zf_cq" name="rm_id" />
+        <field table="sc_zf_cq" name="rm_addr" />
+        <field table="sc_zf_cq" name="community" />
+        <field table="sc_zf_cq" name="super_type" />
+        <field table="sc_zf_cq" name="zf_type_id" />
+        <field table="sc_zf_cq" name="zf_type_name" />
+        <field table="sc_zf_cq" name="owner_names" />
+        <field table="sc_zf_cq" name="cqz_code" />
+        <field table="sc_zf_cq" name="date_building_end" />
+        <field table="sc_zf_cq" name="area_jianzhu" />
+        <field table="sc_zf_cq" name="ytys" />
+        <field table="sc_zf_cq" name="area_yt" />
+        <field table="sc_zf_cq" name="area_sy" />
+        <field table="sc_zf_cq" name="area_hd" />
+        <field table="sc_zf_cq" name="bl_type" />
+        <field table="sc_zf_cq" name="chaoxiang" />
+        <field table="sc_zf_cq" name="huxing_id" />
+        <field table="sc_zf_cq" name="huxing" />
+        <field table="sc_zf_cq" name="date_gf" />
+        <field table="sc_zf_cq" name="price_unit" />
+        <field table="sc_zf_cq" name="price_sum" />
+        <field table="sc_zf_cq" name="zw_jb_id" />
+        <field table="sc_zf_cq" name="zw_jb_name" />
+        <field table="sc_zf_cq" name="zw_id" />
+        <field table="sc_zf_cq" name="zw_name" />
+        <field table="sc_zf_cq" name="zc_jb_id" />
+        <field table="sc_zf_cq" name="zc_jb_name" />
+        <field table="sc_zf_cq" name="zc_id" />
+        <field table="sc_zf_cq" name="zc_name" />
+        <field table="sc_zf_cq" name="p_zw_jb_id" />
+        <field table="sc_zf_cq" name="p_zw_jb_name" />
+        <field table="sc_zf_cq" name="p_zw_id" />
+        <field table="sc_zf_cq" name="p_zw_name" />
+        <field table="sc_zf_cq" name="p_zc_jb_id" />
+        <field table="sc_zf_cq" name="p_zc_jb_name" />
+        <field table="sc_zf_cq" name="p_zc_id" />
+        <field table="sc_zf_cq" name="p_zc_name" />
+        <field table="sc_zf_cq" name="dw_sale_rm" />
+        <field table="sc_zf_cq" name="wxjjbz" />
+        <field table="sc_zf_cq" name="doc_fcz" />
+        <field table="sc_zf_cq" name="description" />
+        <field table="sc_zf_cq" name="change_time" />
+        <field table="sc_zf_cq" name="c_deal" />
+        <field table="sc_zf_cq" name="c_date_jy" />
+        <field table="sc_zf_cq" name="c_price_je" />
+        <field table="sc_zf_cq" name="c_em_id" />
+        <field table="sc_zf_cq" name="c_archive_id" />
+        <field table="sc_zf_cq" name="c_sfzh" />
+        <field table="sc_zf_cq" name="c_xm" />
+		<field table="sc_zf_cq" name="is_audit_admin" />
+	</dataSource>
+	
+	<dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+        <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="gzbm" />
+        <field table="sc_zf_em" name="em_id" />
+        <field table="sc_zf_em" name="xm" />
+        <field table="sc_zf_em" name="sfzh" />
+        <field table="sc_zf_em" name="xb" />
+        <field table="sc_zf_em" name="em_type" />
+        <field table="sc_zf_em" name="date_leaved" />
+        <field table="sc_zf_em" name="date_first_gjj" />
+        <field table="sc_zf_em" name="date_come_sch" />
+        <field table="sc_zf_em" name="date_begin_work" />
+        <field table="sc_zf_em" name="date_retired" />
+        <field table="sc_zf_em" name="zw_jb_id" />
+        <field table="sc_zf_em" name="zw_jb_name" />
+        <field table="sc_zf_em" name="zw_id" />
+        <field table="sc_zf_em" name="zw_name" />
+        <field table="sc_zf_em" name="zc_jb_id" />
+        <field table="sc_zf_em" name="zc_jb_name" />
+        <field table="sc_zf_em" name="zc_id" />
+        <field table="sc_zf_em" name="zc_name" />
+        <field table="sc_zf_em" name="status_married" />
+        <field table="sc_zf_em" name="is_sworker" />
+        <field table="sc_zf_em" name="mphone" />
+        <field table="sc_zf_em" name="telephone" />
+        <field table="sc_zf_em" name="email" />
+        <field table="sc_zf_em" name="area_jz_std" />
+        <field table="sc_zf_em" name="status_em" />
+        <field table="sc_zf_em" name="change_time" />
+        <field table="sc_zf_em" name="comments" />
+        <field table="sc_zf_em" name="has_deal_bt"/>
+        <field table="sc_zf_em" name="deal_type"/>
+       <!--  <field table="sc_zf_em" name="area_zf_std"/> -->
+	</dataSource>
+	
+	<!-- <panel type="console" id="consoleForm" dataSource="scZfEmDs" columns="2">
+    	<title translatable="true">Filter</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearForm"/>
+        </action>
+        
+		<field table="sc_zf_em" name="xm">
+			<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_em.xm" 
+	        		selectFieldNames="sc_zf_em.xm" 
+	        		visibleFieldNames="sc_zf_em.em_id,sc_zf_em.xm"/>
+      		</action>
+		</field>
+		<field table="sc_zf_em" name="archive_id"/>
+    </panel>
+	
+	
+	 -->
+	
+	 <panel type="grid" id="cqfGrid" dataSource="scZfcqDs" multipleSelectionEnabled="true"  layoutRegion="cqfGridPosition">
+    	<title translatable="true">CQF list</title>
+    	<action id="audit">
+            <title translatable="true">Audit</title>
+        </action>
+    	<field table="sc_zf_cq" name="auto_id" hidden="true"/>
+    	<field table="sc_zf_cq" name="xm" controlType="link">
+        	<command type="callFunction" functionName="ascZfAuditFcController.showCqfForm()"/>
+        </field>
+        <field table="sc_zf_cq" name="archive_id"/>
+        <field table="sc_zf_cq" name="rm_addr"/>
+        <field table="sc_zf_cq" name="dw_sale_rm"/>
+        <field table="sc_zf_cq" name="owner_names"/>
+        <field table="sc_zf_cq" name="area_hd"/>
+        <field table="sc_zf_cq" name="zf_type_name"/>
+        <field table="sc_zf_cq" name="date_gf"/>
+        <field table="sc_zf_cq" name="is_audit_admin"/>
+    </panel>
+    
+    <panel type="form" id="cqfForm" dataSource="scZfcqDs" columns="2" showOnLoad="false">
+        <field table="sc_zf_cq" name="auto_id" hidden="true"/>
+        <field table="sc_zf_cq" name="em_id" readOnly="true"/>
+        <field table="sc_zf_cq" name="archive_id" readOnly="true"/>
+        <field table="sc_zf_cq" name="xm" readOnly="true"/>
+        <field table="sc_zf_cq" name="dv_id" hidden="true"/>
+        <field table="sc_zf_cq" name="dv_name" readOnly="true"/>
+        <field table="sc_zf_cq" name="bl_id" hidden="true"/>
+        <field table="sc_zf_cq" name="bl_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.bl_id,sc_zf_cq.bl_name" 
+	        		selectFieldNames="rm.bl_id,bl.name" 
+	        		visibleFieldNames="rm.bl_id,bl.name"
+	        		/>
+      		</action>
+        </field>
+        <field table="sc_zf_cq" name="fl_id" hidden="true"/>
+        <field table="sc_zf_cq" name="rm_id" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.bl_id,sc_zf_cq.bl_name,sc_zf_cq.fl_id,sc_zf_cq.rm_id" 
+	        		selectFieldNames="rm.bl_id,bl.name,rm.fl_id,rm.rm_id" 
+	        		visibleFieldNames="rm.bl_id,bl.name,rm.fl_id,rm.rm_id"
+	        		actionListener="afterSelectRm"
+	        		/>
+      		</action>
+        </field>
+        <field table="sc_zf_cq" name="rm_addr" colspan="2" required="true"/>
+        <field table="sc_zf_cq" name="community" />
+        <field table="sc_zf_cq" name="super_type" />
+        <field table="sc_zf_cq" name="owner_names" />
+        <field table="sc_zf_cq" name="cqz_code" />
+        <field table="sc_zf_cq" name="zf_type_id" hidden="true"/>
+        <field table="sc_zf_cq" name="zf_type_name" cssClass="inputValueChg" required="true">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.zf_type_id,sc_zf_cq.zf_type_name,sc_zf_cq.super_type" 
+	        		selectFieldNames="sc_zf_type.zf_type_id,sc_zf_type.zf_type_name,sc_zf_type.super_type" 
+	        		visibleFieldNames="sc_zf_type.zf_type_id,sc_zf_type.zf_type_name,sc_zf_type.super_type"
+	        		/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_cq" name="date_building_end" />
+        <field table="sc_zf_cq" name="area_jianzhu" />
+        <field table="sc_zf_cq" name="ytys" />
+        <field table="sc_zf_cq" name="area_yt" />
+        <field table="sc_zf_cq" name="area_sy" />
+        <field table="sc_zf_cq" name="area_hd" />
+        <field table="sc_zf_cq" name="bl_type" />
+        <field table="sc_zf_cq" name="chaoxiang"/>
+        <field table="sc_zf_cq" name="huxing_id" hidden="true"/>
+        <field table="sc_zf_cq" name="huxing">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.huxing,sc_zf_cq.huxing_id" 
+                    selectFieldNames="sc_bl_hx.huxing,sc_bl_hx.id" 
+                    visibleFieldNames="sc_bl_hx.bl_id,sc_bl_hx.id,sc_bl_hx.huxing,sc_bl_hx.area_jianzhu,sc_bl_hx.photo"/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_cq" name="date_gf" required="true"/>
+        <field table="sc_zf_cq" name="price_unit" />
+        <field table="sc_zf_cq" name="dw_sale_rm" required="true"/>
+        <field table="sc_zf_cq" name="price_sum" />
+        
+        <field table="sc_zf_cq" name="zw_jb_id" hidden="true"/>
+        <field table="sc_zf_cq" name="zw_jb_name" hidden="true"/>
+        <field table="sc_zf_cq" name="zw_id" hidden="true"/>
+        <field table="sc_zf_cq" name="zc_jb_id" hidden="true"/>
+        <field table="sc_zf_cq" name="zc_jb_name" hidden="true"/>
+        <field table="sc_zf_cq" name="zc_id" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zw_jb_id" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zw_jb_name" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zw_id" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zc_jb_id" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zc_jb_name" hidden="true"/>
+        <field table="sc_zf_cq" name="p_zc_id" hidden="true"/>
+        
+        <field table="sc_zf_cq" name="zw_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.zw_jb_id,sc_zf_cq.zw_jb_name,sc_zf_cq.zw_id,sc_zf_cq.zw_name" 
+	        		selectFieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw.zw_id,sc_zw.zw_name" 
+	        		visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name,sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_cq" name="p_zw_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.p_zw_jb_id,sc_zf_cq.p_zw_jb_name,sc_zf_cq.p_zw_id,sc_zf_cq.p_zw_name" 
+	        		selectFieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw.zw_id,sc_zw.zw_name" 
+	        		visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name,sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_cq" name="zc_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.zc_jb_id,sc_zf_cq.zc_jb_name,sc_zf_cq.zc_id,sc_zf_cq.zc_name" 
+	        		selectFieldNames="sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name,sc_zc.zc_id,sc_zc.zc_name" 
+	        		visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name,sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_cq" name="p_zc_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_cq.p_zc_jb_id,sc_zf_cq.p_zc_jb_name,sc_zf_cq.p_zc_id,sc_zf_cq.p_zc_name" 
+	        		selectFieldNames="sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name,sc_zc.zc_id,sc_zc.zc_name" 
+	        		visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name,sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_cq" name="wxjjbz" />
+        <field table="sc_zf_cq" name="doc_fcz" />
+        <field table="sc_zf_cq" name="is_audit_admin" hidden="true"/>
+  	</panel>
+  	
+  	<panel type="grid" id="hcqfGrid" dataSource="scZfhcqDs" multipleSelectionEnabled="true"  layoutRegion="hcqfGridPosition">
+    	<title translatable="true">HCQF list</title>
+    	<action id="audit">
+            <title translatable="true">Audit</title>
+        </action>
+    	<field table="sc_zf_hcq" name="auto_id" hidden="true"/>
+    	<field table="sc_zf_hcq" name="xm" controlType="link">
+        	<command type="callFunction" functionName="ascZfAuditFcController.showHcqfForm()"/>
+        </field>
+        <field table="sc_zf_hcq" name="archive_id"/>
+        <field table="sc_zf_hcq" name="rm_addr"/>
+        <field table="sc_zf_hcq" name="dw_sale_rm"/>
+        <field table="sc_zf_hcq" name="owner_names"/>
+        <field table="sc_zf_hcq" name="area_hd"/>
+        <field table="sc_zf_hcq" name="zf_type_name"/>
+        <field table="sc_zf_hcq" name="date_gf"/>
+        <field table="sc_zf_hcq" name="is_audit_admin"/>
+    </panel>
+    
+    <panel type="form" id="hcqfForm" dataSource="scZfhcqDs" columns="2" showOnLoad="false">
+        <field table="sc_zf_hcq" name="auto_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="em_id" readOnly="true"/>
+        <field table="sc_zf_hcq" name="archive_id" readOnly="true"/>
+        <field table="sc_zf_hcq" name="xm" readOnly="true"/>
+        <field table="sc_zf_hcq" name="dv_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="dv_name" readOnly="true"/>
+        <field table="sc_zf_hcq" name="bl_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="bl_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.bl_id,sc_zf_hcq.bl_name" 
+	        		selectFieldNames="rm.bl_id,bl.name" 
+	        		visibleFieldNames="rm.bl_id,bl.name"
+	        		/>
+      		</action>
+        </field>
+        <field table="sc_zf_hcq" name="fl_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="rm_id" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.bl_id,sc_zf_hcq.bl_name,sc_zf_hcq.fl_id,sc_zf_hcq.rm_id" 
+	        		selectFieldNames="rm.bl_id,bl.name,rm.fl_id,rm.rm_id" 
+	        		visibleFieldNames="rm.bl_id,bl.name,rm.fl_id,rm.rm_id"
+	        		actionListener="afterSelectRm"
+	        		/>
+      		</action>
+        </field>
+        <field table="sc_zf_hcq" name="rm_addr" colspan="2"  required="true"/>
+        <field table="sc_zf_hcq" name="community" />
+        <field table="sc_zf_hcq" name="super_type" />
+        <field table="sc_zf_hcq" name="owner_names" />
+        <field table="sc_zf_hcq" name="cqz_code" />
+        <field table="sc_zf_hcq" name="zf_type_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="zf_type_name" cssClass="inputValueChg" required="true">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.zf_type_id,sc_zf_hcq.zf_type_name,sc_zf_hcq.super_type" 
+	        		selectFieldNames="sc_zf_type.zf_type_id,sc_zf_type.zf_type_name,sc_zf_type.super_type" 
+	        		visibleFieldNames="sc_zf_type.zf_type_id,sc_zf_type.zf_type_name,sc_zf_type.super_type"
+	        		/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_hcq" name="date_building_end" />
+        <field table="sc_zf_hcq" name="area_jianzhu" />
+        <field table="sc_zf_hcq" name="ytys" />
+        <field table="sc_zf_hcq" name="area_yt" />
+        <field table="sc_zf_hcq" name="area_sy" />
+        <field table="sc_zf_hcq" name="area_hd" />
+        <field table="sc_zf_hcq" name="bl_type" />
+        <field table="sc_zf_hcq" name="chaoxiang"/>
+        <field table="sc_zf_hcq" name="huxing_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="huxing">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.huxing,sc_zf_hcq.huxing_id" 
+                    selectFieldNames="sc_bl_hx.huxing,sc_bl_hx.id" 
+                    visibleFieldNames="sc_bl_hx.bl_id,sc_bl_hx.id,sc_bl_hx.huxing,sc_bl_hx.area_jianzhu,sc_bl_hx.photo"/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_hcq" name="date_gf" required="true"/>
+        <field table="sc_zf_hcq" name="price_unit" />
+        <field table="sc_zf_hcq" name="dw_sale_rm"  required="true"/>
+        <field table="sc_zf_hcq" name="price_sum" />
+        
+        <field table="sc_zf_hcq" name="zw_jb_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="zw_jb_name" hidden="true"/>
+        <field table="sc_zf_hcq" name="zw_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="zc_jb_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="zc_jb_name" hidden="true"/>
+        <field table="sc_zf_hcq" name="zc_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zw_jb_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zw_jb_name" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zw_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zc_jb_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zc_jb_name" hidden="true"/>
+        <field table="sc_zf_hcq" name="p_zc_id" hidden="true"/>
+        
+        <field table="sc_zf_hcq" name="zw_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.zw_jb_id,sc_zf_hcq.zw_jb_name,sc_zf_hcq.zw_id,sc_zf_hcq.zw_name" 
+	        		selectFieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw.zw_id,sc_zw.zw_name" 
+	        		visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name,sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_hcq" name="p_zw_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.p_zw_jb_id,sc_zf_hcq.p_zw_jb_name,sc_zf_hcq.p_zw_id,sc_zf_hcq.p_zw_name" 
+	        		selectFieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw.zw_id,sc_zw.zw_name" 
+	        		visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name,sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_hcq" name="zc_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.zc_jb_id,sc_zf_hcq.zc_jb_name,sc_zf_hcq.zc_id,sc_zf_hcq.zc_name" 
+	        		selectFieldNames="sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name,sc_zc.zc_id,sc_zc.zc_name" 
+	        		visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name,sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+      		</action>
+        </field>
+        <field table="sc_zf_hcq" name="p_zc_name" cssClass="inputValueChg">
+        	<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_hcq.p_zc_jb_id,sc_zf_hcq.p_zc_jb_name,sc_zf_hcq.p_zc_id,sc_zf_hcq.p_zc_name" 
+	        		selectFieldNames="sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name,sc_zc.zc_id,sc_zc.zc_name" 
+	        		visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name,sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+      		</action>
+        </field>
+        
+        <field table="sc_zf_hcq" name="wxjjbz" />
+        <field table="sc_zf_hcq" name="doc_fcz" />
+        
+        <field table="sc_zf_hcq" name="is_audit_admin" hidden="true"/>
+  	</panel>
+	
+    
+</view>

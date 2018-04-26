@@ -1,0 +1,88 @@
+<view version="2.0">
+    <title translatable="true">My Approved Detail</title>
+	<js file="ab-helpdesk-common-v2.js" />
+    <js file="asc-bj-usms-zzf-review-approved-history-detail.js"/>
+    <dataSource id="applyTableDs" >
+        <table name="bh_zzf_apply" role="main"/>     
+        <field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply" />
+        <field table="bh_zzf_apply" name="status"/>
+        <field table="bh_zzf_apply" name="em_apply" />
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile"/>
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source"/>
+        <field table="bh_zzf_apply" name="target"/>
+        <field table="bh_zzf_apply" name="benefit"/>
+        <field table="bh_zzf_apply" name="team_situation"/>
+        <field table="bh_zzf_apply" name="activity_log_id"/>
+    </dataSource> 
+	<panel type="form" columns="3" id="applyForm"  dataSource="applyTableDs" newRecord="true">
+        <title translatable="true">Detail Information</title>
+		<field table="bh_zzf_apply" name="activity_log_id" hidden="true"/>
+ 		<field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply"/>
+        <field table="bh_zzf_apply" name="status" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="em_apply"/>
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile" />
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source" colspan="3"/>
+        <field table="bh_zzf_apply" name="target"  colspan="3"/>
+        <field table="bh_zzf_apply" name="benefit"  colspan="3"/>
+        <field table="bh_zzf_apply" name="team_situation"  colspan="3"/>
+    </panel>
+    <dataSource id="historyDS">
+  		<table name="helpdesk_step_log" role="main"/>
+        <table name="afm_wf_steps" role="standard"/>
+        <table name="em" role="standard"/>
+		
+        <field table="helpdesk_step_log" name="step_log_id" />
+        <field table="helpdesk_step_log" name="user_name"/>
+        <field table="helpdesk_step_log" name="em_id"/>
+        <field table="em" name="name"/>
+        <field table="helpdesk_step_log" name="vn_id"/>
+        <field table="helpdesk_step_log" name="date_response"/>
+        <field table="helpdesk_step_log" name="time_response"/>
+        <field table="afm_wf_steps" name="step"/>
+        <field table="afm_wf_steps"  name="status"/>
+        <field table="helpdesk_step_log" name="step_status_result"/>
+        <field table="helpdesk_step_log" name="comments"/>
+    </dataSource>
+    
+    <panel type="grid" id="historyPanel" controlType="reportGrid" dataSource="historyDS" showOnLoad="false">
+        <title translatable="true">History</title>
+        <field table="helpdesk_step_log" name="step_log_id"  hidden="true"/>
+        <field table="helpdesk_step_log" name="user_name" hidden="true"/>
+        <field table="em" name="name" hidden="true"/>
+        <field table="helpdesk_step_log" name="vn_id">
+            <title translatable="true">Step Responded By</title>
+        </field>
+        <field table="helpdesk_step_log" name="date_response">
+            <title translatable="true">On</title>
+        </field>
+        <field table="helpdesk_step_log" name="time_response" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">Workflow Step</title>
+        </field>
+        <field table="afm_wf_steps" name="status" hidden="true">
+            <title translatable="true">Status</title>
+        </field>
+        <field table="helpdesk_step_log" name="step_status_result" >
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field table="helpdesk_step_log" name="comments">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+</view>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sc_zfbt_lxq_sub_xl" pageWidth="351" pageHeight="72" columnWidth="351" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="559c50ce-06a7-4fd7-8b32-a53dba686119">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Pem_id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+   max(case when xl = '1' then nx when xl != '1' then 0 end) zk_nx,
+   max(case when xl = '1' then to_number(is_zz) when xl != '1' then 0 end) zk_zz,
+   max(case when xl = '2' then nx when xl != '2' then 0 end) bk_nx,
+   max(case when xl = '2' then to_number(is_zz) when xl != '2' then 0 end) bk_zz,
+   max(case when xl = '3' then nx when xl != '3' then 0 end) sy_nx,
+   max(case when xl = '3' then to_number(is_zz) when xl != '3' then 0 end) sy_zz,
+   max(case when xl = '4' then nx when xl != '4' then 0 end) by_nx,
+   max(case when xl = '4' then to_number(is_zz) when xl != '4' then 0 end) by_zz,
+   max(case when xl = '5' then nx when xl != '5' then 0 end) bsh_nx,
+   max(case when xl = '5' then to_number(is_zz) when xl != '5' then 0 end) bsh_zz
+ from (
+    select
+    xl,
+    (extract(year from date_end) - extract(year from date_begin)) nx,
+    is_zz
+    from sc_zf_em_jyjl
+    where em_id = '$P!{Pem_id}'
+)]]>
+	</queryString>
+	<field name="ZK_NX" class="java.math.BigDecimal"/>
+	<field name="ZK_ZZ" class="java.math.BigDecimal"/>
+	<field name="BK_NX" class="java.math.BigDecimal"/>
+	<field name="BK_ZZ" class="java.math.BigDecimal"/>
+	<field name="SY_NX" class="java.math.BigDecimal"/>
+	<field name="SY_ZZ" class="java.math.BigDecimal"/>
+	<field name="BY_NX" class="java.math.BigDecimal"/>
+	<field name="BY_ZZ" class="java.math.BigDecimal"/>
+	<field name="BSH_NX" class="java.math.BigDecimal"/>
+	<field name="BSH_ZZ" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="72" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="54" width="132" height="18" uuid="641ebd15-e890-443b-89a2-390d752a9339"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BY_NX}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="132" height="18" uuid="95864e2c-73c5-4389-abd9-d00288a37cf1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZK_NX}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="18" width="132" height="18" uuid="22d9cbe9-56f6-46ef-8b39-db37b1652383"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BK_NX}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="36" width="132" height="18" uuid="0f8e13ab-aaed-41eb-b61e-c538bd185c1c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SY_NX}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="18" width="219" height="18" uuid="4c0a9157-e394-4b9b-92ff-a43676987b9d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BK_ZZ}.intValue()==0?"否":'是']]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="36" width="219" height="18" uuid="75c6ad82-82f7-4896-a4af-6485a1656cd3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SY_ZZ}.intValue()==0?"否":'是']]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="0" width="219" height="18" uuid="2a883ef8-69ec-42aa-b354-d23fdabe33ea"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ZK_ZZ}.intValue()==0?"否":'是']]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="132" y="54" width="219" height="18" uuid="b24f2106-8711-4c17-b035-c20bd0b0d1d7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BY_ZZ}.intValue()==0?"否":'是']]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

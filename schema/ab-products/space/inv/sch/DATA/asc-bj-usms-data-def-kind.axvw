@@ -1,0 +1,50 @@
+<view version="2.0">
+    
+    <layout type="borderLayout" id="mainLayout">
+        <west id="top" initialSize="30%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <title translatable="true">Define Rm use</title>
+    
+    <dataSource id="abScDefRmuseDS">
+        <table name="rmuse" role="main"/>
+        <field table="rmuse" name="rm_use"/>
+        <field table="rmuse" name="description"/>
+    </dataSource>
+    
+    <panel type="grid" id="abScDefRmuseGrid" dataSource="abScDefRmuseDS" layout="mainLayout" region="west" recordLimit="0">
+        <sortField name="rm_use" table="rmuse" ascending="true"/>
+        <title translatable="true">Room Use</title>
+        <action id="addNew">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="abScDefRmuseForm" newRecord="true"/>
+        </action>
+        <field name="rm_use" table="rmuse" controlType="link">
+            <command type="showPanel" panelId="abScDefRmuseForm"/>
+        </field>
+        <field name="description" table="rmuse" controlType="link">
+            <command type="showPanel" panelId="abScDefRmuseForm"/>
+        </field>
+    </panel>
+  
+    <panel type="form" id="abScDefRmuseForm" showOnLoad="false" columns="2" dataSource="abScDefRmuseDS" layout="mainLayout" region="center">
+        <title translatable="true">Room Use Details</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="abScDefRmuseGrid" applyParentRestriction="false"/>
+        </action>
+        <action id="delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="abScDefRmuseForm" show="false"/>
+            <command type="showPanel" panelId="abScDefRmuseGrid" applyParentRestriction="false"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="abScDefRmuseForm" show="false"/>
+        </action>
+        
+    </panel>
+   
+</view>

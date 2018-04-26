@@ -1,0 +1,42 @@
+<view version="2.0">
+  
+  <js file="ab-data-fetch-from-hr.js"/>
+  
+  <dataSource id="errords">
+        <table name="hrbook_em_error" role="main"/>
+        
+        <field name="gh" />
+        <field name="xm" />
+        <field name="gzbm" />
+        <field name="dwh" />
+        <field name="sfzjh" />
+        <field name="cjgzny" />
+        <field name="lxrq" />
+        <field name="xzwm" />
+        <field name="xzw" />
+        <field name="xzcm" />
+        <field name="xzc" />
+        <field name="gddh" />
+        <field name="sjhm" />
+        <field name="email" />
+        <field name="notes" />
+  </dataSource>
+  <panel type="html" id="blank">
+        <instructions>short message</instructions>
+  </panel>
+  <panel type="grid" id="testPanel" dataSource="errords">
+    <title translatable="true">Error DATA</title>
+    <action id="run">
+      <title translatable="true">GET DATA FROM HR</title>
+    </action>
+
+    <action id="syncZCJL">
+      <title translatable="true">GET ZCJL FROM HR</title>
+    </action>
+    
+    <action id="syncZWJL">
+      <title translatable="true">GET ZWJL FROM HR</title>
+    </action>
+  </panel>
+
+</view>

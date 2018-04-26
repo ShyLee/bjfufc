@@ -1,0 +1,225 @@
+<view version="2.0">
+	<title>wenwuanquanzicha</title>
+	<css>
+	  .td{
+	   border-bottom:0.5mm solid #e8e8e8;
+	   border-right:0.5mm solid #e8e8e8;
+	   border-left:0.5mm solid #e8e8e8
+	  }
+	  #td1{
+	   border-top:0.5mm solid #e8e8e8
+	  }
+	</css>
+	<layout type="borderLayout" id="mainLayout">
+        <north id="top" initialSize="12%" split="true"/>
+        <center id="center" autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="bodyLayout"
+        containingLayout="mainLayout" region="center">
+        <north id="zhongjian" initialSize="30%" split="true"/>
+        <center id="right1" autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="bodyLayout1"
+        containingLayout="bodyLayout" region="center">
+        <west id="left" initialSize="43%" split="true"/>
+        <center id="right" autoScroll="true" />
+    </layout>
+	<js file="asc-bj-usms-prop-safety-self-lead.js"/>
+	
+	<dataSource id="tsRelicOneselfDs">
+		<table name="ts_relic_oneself" role="main"/>
+		
+		<field table="ts_relic_oneself" name="doc1"/>
+		<field table="ts_relic_oneself" name="sf_id"/>
+		<field table="ts_relic_oneself" name="sf_build"/>
+		<field table="ts_relic_oneself" name="sf_zc_dv"/>
+		<field table="ts_relic_oneself" name="sf_use_dv"/>
+		<field table="ts_relic_oneself" name="sf_review_date"/>
+		<field table="ts_relic_oneself" name="sf_safe_people"/>
+		<field table="ts_relic_oneself" name="sf_question"/>
+		<field table="ts_relic_oneself" name="sf_idea"/>
+		<field table="ts_relic_oneself" name="sf_people"/>
+		<field table="ts_relic_oneself" name="sf_people_mode"/>
+		<field table="ts_relic_oneself" name="sf_sfwy"/>
+		<field table="ts_relic_oneself" name="sf_wy_people"/>
+		<field table="ts_relic_oneself" name="sf_wy_mode"/>
+		<field table="ts_relic_oneself" name="sf_tx_people"/>
+		<field table="ts_relic_oneself" name="sf_tx_date"/>
+		<field table="ts_relic_oneself" name="beizhu"/>
+		<field table="ts_relic_oneself" name="sf_number"/>
+        <field table="ts_relic_oneself" name="ts_content"/>
+        <field table="ts_relic_oneself" name="sf_read"/>
+        <restriction type="sql" sql="ts_relic_oneself.sf_build is not null"/>
+	</dataSource>
+	
+	<panel type="console" 
+		   id="ts_relic_oneself_console" 
+		   dataSource="tsRelicOneselfDs" 
+		   columns="3" layoutRegion="top">
+		
+		<title translatable="true">Filter</title>
+		
+		<action id="show">
+			<title translatable="true">Show</title>	
+			<command type="showPanel" panelId="ts_relic_oneself_grid"/>
+		</action>	
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="ts_relic_oneself_console"/>
+		</action>	
+				
+		<field table="ts_relic_oneself" name="sf_build"/>	
+		<field table="ts_relic_oneself" name="sf_review_date" alias="ts_relic_oneself.sf_review_date.from" required="false" op="&gt;=">
+		  <title translatable="true">from</title>
+		</field>
+		<field table="ts_relic_oneself" name="sf_review_date" alias="ts_relic_oneself.sf_review_date.to" required="false" op="&lt;=">
+		 <title translatable="true">to</title>
+		</field>
+		<field table="ts_relic_oneself" name="sf_zc_dv"/>
+		<field table="ts_relic_oneself" name="sf_tx_people"/>
+	    <field/><field/>
+	</panel>	
+	<panel type="grid"
+		   id="ts_relic_oneself_grid"
+		   dataSource="tsRelicOneselfDs" 
+		   showOnLoad="true" 
+		   selectionEnabled="true" 
+		   layoutRegion="zhongjian">
+		
+		<title translatable="true">wenwuanquanzichajilu</title>
+		
+		<field table="ts_relic_oneself" name="sf_id" controlType="link">
+			<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+        <field table="ts_relic_oneself" name="sf_read" controlType="link">
+        <command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_number" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_review_date" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_use_dv" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_build" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_question" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="beizhu" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="doc1" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_tx_people" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="sf_tx_date" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+		<field table="ts_relic_oneself" name="ts_content" hidden="true" controlType="link">
+		<command type="showPanel" panelId="ts_relic_oneself_form"/>
+            <command type="callFunction" functionName="TsingHouseRelicOneselfController.showCheck()"/>
+		</field>
+	</panel>
+	
+    <panel type="html" id="openhtml" layoutRegion="left">
+        <title translatable="true">jianchaneirong</title>
+        <html>
+            <form id="openform">
+               <table id="opentable" style="border-collapse:collapse;width:100%">
+                    <tr>
+                        <td id="td1" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td2" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td3" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td4" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td5" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td6" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td7" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td8" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td9" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td10" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td11" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td12" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td13" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td14" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td15" class="td"></td>
+                    </tr>
+                </table>
+            </form>
+        </html>
+    </panel>
+    
+	<panel type="form" 
+		   id="ts_relic_oneself_form"
+		   dataSource="tsRelicOneselfDs"
+		   columns="2" 
+		   layoutRegion="right">
+		<title translatable="true">jianchajiluxiangqing</title>
+		<action id="save">
+			<title translatable="true">Save</title>
+		</action>
+		<field table="ts_relic_oneself" name="sf_id" hidden="true" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_number" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_people" readOnly="true"/>	
+		<field table="ts_relic_oneself" name="sf_review_date" readOnly="true"/>	
+		<field table="ts_relic_oneself" name="sf_people_mode" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_safe_people" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_sfwy" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_use_dv" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_zc_dv"/>
+		<field table="ts_relic_oneself" name="sf_wy_people" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_build" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_wy_mode" readOnly="true"/>	
+		<field table="ts_relic_oneself" name="doc1" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_tx_date" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_tx_people" readOnly="true"/>
+		<field table="ts_relic_oneself" name="beizhu" readOnly="true"/>
+		<field table="ts_relic_oneself" name="sf_question" readOnly="true"/>
+        <field table="ts_relic_oneself" name="ts_content" hidden="true"/>
+		<field table="ts_relic_oneself" name="sf_idea" colspan="2"/><field/>
+	</panel>
+</view>

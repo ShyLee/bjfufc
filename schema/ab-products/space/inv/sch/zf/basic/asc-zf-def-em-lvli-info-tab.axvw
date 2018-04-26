@@ -1,0 +1,294 @@
+<view version="2.0">
+	<js file="asc-zf-def-em-lvli-info-tab.js"/>
+	
+	<layout id="main">
+        <north initialSize="40%" split="true" />
+        <center id="gzjlSite" initialSize="30%"/>
+        <south id="jyjlSite" initialSize="30%" split="true" />
+    </layout>
+	
+	<layout id="zwzcSite" containingLayout="main" region="north">
+        <west id="zwSite" initialSize="50%" split="true" />
+        <center id="zcSite"/>
+    </layout>
+	
+	 <dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+        <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="em_id" />
+        <field table="sc_zf_em" name="zw_jb_id" />
+        <field table="sc_zf_em" name="zw_jb_name" />
+        <field table="sc_zf_em" name="zw_id" />
+        <field table="sc_zf_em" name="zw_name" />
+        <field table="sc_zf_em" name="zw_get_date" />
+		
+        <field table="sc_zf_em" name="zc_jb_id" />
+        <field table="sc_zf_em" name="zc_jb_name" />
+        <field table="sc_zf_em" name="zc_id" />
+        <field table="sc_zf_em" name="zc_name" />
+        <field table="sc_zf_em" name="zc_get_date" />
+        <field table="sc_zf_em" name="area_jz_std"/>
+        <field table="sc_zf_em" name="money_std"/>
+	</dataSource>
+	
+	<dataSource id="gzjlDs">
+		<table name="sc_zf_em_gzjl" role="main"/>
+        <field table="sc_zf_em_gzjl" name="auto_id"/>
+        <field table="sc_zf_em_gzjl" name="dw"/>
+		<field table="sc_zf_em_gzjl" name="date_begin"/>
+		<field table="sc_zf_em_gzjl" name="date_end"/>
+        <field table="sc_zf_em_gzjl" name="em_id"/>
+        <field table="sc_zf_em_gzjl" name="archive_id"/>
+        <sortField table="sc_zf_em_gzjl" name="date_begin"/>
+    </dataSource>
+    
+    <dataSource id="jyjlDs">
+		<table name="sc_zf_em_jyjl" role="main"/>
+        <field table="sc_zf_em_jyjl" name="auto_id"/>
+        <field table="sc_zf_em_jyjl" name="xl"/>
+		<field table="sc_zf_em_jyjl" name="school"/>
+		<field table="sc_zf_em_jyjl" name="date_begin"/>
+        <field table="sc_zf_em_jyjl" name="date_end"/>
+        <field table="sc_zf_em_jyjl" name="is_zz"/>
+        <field table="sc_zf_em_jyjl" name="em_id"/>
+        <field table="sc_zf_em_jyjl" name="archive_id"/>
+        <sortField table="sc_zf_em_jyjl" name="date_begin"/>
+    </dataSource>
+    
+    <dataSource id="zwDs">
+		<table name="sc_zf_em_zwjl" role="main"/>
+        <field table="sc_zf_em_zwjl" name="auto_id"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_id"/>
+		<field table="sc_zf_em_zwjl" name="zw_jb_name"/>
+		<field table="sc_zf_em_zwjl" name="zw_id"/>
+        <field table="sc_zf_em_zwjl" name="zw_name"/>
+        <field table="sc_zf_em_zwjl" name="get_date"/>
+        <field table="sc_zf_em_zwjl" name="em_id"/>
+        <field table="sc_zf_em_zwjl" name="archive_id"/>
+        <field table="sc_zf_em_zwjl" name="is_rc"/>
+    </dataSource>
+    
+    <dataSource id="zcDs">
+		<table name="sc_zf_em_zcjl" role="main"/>
+        <field table="sc_zf_em_zcjl" name="auto_id"/>
+        <field table="sc_zf_em_zcjl" name="zc_jb_id"/>
+		<field table="sc_zf_em_zcjl" name="zc_jb_name"/>
+		<field table="sc_zf_em_zcjl" name="zc_id"/>
+        <field table="sc_zf_em_zcjl" name="zc_name"/>
+        <field table="sc_zf_em_zcjl" name="get_date"/>
+        <field table="sc_zf_em_zcjl" name="em_id"/>
+        <field table="sc_zf_em_zcjl" name="archive_id"/>
+        <field table="sc_zf_em_zcjl" name="is_rc"/>
+    </dataSource>
+	
+	<dataSource id="zwListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,zw_jb_id,zw_jb_name,zw_id,zw_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zwjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,zwjbm,zwjb,zwmcm,zwmc,to_char(rzrq,'yyyy-mm-dd'),'hr' from hrbook_zwjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zwjl" role="main"/>
+        <field table="sc_zf_em_zwjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_id" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_id" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zwjl" name="get_date"/>
+    </dataSource>
+	
+	 <dataSource id="zcListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,em_id,zc_jb_id,zc_jb_name,zc_id,zc_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zcjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,jgh,'','',zcm,zc,to_char(pdrq,'yyyy-mm-dd'),'hr' from hrbook_zcjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zcjl" role="main"/>
+        <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="em_id" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="zc_jb_id" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="zc_jb_name" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="zc_id" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zcjl" name="get_date"/>
+    </dataSource>
+	
+	
+	<panel type="grid" id="zwGridPanel" showOnLoad="true" dataSource="zwListDs" layoutRegion="zwSite" multipleSelectionEnabled="true">
+            <title translatable="true">zw List</title>
+           	<action id="add">
+             		<title translatable="true">Add</title> 
+       		</action>
+           	<action id="delete">
+             		<title translatable="true">Delete</title>             
+       		</action>
+            <field table="sc_zf_em_zwjl" name="auto_id" dataType="text" hidden="true"/>
+            <field table="sc_zf_em_zwjl" name="zw_jb_id" dataType="text"/>
+	        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+	        <field table="sc_zf_em_zwjl" name="zw_id" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>			
+     </panel>
+     
+     <panel type="form" id="zwFormPanel" showOnLoad="false" dataSource="zwDs"  columns="2" newRecord="true">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+           	<action id="return">
+             	<title translatable="true">Return</title>             
+       		</action>
+            <field table="sc_zf_em_zwjl" name="auto_id" hidden="true"/>
+            <field table="sc_zf_em_zwjl" name="em_id" readOnly="true"/>
+	        <field table="sc_zf_em_zwjl" name="archive_id" readOnly="true"/>
+	        <field table="sc_zf_em_zwjl" name="zw_jb_id" hidden="true"/>
+			<field table="sc_zf_em_zwjl" name="zw_jb_name" required="true" cssClass="inputValueChg">
+				<action>
+	        		<title>...</title>
+	        		<command type="selectValue" 
+		        		fieldNames="sc_zf_em_zwjl.zw_jb_id,sc_zf_em_zwjl.zw_jb_name" 
+		        		selectFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name" 
+		        		visibleFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+	      		</action>
+			</field>
+			<field table="sc_zf_em_zwjl" name="zw_id" hidden="true"/>
+	        <field table="sc_zf_em_zwjl" name="zw_name" required="true" cssClass="inputValueChg">
+	        	<action>
+	        		<title>...</title>
+	        		<command type="selectValue" 
+		        		fieldNames="sc_zf_em_zwjl.zw_jb_id,sc_zf_em_zwjl.zw_jb_name,sc_zf_em_zwjl.zw_id,sc_zf_em_zwjl.zw_name" 
+		        		selectFieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw.zw_id,sc_zw.zw_name" 
+		        		visibleFieldNames="sc_zw.zw_id,sc_zw.zw_name,sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name"/>
+	      		</action>
+	        </field>
+	        <field table="sc_zf_em_zwjl" name="get_date" required="true"/>
+     </panel>
+	
+	<panel type="grid" id="zcGridPanel" showOnLoad="true" dataSource="zcListDs" layoutRegion="zcSite" multipleSelectionEnabled="true">
+            <title translatable="true">zc List</title>
+           	<action id="add">
+             		<title translatable="true">Add</title> 
+       		</action>
+           	<action id="delete">
+             		<title translatable="true">Delete</title>             
+       		</action>
+            <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"  hidden="true"/>
+	        <field table="sc_zf_em_zcjl" name="em_id" dataType="text"/>
+	        <field table="sc_zf_em_zcjl" name="zc_jb_id" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="zc_jb_name" dataType="text"/>
+	        <field table="sc_zf_em_zcjl" name="zc_id" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/> 			
+     </panel>
+     
+      <panel type="form" id="zcFormPanel" showOnLoad="false" dataSource="zcDs"  columns="2" newRecord="true">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+           	<action id="return">
+             	<title translatable="true">Return</title>             
+       		</action>
+            <field table="sc_zf_em_zcjl" name="auto_id" hidden="true"/>
+            <field table="sc_zf_em_zcjl" name="em_id" readOnly="true"/>
+	        <field table="sc_zf_em_zcjl" name="archive_id" readOnly="true"/>
+	        <field table="sc_zf_em_zcjl" name="zc_jb_id" hidden="true"/>
+			<field table="sc_zf_em_zcjl" name="zc_jb_name" required="true" cssClass="inputValueChg">
+				<action>
+	        		<title>...</title>
+	        		<command type="selectValue" 
+		        		fieldNames="sc_zf_em_zcjl.zc_jb_id,sc_zf_em_zcjl.zc_jb_name" 
+		        		selectFieldNames="sc_zc_jb.zc_jb_id,sc_zc_jb.zc_jb_name" 
+		        		visibleFieldNames="sc_zc_jb.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+	      		</action>
+			</field>
+			<field table="sc_zf_em_zcjl" name="zc_id" hidden="true"/>
+	        <field table="sc_zf_em_zcjl" name="zc_name" required="true" cssClass="inputValueChg">
+	        	<action>
+	        		<title>...</title>
+	        		<command type="selectValue" 
+		        		fieldNames="sc_zf_em_zcjl.zc_jb_id,sc_zf_em_zcjl.zc_jb_name,sc_zf_em_zcjl.zc_id,sc_zf_em_zcjl.zc_name" 
+		        		selectFieldNames="sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name,sc_zc.zc_id,sc_zc.zc_name" 
+		        		visibleFieldNames="sc_zc.zc_id,sc_zc.zc_name,sc_zc.zc_jb_id,sc_zc_jb.zc_jb_name"/>
+	      		</action>
+	        </field>
+	        <field table="sc_zf_em_zcjl" name="get_date" required="true"/>
+     </panel>
+     
+     
+     
+     <panel type="grid" id="gzjlGridPanel" showOnLoad="true" dataSource="gzjlDs" layoutRegion="gzjlSite" multipleSelectionEnabled="true">
+            <title translatable="true">gzjl List</title>
+           	<action id="add">
+             		<title translatable="true">Add</title> 
+       		</action>
+           	<action id="delete">
+             		<title translatable="true">Delete</title>             
+       		</action>
+            <field table="sc_zf_em_gzjl" name="auto_id" hidden="true"/>
+	        <field table="sc_zf_em_gzjl" name="dw"/>
+			<field table="sc_zf_em_gzjl" name="date_begin"/>
+			<field table="sc_zf_em_gzjl" name="date_end" />
+	        <field table="sc_zf_em_gzjl" name="em_id" hidden="true"/>
+	        <field table="sc_zf_em_gzjl" name="archive_id" hidden="true"/>  			
+     </panel>
+     
+     <panel type="form" id="gzjlFormPanel" showOnLoad="false" dataSource="gzjlDs" columns="2">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+           	<action id="return">
+             	<title translatable="true">Return</title>             
+       		</action>
+            <field table="sc_zf_em_gzjl" name="auto_id" hidden="true"/>
+            <field table="sc_zf_em_gzjl" name="em_id" readOnly="true"/>
+	        <field table="sc_zf_em_gzjl" name="archive_id" readOnly="true"/>  	
+	        <field table="sc_zf_em_gzjl" name="dw" required="true"/>
+			<field table="sc_zf_em_gzjl" name="date_begin" required="true" onchange="ascZfDefEmLvLiController.checkGzjlDate()"/>
+			<field table="sc_zf_em_gzjl" name="date_end" required="true"  onchange="ascZfDefEmLvLiController.checkGzjlDate()"/>
+     </panel>
+     
+     <panel type="grid" id="jyjlGridPanel" showOnLoad="true" dataSource="jyjlDs" layoutRegion="jyjlSite" multipleSelectionEnabled="true">
+            <title translatable="true">jyjl List</title>
+           	<action id="add">
+             		<title translatable="true">Add</title> 
+       		</action>
+           	<action id="delete">
+             		<title translatable="true">Delete</title>             
+       		</action>
+            <field table="sc_zf_em_jyjl" name="auto_id" hidden="true"/>
+	        <field table="sc_zf_em_jyjl" name="xl" />
+			<field table="sc_zf_em_jyjl" name="school"/>
+			<field table="sc_zf_em_jyjl" name="date_begin"/>
+	        <field table="sc_zf_em_jyjl" name="date_end"/>
+	        <field table="sc_zf_em_jyjl" name="is_zz"/>
+	        <field table="sc_zf_em_jyjl" name="em_id" hidden="true"/>
+	        <field table="sc_zf_em_jyjl" name="archive_id" hidden="true"/>   			
+     </panel>
+     
+      <panel type="form" id="jyjlFormPanel" showOnLoad="false" dataSource="jyjlDs" columns="2">
+           	<action id="save">
+             	<title translatable="true">Save</title> 
+       		</action>
+           	<action id="return">
+             	<title translatable="true">Return</title>             
+       		</action>
+            <field table="sc_zf_em_jyjl" name="auto_id" hidden="true"/>
+            <field table="sc_zf_em_jyjl" name="em_id" readOnly="true"/>
+	        <field table="sc_zf_em_jyjl" name="archive_id" readOnly="true"/>   
+	        <field table="sc_zf_em_jyjl" name="xl" required="true"/>
+			<field table="sc_zf_em_jyjl" name="school" required="true"/>
+			<field table="sc_zf_em_jyjl" name="date_begin" required="true" onchange="ascZfDefEmLvLiController.checkJyjlDate()"/>
+	        <field table="sc_zf_em_jyjl" name="date_end" required="true" onchange="ascZfDefEmLvLiController.checkJyjlDate()"/>
+	        <field table="sc_zf_em_jyjl" name="is_zz" required="true"/>
+     </panel>
+    
+     
+</view>

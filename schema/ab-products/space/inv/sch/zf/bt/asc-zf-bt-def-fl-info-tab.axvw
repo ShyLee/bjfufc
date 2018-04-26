@@ -1,0 +1,82 @@
+<view version="2.0">
+	<js file="asc-zf-bt-def-fl-info-tab.js"/>
+	<js url="/archibus/dwr/interface/BuTieService.js"/>
+    <dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+        <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="xm"/>
+    	<field table="sc_zf_em" name="has_fl"/>
+    	<field table="sc_zf_em" name="em_id"/>
+    	<field table="sc_zf_em" name="is_sworker"/>
+    	<field table="sc_zf_em" name="zw_name"/>
+    	<field table="sc_zf_em" name="zc_name"/>
+    	<field table="sc_zf_em" name="has_zzf"/>
+    	<field table="sc_zf_em" name="zzf_type"/>
+    	<field table="sc_zf_em" name="fl_num"/>
+    	<field table="sc_zf_em" name="area_bt_should"/>
+    	<field table="sc_zf_em" name="area_bt_has"/>
+    	<field table="sc_zf_em" name="area_jc"/>
+    	<field table="sc_zf_em" name="date_jc"/>
+    	
+    	<field table="sc_zf_em" name="area_hd_family"/>
+    	<field table="sc_zf_em" name="area_cb_family"/>
+    	<field table="sc_zf_em" name="area_gfbz_family"/>
+    	<field table="sc_zf_em" name="money_cbcl_family"/>
+    	<field table="sc_zf_em" name="cbcl_date"/>
+    	<field table="sc_zf_em" name="cbcl"/>
+	</dataSource>
+	
+	<dataSource id="scZfcqDs">
+		<table name="sc_zf_cq" role="main" />
+		<field table="sc_zf_cq" name="auto_id" />
+        <field table="sc_zf_cq" name="archive_id"/>
+        <field table="sc_zf_cq" name="zf_type_id" />
+        <field table="sc_zf_cq" name="area_hd" />
+        <field table="sc_zf_cq" name="date_gf" />
+        <field table="sc_zf_cq" name="zw_jb_id" />
+        <field table="sc_zf_cq" name="zc_jb_id" />
+        <field table="sc_zf_cq" name="p_zw_jb_id" />
+        
+        <restriction type="sql" sql=" sc_zf_cq.is_audit_admin = '1' and sc_zf_cq.zf_type_name in (select zf_type_name from sc_zf_type where is_fl = '1') "/>
+        <sortField table="sc_zf_cq" name="date_gf" ascending="false"/>
+	</dataSource>
+    
+    <dataSource id="scZfPoDs">
+		<table name="sc_zf_em_po" role="main"/>
+        <field table="sc_zf_em_po" name="archive_id"/>
+        <field table="sc_zf_em_po" name="status"/>
+	</dataSource>
+    
+    
+    <panel type="form" id="flInfoForm" dataSource="scZfEmDs"  columns="2">
+    	<title translatable="true">Flf Info Biao Zhun</title>
+    	<action id="save">
+            <title translatable="true">Save</title>
+        </action>
+        <field table="sc_zf_em" name="archive_id" hidden="true"/>
+    	<field table="sc_zf_em" name="xm"/>
+    	<field table="sc_zf_em" name="has_fl"/>
+    	<field table="sc_zf_em" name="em_id"/>
+    	<field table="sc_zf_em" name="is_sworker"/>
+    	<field table="sc_zf_em" name="zw_name"/>
+    	<field table="sc_zf_em" name="zc_name"/>
+    	<field table="sc_zf_em" name="has_zzf"/>
+    	<field table="sc_zf_em" name="zzf_type"/>
+    	<field table="sc_zf_em" name="fl_num"/>
+    	<field/>
+    	<field table="sc_zf_em" name="area_bt_should"/>
+    	<field table="sc_zf_em" name="area_bt_has"  onchange="ascZfEdFlInfoController.changeJcArea()"/>
+    	<field table="sc_zf_em" name="area_jc"/>
+    	<field table="sc_zf_em" name="date_jc"/>
+    	<field labelClass="labelFieldset" colspan="2">
+			<title>ChaoBiao Info</title>
+		</field>
+		<field table="sc_zf_em" name="cbcl" onchange="ascZfEdFlInfoController.doCBCL()"/>
+		<field table="sc_zf_em" name="cbcl_date"/>
+    	<field table="sc_zf_em" name="money_cbcl_family"/>
+    	<field table="sc_zf_em" name="area_cb_family"/>
+    	<field table="sc_zf_em" name="area_hd_family"/>
+    	<field table="sc_zf_em" name="area_gfbz_family"/>
+    </panel>
+ 	
+</view>

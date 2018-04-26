@@ -1,0 +1,91 @@
+<view version="2.0">
+    <js file="asc-bj_tsing-house-deal-expire.js"/>
+    <title translatable="true">xieyidaoqitixing</title>
+    <dataSource id="ts_deal_ds">
+        <table name="ts_deal" role="main"/>
+        <field table="ts_deal" name="deal_id" />
+        <field table="ts_deal" name="due_time" />
+        <field table="ts_deal" name="request_person_name" />
+        <field table="ts_deal" name="request_person_phone" />
+        <field table="ts_deal" name="dv_id" />
+        <field table="ts_deal" name="deal_name" />
+        <field table="ts_deal" name="start_time" />
+        <field table="ts_deal" name="sure_em_name" />
+        <field table="ts_deal" name="beizhu_daoqi" />
+    </dataSource>
+    <dataSource id="ts_deal_rm_ds">
+        <table name="ts_deal_rm" role="main"/>
+        <field table="ts_deal_rm" name="deal_id" />
+        <field table="ts_deal_rm" name="deal_rm_id"/>
+        <field table="ts_deal_rm" name="site_id" />
+        <field table="ts_deal_rm" name="pr_id" />
+        <field table="ts_deal_rm" name="bl_id" />
+        <field table="ts_deal_rm" name="fl_id" />
+        <field table="ts_deal_rm" name="rm_id" />
+        <field table="ts_deal_rm" name="rm_area" />
+        <field table="ts_deal_rm" name="charge_area" />
+    </dataSource>
+    <panel type="form" id="ts_deal_form" dataSource="ts_deal_ds" showOnLoad="false" newRecord="false">
+    <title translatable="true">deal daoqi ti xing bei zhu</title>
+    <action>
+      <title translatable="true">save</title>
+      <command type="saveForm"/>
+    </action>
+          <field table="ts_deal" name="deal_id" hidden="true"/>
+          <field table="ts_deal" name="beizhu_daoqi" />
+    </panel>
+    
+     <panel type="html" id="color2">
+                <title translatable="true">zuqi dao zhuhu</title>
+                <html>
+                    <table width="600" height="25" border="0">
+                        <tr>
+                            <td width="100" style="background-color:#00CC66"></td><td width="200"><span id="idd1"></span></td><td></td>
+                            <td width="100" style="background-color:#FFCC00"></td><td width="200"><span id="idd2"></span></td><td></td>
+                            <td width="100" style="background-color:#FF3333"></td><td width="200"><span id="idd3"></span></td><td></td>
+                        </tr>
+                    </table>
+                </html>
+    </panel>
+    <panel id="ts_deal_grid" type="grid" dataSource="ts_deal_ds">
+        <title translatable="true">xieyiliebiao</title>
+        <field table="ts_deal" name="deal_id" controlType="link">
+            <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="deal_name" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="dv_id" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="request_person_name" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="request_person_phone" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="sure_em_name" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="start_time" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="due_time" controlType="link">
+        <command type="callFunction" functionName="TsingHouseDealExpireControlller.fangjian()"/>
+        </field>
+        <field table="ts_deal" name="beizhu_daoqi" />
+    </panel>
+    
+    <panel id="ts_deal_rm_grid" type="grid" dataSource="ts_deal_rm_ds" selectionEnabled="true" showOnLoad="false">
+        <title translatable="true">fangjianliebiao</title>
+        <field table="ts_deal_rm" name="deal_rm_id" hidden="true"/>
+        <field table="ts_deal_rm" name="deal_id" />
+        <field table="ts_deal_rm" name="site_id" />
+        <field table="ts_deal_rm" name="pr_id" />
+        <field table="ts_deal_rm" name="bl_id" />
+        <field table="ts_deal_rm" name="fl_id" />
+        <field table="ts_deal_rm" name="rm_id" />
+        <field table="ts_deal_rm" name="rm_area" />
+        <field table="ts_deal_rm" name="charge_area" />
+    </panel>
+</view>

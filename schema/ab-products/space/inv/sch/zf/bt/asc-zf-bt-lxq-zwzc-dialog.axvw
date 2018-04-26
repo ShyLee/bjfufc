@@ -1,0 +1,55 @@
+<view version="2.0">
+	<js file="asc-zf-bt-lxq-zwzc-dialog.js"/>
+	<dataSource id="zwListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,zw_jb_name,zw_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zwjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,zwjb,zwmc,to_char(rzrq,'yyyy-mm-dd'),'hr' from hrbook_zwjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zwjl" role="main"/>
+        <field table="sc_zf_em_zwjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zwjl" name="get_date"/>
+    </dataSource>
+	
+	 <dataSource id="zcListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,em_id,zc_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zcjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,jgh,zc,to_char(pdrq,'yyyy-mm-dd'),'hr' from hrbook_zcjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zcjl" role="main"/>
+        <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="em_id" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zcjl" name="get_date"/>
+    </dataSource>
+    
+    <panel type="grid" id="zwGridPanel" showOnLoad="true" dataSource="zwListDs" layoutRegion="zwSite">
+            <title translatable="true">zw List</title>
+            <field table="sc_zf_em_zwjl" name="auto_id" dataType="text" hidden="true"/>
+	        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>			
+     </panel>
+     
+     <panel type="grid" id="zcGridPanel" showOnLoad="true" dataSource="zcListDs" layoutRegion="zcSite">
+            <title translatable="true">zc List</title>
+            <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"  hidden="true"/>
+	        <field table="sc_zf_em_zcjl" name="em_id" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/> 			
+     </panel>
+     
+</view>

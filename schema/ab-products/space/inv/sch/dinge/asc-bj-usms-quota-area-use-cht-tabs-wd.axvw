@@ -1,0 +1,13 @@
+<view version="2.0">
+    <title translatable="true">XueXiaoGeDanWeiDingEMianJiYuShiYongMianjiFeiXiTuBiao</title>
+    
+    <tabs id="dvAreaUseTabs">
+        <tab name="teachDv" selected="true" file="asc-bj-usms-quota-area-use-cht-teach-dp-wd.axvw">
+            <title translatable="true">JiaoXheKeYanDanWei</title>
+        </tab>
+		<tab name="mgrDv" file="asc-bj-usms-quota-area-use-cht-mgr-dp-wd.axvw">
+            <title translatable="true">DangZhengGuanLiDanWei</title>
+        </tab>
+    </tabs>
+	
+</view>

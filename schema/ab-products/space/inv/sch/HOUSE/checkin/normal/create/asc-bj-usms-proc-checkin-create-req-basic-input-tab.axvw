@@ -1,0 +1,134 @@
+<view version="2.0">
+
+    <layout type="borderLayout" id="centerLayout">
+        <north  id="emInfoRegion"  split="true" initialSize="45S%"/>
+        <center autoScroll="true" id="descRegion"/>
+    </layout>
+	
+    <dataSource id="blDataSource">
+        <table name="bl" role="main"/>
+        <field name="bl_id" table="bl"/>
+        <field name="name" table="bl"/>
+    </dataSource>
+	
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+       <field name="card_id" table="sc_zzfcard" hidden="false" readOnly="true" required="false"/>
+		<field table="sc_zzfcard" name="em_id"  required="true" readOnly="true" />
+		<field name="em_name" table="sc_zzfcard"  required="true" readOnly="true" />
+		<field name="identi_code" table="sc_zzfcard" required="true"/>
+		<field name="sex" table="sc_zzfcard" required="true"/>
+		<field name="dv_name" table="sc_zzfcard" required="true" readOnly="true"/>
+	    <field name="marriage_stat" table="sc_zzfcard" required="false"/>
+		<field name="is_working_parents" table="sc_zzfcard" required="false"/>
+		<field name="phone" table="sc_zzfcard" required="true"/>
+		<field name="email" table="sc_zzfcard" required="true"/>
+		<field name="is_rc" table="sc_zzfcard"/>
+		<field name="date_work_begin" table="sc_zzfcard" required="false"/>
+        <field name="curr_addr" table="sc_zzfcard"  />
+		<field name="xueli" table="sc_zzfcard"  />
+		<field name="zhiw_id" table="sc_zzfcard"  />
+		<field name="zhic_id" table="sc_zzfcard"  />
+		<field name="po_name" table="sc_zzfcard" required="false"/>
+		<field name="po_dv_id" table="sc_zzfcard" required="false"/>
+		<field name="po_em_id" table="sc_zzfcard" required="false"/>
+		<field name="po_identi_code" table="sc_zzfcard"  required="false"/>
+		<field name="yxhx" table="sc_zzfcard"/>
+		<field name="rent_type" table="sc_zzfcard"/>
+		<field name="doc1" table="sc_zzfcard"/>
+		<field name="doc2" table="sc_zzfcard"/>
+		<field name="apply_reason" table="sc_zzfcard"/>
+		<field name="apply_beizhu" table="sc_zzfcard"/>
+		<field name="card_apply" table="sc_zzfcard"/>
+    </dataSource>
+    
+      <dataSource id="ds_descform_activity_log">
+        <table name="activity_log" role="main"/>
+	    <field name="activity_log_id" table="activity_log"/>
+		<field name="activity_type" table="activity_log" />
+		<field name="prob_type" table="activity_log"/>
+		<field name="description" table="activity_log" />
+		<field name="priority" table="activity_log"/>
+		<field name="date_required" table="activity_log"/>
+		<field name="created_by" table="activity_log"/>
+	  </dataSource>
+	  
+   
+<!--     <dataSource id="emDS">
+        <table name="em" role="main"/>
+	    <field name="em_id" table="em"/>
+		<field name="name" table="em"/>
+		<field name="sex" table="em"/> 
+		<field name="identi_code" table="em"/>
+		<field name="phone" table="em"/>
+		<field name="email" table="em"/>
+		<field name="dv_id" table="em"/>
+		<field name="date_work_begin" table="em"/>
+		<field name="is_working_parents" table="em"/>
+		<field name="married" table="em"/>
+		<field name="po_name" table="em"/>
+		<field name="po_dv_id" table="em"/>
+		<field name="po_em_id" table="em"/>
+		<field name="po_identi_code" table="em"/>
+    </dataSource> -->
+
+
+    <panel type="form" columns="3" id="teacherInfoForm" showOnLoad="false" dataSource="sc_zzfcardDataSource" layoutRegion="emInfoRegion">
+        <title translatable="true">Requestor</title>
+        <!--返回-->
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="callFunction" functionName="asgnCreateReqBasicInputTabController.onBack()"/>
+        </action>
+        <!-- 提交申请 -->
+        <action id="submit">
+            <title translatable="true">Submit</title>
+            <command type="callFunction" functionName="asgnCreateReqBasicInputTabController.onSubmit()"/>
+        </action>
+
+        <field name="card_id" table="sc_zzfcard" hidden="true" readOnly="true" required="false"/>
+		<field table="sc_zzfcard" name="em_id"  readOnly="true" required="true"/>
+		<field name="em_name" table="sc_zzfcard"  readOnly="true" required="true"/>
+		<field name="identi_code" table="sc_zzfcard" required="true"/>
+		<field name="sex" table="sc_zzfcard"/>
+		<field name="dv_name" table="sc_zzfcard"/>
+	    <field name="marriage_stat" table="sc_zzfcard"/>
+		<field name="is_working_parents" table="sc_zzfcard"/>
+		<field name="phone" table="sc_zzfcard"/>
+		<field name="email" table="sc_zzfcard"/>
+		<field name="is_rc" table="sc_zzfcard" required="true"/>
+		<field name="date_work_begin" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+		
+		<field name="xueli" table="sc_zzfcard"  />
+		<field name="zhiw_id" table="sc_zzfcard"  />
+		<field name="zhic_id" table="sc_zzfcard"  />
+		
+		<field name="po_name" table="sc_zzfcard"/>
+		<field name="po_dv_id" table="sc_zzfcard"/>
+		<field name="po_em_id" table="sc_zzfcard"/>
+		<field name="po_identi_code" table="sc_zzfcard"/>
+		
+		<field name="yxhx" table="sc_zzfcard" hidden="true"/>
+		<field name="rent_type" table="sc_zzfcard" hidden="true"/>
+		<field name="apply_reason" table="sc_zzfcard" hidden="true"/>
+		<field name="apply_beizhu" table="sc_zzfcard" hidden="true"/>
+    </panel>
+	
+	<panel type="form" columns="3" id="descForm" dataSource="sc_zzfcardDataSource" layoutRegion="descRegion" newRecord="true">
+        <title translatable="true">Description</title>
+        <field name="card_id" table="sc_zzfcard" readOnly="true" hidden="true"/>
+        <field name="card_apply" table="sc_zzfcard"/>
+		<field name="rent_type" table="sc_zzfcard" readOnly="true" required="true"/>
+		<field name="yxhx" table="sc_zzfcard"/>
+		<!-- <field name="doc1" table="sc_zzfcard"/>
+		<field name="doc2" table="sc_zzfcard"/> 
+		<field/>-->
+		<field name="apply_reason" table="sc_zzfcard" required="true" width="207"/>
+		<field name="apply_beizhu" table="sc_zzfcard" width="207"/>
+    </panel>
+	
+    <js file="asc-bj-usms-proc-checkin-create-req-basic-input-tab.js"/>
+	<js file="asc-bj-usms-constant.js" />
+    <js file="asc-bj-usms-house-common.js"/>
+</view>

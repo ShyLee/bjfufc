@@ -1,0 +1,157 @@
+<view version="2.0">
+    <js file="asc-bj-usms-proc-house-renew-detail-em-dialog.js"/>
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="em_id" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard"/>
+        <field name="sex" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="date_work_begin" table="sc_zzfcard"/>
+        <field name="marriage_stat" table="sc_zzfcard"/>
+        <field name="is_working_parents" table="sc_zzfcard"/>
+        <field name="po_name" table="sc_zzfcard"/>
+        <field name="po_dv_id" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="unit_code" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="date_created" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard"/>
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="desposit_payoff" table="sc_zzfcard"/>
+        <field name="date_register" table="sc_zzfcard"/>
+        <field name="eq_desc_chkout" table="sc_zzfcard"/>
+        <field name="date_checkin" table="sc_zzfcard"/>
+        <field name="date_checkout_ought" table="sc_zzfcard"/>
+        <field name="all_payoff" table="sc_zzfcard"/>
+        <field name="actual_payoff" table="sc_zzfcard"/>
+        <field name="date_payrent_last" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="cause_checkout" table="sc_zzfcard"/>
+        <field name="sponsor" table="sc_zzfcard"/>
+        <field name="sponsor_name" table="sc_zzfcard"/>
+        <field name="date_checkout_actual" table="sc_zzfcard"/>
+        <field name="is_refund" table="sc_zzfcard"/>
+        <field name="address_bt" table="sc_zzfcard"/>
+        <field name="area_fuli" table="sc_zzfcard"/>
+        <field name="po_em_id" table="sc_zzfcard"/>
+        <field name="po_identi_code" table="sc_zzfcard"/>
+        <field name="pr_id" table="sc_zzfcard"/>
+        <field name="is_rc" table="sc_zzfcard"/>
+        <field name="sponsor_dv" table="sc_zzfcard"/>
+        <field name="yxhx" table="sc_zzfcard"/>
+        <field name="site_id" table="sc_zzfcard"/>
+        <field name="amount_months" table="sc_zzfcard"/>
+        <field table="sc_zzfcard" name="doc1"/>
+        <field table="sc_zzfcard" name="doc2"/>
+        <field table="sc_zzfcard" name="doc_lease"/>
+        <field table="sc_zzfcard" name="rent_type"/>
+        <field table="sc_zzfcard" name="date_first_pay"/>
+        <field table="sc_zzfcard" name="area_manual"/>
+        <field table="sc_zzfcard" name="area_yangtai"/>
+        <field table="sc_zzfcard" name="gl_area"/>
+        <field table="sc_zzfcard" name="huxing"/>
+        <field table="sc_zzfcard" name="ttqx"/>
+        <field table="sc_zzfcard" name="htqx"/>
+        <field table="sc_zzfcard" name="xueli"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field name="rm_type" table="sc_zzfcard"/>
+        <field table="sc_zzfcard" name="date_checkin_first"/>
+        <field table="sc_zzfcard" name="total_rent_all"/>
+    </dataSource>
+
+	<panel id="applicant_info" type="form" columns="3" showOnLoad="true" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Applicant Info</title>
+        <field name="card_id" table="sc_zzfcard" hidden="true" readOnly="true" required="false"/>
+		<field table="sc_zzfcard" name="em_id"  readOnly="true" required="true"/>
+		<field name="em_name" table="sc_zzfcard"  readOnly="true" required="true"/>
+		<field name="identi_code" table="sc_zzfcard" required="true" readOnly="true"/>
+		<field name="sex" table="sc_zzfcard" readOnly="true"/>
+		<field name="dv_name" table="sc_zzfcard" readOnly="true"/>
+	    <field name="marriage_stat" table="sc_zzfcard" readOnly="true"/>
+		<field name="is_working_parents" table="sc_zzfcard" readOnly="true"/>
+		<field name="phone" table="sc_zzfcard" readOnly="true"/>
+		<field name="email" table="sc_zzfcard" readOnly="true"/>
+		<field name="is_rc" table="sc_zzfcard" required="true"/>
+		<field name="date_work_begin" table="sc_zzfcard" readOnly="true"/>
+        <field name="curr_addr" table="sc_zzfcard" readOnly="true"/>
+		<field name="xueli" table="sc_zzfcard" readOnly="true"/>
+		<field name="zhiw_id" table="sc_zzfcard"  readOnly="true"/>
+		<field name="zhic_id" table="sc_zzfcard"  readOnly="true"/>
+		<field name="po_name" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_dv_id" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_em_id" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_identi_code" table="sc_zzfcard" readOnly="true"/>
+		<field name="rent_type" table="sc_zzfcard" readOnly="true"/>
+		<field name="yxhx" table="sc_zzfcard" readOnly="true"/>
+		<!-- <field table="sc_zzfcard" name="total_rent_all" readOnly="true"/> -->
+    </panel>
+	
+	<panel id="rm_detail" type="form" columns="3" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Room Info</title>
+        <field name="card_id" table="sc_zzfcard" hidden="true" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="bl_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="fl_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="rm_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="area_manual" readOnly="true"/>
+        <field table="sc_zzfcard" name="area_yangtai" readOnly="true"/>
+        <field table="sc_zzfcard" name="area_lease" readOnly="true"/>
+        <field table="sc_zzfcard" name="huxing" readOnly="true"/>
+        <field table="sc_zzfcard" name="site_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="pr_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="true"/>
+        <field table="sc_zzfcard" name="date_checkout_actual" readOnly="true"/>
+        <field table="sc_zzfcard" name="ttqx" readOnly="true"/>
+    </panel>
+    
+    <dataSource id="renewDataSource">
+        <table name="sc_zzf_renew" role="main"/>
+        <field table="sc_zzf_renew" name="renew_id"/>
+        <field table="sc_zzf_renew" name="renew_name"/>
+        <field table="sc_zzf_renew" name="is_activity"/>
+        <field table="sc_zzf_renew" name="htqx"/>
+        <field table="sc_zzf_renew" name="date_begin"/>
+        <field table="sc_zzf_renew" name="date_end"/>
+        <field table="sc_zzf_renew" name="pay_begin"/>
+        <field table="sc_zzf_renew" name="pay_way"/>
+        <field table="sc_zzf_renew" name="rent_period"/>
+        <field table="sc_zzf_renew" name="date_one_begin"/>
+        <field table="sc_zzf_renew" name="date_one_end"/>
+        <field table="sc_zzf_renew" name="date_two_begin"/>
+        <field table="sc_zzf_renew" name="date_two_end"/>
+        <field table="sc_zzf_renew" name="money_one"/>
+        <field table="sc_zzf_renew" name="money_two"/>
+        <field table="sc_zzf_renew" name="rate_one"/>
+        <field table="sc_zzf_renew" name="rate_two"/>
+        <field table="sc_zzf_renew" name="doc1"/>
+        <field table="sc_zzf_renew" name="doc2"/>
+        <field table="sc_zzf_renew" name="doc_rz"/>
+        <field table="sc_zzf_renew" name="card_id"/>
+        <field table="sc_zzf_renew" name="date_renew"/>
+    </dataSource>
+
+   <panel type="grid" id="renewPanel" dataSource="renewDataSource">
+        <title translatable="true">Renew information</title>
+        <field table="sc_zzf_renew" name="renew_id" hidden="true"/>
+        <field table="sc_zzf_renew" name="card_id" hidden="true"/>
+        <field table="sc_zzf_renew" name="renew_name"/>
+        <field table="sc_zzf_renew" name="htqx"/>
+        <field table="sc_zzf_renew" name="date_begin"/>
+        <field table="sc_zzf_renew" name="date_end"/>
+        <field table="sc_zzf_renew" name="date_renew"/>
+        <field table="sc_zzf_renew" name="doc1"/>
+        <field table="sc_zzf_renew" name="doc2"/>
+        <field table="sc_zzf_renew" name="doc_rz"/>
+    </panel>
+</view>

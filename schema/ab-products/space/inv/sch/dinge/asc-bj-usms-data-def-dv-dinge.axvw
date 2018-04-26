@@ -1,0 +1,15 @@
+<view version="2.0">
+	<preferences>
+		<viewTitleBar show="true" />
+	</preferences>
+	<title translatable="true">Define Dv Dinge Params</title>
+
+	<tabs id="projectDinge" workflow="free" >
+		<tab name="xy" file="asc-bj-usms-data-def-dv-dinge-xy.axvw" selected="true" >
+			<title translatable="true">xueyuan</title>
+		</tab>
+		<tab name="dzjg" file="asc-bj-usms-data-def-dv-dinge-dzjg.axvw">
+		<title translatable="true">dangzhengjiguan</title>
+		</tab>
+	</tabs>
+</view>

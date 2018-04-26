@@ -1,0 +1,208 @@
+<view version="2.0">
+	<js file="ab-rplm-building-asset-info-ts.js"/>
+	    <dataSource id='assetDs'>
+			<table name="asset_source" role="main"/>
+			<field table="asset_source" name="id"/>
+			<field table="asset_source" name="bl_id"/>
+			<field table="asset_source" name="code"/>
+			<field table="asset_source" name="asset_code"/>
+			<field table="asset_source" name="asset_count"/>
+			<field table="asset_source" name="asset_type"/>
+			<field table="asset_source" name="description"/>
+	</dataSource>
+	
+	<dataSource id="tsBl">
+		<table name="bl" role="main"/>
+				
+		<field table="bl" name="bl_id"/>
+		<field table="bl" name="date_use"/>
+		<field table="bl" name="fund_src"/>
+		<field table="bl" name="self_collected_funds"/>
+		<field table="bl" name="value_market"/>
+		<!-- <field table="bl" name="unsold_area_seg"/> -->
+		<!-- <field table="bl" name="unsold_value_seg"/> -->
+		<field table="bl" name="acc_type"/>
+		<field table="bl" name="value_market_uinc_sold"/>
+		<field table="bl" name="value_market_inc_sold"/>
+		<field table="bl" name="value_origi_uinc_sold"/>
+		<field table="bl" name="value_original_all"/>
+		<field table="bl" name="value_fiscal_alloc"/>
+		<field table="bl" name="business_income"/>
+		<field table="bl" name="ysw_income"/>
+		<field table="bl" name="other_funds"/>
+		<field table="bl" name="czxjy_funds"/>
+		<field table="bl" name="in_acc_em"/>
+		<field table="bl" name="auditor"/>
+		<field table="bl" name="in_acc_proof"/>
+		<field table="bl" name="cgzzxs_id"/>
+		<field table="bl" name="value_type"/>
+		<field table="bl" name="value_book"/>
+		<field table="bl" name="zhejiu_add"/>
+		<field table="bl" name="value_original"/>
+		<field table="bl" name="account_proof"/>
+		<field table="bl" name="zhejiu_status"/>
+		<field table="bl" name="avg_price"/>
+		<field table="bl" name="value_ziyong"/>
+		<field table="bl" name="value_lend"/>
+		<field table="bl" name="value_rent"/>
+		<field table="bl" name="value_invest"/>
+		<field table="bl" name="value_danbao"/>
+		<field table="bl" name="value_other"/>
+		<field table="bl" name="deprec_method"/>
+		<field table="bl" name="deprec_months"/>
+		<field table="bl" name="remain_rate"/>
+		<field table="bl" name="depre_reserves"/>
+		<field table="bl" name="asset_num"/>
+		<field table="bl" name="asset_name"/>
+		<field table="bl" name="atype_code"/>
+		<field table="bl" name="atype_name" />
+	</dataSource>
+	<tabs workflow="free" id="wizardTabs" tabRefreshPolicy="refreshOnLoad">
+		
+	    <tab name="Value"  selected="true" useFrame="true">
+		    <title translatable="true">Value</title>
+		    <panel type="form" dataSource="tsBl" id="tsBlForm0" columns="2">
+				<!-- <title translatable="true">Value</title> -->
+				<action id="return">
+					<title translatable="true">Return</title>
+					<command type="callFunction" functionName="rplmBuildingBuildAssetController.returnToIndex()"/>
+				</action>
+				<action id="clear">
+					<title translatable="true">Cancel</title>
+					<command type="showPanel" panelId="tsBlForm0" applyParentRestriction="true"/>
+				</action>
+				<action id="save">
+					<title translatable="true">Save</title>
+					<command type="saveForm"/>
+					<!-- <command type="selectTabPage" tabPageName="qita" /> -->
+				</action>
+				    <field table="bl" name="bl_id" readOnly="true" hidden="false"/>
+				    <field table="bl" name="value_type"/>
+					<field table="bl" name="value_book"/>
+					<field table="bl" name="value_other"/>
+					<field table="bl" name="value_original_all"/>
+					<field table="bl" name="value_origi_uinc_sold"/>
+					<field table="bl" name="value_market_inc_sold"/>
+					<field table="bl" name="value_market_uinc_sold"/>		
+					<!--<field table="bl" name="value_fiscal_alloc"/> -->
+					<field table="bl" name="value_ziyong"/>
+					<field table="bl" name="value_lend"/>
+					<field table="bl" name="value_rent"/>
+					<field table="bl" name="value_invest"/>
+					<field table="bl" name="value_danbao"/>
+			</panel>
+			<panel type='grid' id='assetGrid'  controlType="reportGrid" dataSource="assetDs" multipleSelectionEnabled="true"  showOnLoad='false'>
+				<title>Sources of Funds</title>
+				<action id='add'>
+					<title>add</title>
+				</action>
+				<action id='del'>
+					<title>delete</title>
+				</action>
+				<field table='asset_source' name='id' hidden='true'/>
+				<field table="asset_source" name="bl_id" hidden='true'/>
+				<field table="asset_source" name="asset_type"/>
+				<field table="asset_source" name="asset_code"/>
+				<field table="asset_source" name="asset_count"/>
+		        <field table="asset_source" name="description"/>
+			</panel>
+	
+			<panel type='form' id='assetForm' dataSource="assetDs" columns='1' showOnLoad='false' > 
+				<title>Sources of Funds</title>
+				<action id='save'>
+					<title>save</title>
+				</action>
+				<action id='clear'>
+					<title>clear</title>
+					 <command type="clearPanel" panelId="assetForm"/>
+				</action>
+				<field table='asset_source' name='id' hidden='true'/>
+				<field table="asset_source" name="bl_id" hidden='true'/>
+				<!--资金来源类型-->
+				<field table="asset_source" name="asset_type" required="true"/>
+				<!--资金来源财务账号代码-->
+				<field table="asset_source" name="asset_code" required="true" />
+				<!--资金额-->
+				<field table="asset_source" name="asset_count" required="true"/>
+		        <field table="asset_source" name="description" width="207"/>
+			</panel>
+			
+	    </tab>
+	
+	    <tab name="qita"  useFrame="true">
+		    <title translatable="true">qita</title>
+		    <panel type="form" dataSource="tsBl" id="tsBlForm1" columns="2" showOnLoad="true">
+
+					<action id="cancel">
+						<title translatable="true">Return</title>
+						<!-- <command type="selectTabPage" tabPageName="Value" /> -->
+						<command type="callFunction" functionName="rplmBuildingBuildAssetController.returnToIndex()"/>
+					</action>
+					<action id="clear">
+						<title translatable="true">Cancel</title>
+						<command type="showPanel" panelId="tsBlForm1" applyParentRestriction="true"/>
+					</action>
+					<action id="save">
+						<title translatable="true">Save</title>
+						<command type="saveForm"/>
+						<!-- <command type="callFunction" functionName="rplmBuildingBuildAssetController.Finish()"/> -->
+					</action>
+					<field table="bl" name="bl_id" readOnly="true" hidden="false"/>
+					<field />
+					<field table="bl" name="asset_num"/>
+				<field table="bl" name="asset_name"/>
+				<field table="bl" name="atype_code">
+					<action> 
+		 				<title>...</title> 
+		 				<tooltip>Select Value</tooltip> 
+		 				<command type="selectValue" 
+		 					fieldNames="bl.atype_code,bl.atype_name" 
+		 					selectFieldNames="sc_atyp.atype_code,sc_atyp.atype_name" 
+		 					visibleFieldNames="sc_atyp.atype_code,sc_atyp.atype_name"  /> 
+		 			</action> 
+		        </field>
+				<field table="bl" name="atype_name" readOnly="true"/>
+					<field table="bl" name="date_use"/>
+					<field table="bl" name="cgzzxs_id"/>
+					<field table="bl" name="fund_src"/>
+				
+					<field table="bl" name="self_collected_funds"/>
+					<!-- <field table="bl" name="unsold_area_seg"/> -->
+					<!-- <field table="bl" name="unsold_value_seg"/> -->
+					<field />
+					<field />
+					<field table="bl" name="acc_type"/>
+					
+					<!--
+					复旦采用asset_source 表记录资金来源信息
+					<field table="bl" name="business_income"/>
+					<field table="bl" name="ysw_income"/>
+					<field table="bl" name="other_funds"/>
+					<field table="bl" name="czxjy_funds"/> -->
+					<field table="bl" name="in_acc_proof"/>
+					<field table="bl" name="account_proof"/>
+					<field table="bl" name="in_acc_em"/>
+					<field table="bl" name="auditor"/>
+				
+					<field />
+					<field />
+					<field />
+					<field table="bl" name="value_original"/>
+					<field table="bl" name="avg_price"/>
+					<field table="bl" name="zhejiu_status"/>
+		
+					<field table="bl" name="deprec_method"/>
+					<field table="bl" name="deprec_months"/>
+					<field table="bl" name="zhejiu_add"/>
+					<field table="bl" name="remain_rate"/>
+					<field table="bl" name="depre_reserves"/>
+			</panel>
+	    </tab>
+	  
+	</tabs>
+	
+	
+	
+	
+	
+</view>	

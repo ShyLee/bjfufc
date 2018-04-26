@@ -1,0 +1,85 @@
+<view version='2.0'>
+	<js file="asc-bj-zzf-def-room-fees.js"/>
+
+    <dataSource id='zzf_fees_ds'>
+        <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='pay_state'/>
+        <field table='bh_zzf_fees' name='expenditure'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </dataSource>
+    <title>Room Pay Fees</title>
+    <panel id='protocolConsole' type='console' dataSource='zzf_fees_ds' columns="4" >
+        <title translatable="true">Filter</title>
+        <action id="filter">
+            <title translatable="true">show</title>
+            <command type="showPanel" panelId="feesInfo"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">cancel</title>
+            <command type="clearPanel" panelId="protocolConsole"/>
+        </action>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='pay_state'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+    </panel>
+    
+    <panel id='feesInfo' type='grid' selectionEnabled="true" dataSource='zzf_fees_ds'>
+        <title>feeslInfo</title>
+        
+        <field controlType="button" width="100">
+            <title translatable="true">pay</title>
+            <command type="callFunction" functionName="abRoomFeesControl.payFee()"/>
+        </field>
+        <field table='bh_zzf_fees' name='fees_id' hidden="true"/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='expenditure'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='comments'/>
+        <field table='bh_zzf_fees' name='pay_state'/>
+        <field id="checkProtocalInfo" controlType="button" width="100">
+            <title translatable="true">checkProtocalInfo</title>
+        </field>
+    </panel>
+    <panel id='payFeesInfo' type='form' dataSource='zzf_fees_ds' columns="2" showOnLoad="false">
+       <!--  <title>payFeesInfo</title> -->
+        <action id="save">
+            <title translatable="true">save</title>
+            <command type="callFunction" functionName="abRoomFeesControl.savePayInfo()"/>
+        </action>
+        <action id="report">
+            <title translatable="true">report</title>
+            <command type="callFunction" functionName="abRoomFeesControl.Report()"/>
+        </action>
+        <field table='bh_zzf_fees' name='fees_id' readOnly="true"/>
+        <field table='bh_zzf_fees' name='protocal_id' readOnly="true"/>
+        <field table='bh_zzf_fees' name='expenditure' readOnly="true"/>
+        <field table='bh_zzf_fees' name='pay_state' readOnly="false"/>
+        <field table='bh_zzf_fees' name='party_rep' readOnly="true"/>
+        <field table='bh_zzf_fees' name='should_fees_date' readOnly="true"/>
+        <field table='bh_zzf_fees' name='should_fees_money' readOnly="true"/>
+        <field table='bh_zzf_fees' name='party_contacts' readOnly="true"/>
+        <field table='bh_zzf_fees' name='party_contacts_tel' readOnly="true"/>
+        <field table='bh_zzf_fees' name='practical_fees_date' required="true"/>
+        <field table='bh_zzf_fees' name='practical_fees_money' required="true"/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments' required="true"/>
+    </panel>
+    
+</view>

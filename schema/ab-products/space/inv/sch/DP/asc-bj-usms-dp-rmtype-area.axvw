@@ -1,0 +1,87 @@
+<view version="2.0">
+
+	<!-- DataSource for cross table panel -->
+	<title translatable="true">GeDanWeiFangWuLeiXingShiYongMianJi
+	</title>
+
+	<dataSource id="asc-bj-usms-dp-rmtype-area-ds2" type="grouping">
+		<table name="rm" role="main" />
+		<table name="dv" role="standard" />
+
+		<field name="dv_id" dataType="text" groupBy="true" />
+		<field name="dv_code" table="dv" dataType="text" groupBy="true">
+			<title>dv_code</title>
+			<sql dialect="generic">dv.dv_code</sql>
+		</field>
+		<field name="area_ocup" table="dv" dataType="number" decimals="2"
+			groupBy="true">
+			<title>ShiJiShiJiShiYongMianJi</title>
+			<sql dialect="generic">dv.area_ocup</sql>
+		</field>
+		<field name="count_student" table="dv" dataType="number"
+			decimals="0" groupBy="true">
+			<title>XueShengZongRenShu</title>
+			<sql dialect="generic">dv.count_student</sql>
+		</field>
+		<field name="count_em" table="dv" dataType="number" decimals="0"
+			groupBy="true">
+			<title>JiaoZhiGongZongRenShu</title>
+			<sql dialect="generic">dv.count_em</sql>
+		</field>
+		<parameter name="dvId" dataType="text" value="" />
+		<restriction type="sql"
+			sql="rm.dv_id  IN (select dv.dv_id from dv where dv.bu_id =${parameters['dvId']})" />
+
+	</dataSource>
+
+	<dataSource type="grouping" id="asc-bj-usms-dp-rmtype-area-ds">
+		<table name="rm" role="main" />
+		<table name="dv" role="standard" />
+		<sortField name="dv_id" table="rm" ascending="true" />
+		<sortField name="rm_type" table="rm" ascending="true" />
+		<field name="dv_id" dataType="text" groupBy="true">
+			<title translatable="true">DanWeiMingChen</title>
+		</field>
+		<field name="rm_type" dataType="text" groupBy="true">
+			<title translatable="true">FangWuLeiXing</title>
+		</field>
+		<field name="total_area" formula="sum" baseField="rm.area"
+			dataType="number" decimals="0">
+			<title translatable="true">Area</title>
+		</field>
+		<parameter name="dvId" dataType="text" value="" />
+		<restriction type="sql"
+			sql="rm.dv_id  IN (select dv.dv_id from dv where dv.bu_id =${parameters['dvId']})" />
+
+	</dataSource>
+
+	<tabs id="sbfDetailTabs">
+		<tab name="roomTypeJXTab" selected="true">
+			<title translatable="true">JiaoXueJiGou</title>
+			<panel type="crossTable" id="crossTableJiaoXuePanel"
+				showOnLoad="false" dataSource="asc-bj-usms-dp-rmtype-area-ds"
+				rowDimensionDataSource="asc-bj-usms-dp-rmtype-area-ds2">
+				<action id="exportXls">
+					<title translatable="true">XLS</title>
+					<command type="exportPanel" outputType="xls"
+						panelId="crossTableJiaoXuePanel" />
+				</action>
+			</panel>
+		</tab>
+
+		<tab name="roomTypeXZTab" selected="false">
+			<title translatable="true">XingZhengBuMen</title>
+			<panel type="crossTable" id="crossTableXingZhengPanel"
+				showOnLoad="false" dataSource="asc-bj-usms-dp-rmtype-area-ds"
+				rowDimensionDataSource="asc-bj-usms-dp-rmtype-area-ds2">
+				<action id="exportXls">
+					<title translatable="true">XLS</title>
+					<command type="exportPanel" outputType="xls"
+						panelId="crossTableXingZhengPanel" />
+				</action>
+			</panel>
+		</tab>
+	</tabs>
+	
+	<js file="asc-bj-usms-dp-rmtype-area.js" />
+</view>

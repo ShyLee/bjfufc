@@ -1,0 +1,296 @@
+<view version="2.0" type="dashboard">
+	
+    <layout id="main">
+        <north  initialSize="40%" split="true"/>
+        <center />
+    </layout>
+	<layout id="nested_north" containingLayout="main" region="north">
+        <west id="zhicGridPosition" initialSize="60%"  split="true"/>
+        <center id="rmstdCroTblPosition"/>
+    </layout>
+	<layout id="nested_center" containingLayout="main" region="center">
+        <west initialSize="50%" />
+        <center />
+    </layout>
+	<layout id="nested_center_west" containingLayout="nested_center" region="west">
+        <north id="high6ChtPosition" initialSize="30%" />
+        <center id="high6GridPosition"/>
+    </layout>
+	<layout id="nested_center_center" containingLayout="nested_center" region="center">
+        <north id="lower6ChtPosition"  initialSize="30%"/>
+        <center id="lower6GridPosition"/>
+    </layout>
+	
+	
+    <title translatable="true">XueXiaoJiaoZhiGongFangWuShiYongZhuangKuangTongJiFenXiYiBiaoPan</title>
+	
+	<!-- datasource for em-sum report -->
+    <dataSource id="ds_asc-bj-usms-dash-em-rm-stat_em">
+    	<sql dialect="generic">
+    	SELECT sc_zhic.zhic_id ${sql.as} zhic_id, 
+		   sc_zhic.name ${sql.as} order_num,
+		   COUNT(em.em_id) ${sql.as} count_em, 
+		   round(SUM(em.AREA_RM/rm.area),2) ${sql.as} count_rm,
+		   round(SUM(em.AREA_RM),2) ${sql.as} total_area_shiyong,
+           round(AVG(em.AREA_RM),2) ${sql.as} avg_area_shiyong,
+		   round(AVG(em.AREA_RM/rm.area),2) ${sql.as} avg_occu_rm 
+        FROM em,rm,sc_zhic,dv
+        WHERE em.bl_id=rm.bl_id and em.fl_id=rm.fl_id and em.rm_id=rm.rm_id 
+		   and em.zhic_id = sc_zhic.zhic_id and em.dv_id=dv.dv_id 
+           and sc_zhic.zhic_id IN (${parameters['jiaoshouRes']},${parameters['fujiaoshouRes']},${parameters['jiangshiRes']},${parameters['zhujiaoRes']})
+		   and dv.bu_id in (SELECT bu_id FROM bu WHERE bu_class=${parameters['buClassRes']})
+        GROUP BY sc_zhic.zhic_id,sc_zhic.name 
+		</sql>
+		<table name="em" role="main" />
+		
+		<field name="zhic_id" dataType="text">
+			<title translatable="true">ZhiCheng</title>
+		</field>
+		<field name="order_num" dataType="text" hidden="true"/>
+		
+		<field name="count_em" dataType="number" decimals="0" >
+			<title translatable="true">ZongRenShu</title>
+		</field>
+		
+		<field name="count_rm" dataType="number" decimals="2">
+			<title translatable="true">ZongZhanYongFangJian</title>
+		</field>
+		
+		<field name="total_area_shiyong"  dataType="number" decimals="2">
+			<title translatable="true">ZongZhanYongMianJi</title>
+		</field>
+		
+		<field name="avg_area_shiyong" dataType="number" decimals="2">
+			<title translatable="true">RenJunMianJi</title>
+		</field>
+		
+		<field name="avg_occu_rm" dataType="number" decimals="2">
+			<title translatable="true">RenJunZhanYouFangJianShu</title>
+		</field>
+		
+		<sortField  name="order_num" ascending="true"/>
+		
+		<parameter name="jiaoshouRes" dataType="text" value=""/>
+		<parameter name="fujiaoshouRes" dataType="text" value=""/>
+		<parameter name="jiangshiRes" dataType="text" value=""/>
+		<parameter name="zhujiaoRes" dataType="text" value=""/>
+		<parameter name="buClassRes" dataType="text" value=""/>
+	</dataSource>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" controlType="reportGrid" id="ascBjUsmsEmRmStat_emSumGrid" dataSource="ds_asc-bj-usms-dash-em-rm-stat_em"  layoutRegion="zhicGridPosition">
+    	<title translatable="true">AnZhiChengFenXiJiaoZhiGongYongFangQingKuang</title>
+    </panel>
+	
+	<dataSource id="ds_asc-bj-usms-dash-em-rm-stat_crosstable_em" type="grouping">
+        <table name="em" role="main"/>
+		<!--table name="sc_zhic" role="standard"/-->
+		
+		<field table="em" name="zhic_id" groupBy="true"/>
+        <field name="emRmStd" dataType="text" groupBy="true">
+        	<title translatable="true"> </title>
+        	<sql dialect="generic">
+    	     CASE WHEN em.option1 =1 
+                    THEN ${parameters['danrenjianRes']} 
+					ELSE (CASE WHEN em.option1 =2 
+					       THEN ${parameters['shuangrenjianRes']} 
+						   ELSE (CASE WHEN em.option1 =3 
+					       THEN ${parameters['sanrenjianRes']} 
+						   ELSE ${parameters['duorenjianRes']} END ) END ) END
+		</sql>
+		</field>
+		
+        <field table="em" name="count_em" formula="COUNT" baseField="em.em_id" dataType="number" decimals="0">
+        	<title translatable="true">RenShu</title>
+		</field>
+		
+        <field table="em" name="sum_area" formula="sum" baseField="em.area_rm" dataType="number" decimals="2">
+        	<title translatable="true">ZongZhanYongMianJi</title>
+		</field>
+		<field name="avg_area" formula="avg" baseField="em.area_rm" dataType="number"  size="6" decimals="2">
+				<title translatable="true">RenJunMianJi</title>
+		</field>
+		
+		<!--sortField name="name" table="sc_zhic" ascending="true" /-->
+		
+		
+		<parameter name="jiaoshouRes" dataType="text" value=""/>
+		<!--parameter name="fujiaoshouRes" dataType="text" value=""/-->
+		<!--parameter name="jiangshiRes" dataType="text" value=""/-->
+		<!--parameter name="zhujiaoRes" dataType="text" value=""/-->
+		<parameter name="danrenjianRes" dataType="text" value=""/>
+		<parameter name="shuangrenjianRes" dataType="text" value=""/>
+		<parameter name="sanrenjianRes" dataType="text" value=""/>
+		<parameter name="duorenjianRes" dataType="text" value=""/>
+		<parameter name="buClassRes" dataType="text" value=""/>
+		
+		<restriction type="sql" sql="em.option1 IS NOT NULL and em.rm_id IS NOT NULL and em.zhic_id =${parameters['jiaoshouRes']} and exists (SELECT 1 FROM dv where dv.dv_id =em.dv_id and dv.bu_id in (SELECT bu_id FROM bu WHERE bu_class=${parameters['buClassRes']}))"/>
+		<!--restriction type="sql" sql="em.option1 IS NOT NULL and em.rm_id IS NOT NULL and em.zhic_id IN (${parameters['jiaoshouRes']},${parameters['fujiaoshouRes']},${parameters['jiangshiRes']},${parameters['zhujiaoRes']}) and exists (SELECT 1 FROM dv where dv.dv_id =em.dv_id and dv.bu_id=${parameters['buIdRes']})"/-->
+    </dataSource>
+	
+	<panel 	id="ascBjUsmsDashEmRmStatJiaoShouCht" 
+    		type="chart" 
+    		controlType="pieChart" 
+    		dataSource="ds_asc-bj-usms-dash-em-rm-stat_crosstable_em" 
+    		showLegendOnLoad="true"
+    		showLegendAsPopUp="true" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xc6e2ff" 
+    		fillType="solid"
+			layoutRegion="rmstdCroTblPosition"
+			showOnLoad="true">
+		<title translatable="true">JiaoShouZhanYongBangongShiBiaoZhuiBingZhuangTu</title>		
+        <groupingAxis dataSource="ds_asc-bj-usms-dash-em-rm-stat_crosstable_em" table="em" field="emRmStd" labelRotation="45">
+            <title translatable="true">BanGongShiBiaoZhui</title>
+        </groupingAxis>
+		<dataAxis dataSource="ds_asc-bj-usms-dash-em-rm-stat_crosstable_em" table="em" field="count_em" showLabel="true" labelPosition="callout">
+            <title translatable="true">JiaoShouRenShu</title>
+        </dataAxis>
+    </panel>
+	
+	<panel id="ascBjUsmsDashEmRmStatCrossRpt" type="crossTable" dataSource="ds_asc-bj-usms-dash-em-rm-stat_crosstable_em" layoutRegion="rmstdCroTblPosition" showOnLoad="false">
+		<title translatable="true">AnZhiChengJiBanGongShiBiaoZhunTongJiFenXi</title>
+	</panel>
+	
+    <dataSource id="ds_asc-bj-usms-dash-em-rm-stat_high6">
+    	<sql dialect="generic">
+    	SELECT dv.dv_id ${sql.as} dv_id, 
+		   COUNT(*) ${sql.as} count_jiaoshou, 
+		   round(SUM(em.AREA_RM/rm.area),2) ${sql.as} count_rm,
+           round(AVG(em.AREA_RM),2) ${sql.as} avg_area_em,
+		   round(AVG(em.AREA_RM/rm.area),2) ${sql.as} avg_occu_rm 
+        FROM em,rm,dv 
+        WHERE em.bl_id=rm.bl_id and em.fl_id=rm.fl_id and em.rm_id=rm.rm_id 
+		   and em.dv_id = dv.dv_id 
+           and em.zhic_id=${parameters['jiaoshouRes']} 
+		   and dv.bu_id in (SELECT bu_id FROM bu WHERE bu_class=${parameters['buClassRes']})
+        GROUP BY dv.dv_id
+        ORDER BY round(AVG(em.AREA_RM),2) DESC
+		</sql>
+        <table name="dv" role="main"/>
+        <field name="dv_id" dataType="text"/>
+        <field name="count_jiaoshou" dataType="number"  decimals="2"/>
+		<field name="count_rm" dataType="number"  decimals="2"/>
+		<field name="avg_area_em" dataType="number"  decimals="2"/>
+		<field name="avg_occu_rm" dataType="number"  decimals="2"/>
+		
+		<restriction type="sql" sql=" rownum &lt;= 6 "/>
+		
+		<parameter name="jiaoshouRes" dataType="text" value=""/>
+		<parameter name="buClassRes" dataType="text" value=""/>
+    </dataSource>
+	
+    <panel 	id="ascBjUsmsDashEmRmStatCht_Hign6" 
+    		type="chart" 
+    		controlType="columnChart" 
+    		dataSource="ds_asc-bj-usms-dash-em-rm-stat_high6" 
+			showLegendOnLoad="true"
+    		showLegendAsPopUp="false" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xc6e2ff" 
+    		fillType="solid"
+			layoutRegion="high6ChtPosition">
+    		
+        <title translatable="true">JiaoShouRenJunMianJiZuiGaoDe6GeYuanXi</title>
+        
+        <groupingAxis table="dv" field="dv_id" dataSource="ds_asc-bj-usms-dash-em-rm-stat_high6"  showLabel="true" labelRotation="45">
+            <title translatable="true">Divisions</title>
+        </groupingAxis>
+        <dataAxis table="dv" field="avg_area_em"  dataSource="ds_asc-bj-usms-dash-em-rm-stat_high6" showLabel="true">
+            <title translatable="true">JiaoShouRenJunZhanYongMianJi</title>
+        </dataAxis>
+    </panel>
+	
+	<!-- The Management Divisions Summary Data -->
+    <panel type="grid" controlType="reportGrid" id="ascBjUsmsDsshEmRmStatGrid_High6" dataSource="ds_asc-bj-usms-dash-em-rm-stat_high6" layoutRegion="high6GridPosition">
+    	<field name="dv_id" dataType="text">
+    		<title translatable="true">ShiYongDanWei</title>
+		</field>
+        <field name="count_jiaoshou" dataType="number"  decimals="2">
+        	<title translatable="true">jiaoShouRenShu</title>
+		</field>
+		<field name="count_rm" dataType="number"  decimals="2">
+			<title translatable="true">FangJianShu</title>
+		</field>
+		<field name="avg_area_em" dataType="number"  decimals="2">
+			<title translatable="true">RenJunZhanYongMianJi</title>
+		</field>
+		<field name="avg_occu_rm" dataType="number"  decimals="2">
+			<title translatable="true">RenJunZhanYongFangJian</title>
+		</field>
+    </panel>
+	
+	<dataSource id="ds_asc-bj-usms-dash-em-rm-stat_lower6">
+        <sql dialect="generic">
+    	SELECT dv.dv_id ${sql.as} dv_id, 
+		   COUNT(*) ${sql.as} count_jiaoshou, 
+		   round(SUM(em.AREA_RM/rm.area),2) ${sql.as} count_rm,
+           round(AVG(em.AREA_RM),2) ${sql.as} avg_area_em,
+		   round(AVG(em.AREA_RM/rm.area),2) ${sql.as} avg_occu_rm 
+        FROM em,rm,dv
+        WHERE em.bl_id=rm.bl_id and em.fl_id=rm.fl_id and em.rm_id=rm.rm_id 
+		   and em.dv_id = dv.dv_id
+           and em.zhic_id=${parameters['jiaoshouRes']} 
+		   and dv.bu_id in (SELECT bu_id FROM bu WHERE bu_class=${parameters['buClassRes']})
+        GROUP BY dv.dv_id
+        ORDER BY round(AVG(em.AREA_RM),2)
+		</sql>
+        <table name="dv" role="main"/>
+        <field name="dv_id" dataType="text"/>
+        <field name="count_jiaoshou" dataType="number"  decimals="2"/>
+		<field name="count_rm" dataType="number"  decimals="2"/>
+		<field name="avg_area_em" dataType="number"  decimals="2"/>
+		<field name="avg_occu_rm" dataType="number"  decimals="2"/>
+		
+		<restriction type="sql" sql=" rownum &lt;= 6 "/>
+		
+		<parameter name="jiaoshouRes" dataType="text" value=""/>
+		<parameter name="buClassRes" dataType="text" value=""/>
+    </dataSource>
+	
+    <panel 	id="ascBjUsmsDashEmRmStatCht_Lower6" 
+    		type="chart" 
+    		controlType="columnChart" 
+    		dataSource="ds_asc-bj-usms-dash-em-rm-stat_lower6" 
+			showLegendOnLoad="true"
+    		showLegendAsPopUp="false" 
+    		legendLocation="right"
+    		showDataTips="true" 
+    		backgroundColor="0xc6e2ff" 
+    		fillType="solid"
+			layoutRegion="lower6ChtPosition">
+    		
+        <title translatable="true">JiaoShouRenJunMianJiZuiDiDe6GeYuanXi</title>
+        
+        <groupingAxis table="dv" field="dv_id" dataSource="ds_asc-bj-usms-dash-em-rm-stat_lower6"  showLabel="true" labelRotation="45">
+            <title translatable="true">Divisions</title>
+        </groupingAxis>
+        <dataAxis table="dv" field="avg_area_em" dataSource="ds_asc-bj-usms-dash-em-rm-stat_lower6"  showLabel="true">
+            <title translatable="true">JiaoShouRenJunZhanYongMianJi</title>
+        </dataAxis>
+    </panel>
+	
+	<!-- The Management Divisions Summary Data -->
+    <panel type="grid" controlType="reportGrid"  id="ascBjUsmsDashEmRmStatGrid_Lower6" dataSource="ds_asc-bj-usms-dash-em-rm-stat_lower6" layoutRegion="lower6GridPosition">
+    	<field name="dv_id" dataType="text">
+    		<title translatable="true">ShiYongDanWei</title>
+		</field>
+        <field name="count_jiaoshou" dataType="number"  decimals="2">
+        	<title translatable="true">jiaoShouRenShu</title>
+		</field>
+		<field name="count_rm" dataType="number"  decimals="2">
+			<title translatable="true">FangJianShu</title>
+		</field>
+		<field name="avg_area_em" dataType="number"  decimals="2">
+			<title translatable="true">RenJunZhanYongMianJi</title>
+		</field>
+		<field name="avg_occu_rm" dataType="number"  decimals="2">
+			<title translatable="true">RenJunZhanYongFangJian</title>
+		</field>
+    </panel>
+	
+    <js file="asc-bj-usms-dash-em-rm-stat-wd.js"/>
+	<js file="asc-bj-usms-constant.js"/>
+</view>

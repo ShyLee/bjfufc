@@ -1,0 +1,204 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-change-approve-req-approve-tab.js"/>
+    
+    <dataSource id="ascBjUsmsProcChagneApproveReqApproveTabFormDS">
+        <table name="activity_log" role="main"/>
+		<table name="em" role="standard"/>
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+		<field name="name" table="em"/>
+        <field name="phone_requestor" table="activity_log"/>
+        <field name="priority" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="time_required" table="activity_log"/>
+        <field name="dp_id" table="activity_log"/>
+        <field name="dv_id" table="activity_log"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="rm_type" table="activity_log"/>
+        <field name="rm_cat_after" table="activity_log"/>
+        <field name="rm_type_after" table="activity_log"/>
+		<field name="rm_name" table="activity_log"/>
+        <field name="rm_name_after" table="activity_log"/>
+        <field name="bl_id" table="activity_log"/>
+        <field name="fl_id" table="activity_log"/>
+        <field name="rm_id" table="activity_log"/>
+        <field name="doc1" table="activity_log"/>
+        <field name="doc2" table="activity_log"/>
+    </dataSource>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcChagneApproveReqApproveTabForm" dataSource="ascBjUsmsProcChagneApproveReqApproveTabFormDS" showOnLoad="false">
+        
+        <title translatable="true">Requestor</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+        </action>
+        
+        <action id="approve">
+            <title translatable="true">Approve</title>
+        </action>
+        
+        <field name="activity_log_id" table="activity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field table="activity_log" name="requestor" hidden="true"/>
+		<field table="em" name="name" readOnly="true">
+			<title translatable="true">ShenQinRen</title>
+        </field>
+        <field table="activity_log" name="phone_requestor" hidden="true"/>
+        <field name="rm_id" table="activity_log" readOnly="true"/>
+        <field name="bl_id" table="activity_log" readOnly="true"/>
+        <field name="fl_id" table="activity_log" hidden="true"/>
+        <field/>
+        <field/>
+        <field name="rm_cat" table="activity_log" readOnly="true">
+            <title translatable="true">Current Room Category</title>
+        </field>
+        <field name="rm_cat_after" table="activity_log" readOnly="true"/>
+        <field name="rm_type" table="activity_log" readOnly="true">
+            <title translatable="true">Current Room Type</title>
+        </field>
+        <field name="rm_type_after" table="activity_log" readOnly="true"/>
+		<field name="rm_name" table="activity_log" readOnly="true"/>
+        <field name="rm_name_after" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcChagneApproveReqApproveTabDestricptionForm" dataSource="ascBjUsmsProcChagneApproveReqApproveTabFormDS" showOnLoad="false">
+        
+        <title translatable="true">Description</title>
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="prob_type" table="activity_log" readOnly="true">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field/>
+        <field table="activity_log" name="description"
+         colspan="4" style="width: 100%; height: 80px;"
+         showSelectValueAction="false" readOnly="true"/>
+        
+        <field name="priority" table="activity_log" hidden="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcChagneApproveReqApproveTabAttachmentForm" dataSource="ascBjUsmsProcChagneApproveReqApproveTabFormDS" showOnLoad="false">
+        
+        <title translatable="true">Attachment</title>
+        
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="doc1" table="activity_log" readOnly="true"/>
+        <field name="doc2" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    <dataSource id="ascBjUsmsProcChagneApproveReqApproveTabHistoryPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+		<table name="em" role="standard"/>
+		
+        <table name="afm_wf_steps" role="standard"/>
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+		<field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    <panel type="grid" id="ascBjUsmsProcChagneApproveReqApproveTabHistoryPanel" controlType="reportGrid" dataSource="ascBjUsmsProcChagneApproveReqApproveTabHistoryPanelDS" showOnLoad="false">
+        <title translatable="true">History</title>
+        
+        <field name="step_log_id" table="helpdesk_step_log" hidden="true"/>
+        <field name="user_name" table="helpdesk_step_log" hidden="true"/>
+        <field name="name" table="em" hidden="true"/>
+        <field name="vn_id" table="helpdesk_step_log">
+            <title translatable="true">Step Responded By</title>
+        </field>
+        <field name="date_response" table="helpdesk_step_log">
+            <title translatable="true">On</title>
+        </field>
+        <field name="time_response" table="helpdesk_step_log" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">Workflow Step</title>
+        </field>
+        <field name="status" table="afm_wf_steps">
+            <title translatable="true">Status</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+    
+    <dataSource id="ascBjUsmsProcChagneApproveReqApproveTabApproveFormDS">
+        <table name="activity_log" role="main"/>
+        <table name="activity_log_step_waiting" role="standard"/>
+        
+        <field table="activity_log" name="activity_log_id"/>
+        <field table="activity_log" name="approved_by"/>
+        <field table="activity_log_step_waiting" name="activity_log_id"/>
+        <field table="activity_log_step_waiting" name="step"/>
+        <field table="activity_log_step_waiting" name="comments"/>
+        <field table="activity_log_step_waiting" name="step_code"/>
+        <field table="activity_log_step_waiting" name="step_log_id"/>
+        <field table="activity_log_step_waiting" name="user_name"/>
+        <field table="activity_log_step_waiting" name="em_id"/>
+    </dataSource>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcChagneApproveReqApproveTabApproveForm" dataSource="ascBjUsmsProcChagneApproveReqApproveTabApproveFormDS" hidden="true" showOnLoad="false">
+        <title translatable="true">Approve Infomation</title>
+        
+        <action id="approve">
+            <title translatable="true">Approve</title>
+        </action>
+        
+        <action id="reject">
+            <title translatable="true">Reject</title>
+        </action>
+        
+		<!--
+        <action id="forward">
+            <title translatable="true">Forward</title>
+        </action>-->
+        
+        <field colspan="2">
+            <title translatable="true">Comments</title>
+            <html>
+				 <textarea id="comments" cols="65" rows="5" maxlength="1000" onchange="afm_form_values_changed=true;"
+                 onfocus="window.temp=this.value;" name="comments"></textarea>
+            </html>
+        </field>
+        
+        <field table="activity_log_step_waiting" name="step"/>
+        
+        <field table="activity_log_step_waiting" name="step_code" hidden="true"/>
+        <field table="activity_log_step_waiting" name="activity_log_id" hidden="true"/>
+        <field table="activity_log" name="activity_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="step_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="user_name" hidden="true"/>
+        
+        <field table="activity_log_step_waiting" name="comments" hidden="true"/>
+        <!--
+        <field table="activity_log" name="approved_by">
+            <title translatable="true">Forward To</title>
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.approved_by" selectFieldNames="em.em_id"
+                 visibleFieldNames="em.em_id,em.name,em.dv_id,em.email" showIndex="true"
+                >
+                    <title translatable="true">Forward To</title>
+                </command>
+            </action>
+        </field>-->
+    </panel>
+</view>

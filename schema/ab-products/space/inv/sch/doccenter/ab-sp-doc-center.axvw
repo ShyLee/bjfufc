@@ -1,0 +1,108 @@
+<view version="2.0">
+    <css file="uploadify.css" />  
+	 <css file="zTreeStyle.css" />  
+    <js file="jquery.uploadify.min.js" />
+    <js file="ab-sp-doc-center.js"/>
+    <js file="jquery.ztree.all-3.5.js"/>
+
+    <title translatable="true">Doc Batch Upload</title>
+    
+    <layout type="borderLayout" id="mainLayout">
+        <west id="left" initialSize="300px" split="false"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout id="docpart" containingLayout="mainLayout" region="center">
+        <north id="docuploadpart" initialSize="20%" split="true"/>
+        <center id="docdownloadpart"/>
+    </layout>
+   <dataSource id="UploadDocDS">
+   		<table name="sc_doc_center" role="main"/>
+		<field table="sc_doc_center" name="id"/>
+		<field table="sc_doc_center" name="pid"/>
+		<field table="sc_doc_center" name="name"/>
+		<field table="sc_doc_center" name="doc_type"/>
+		<field table="sc_doc_center" name="comments"/>
+		<field table="sc_doc_center" name="open"/>
+		<field table="sc_doc_center" name="type"/>
+		<field table="sc_doc_center" name="url"/>
+   </dataSource>
+    <dataSource id="DownloadDocDS">
+   		<table name="sc_doc_center" role="main"/>
+		<field table="sc_doc_center" name="id"/>
+		<field table="sc_doc_center" name="pid"/>
+		<field table="sc_doc_center" name="name"/>
+		<field table="sc_doc_center" name="doc_type"/>
+		<field table="sc_doc_center" name="comments"/>
+		<field table="sc_doc_center" name="open"/>
+		<field table="sc_doc_center" name="type"/>
+		<field table="sc_doc_center" name="url"/>
+		<field table="sc_doc_center" name="upload_date"/>
+		<restriction type="sql" sql="doc_type is not null"/>
+   </dataSource>
+  <panel type="html" id="treePanel"  layoutRegion="left">
+    <title translatable="true">File Tree</title>
+    <action id="add">
+      <title translatable="true">add folder</title>
+    </action>
+	<action id="delete">
+		<title translatable="true">delete folder</title>
+	</action>
+    <html>
+    <link type="text/css" href="css/demo.css" rel="stylesheet" />
+    <link type="text/css" href="css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <div class="content_wrap">
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    </div>
+  </html>
+  </panel>
+  <panel type="html" id="uploadPanel" layoutRegion="docuploadpart" dataSource="UploadDocDS">
+  	<html>
+        <body>
+            <table style="margin-left:20px">
+                <tr>
+                   <td>
+                    <br/>
+						<div style="font-size:14px;font-weight:bold">
+                        <br/>
+						</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div  id="uploadMessage" style="margin-left:15px;font-size:15px;color:red"></div>
+                        <div id="fileUploadArea">
+                            <input type="file" name="uploadify" id="uploadify" />  
+                             <div id="fileQueue"></div>
+                        </div>
+                    </td>
+                </tr>
+             </table>
+        </body>
+    </html>
+  </panel>
+  <panel type="grid" id="downloadPanel" dataSource="DownloadDocDS" showOnLoad="false" layoutRegion="docdownloadpart">
+		<action id="allDownload">
+			<title>all download</title>
+		</action>
+		<field table="sc_doc_center" name="id" hidden="true" controlType="link">
+			<command type="callFunction" functionName="docController.linkDown()"/>
+		</field>
+		<field table="sc_doc_center" name="pid" hidden="true" controlType="link">
+			<command type="callFunction" functionName="docController.linkDown()"/>
+		</field>
+  		<field table="sc_doc_center" name="name" controlType="link">
+  			<command type="callFunction" functionName="docController.linkDown()"/>
+  		</field>
+		<field table="sc_doc_center" name="doc_type" controlType="link">
+			<command type="callFunction" functionName="docController.linkDown()"/>
+		</field>
+		<field table="sc_doc_center" name="upload_date" controlType="link">
+			<command type="callFunction" functionName="docController.linkDown()"/>
+		</field>
+		<field id="delete" controlType="button">
+            <title translatable="true">delete file</title>
+        </field>
+  </panel>
+</view>

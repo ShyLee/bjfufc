@@ -1,0 +1,290 @@
+<view version="2.0">
+    <title>
+        Bidding Manage
+    </title>
+    <layout type="borderLayout" id="mainLayout">
+        <north initialSize="13%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="mainLayout1" containingLayout="mainLayout" region="center">
+        <west initialSize="30%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="mainLayout2" containingLayout="mainLayout1" region="center">
+        <north initialSize="34%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="mainLayout3" containingLayout="mainLayout2" region="center">
+        <north initialSize="24%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    
+    <dataSource id="bidding_DS">
+        <table name="ts_bidding" role="main"/>
+        <field table="ts_bidding" name="bid_id"/>
+        <field table="ts_bidding" name="bid_name"/>
+        <field table="ts_bidding" name="bidding_company"/>
+        <field table="ts_bidding" name="bidding_price"/>
+        <field table="ts_bidding" name="bid_company"/>
+        <field table="ts_bidding" name="bid_price"/>
+        <field table="ts_bidding" name="bidding_date"/>
+        <field table="ts_bidding" name="td_nums"/>
+        <field table="ts_bidding" name="description"/>
+        <field table="ts_bidding" name="handle_type"/>
+        <field table="ts_bidding" name="td_operator"/>
+        <field table="ts_bidding" name="td_oper_date"/>
+        <field table="ts_bidding" name="beizhu"/>
+    </dataSource>
+    <dataSource id="bid_companyDS">
+        <table name="ts_bid_company" role="main"/>
+        <field table="ts_bid_company" name="bid_id"/>
+        <field table="ts_bid_company" name="bid_company"/>
+        <field table="ts_bid_company" name="bid_people"/>
+        <field table="ts_bid_company" name="bid_price"/>
+        <field table="ts_bid_company" name="comments"/>
+        <field table="ts_bid_company" name="is_win"/>
+        <field table="ts_bid_company" name="people_phone"/>
+    </dataSource>
+    
+    <dataSource id="expertsDS">
+        <table name="ts_bid_experts" role="main"/>
+        <field table="ts_bid_experts" name="bid_id"/>
+        <field table="ts_bid_experts" name="expert_name"/>
+        <field table="ts_bid_experts" name="expert_org"/>
+        <field table="ts_bid_experts" name="expert_zhic"/>
+        <field table="ts_bid_experts" name="comments"/>
+    </dataSource>
+    
+    
+    <css>
+        img{margin:0 5;}
+    </css>
+    <dataSource id="ts_doc_center_ds">
+        <table name="ts_doc_center" role="main"/>
+        <field table="ts_doc_center" name="target_id"/>
+        <field table="ts_doc_center" name="table_name"/>
+        <field table="ts_doc_center" name="doc_id"/>
+        <field table="ts_doc_center" name="doc_name"/>
+        <field table="ts_doc_center" name="doc_encode"/>
+        <field table="ts_doc_center" name="doc_type"/>
+        <field table="ts_doc_center" name="doc_uploader"/>
+        <field table="ts_doc_center" name="doc_download"/>
+        <field table="ts_doc_center" name="file_type"/>
+        <field table="ts_doc_center" name="doc_desc"/>
+    </dataSource>
+    
+    
+    <panel type="console" id="biddingInfo_console" dataSource="bidding_DS" columns="3" layout="mainLayout" region="north">
+        <title>
+            Console
+        </title>
+        <action id="filter">
+            <title translatable="true">
+                Filter
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="biddingInfo_console"/>
+            <command type="showPanel" panelId="biddingInfo_grid"/>
+            <command type="showPanel" panelId="biddingInfo_form"/>
+            <command type="showPanel" panelId="docInfo_grid"/>
+        </action>
+        <field table="ts_bidding" name="bidding_company"/>
+        <field table="ts_bidding" name="bidding_price"/>
+        <field table="ts_bidding" name="bid_company"/>
+        <field table="ts_bidding" name="bid_price"/>
+        <field name="bidding_date" table="ts_bidding" alias="ts_bidding.date_from" op="&gt;=">
+            <title translatable="true">
+                Date From
+            </title>
+        </field>
+        <field name="bidding_date" table="ts_bidding" alias="ts_bidding.date_to" op="&lt;=">
+            <title translatable="true">
+                Date To
+            </title>
+        </field>
+    </panel>
+    <panel type="grid" id="biddingInfo_grid" dataSource="bidding_DS" layout="mainLayout1" region="west">
+        <title>
+            Bid Company
+        </title>
+        <action id="new">
+            <title>
+                Add
+            </title>
+            <command type="showPanel" panelId="biddingInfo_form" newRecord="true"/>
+        </action>
+        <field table="ts_bidding" name="bid_id" controlType="link" hidden="true">
+            <command type="showPanel" panelId="biddingInfo_form"/>
+        </field>
+        <field table="ts_bidding" name="bid_name" controlType="link">
+            <command type="callFunction" functionName="tsPropBiddingControlller.initPrimaryKey(false)"/>
+        </field>
+        <field table="ts_bidding" name="bid_company" controlType="link">
+            <command type="callFunction" functionName="tsPropBiddingControlller.initPrimaryKey(false)"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="biddingInfo_form" dataSource="bidding_DS" columns="2" layout="mainLayout2" region="north">
+        <title>
+            Basic Info
+        </title>
+        <action id="addExperts">
+            <title translatable="true">
+                Add Bid_Experts
+            </title>
+            <command type="openDialog" panelId="bid_experts_form" newRecord="true" width="550" height="280"/>
+        </action>
+        <action id="lookup_Experts">
+            <title translatable="true">
+                look up_Experts
+            </title>
+        </action>
+        <action id="save">
+            <title translatable="true">
+                Save
+            </title>
+        </action>
+        <action id="delete" enabled="${!panel.newRecord}">
+            <title translatable="true">
+                Delete
+            </title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="biddingInfo_grid" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="docInfo_grid" applyParentRestriction="false"/>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="biddingInfo_form"/>
+        </action>
+        <field table="ts_bidding" name="bid_id" hidden="true"/>
+        <field table="ts_bidding" name="bid_name" required="true"/>
+        <field table="ts_bidding" name="bidding_price" required="true"/>
+        <field table="ts_bidding" name="bidding_date" required="true"/>
+        <field table="ts_bidding" name="bid_company" required="true"/>
+        <field table="ts_bidding" name="td_nums" readOnly="true"/>
+        <field table="ts_bidding" name="bid_price" required="true"/>
+        <field table="ts_bidding" name="description"/>
+        <field table="ts_bidding" name="handle_type"/>
+        <field table="ts_bidding" name="td_operator" readOnly="true" value="${user.name}" required="true"/>
+        <field table="ts_bidding" name="td_oper_date" required="true"/>
+        <field />
+        <field table="ts_bidding" name="beizhu" width="207"/>
+    </panel>
+    <panel type="grid" id="docInfo_grid" dataSource="bid_companyDS" multipleSelectionEnabled="true" layout="mainLayout3" region="north">
+        <title>
+            Bid Company Select
+        </title>
+        <action id="add">
+            <title>
+                New
+            </title>
+        </action>
+        <action id="delete">
+            <title translatable="true">
+                Delete
+            </title>
+        </action>
+        <field table="ts_bid_company" name="bid_id">
+            <title>
+                biddingName
+            </title>
+            
+        </field>
+        <field table="ts_bid_company" name="bid_company"/>
+        <field table="ts_bid_company" name="bid_price"/>
+        <field table="ts_bid_company" name="is_win"/>
+        <field table="ts_bid_company" name="bid_people"/>
+        <field table="ts_bid_company" name="people_phone"/>
+        <field table="ts_bid_company" name="comments"/>
+    </panel>
+    
+    <!--Upload-->
+    <panel type="grid" id="fileupload" dataSource="ts_doc_center_ds" layout="mainLayout3" region="center">
+    <title>
+    upload
+    </title>
+    <action id="upload">
+    <title>
+    upload
+    </title>
+    </action>
+    <field table="ts_doc_center" name="doc_id" hidden="true"/>
+    <field table="ts_doc_center" name="target_id" hidden="true"/>
+    <field table="ts_doc_center" name="doc_name"/>
+    <field table="ts_doc_center" name="doc_type"/>
+    <field table="ts_doc_center" name="doc_uploader"/>
+    <field table="ts_doc_center" name="file_type"/>
+    <field table="ts_doc_center" name="doc_desc"/>
+    </panel>
+
+    <panel type="form" id="bid_experts_form" columns="2" dataSource="expertsDS" showOnLoad="false">
+        <title translatable="true">
+            Add Experts
+        </title>
+        <action id="save">
+            <title translatable="true">
+                Save
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="bid_experts_form"/>
+        </action>
+        <field table="ts_bid_experts" name="bid_id" hidden="true"/>
+        <field table="ts_bid_experts" name="expert_name"/>
+        <field table="ts_bid_experts" name="expert_org" required="true"/>
+        <field table="ts_bid_experts" name="expert_zhic" required="true"/>
+        <field table="ts_bid_experts" name="comments" width="207"/>
+    </panel>
+    <panel type="grid" id="show_experts_grid" multipleSelectionEnabled="true" dataSource="expertsDS" showOnLoad="false">
+        <title>
+            lookup_Experts
+        </title>
+        <action id="delete">
+            <title translatable="true">
+                Delete
+            </title>
+        </action>
+        <field table="ts_bid_experts" name="bid_id" hidden="true"/>
+        <field table="ts_bid_experts" name="expert_name"/>
+        <field table="ts_bid_experts" name="expert_org"/>
+        <field table="ts_bid_experts" name="expert_zhic"/>
+        <field table="ts_bid_experts" name="comments"  width="207"/>
+        
+    </panel>
+    
+    <panel type="form" id="add_bid_company_form" columns="2" dataSource="bid_companyDS" showOnLoad="false">
+        <title>
+            addBidCompany
+        </title>
+        <action id="save">
+            <title translatable="true">
+                Save
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="bid_experts_form"/>
+        </action>
+        <field table="ts_bid_company" name="bid_id" hidden="true"/>
+        <field table="ts_bid_company" name="bid_company" required="true"/>
+        <field table="ts_bid_company" name="bid_price" required="true"/>
+        <field table="ts_bid_company" name="is_win" required="true"/>
+        <field table="ts_bid_company" name="bid_people" required="true"/>
+        <field table="ts_bid_company" name="people_phone"/>
+        <field table="ts_bid_company" name="comments" width="207"/>
+    </panel>
+    <js file="asc-bj-usms-prop-bidding-manage.js"/>
+    <js file="asc-bj-usms-prop-filedown.js"/>
+    <js file="asc-bj-usms-prop-common.js"/>
+</view>

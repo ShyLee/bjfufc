@@ -1,0 +1,102 @@
+<!-- 
+	View That Demonstrates the following Capabilities of the Drawing Control 
+
+	1)	Simple packaging of a Grid of Floors driving the Drawing Control
+	2)	Simple inclusion of the "drawing" panel using all default attributes.
+	3)	Inclusion of external data sources for both highlighting and labels.
+	
+-->
+
+<view version="2.0">
+    <style type="text/css">
+body{
+    margin:0px;
+    padding:0px
+}
+#map_canvas{
+    
+    width:100%;
+    height:800px;
+}
+#info{
+    font-size:12px;
+    font-color:blue;
+}
+    </style>
+    <title translatable="true">Sogou-map Setting Building Coordinate</title>
+   
+    <message name="duiwangjinmao" translatable="true">duiwaijingmaodaxue</message>
+    <layout id="mainCenter"  >
+        <west id="west" initialSize="72%" split="true"/>
+        <center/>
+    </layout>
+    <layout id="centerCenter" containingLayout="mainCenter" region="center" >
+        <north id="top" initialSize="60%" split="true"/>
+        <center id="center" />
+    </layout>
+  
+    <panel type="html" id="sogouMap"  layoutRegion="west">
+         <title>Sougou map</title>
+            <html>
+                  <div id="map_canvas"></div>
+            </html>
+    </panel>
+    
+    
+    <dataSource id="blDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="latsou"/>
+        <field table="bl" name="lonsou"/>
+	
+    </dataSource>
+    <panel type="grid" id="gridPanel" dataSource="blDS" layoutRegion="top">
+    	<title translatable="true">Bulding List</title>
+    	<action id="showNoPosition">
+            <title translatable="true">ShowNoPosition</title>
+        </action>
+    	<action id="showAll">
+            <title translatable="true">ShowAll</title>
+        </action>
+        <field table="bl" name="bl_id" id="bl_id" controlType="link">
+        	 <command type="callFunction" functionName="sougouDefController.showPointOnMap()"/>
+		</field>
+        <field table="bl" name="latsou" controlType="link">
+        	 <command type="callFunction" functionName="sougouDefController.showPointOnMap()"/>
+        </field>
+        <field table="bl" name="lonsou" controlType="link">
+        	 <command type="callFunction" functionName="sougouDefController.showPointOnMap()"/>
+        	
+        </field>
+		
+    </panel>
+  
+    <panel type="form" id="formPanel" dataSource="blDS" layoutRegion="center" newRecord="false">
+        <title>Bulding</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearPanel" panelId="formPanel"/>
+        </action>
+        <field table="bl" name="bl_id"  showSelectValueAction="true">
+        	<action>
+				<title>...</title>
+				<command type="selectValue"
+					fieldNames="bl.bl_id"
+					selectFieldNames="bl.bl_id"
+					visibleFieldNames="bl.bl_id,bl.name">
+				</command>
+			</action>
+        </field>
+        <field table="bl" name="latsou" />
+        <field table="bl" name="lonsou" />
+    </panel>
+	
+	
+
+    <js url="http://api.go2map.com/maps/js/api_v2.5.1.js"/>
+    <js file="sogou-map-def-coordinate.js"/>
+
+</view>

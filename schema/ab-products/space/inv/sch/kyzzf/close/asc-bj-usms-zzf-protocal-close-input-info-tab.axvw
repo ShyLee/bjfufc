@@ -1,0 +1,159 @@
+<view version='2.0'>
+    <dataSource id='zzf_protocol_ds'>
+        <table name='bh_zzf_protocal' role='main'/>
+        <field table='bh_zzf_protocal' name='protocal_id'/>
+        <field table='bh_zzf_protocal' name='protocal_sq_id'/>
+        <field table='bh_zzf_protocal' name='payment_type'/>
+        <field table='bh_zzf_protocal' name='payment_num'/>
+        <field table='bh_zzf_protocal' name='date_begin'/>
+        <field table='bh_zzf_protocal' name='date_end'/>
+        <field table='bh_zzf_protocal' name='live_time'/>
+        <field table='bh_zzf_protocal' name='pay_period'/>
+        <field table='bh_zzf_protocal' name='party_b'/>
+        <field table='bh_zzf_protocal' name='party_b_rep'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_b_contacts'/>
+        <field table='bh_zzf_protocal' name='party_b_con_tel'/>
+        <field table='bh_zzf_protocal' name='party_a'/>
+        <field table='bh_zzf_protocal' name='party_a_rep'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_a_contacts'/>
+        <field table='bh_zzf_protocal' name='party_a_con_tel'/>
+        <field table='bh_zzf_protocal' name='date_apply'/>
+        <field table='bh_zzf_protocal' name='rm_use'/>
+        <field table='bh_zzf_protocal' name='rm_address'/>
+        <field table='bh_zzf_protocal' name='area_rent'/>
+        <field table='bh_zzf_protocal' name='area_protocal'/>
+        <field table='bh_zzf_protocal' name='price_rent'/>
+        <field table='bh_zzf_protocal' name='price_rent_std'/>
+        <field table='bh_zzf_protocal' name='price_total_rent'/>
+        <field table='bh_zzf_protocal' name='preparer'/>
+        <field table='bh_zzf_protocal' name='status_protocal'/>
+        <field table='bh_zzf_protocal' name='is_active'/>
+        <field table='bh_zzf_protocal' name='examine_context'/>
+        <field table='bh_zzf_protocal' name='examine_people'/>
+        <field table='bh_zzf_protocal' name='date_examine'/>
+        <field table='bh_zzf_protocal' name='quit_date'/>
+        <field table='bh_zzf_protocal' name='comments'/>
+    </dataSource>
+        <dataSource id="activityLogDs">
+        <table name="activity_log" role="main"/>
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="protocal_id" table="activity_log"/>
+    </dataSource>
+    
+    <dataSource id='zzf_fees_ds'>
+        <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='pay_state'/>
+        <field table='bh_zzf_fees' name='expenditure'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+        <parameter name="activityLogId" dataType="text" value=""/>
+        <restriction type="sql" sql=" bh_zzf_fees.protocal_id = ${parameters['activityLogId']} "/>
+    </dataSource>
+    
+    <dataSource id='zzf_protocal_rm_ds'>
+        <table name='bh_zzf_protocal_rm' role='main'/>
+        <field table='bh_zzf_protocal_rm' name='id'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+        <field table='bh_zzf_protocal_rm' name='bl_id'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='is_active'/>
+        <field table='bh_zzf_protocal_rm' name='protocal_id'/>
+        <field table='bh_zzf_protocal_rm' name='rm_id'/>
+        <parameter name="protocalId" dataType="text" value=""/>
+        <restriction type="sql" sql=" bh_zzf_protocal_rm.protocal_id = ${parameters['protocalId']} "/>
+    </dataSource>
+    <title>
+        Close protocal
+    </title>
+    <panel id='closeRoomConsole' type='console' dataSource='zzf_protocol_ds' columns="2">
+        <title translatable="true">
+            Filter
+        </title>
+        <action id="close">
+            <title translatable="true">
+                close
+            </title>
+            <command type="clearPanel" panelId="dashBoardConsole"/>
+        </action>
+        <action id="back">
+            <title translatable="true">
+                back
+            </title>
+            <command type="callFunction" functionName="ascBjUsmsProcAsgnApproveReqApproveTabController.onBack()"/>
+        </action>
+        <field table='bh_zzf_protocal' name='date_begin' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='date_end' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='quit_date' />
+        <field table='bh_zzf_protocal' name='comments'/>
+    </panel>
+    <panel id='closeRoomProtocal' type='grid' dataSource='zzf_protocal_rm_ds'>
+        <title>
+            protocal_rm_Info
+        </title>
+        <field table='bh_zzf_protocal_rm' name='bl_id'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='rm_id'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+    </panel>
+    <!--INFO-->
+    <panel id='protocolInfo' type='form' dataSource='zzf_protocol_ds' columns="3">
+        <title>
+            protocolInfo
+        </title>
+        <action id="lookInfo">
+            <title translatable="true">
+                lookInfo
+            </title>
+        </action>
+        <field table='bh_zzf_protocal' name='area_protocal' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='price_total_rent' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='pay_period' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='rm_use' colspan="2" readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_rep' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='payment_num' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_contacts' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_con_tel' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='party_b_rep_email' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='date_apply' readOnly="true"/>
+        <field table='bh_zzf_protocal' name='rm_address' colspan="2" readOnly="true"/>
+        
+    </panel>
+    <panel id='feesInfo' type='grid' dataSource='zzf_fees_ds'>
+        <title>
+            feeslInfo
+        </title>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </panel>
+    
+    <js file="asc-bj-usms-zzf-protocal-close-input-info-tab.js"/>
+</view>

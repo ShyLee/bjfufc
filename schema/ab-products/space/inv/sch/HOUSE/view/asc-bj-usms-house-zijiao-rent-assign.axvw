@@ -1,0 +1,107 @@
+<view version="2.0">
+    
+    <title>Zijiao Dengji</title>
+    
+    <layout type="borderLayout" id="mianLayout">
+        <north split="true" initialSize="11%"/>
+        <center/>
+        <south initialSize="40%" split="true"/>
+    </layout>
+    
+    <dataSource id="zzfCardDs">
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+		<field table="sc_zzfcard" name="bl_name" dataType="text" groupBy="true">
+			<sql dialect="generic">
+				(select name from bl where bl.bl_id = sc_zzfcard.bl_id)
+			</sql>
+		</field>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+		<sortField table="sc_zzfcard" name="card_id"/>
+		<sortField table="sc_zzfcard" name="em_id"/>
+        <restriction type="sql" sql="payment_to = 'house' and card_status in ('yrz','yxq')"/>
+    </dataSource>
+    
+    <dataSource id="zzfFeeDs">
+        <table name="sc_zzf_fee" role="main"/>
+        <field table="sc_zzf_fee" name="fee_id"/>
+        <field table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="card_id"/>
+        <field table="sc_zzf_fee" name="date_checkin"/>
+        <field table="sc_zzf_fee" name="date_checkout"/>
+        <field table="sc_zzf_fee" name="rent_period"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="pay_ought" showTotals="true"/>
+        <field table="sc_zzf_fee" name="pay_actual" showTotals="true"/>
+        <field table="sc_zzf_fee" name="date_payment"/>
+        <field table="sc_zzf_fee" name="memo"/>
+    </dataSource>
+    
+    <panel id="zzf_user_filter" type="console" columns="3" dataSource="zzfCardDs" layout="mainLayout" region="north">
+        <title>Filter</title>
+        <action id="show">
+            <title>Show</title>
+            <command type="showPanel" panelId="zzf_user_detail"/>
+        </action>
+        <action id="clear">
+            <title>Clear</title>
+            <command type="clearPanel" panelId="zzf_user_filter"/>
+        </action>
+        <field table="sc_zzfcard" name="em_id" required="false"/>
+        <field table="sc_zzfcard" name="em_name" required="false"/>
+        <field table="sc_zzfcard" name="identi_code" required="false"/>
+    </panel>
+    
+    <panel id="zzf_user_detail" type="grid" dataSource="zzfCardDs" layout="mainLayout" region="center">
+        <title>Rent User List</title>
+        <field id="histroy" controlType="button">
+            <title translatable="true">Show Histroy</title>
+        </field>
+		<indexField table="sc_zzfcard" name="card_id"/>
+		<indexField table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="card_id" hidden="true"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="bl_id" hidden="true"/>
+        <field table="sc_zzfcard" name="bl_name">
+        	<title>Bl Name</title>
+        </field>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+    </panel>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfFeeDs" layout="mainLayout" region="south" showCounts="true" showOnLoad="false">
+        <title translatable="true">Room Rent List</title>
+        <field id="pay" controlType="button">
+            <title translatable="true">Pay</title>
+        </field>
+        <field table="sc_zzf_fee" name="fee_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="card_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="rent_period"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="date_payment"/>
+        <field table="sc_zzf_fee" name="pay_ought" showTotals="true"/>
+        <field table="sc_zzf_fee" name="pay_actual" showTotals="true"/>
+        <field table="sc_zzf_fee" name="memo"/>
+    </panel>
+    
+    <js file="asc-bj-usms-house-zijiao-rent-assign.js"/>
+</view>

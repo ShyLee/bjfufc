@@ -1,0 +1,75 @@
+<view version="2.0">
+	<js file="hw-log-define.js" />
+    <title>System Log Define Page</title>
+    <dataSource id="hw_log_defineTbDs">
+       <table name="afm_activity_params" role="main"/>
+       <field table="afm_activity_params" name="activity_id"/>
+       <field table="afm_activity_params" name="param_id"/>
+       <field table="afm_activity_params" name="param_value"/>
+       <restriction type="sql" sql="afm_activity_params.activity_id = 'AbSystemAdministration' and param_id ='HWLogDefineTable'"/>
+    </dataSource>
+	
+	<dataSource id="archibusTableDefine">
+       <table name="afm_tbls" role="main"/>
+       <field table="afm_tbls" name="table_name"/>
+       <field table="afm_tbls" name="title_ch"/>
+    </dataSource>
+    <panel type="columnReport" id="hasDefinedPanel" dataSource="hw_log_defineTbDs" columns="3">
+       <title translatable="true">Table has defined</title>
+       <field table="afm_activity_params" name="activity_id" hidden="true"/>
+       <field table="afm_activity_params" name="param_id" hidden="true"/>
+       <field table="afm_activity_params" name="param_value" colspan="3" readOnly="true"> 
+          <title translatable="false"> </title>
+       </field>
+       <field/>
+    </panel>
+
+    <panel id="addTablePanel" type="html" dataSource="none">
+        <title>Add Table</title>
+        
+        <action id="confirm">
+            <title>Confirm</title>
+        </action>
+        <html>
+            <!-- Panel where the user can enter the rule name. -->
+            <table id="selectRuleNameTable" cellpadding="0" cellspacing="0" border="0" class="panel htmlWizardPanel">
+                <tr>
+                    <td>
+                        <span translatable="true" class="title" id="addtable" >What is the name for your table to add?</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="addTableName" class="inputField" style="width:380"/><span translatable="true" id="tip1" style="color:#f00">small letter not inculing special
+						</span>
+                    </td>
+                </tr>
+            </table>
+
+            
+        </html>
+    </panel>
+	
+	 <panel id="deleteTablePanel" type="html" dataSource="none">
+        <title>Delete Table</title>
+        <action id="confirm">
+            <title>Confirm</title>
+        </action>
+        <html>
+            <!-- Panel where the user can enter the rule name. -->
+            <table id="selectRuleNameTable" cellpadding="0" cellspacing="0" border="0" class="panel htmlWizardPanel">
+                <tr>
+                    <td>
+                        <span translatable="true" class="title" id="deltable" >What is the name for your table to del?</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="deleteTableName" class="inputField" style="width:380"/> <span translatable="true" id="tip2" style="color:#f00">small letter not inculing special
+						</span>
+                    </td>
+                </tr>
+            </table>
+        </html>
+    </panel>
+</view>

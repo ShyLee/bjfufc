@@ -1,0 +1,31 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-change-create-req-select-type-tab.js"/>
+    
+    <dataSource id="ascBjUsmsProcChangeCreateReqSelectTypeTabGridDS">
+        <table name="probtype" role="main"/>
+        
+        <field name="prob_type" table="probtype"/>
+        <field name="description" table="probtype"/>
+        
+        <restriction
+         type="sql"
+         sql="probtype.prob_type LIKE ${parameters['prob_type']}"/>
+        <parameter name="prob_type" dataType="text" value=""/>
+    </dataSource>
+    
+    <panel type="grid" controlType="reportGrid" id="ascBjUsmsProcChangeCreateReqSelectTypeTabGrid" showOnLoad="false" dataSource="ascBjUsmsProcChangeCreateReqSelectTypeTabGridDS">
+        <title translatable="true">Request Types</title>
+        
+        <field controlType="button" width="100">
+            <title translatable="true">Select</title>
+            <command type="callFunction" functionName="selectNextTab(this.restriction['probtype.prob_type'])"/>
+        </field>
+        <field name="prob_type" table="probtype" width="150">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field name="description" table="probtype">
+            <title translatable="true">Work Flow</title>
+        </field>
+    </panel>
+</view>

@@ -1,0 +1,120 @@
+<view version="2.0">
+	<title translatable="true">Zf Bt Pause Or ReOpen</title>
+	<js file="asc-zf-bt-pause.js"/>
+	
+    <dataSource id="scZfBtListDs">
+    	<sql dialect="generic">
+        	select bt.em_id,bt.em_name,bt.em_sex,bt.bt_date_tf,bt.bt_date_hf,bt.status,bt.money,
+        			em.archive_id,em.sfzh,em.status_em,em.em_type 
+        		from sc_zfbt bt left outer join sc_zf_em em on em.em_id = bt.em_id
+        </sql>
+		<table name="sc_zfbt" role="main" />
+		<field table="sc_zfbt" name="em_id" dataType="text"/>
+		<field table="sc_zfbt" name="em_name" dataType="text"/>
+		<field table="sc_zfbt" name="em_sex" dataType="text"/>
+        <field table="sc_zfbt" name="archive_id" dataType="text">
+        	<title translatable="true">archive_id</title>
+        </field>
+        <field table="sc_zfbt" name="sfzh" dataType="text">
+        	<title translatable="true">sfzh</title>
+        </field>
+        <field table="sc_zfbt" name="status_em" dataType="text">
+        	<title translatable="true">status_em</title>
+        </field>
+        <field table="sc_zfbt" name="status" dataType="text"/>
+        <field table="sc_zfbt" name="bt_date_tf" dataType="date"/>
+        <field table="sc_zfbt" name="bt_date_hf" dataType="date"/>
+        <field table="sc_zfbt" name="money" dataType="number" decimals="2"/>
+	</dataSource>
+    
+    <dataSource id="zfBtDs">
+		<table name="sc_zfbt" role="main"/>
+        <field table="sc_zfbt" name="id"/>
+        <field table="sc_zfbt" name="em_id"/>
+        <field table="sc_zfbt" name="status"/>
+        <field table="sc_zfbt" name="bt_date_tf"/>
+        <field table="sc_zfbt" name="money"/>
+    </dataSource>
+    	
+    <dataSource id="zfBtPauseDs">
+		<table name="sc_zfbt_pause" role="main"/>
+        <field table="sc_zfbt_pause" name="id"/>
+        <field table="sc_zfbt_pause" name="em_id"/>
+        <field table="sc_zfbt_pause" name="em_name"/>
+        <field table="sc_zfbt_pause" name="archive_id"/>
+        <field table="sc_zfbt_pause" name="sfzh"/>
+        <field table="sc_zfbt_pause" name="em_sex"/>
+        <field table="sc_zfbt_pause" name="status_em"/>
+        <field table="sc_zfbt_pause" name="date_tf"/>
+        <field table="sc_zfbt_pause" name="date_hf"/>
+        <field table="sc_zfbt_pause" name="money"/>
+        <field table="sc_zfbt_pause" name="month_bf"/>
+        <field table="sc_zfbt_pause" name="money_bf"/>
+        <sortField table="sc_zfbt_pause" name="date_tf" ascending="false"/>
+    </dataSource>
+    	
+	
+    
+    <tabs id="detailTabs" workflow="enforced" tabRefreshPolicy="refreshOnLoad">
+    	<tab name="applyListTab" selected="true">
+			<title translatable="true">Apply List</title>
+			<panel type="grid" id="zfbtList" dataSource="scZfBtListDs" multipleSelectionEnabled="true">
+				<title translatable="true">ZFBT List</title>
+				<action id="select"></action>
+			    <action id="pauseOrOpen">
+			        <title translatable="true">Pause Or ReOpen</title>
+			    </action>
+			        
+		    </panel>
+		</tab>
+		<tab name="basicInfoTab">
+			<title translatable="true">Basic Info</title>
+			 <panel type="form" id="zfBtPauseForm" dataSource="zfBtPauseDs" columns="2" showOnLoad="false">
+		            <action id="confirm">
+				        <title translatable="true">Confirm</title>
+				    </action>
+				    <action id="return">
+				        <title translatable="true">Return</title>
+				    </action>
+		            <field table="sc_zfbt_pause" name="id" hidden="true"/>
+			        <field table="sc_zfbt_pause" name="em_id"/>
+			        <field table="sc_zfbt_pause" name="em_name"/>
+			        <field table="sc_zfbt_pause" name="archive_id"/>
+			        <field table="sc_zfbt_pause" name="sfzh"/>
+			        <field table="sc_zfbt_pause" name="em_sex"/>
+			        <field table="sc_zfbt_pause" name="status_em"/>
+			        <field table="sc_zfbt_pause" name="date_tf"/>
+			        <field table="sc_zfbt_pause" name="date_hf" onchange="ascZfbtPauseController.changeDateHf()"/>
+			        <field table="sc_zfbt_pause" name="money"/>
+			        <field table="sc_zfbt_pause" name="month_bf" onchange="ascZfbtPauseController.changeMonth()"/>
+			        <field table="sc_zfbt_pause" name="money_bf"/>
+		     </panel>
+			<panel type="grid" id="btPauseGrid" dataSource="zfBtPauseDs">
+				<title translatable="true">Pause History List</title>
+				<action id="return">
+		            <title translatable="true">Return</title>
+		        </action>
+		        <event type="onClickItem">
+		            <command type="callFunction" functionName="ascZfbtPauseController.showEditForm()"/>
+		        </event>
+		        
+			 	<field table="sc_zfbt_pause" name="id" hidden="true"/>
+		        <field table="sc_zfbt_pause" name="em_id"/>
+		        <field table="sc_zfbt_pause" name="em_name"/>
+		        <field table="sc_zfbt_pause" name="archive_id"/>
+		        <field table="sc_zfbt_pause" name="sfzh"/>
+		        <field table="sc_zfbt_pause" name="em_sex"/>
+		        <field table="sc_zfbt_pause" name="status_em"/>
+		        <field table="sc_zfbt_pause" name="date_tf"/>
+		        <field table="sc_zfbt_pause" name="date_hf"/>
+		        <field table="sc_zfbt_pause" name="money"/>
+		        <field table="sc_zfbt_pause" name="month_bf"/>
+		        <field table="sc_zfbt_pause" name="money_bf"/>
+		    </panel>
+		</tab>
+	 </tabs>
+    
+	
+	
+		     
+</view>

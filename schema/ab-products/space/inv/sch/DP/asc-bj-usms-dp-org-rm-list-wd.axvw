@@ -1,0 +1,171 @@
+<view version="2.0">
+	<message name="buArea" translatable="true">danweifeilei:</message>
+	<message name="buRoom" translatable="true">shiyongdanwei:</message>
+	<message name="total" translatable="true">total</message>
+    <layout id="main">
+        <north id="unitPosition" initialSize="30%" split="true"/>
+        <center id="dvPosition" initialSize="25%"/>
+        <south id="reportPosition" initialSize="40%" split="true"/>
+    </layout>
+    
+    <title translatable="true">Room by Units And Divition</title>
+    
+    <dataSource id="abScSearchRmLayoutByBuGridDS">
+        <table name="bu" role="main"/>
+		<field table="bu" name="bu_id"/>
+        <field table="bu" name="area_rm"/>
+        <field table="bu" name="area_jianzhu"/>
+        <field table="bu" name="count_em"/>
+        <field name="mianjibi" dataType="number" size="6" decimals="2">
+        		<sql dialect="generic">bu.area_jianzhu/(SELECT decode(SUM(ino.area_jianzhu),0,1) FROM bu ino)</sql>
+		</field>	
+        <restriction type="sql" sql="EXISTS (SELECT 1 FROM dv,rm WHERE dv.bu_id = bu.bu_id and dv.dv_id=rm.dv_id)" />
+    </dataSource>
+	
+    <panel type="grid" id="abScSearchRmLayoutByBuGrid" controlType="reportGrid" dataSource="abScSearchRmLayoutByBuGridDS" layoutRegion="unitPosition">
+        <title translatable="true">Units List</title>
+		
+		 <action id="export:XLS2">
+            <title translatable="true">XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScSearchRmLayoutByBuGrid"/>
+			
+        </action>
+		<field table="bu" name="bu_id" controlType="link">
+            <command type="callFunction" functionName="showDvByBu"/>
+        </field>
+        <field table="bu" name="area_rm" controlType="link">
+            <command type="callFunction" functionName="showDvByBu"/>
+        </field>
+        <field table="bu" name="area_jianzhu" controlType="link">
+            <command type="callFunction" functionName="showDvByBu"/>
+        </field>
+        <field table="bu" name="count_em" controlType="link">
+            <command type="callFunction" functionName="showDvByBu"/>
+        </field>
+        <field name="mianjibi" dataType="number" size="6" decimals="2">
+            <title translatable="true">Area Rate</title>
+            <command type="callFunction" functionName="showDvByBu"/>
+        </field>
+    </panel>
+    
+    <dataSource id="abScSearchRmLayoutByBuGridDvDS">
+        <table name="dv" role="main"/>
+		<field table="dv" name="dv_code"/>
+		<field table="dv" name="dv_id"/>
+		<field table="dv" name="bu_id"/>
+		<field table="dv" name="name"/>
+        <field table="dv" name="bl_name"/>
+        <field table="dv" name="area_rm"/>
+		<field table="dv" name="area_jianzhu"/>
+        <field table="dv" name="count_rm"/>
+		<field table="dv" name="count_em"/>
+		<restriction type="sql" sql="dv.dv_id != ${parameters['wuDvRes']}"/>
+		<parameter name="wuDvRes" dataType="text" value=""/>
+    </dataSource>
+
+    <panel type="grid" id="abScSearchRmLayoutByBuGridDv" showOnLoad="false" controlType="reportGrid" dataSource="abScSearchRmLayoutByBuGridDvDS" layoutRegion="dvPosition">
+        <title translatable="true">Divition List</title>
+		
+		<action id="export:XLS1">
+            <title translatable="true">XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScSearchRmLayoutByBuGridDv"/>
+        </action>	
+		<field table="dv" name="bu_id" hidden="true"/>
+		<field table="dv" name="dv_code"  controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+        <field table="dv" name="dv_id" controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+        <field table="dv" name="area_rm" controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+		<field table="dv" name="area_jianzhu" controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+        <field table="dv" name="count_rm" controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+		<field table="dv" name="count_em" controlType="link">
+            <command type="callFunction" functionName="showRmByDv"/>
+        </field>
+		<field id="viewBl" controlType="button" >
+			<title translatable="true">ChaKanLouCengCADFuButu</title>
+		</field>
+    </panel>
+    
+    <dataSource id="abScSearchRmLayoutByBuGridReportDS">
+        <table name="rm" role="main"/>
+		<table name="dv" role="standard"/>
+		 <table name="bl"   role="standard"/>
+        <field table="bl"   name="name"/>
+		<field table="dv" name="bu_id"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="area"/>
+		<field table="rm" name="name"/>
+        <field table="rm" name="rm_type"/>
+		<field table="rm" name="count_design"/>
+        <field table="rm" name="cap_em"/>
+		<field table="rm" name="count_em"/>
+        <field table="rm" name="phone"/>
+		<field table="rm" name="em_use"/>
+    </dataSource>
+    
+    <panel type="grid" id="abScSearchRmLayoutByBuGridReport" dataSource="abScSearchRmLayoutByBuGridReportDS" showOnLoad="false" layoutRegion="reportPosition">
+        <title translatable="true">Room Information</title>
+		
+		<action id="export:XLS">
+            <title translatable="true">XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="abScSearchRmLayoutByBuGridReport"/>
+        </action>
+		
+		<field table="rm" name="bl_id" hidden="true"/>
+		<field table="bl"   name="name"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="area"/>
+        <field table="rm" name="rm_type"/>
+		<field table="rm" name="count_design"/>
+        <field table="rm" name="cap_em"/>
+        <field table="rm" name="phone"/>
+		<field id="viewUser" controlType="button" >
+			<title translatable="true">Room User</title>
+		</field>
+    </panel>
+	
+	<dataSource id="abScSearchRmLayoutByBuGridReportShowDS">
+        <table name="em" role="main"/>
+        <table name="bl"   role="standard"/>
+        <field table="bl"   name="name"/>
+        <field table="em" name="rm_id"/>
+        <field table="em" name="fl_id"/>
+        <field table="em" name="bl_id"/>
+        <field table="em" name="em_id"/>
+        <field table="em" name="name"/>
+    </dataSource>
+	<panel type="grid" id="abScSearchRmLayoutByBuGridReportShow" dataSource="abScSearchRmLayoutByBuGridReportShowDS" showOnLoad="false">
+        <title translatable="true">Room User</title>
+		<field table="em" name="bl_id"  hidden="true"/>
+		<field table="bl"  name="name"/>
+		<field table="em" name="fl_id"/>
+		<field table="em" name="rm_id"/>
+        <field table="em" name="em_id"/>
+        <field table="em" name="name"/>
+    </panel>
+	
+	<dataSource id="abScSearchBlByDvGridReportShowDS">
+        <table name="bl" role="main"/>
+		<field table="bl" name="bl_id"/>
+		<parameter name="buId" dataType="verbatim" value="1=1"/>
+		<parameter name="dvId" dataType="verbatim" value=" 1=1"/>
+		<restriction type="sql" sql=" exists(select 1 from rm ,dv where rm.dv_id=dv.dv_id and rm.bl_id=bl.bl_id and ${parameters['buId']} and ${parameters['dvId']})"/>
+    </dataSource>
+	
+	<panel type="grid"  id="abScSearchBlByDvGridReport"  dataSource="abScSearchBlByDvGridReportShowDS" showOnLoad="false">
+        <field table="bl" name="bl_id"/>
+    </panel>
+	<js file="asc-bj-usms-dp-org-rm-list-wd.js"/>
+    <js file="asc-bj-usms-def-common.js"/>
+</view>

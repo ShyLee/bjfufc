@@ -1,0 +1,69 @@
+<view version="2.0">
+<title>check-gzw</title>
+
+<dataSource id="ds_ab-sp-def-loc-rm_form_bl">
+        <table name="sc_gzw" role="main"/>
+        <field table="sc_gzw" name="bl_id"/>
+        <field table="sc_gzw" name="name"/>
+        <field table="sc_gzw" name="date_receipt"/>
+        <field table="sc_gzw" name="atype_code"/>
+        <field table="sc_gzw" name="area_building_manual" showTotals="true"/>
+        <field table="sc_gzw" name="date_acquire"/>
+        <field table="sc_gzw" name="guzhuwu_unit"/>
+        <field table="sc_gzw" name="ownship_shape"/>
+        <field table="sc_gzw" name="land_photo"/>
+        <field table="sc_gzw" name="quanszh"/>
+        <field table="sc_gzw" name="date_fazheng"/>
+        <field table="sc_gzw" name="value_type"/>
+        <field table="sc_gzw" name="value_market" showTotals="true"/>
+        <field table="sc_gzw" name="value_fiscal_alloc" showTotals="true"/>
+        <field table="sc_gzw" name="czxjy_funds"/>
+        <field table="sc_gzw" name="srcid"/>
+        <field table="sc_gzw" name="area_ziyong" showTotals="true"/>
+        <field table="sc_gzw" name="use_status"/>
+        <field table="sc_gzw" name="zhejiu_status"/>
+        <field table="sc_gzw" name="parcelland_address"/>
+        <field table="sc_gzw" name="operator"/>
+        <field table="sc_gzw" name="site_id"/>
+        <field table="sc_gzw" name="pr_id"/>
+		
+        
+    </dataSource>
+
+<panel id="gzwConsole"  type="console"  dataSource="ds_ab-sp-def-loc-rm_form_bl" columns="3">
+		<title>filter</title>
+		<action >
+			<title>show</title>
+			<command type="showPanel" panelId="gzwGrid"/>
+		</action>
+		<action id="clear">
+			<title>clear</title>
+			<command type="clearPanel" panelId="gzwConsole" />
+		</action>
+		<field table="sc_gzw" name="site_id"/>
+		<field table="sc_gzw" name="pr_id">
+			<action id="selectTable">
+                <title translatable="false">...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue"
+                        fieldNames="sc_gzw.pr_id,property.name"
+                        selectFieldNames="property.pr_id,property.name"
+                        visibleFieldNames="property.pr_id,property.name"
+                        restriction="pr_id in (select pr_id from sc_gzw )"/>
+            </action>
+		</field>
+		<field table="sc_gzw" name="bl_id" required="false"/>
+
+</panel>
+
+
+<panel id="gzwGrid"  type="grid"  dataSource="ds_ab-sp-def-loc-rm_form_bl" showCounts="true">
+		<title>gzw-list</title>
+		<action id="export:XLS">
+            <title>XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="gzwGrid"/>
+        </action> 
+</panel>
+
+<js file="asc-bj-usms-data-check-gzw.js"/>
+</view>

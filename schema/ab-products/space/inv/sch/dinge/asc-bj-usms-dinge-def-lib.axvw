@@ -1,0 +1,101 @@
+<view version="2.0">
+	<css>.prominentLabel {font-weight: bold; font-size: 12px important; text-align: right; white-space: normal;} </css>
+
+	<layout type="borderLayout" id="mainLayout">
+		<west id="top" initialSize="25%" split="true" />
+		<center autoScroll="true" id="lib"/>
+	</layout> 
+
+	<title translatable="true">Parcel Lib</title>
+
+	<dataSource id="abScDefLibCatDS">
+		<table name="sc_lib" role="main" />		
+		<field table="sc_lib" name="area_bt"/>
+		<field table="sc_lib" name="dv_id"/>
+		<field table="sc_lib" name="dv_name"/>
+		<field table="sc_lib" name="lib_cat"/>
+		<field table="sc_lib" name="lib_code"/>
+		<field table="sc_lib" name="lib_desc"/>
+		<field table="sc_lib" name="lib_name"/>
+		<field table="sc_lib" name="lib_type"/>
+	</dataSource>
+
+	<panel type="grid" id="ascBjUsmsDefDataLandCatGrid" dataSource="abScDefLibCatDS" layout="mainLayout" region="west" recordLimit="100">
+		<title translatable="true">Parcel Lib List Panel</title>
+		<action id="addNew">
+			<title translatable="true">Add New</title>
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatForm" newRecord="true" />
+		</action>
+		<sortField table="sc_lib" name="lib_code" />
+		<field table="sc_lib" name="lib_code" controlType="link">
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatForm" />
+		</field>
+		<field table="sc_lib" name="lib_name" controlType="link">
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatForm" />
+		</field>
+	</panel>
+
+	<panel type="form" id="ascBjUsmsDefDataLandCatForm" showOnLoad="false"
+		columns="2" dataSource="abScDefLibCatDS" layoutRegion="lib">
+		<title translatable="true">Define Parcel Lib</title>
+		
+		<action id="save">
+			<title translatable="true">Save</title>
+			<command type="saveForm" />
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatGrid"
+				applyParentRestriction="false" />
+		</action>
+		<action id="delete">
+			<title translatable="true">Delete</title>
+			<command type="deleteRecord" />
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatForm"
+				show="false" />
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatGrid"
+				applyParentRestriction="false" />
+		</action>
+		<action id="cancel">
+			<title translatable="true">Cancel</title>
+			<command type="showPanel" panelId="ascBjUsmsDefDataLandCatForm"
+				show="false" />
+		</action>
+		
+		<field table="sc_lib" name="lib_code" required="true" />
+		<field table="sc_lib" name="lib_name"/>
+		<field table="sc_lib" name="dv_id">
+            <action> 
+                <title>...</title> 
+                <tooltip>Select Value</tooltip> 
+                <command type="selectValue" 
+                    fieldNames="sc_lib.dv_id,sc_lib.dv_name" 
+                    selectFieldNames="dv.dv_id,dv.dv_name" 
+                    visibleFieldNames="dv.dv_id,dv.dv_name" /> 
+            </action> 
+        </field>
+        <field table="sc_lib" name="dv_name" readOnly="true" />
+	    <field table="sc_lib" name="lib_cat">
+			<action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue" 
+                    fieldNames="sc_lib.lib_cat"
+                    selectFieldNames="sc_lib_cat.lib_cat,sc_lib_cat.lib_cat_desc" 
+                    visibleFieldNames="sc_lib_cat.lib_cat,sc_lib_cat.lib_cat_desc" 
+                    showIndex="true"/>
+            </action>
+		</field>
+		<field table="sc_lib" name="lib_type">
+			<action> 
+                <title>...</title>
+                <tooltip>Select Value</tooltip> 
+                <command type="selectValue" 
+                    fieldNames="sc_lib.lib_type,sc_lib.lib_cat,sc_lib.area_bt"
+                    selectFieldNames="sc_lib_type.lib_type,sc_lib_cat.lib_cat,sc_lib_type.area_bt" 
+                    visibleFieldNames="sc_lib_type.lib_type,sc_lib_cat.lib_cat,sc_lib_type.area_bt" 
+                    showIndex="true"/>
+            </action>
+		</field>
+		<field table="sc_lib" name="area_bt" readOnly="true"/>
+        <field table="sc_lib" name="lib_desc"/>
+	</panel>
+
+</view>

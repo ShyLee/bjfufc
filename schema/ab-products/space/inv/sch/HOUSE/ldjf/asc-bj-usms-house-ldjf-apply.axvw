@@ -1,0 +1,216 @@
+<view version="2.0">
+	<title translatable="true">B zzf jf apply</title>
+	<js file="asc-bj-usms-house-ldjf-apply.js"/>
+	
+	<layout id="main">
+        <north id="emDetail" initialSize="35%" split="true" />
+        <center initialSize="65%"/>
+    </layout>
+	
+	<layout id="jfdetail" containingLayout="main" region="center">
+        <north initialSize="20%" split="true" />
+        <center id="gzjlSite" initialSize="20%"/>
+        <south id="jyjlSite" initialSize="20%" split="true" />
+    </layout>
+	
+	<layout id="zwzcSite" containingLayout="jfdetail" region="north">
+        <west id="zwSite" initialSize="50%" split="true" />
+        <center id="zcSite"/>
+    </layout>
+	
+	<dataSource id="zzfJfDs">
+		<table name="bjfu_zzf_jf" role="main"/>
+        <field table="bjfu_zzf_jf" name="id"/>
+        <field table="bjfu_zzf_jf" name="archive_id"/>
+        <field table="bjfu_zzf_jf" name="gzbm"/>
+        <field table="bjfu_zzf_jf" name="em_id"/>
+        <field table="bjfu_zzf_jf" name="xm"/>
+        <field table="bjfu_zzf_jf" name="xb"/>
+        <field table="bjfu_zzf_jf" name="dv_name"/>
+        <field table="bjfu_zzf_jf" name="sfzh"/>
+        <field table="bjfu_zzf_jf" name="zw_jb_name"/>
+        <field table="bjfu_zzf_jf" name="zc_jb_name"/>
+        <field table="bjfu_zzf_jf" name="zw_name"/>
+        <field table="bjfu_zzf_jf" name="zc_name"/>
+        <field table="bjfu_zzf_jf" name="phone"/>
+        <field table="bjfu_zzf_jf" name="date_come_sch"/>
+        <field table="bjfu_zzf_jf" name="is_sworker"/>
+        <field table="bjfu_zzf_jf" name="has_children"/>
+        <field table="bjfu_zzf_jf" name="has_tqgjj"/>
+        <field table="bjfu_zzf_jf" name="rm_addr"/>
+        <field table="bjfu_zzf_jf" name="zf_type_name"/>
+        <field table="bjfu_zzf_jf" name="po_xm"/>
+        <field table="bjfu_zzf_jf" name="po_sfzh"/>
+        <field table="bjfu_zzf_jf" name="date_apply"/>
+        <field table="bjfu_zzf_jf" name="score_parents"/>
+        <field table="bjfu_zzf_jf" name="score_children"/>
+        <field table="bjfu_zzf_jf" name="score_rz"/>
+        <field table="bjfu_zzf_jf" name="score_zl"/>
+        <field table="bjfu_zzf_jf" name="score_gl"/>
+        <field table="bjfu_zzf_jf" name="score_xl"/>
+        <field table="bjfu_zzf_jf" name="score_total"/>
+        <field table="bjfu_zzf_jf" name="status"/>
+        <field table="bjfu_zzf_jf" name="date_approve"/>
+        <field table="bjfu_zzf_jf" name="gd_status"/>
+        <field table="bjfu_zzf_jf" name="date_gd"/>
+        <field table="bjfu_zzf_jf" name="xf_addr"/>
+        <field table="bjfu_zzf_jf" name="date_rz"/>
+        <field table="bjfu_zzf_jf" name="date_tz"/>
+    </dataSource>
+		     
+     <panel type="form" id="emInfoForm"  dataSource="zzfJfDs" columns="3" layoutRegion="emDetail" newRecord="true">
+            <title translatable="true">Em Info</title>
+            <action id="save">
+	            <title translatable="true">save</title>
+	        </action>
+            
+            <field table="bjfu_zzf_jf" name="id" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="archive_id" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="em_id" required="true">
+	        	<action id="selectTable">
+	                <title translatable="false">...</title>
+	                <tooltip>Select Value</tooltip>
+	                <command type="selectValue"
+	                        fieldNames="bjfu_zzf_jf.em_id,bjfu_zzf_jf.archive_id,bjfu_zzf_jf.xm,bjfu_zzf_jf.sfzh,bjfu_zzf_jf.xb,bjfu_zzf_jf.dv_name"
+	                        selectFieldNames="sc_zf_em.em_id,sc_zf_em.archive_id,sc_zf_em.xm,sc_zf_em.sfzh,sc_zf_em.xb,sc_zf_em.dv_name"
+	                        visibleFieldNames="sc_zf_em.em_id,sc_zf_em.archive_id,sc_zf_em.xm,sc_zf_em.sfzh,sc_zf_em.xb,sc_zf_em.dv_name"
+							restriction=" sc_zf_em.em_id is not null "
+							actionListener="initBaiscInfo"/>
+	            </action>
+	        </field>
+	        <field table="bjfu_zzf_jf" name="xm"/>
+	        <field table="bjfu_zzf_jf" name="xb"/>
+	        <field table="bjfu_zzf_jf" name="gzbm"/>
+	        <field table="bjfu_zzf_jf" name="dv_name"/>
+	        <field table="bjfu_zzf_jf" name="sfzh"/>
+	        <field table="bjfu_zzf_jf" name="date_come_sch"/>
+	        <field table="bjfu_zzf_jf" name="zw_jb_name" />
+        	<field table="bjfu_zzf_jf" name="zc_jb_name" />
+	        <field table="bjfu_zzf_jf" name="zw_name" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="zc_name" hidden="true"/>
+	        <field table="bjfu_zzf_jf" name="phone"/>
+	        <field table="bjfu_zzf_jf" name="is_sworker" onchange="ascZzfJfApplyController.changeSworker()"/>
+	        <field table="bjfu_zzf_jf" name="has_children" onchange="ascZzfJfApplyController.changeChild()"/>
+	        <field table="bjfu_zzf_jf" name="has_tqgjj"/>
+	        <field table="bjfu_zzf_jf" name="rm_addr"/>
+	        <field table="bjfu_zzf_jf" name="zf_type_name"/>
+	        <field table="bjfu_zzf_jf" name="po_xm"/>
+	        <field table="bjfu_zzf_jf" name="po_sfzh" required="false"/>
+	        <field table="bjfu_zzf_jf" name="date_apply" onchange="ascZzfJfApplyController.calcScore()"/>
+	        <field table="bjfu_zzf_jf" name="score_parents"/>
+	        <field table="bjfu_zzf_jf" name="score_children"/>
+	        <field table="bjfu_zzf_jf" name="score_rz"/>
+	        <field table="bjfu_zzf_jf" name="score_zl"/>
+	        <field table="bjfu_zzf_jf" name="score_gl"/>
+	        <field table="bjfu_zzf_jf" name="score_xl"/>
+	        <field table="bjfu_zzf_jf" name="score_total"/>		
+     </panel>
+	
+	
+	 <dataSource id="gzjlDs">
+		<table name="sc_zf_em_gzjl" role="main"/>
+        <field table="sc_zf_em_gzjl" name="auto_id"/>
+        <field table="sc_zf_em_gzjl" name="dw"/>
+		<field table="sc_zf_em_gzjl" name="date_begin"/>
+		<field table="sc_zf_em_gzjl" name="date_end"/>
+        <field table="sc_zf_em_gzjl" name="em_id"/>
+        <field table="sc_zf_em_gzjl" name="archive_id"/>
+        <sortField table="sc_zf_em_gzjl" name="date_begin"/>
+    </dataSource>
+    
+    <dataSource id="jyjlDs">
+		<table name="sc_zf_em_jyjl" role="main"/>
+        <field table="sc_zf_em_jyjl" name="auto_id"/>
+        <field table="sc_zf_em_jyjl" name="xl"/>
+		<field table="sc_zf_em_jyjl" name="school"/>
+		<field table="sc_zf_em_jyjl" name="date_begin"/>
+        <field table="sc_zf_em_jyjl" name="date_end"/>
+        <field table="sc_zf_em_jyjl" name="is_zz"/>
+        <field table="sc_zf_em_jyjl" name="em_id"/>
+        <field table="sc_zf_em_jyjl" name="archive_id"/>
+        <sortField table="sc_zf_em_jyjl" name="date_begin"/>
+    </dataSource>
+    
+	
+	<dataSource id="zwListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,zw_jb_id,zw_jb_name,zw_id,zw_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zwjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,zwjbm,zwjb,zwmcm,zwmc,to_char(rzrq,'yyyy-mm-dd'),'hr' from hrbook_zwjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zwjl" role="main"/>
+        <field table="sc_zf_em_zwjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_id" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="zw_id" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+		<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zwjl" name="get_date"/>
+    </dataSource>
+	
+	 <dataSource id="zcListDs">
+	 	 <sql dialect="generic">
+	 	 	select auto_id,em_id,zc_jb_id,zc_jb_name,zc_id,zc_name,to_char(get_date,'yyyy-mm-dd') get_date,'fc' is_rc from sc_zf_em_zcjl where archive_id = ${parameters['archive_id']}
+			union all
+			select id,jgh,'','',zcm,zc,to_char(pdrq,'yyyy-mm-dd'),'hr' from hrbook_zcjl_local where jgh = ${parameters['jgh']}
+		 </sql>  
+		<table name="sc_zf_em_zcjl" role="main"/>
+        <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="em_id" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="zc_jb_id" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="zc_jb_name" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="zc_id" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+		<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/>
+        <parameter name="jgh" dataType="text" value=" 1=1 "/>
+        <parameter name="archive_id" dataType="text" value=" 1=1 "/>
+        <sortField table="sc_zf_em_zcjl" name="get_date"/>
+    </dataSource>
+	
+	
+	<panel type="grid" id="zwGridPanel" showOnLoad="true" dataSource="zwListDs" layoutRegion="zwSite">
+            <title translatable="true">zw List</title>
+            <field table="sc_zf_em_zwjl" name="auto_id" dataType="text" hidden="true"/>
+	        <field table="sc_zf_em_zwjl" name="zw_jb_name" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="zw_name" dataType="text"/>
+			<field table="sc_zf_em_zwjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zwjl" name="is_rc"  dataType="text"/>			
+     </panel>
+     
+	
+	<panel type="grid" id="zcGridPanel" showOnLoad="true" dataSource="zcListDs" layoutRegion="zcSite" multipleSelectionEnabled="true">
+            <title translatable="true">zc List</title>
+            <field table="sc_zf_em_zcjl" name="auto_id" dataType="text"  hidden="true"/>
+			<field table="sc_zf_em_zcjl" name="zc_jb_name" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="zc_name" dataType="text"/>
+			<field table="sc_zf_em_zcjl" name="get_date" dataType="text"/>
+	        <field table="sc_zf_em_zcjl" name="is_rc"  dataType="text"/> 			
+     </panel>
+     
+     <panel type="grid" id="gzjlGridPanel" showOnLoad="true" dataSource="gzjlDs" layoutRegion="gzjlSite" multipleSelectionEnabled="true">
+            <title translatable="true">gzjl List</title>
+            <field table="sc_zf_em_gzjl" name="auto_id" hidden="true"/>
+	        <field table="sc_zf_em_gzjl" name="dw"/>
+			<field table="sc_zf_em_gzjl" name="date_begin"/>
+			<field table="sc_zf_em_gzjl" name="date_end" />
+	        <field table="sc_zf_em_gzjl" name="em_id" hidden="true"/>
+	        <field table="sc_zf_em_gzjl" name="archive_id" hidden="true"/>  			
+     </panel>
+     
+     <panel type="grid" id="jyjlGridPanel" showOnLoad="true" dataSource="jyjlDs" layoutRegion="jyjlSite" multipleSelectionEnabled="true">
+            <title translatable="true">jyjl List</title>
+            <field table="sc_zf_em_jyjl" name="auto_id" hidden="true"/>
+	        <field table="sc_zf_em_jyjl" name="xl" />
+			<field table="sc_zf_em_jyjl" name="school"/>
+			<field table="sc_zf_em_jyjl" name="date_begin"/>
+	        <field table="sc_zf_em_jyjl" name="date_end"/>
+	        <field table="sc_zf_em_jyjl" name="is_zz"/>
+	        <field table="sc_zf_em_jyjl" name="em_id" hidden="true"/>
+	        <field table="sc_zf_em_jyjl" name="archive_id" hidden="true"/>   			
+     </panel>
+	
+</view>

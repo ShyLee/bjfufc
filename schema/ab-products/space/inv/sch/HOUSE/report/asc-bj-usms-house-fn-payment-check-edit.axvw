@@ -1,0 +1,95 @@
+<view version="2.0">
+            <js file="schema/ab-core/controls/progress/ab-progress.js"/>
+            <js file="asc-bj-usms-house-fn-payment-check-edit.js" />
+            <title translatable="true">edit different</title>
+            <dataSource id="sc_zzfrent_details_ds">
+                <table name="sc_zzfrent_details" role="main"/>
+                <table name="sc_zzfcard" role="standard"/>
+                <field table="sc_zzfrent_details" name="em_id"/>
+                <field table="sc_zzfrent_details" name="em_name"/>
+                <field table="sc_zzfrent_details" name="card_id"/>
+                <field table="sc_zzfrent_details" name="year" />
+                <field table="sc_zzfrent_details" name="month" />
+                <field table="sc_zzfrent_details" name="month_rent"/>
+                <field table="sc_zzfrent_details" name="actual_payoff"/>
+                <field table="sc_zzfrent_details" name="area_lease"/>
+                <field table="sc_zzfrent_details" name="note1"/>
+                <field table="sc_zzfcard" name="bl_id"/>
+                <field table="sc_zzfcard" name="fl_id"/>
+                <field table="sc_zzfcard" name="rm_id"/>
+                <field name="area_lease" table="sc_zzfcard"/>
+                <field table="sc_zzfcard" name="date_checkin"/>
+                <field table="sc_zzfcard" name="date_checkout_ought" />
+                <restriction type="sql" sql="sc_zzfrent_details.card_id = sc_zzfcard.card_id"/>
+                <restriction type="sql" sql="sc_zzfrent_details.actual_payoff != sc_zzfrent_details.month_rent"/>
+          </dataSource> 
+     <panel type="console" columns="4" id="selectConsole" labelsPosition="top" dataSource="sc_zzfrent_details_ds">
+        <title translatable="true">Filter</title>
+        <action id="filter">
+            <title translatable="true">Show</title>
+            <command type="showPanel" panelId="diffRecords"/>    </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearPanel" panelId="selectConsole"/>
+            <command type="callFunction"  functionName="editController.refreshPanel()"/>
+        </action>
+           <field table="sc_zzfrent_details" name="em_id" required="false"/>
+           <field table="sc_zzfrent_details" name="em_name" required="false"/>
+           <field table="sc_zzfrent_details" name="year"  required="false" />
+           <field table="sc_zzfrent_details" name="month" required="false" />
+    </panel>
+              
+         <!-- 检查不同数据的列表 -->
+         <panel type="grid" id="diffRecords" dataSource="sc_zzfrent_details_ds"  showOnLoad="true">
+                <title>Different Record</title>
+                <!--交互 事件为打开对话框  说明代扣不相同的原因-->
+                <sortField name="card_id"/>
+                <field controlType="button">
+                    <title>Edit DATA</title>
+                    <command type="openDialog" panelId="editDiff"/>
+                </field>
+                <field table="sc_zzfrent_details" name="em_id"/>
+                <field table="sc_zzfrent_details" name="em_name"/>
+                <field table="sc_zzfrent_details" name="card_id" hidden="true"/>
+                <field table="sc_zzfrent_details" name="year" />
+                <field table="sc_zzfrent_details" name="month" />
+                <field name="month_rent"/>
+                <field name="actual_payoff"/>
+                <field name="note1"/>
+         </panel>
+         
+         <!-- 编辑数据的 表单-->
+         <panel type="form" id="editDiff" columns="2" showOnLoad="false" dataSource="sc_zzfrent_details_ds" >
+                <title  translatable="true">bian ji yuan yin</title> 
+                <action id="save">
+                    <title>Save Form</title>
+                    <command type="saveForm"/>
+                    <command type="showPanel" panelId="diffRecords" applyParentRestriction="false"/>
+                    <command type="closeDialog"/>
+                    <command type="callFunction" functionName="editController.refreshPanel()" />
+                </action>
+                <action id="cancel">
+                    <title>Cancel Edit</title>
+                    <command type="callFunction" functionName="editController.refreshPanel()" />
+                    <command type="closeDialog"/>
+                </action>
+                <field table="sc_zzfrent_details" name="em_id"/>
+                <field table="sc_zzfrent_details" name="em_name"/>
+                <field table="sc_zzfrent_details" name="card_id" hidden="true"/>
+                <field table="sc_zzfcard" name="bl_id"/>
+                <field table="sc_zzfcard" name="fl_id"/>
+                <field table="sc_zzfcard" name="rm_id" readOnly="true"/>
+                <field name="area_lease" table="sc_zzfcard"/>
+                <field table="sc_zzfrent_details" name="year" />
+                <field table="sc_zzfrent_details" name="month" />
+                <field table="sc_zzfcard" name="date_checkin" required="false"/>
+                <field table="sc_zzfcard" name="date_checkout_ought" required="false"/>
+                <field table="sc_zzfrent_details" name="month_rent">
+                     <title>ying kou jin e</title>
+                </field>
+                <field table="sc_zzfrent_details" name="actual_payoff">
+                     <title>shi kou jin e</title>
+                </field>
+                <field table="sc_zzfrent_details" name="note1" colspan="2"/>
+         </panel>     
+</view>

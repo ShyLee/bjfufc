@@ -1,0 +1,66 @@
+<view version="2.0">
+    
+    <title>Zijiao Warn</title>
+    
+    <dataSource id="zzfFeeDs">
+        <table name="sc_zzf_fee" role="main"/>
+        <field table="sc_zzf_fee" name="fee_id"/>
+        <field table="sc_zzf_fee" name="card_id"/>
+        <field table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="is_em"/>
+        <field table="sc_zzf_fee" name="is_rc"/>
+        <field table="sc_zzf_fee" name="bl_id"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text" groupBy="true">
+            <sql dialect="generic">
+                (select name from bl where bl_id = sc_zzf_fee.bl_id)
+            </sql>
+        </field>
+        <field table="sc_zzf_fee" name="fl_id"/>
+        <field table="sc_zzf_fee" name="rm_id"/>
+        <field table="sc_zzf_fee" name="date_checkin"/>
+        <field table="sc_zzf_fee" name="date_checkout"/>
+        <field table="sc_zzf_fee" name="rent_period"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="pass_days"/>
+        <field table="sc_zzf_fee" name="pay_ought"/>
+        <field table="sc_zzf_fee" name="pay_actual"/>
+		<sortField table="sc_zzf_fee" name="fee_id"/>
+		<sortField table="sc_zzf_fee" name="em_id"/>
+        <restriction type="sql" sql="card_id in (select card_id from sc_zzfcard where payment_to = 'house') and pay_actual &lt; pay_ought and date_pay_end &lt; (select sysdate from dual)"/>
+    </dataSource>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfFeeDs">
+        <title translatable="true">Room Rent List</title>
+        <field id="pay" controlType="button">
+            <title translatable="true">Pay</title>
+        </field>
+		<indexField table="sc_zzf_fee" name="fee_id"/>
+		<indexField table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="fee_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="card_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="is_em"/>
+        <field table="sc_zzf_fee" name="is_rc"/>
+        <field table="sc_zzf_fee" name="bl_id"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text" groupBy="true">
+            <title>Building Name</title>
+        </field>
+        <field table="sc_zzf_fee" name="fl_id"/>
+        <field table="sc_zzf_fee" name="rm_id"/>
+        <field table="sc_zzf_fee" name="date_checkin"/>
+        <field table="sc_zzf_fee" name="date_checkout"/>
+        <field table="sc_zzf_fee" name="rent_period"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="pass_days"/>
+        <field table="sc_zzf_fee" name="pay_ought"/>
+        <field table="sc_zzf_fee" name="pay_actual"/>
+    </panel>
+    
+    <js file="asc-bj-usms-house-view-zijiao-rent.js"/>
+</view>

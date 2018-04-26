@@ -1,0 +1,81 @@
+<view version="2.0">
+    <js url="/archibus/dwr/interface/AjaxDataService.js" />
+    <title translatable="true">Update Em Data</title>
+      <layout type="borderLayout" id="mainLayout" >
+        <north initialSize="50%" split="true" id="northRegion"/>
+        <center autoScroll="true" id="southRegion"/>
+      </layout>
+    <dataSource id="sczfemMinusEmDs">
+        <table name="sczfem_minus_em" role="main"/>
+        <field table="sczfem_minus_em" name="em_id"/>
+        <field table="sczfem_minus_em" name="name"/>
+        <field table="sczfem_minus_em" name="identi_code"/>
+        <field table="sczfem_minus_em" name="gzbm"/>
+        <field table="sczfem_minus_em" name="dv_id"/>
+        <field table="sczfem_minus_em" name="zw_id"/>
+        <field table="sczfem_minus_em" name="zc_id"/>
+        <field table="sczfem_minus_em" name="zgzt"/>
+        <field table="sczfem_minus_em" name="email"/>
+    </dataSource>
+    
+    
+    <dataSource id="EmMinusSCZFEMDs">
+        <table name="em_minus_sczfem" role="main"/>
+        <field table="em_minus_sczfem" name="em_id"/>
+        <field table="em_minus_sczfem" name="name"/>
+        <field table="em_minus_sczfem" name="identi_code"/>
+        <field table="em_minus_sczfem" name="gzbm"/>
+        <field table="em_minus_sczfem" name="dv_id"/>
+        <field table="em_minus_sczfem" name="zw_id"/>
+        <field table="em_minus_sczfem" name="zc_id"/>
+        <field table="em_minus_sczfem" name="zgzt"/>
+        <field table="em_minus_sczfem" name="email"/>
+    </dataSource>
+    
+    <panel type="grid" id="sczfemMinusEmList" dataSource="sczfemMinusEmDs" multipleSelectionEnabled="true" layoutRegion="northRegion">
+        <title>The Data differ from ScZF</title>
+        <action id="update">
+            <title>Update</title>
+        </action>
+        
+        <indexField table="sczfem_minus_em" name="em_id"/>
+        <field table="sczfem_minus_em" name="em_id" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="name" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="identi_code" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="gzbm" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="dv_id" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="zw_id" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="zc_id" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="zgzt" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+        <field table="sczfem_minus_em" name="email" controlType="link">
+            <command type="callFunction" functionName="ascUpdateZfemController.clickItem()"/>
+        </field>
+    </panel>
+    
+    <panel type="grid" id="newDataFromHrPanel" dataSource="EmMinusSCZFEMDs" multipleSelectionEnabled="true" layoutRegion="southRegion">
+        <title>The Data From HR</title>
+        <action id="update">
+            <title>Insert</title>
+        </action>
+        <indexField table="em_minus_sczfem" name="em_id"/>
+    </panel>
+    
+    <js file="asc-zf-update-sc-zf-em.js"/>
+    
+</view>

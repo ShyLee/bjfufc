@@ -1,0 +1,287 @@
+<view version="2.0">
+    <title translatable="true">ruzhujiaojiedanguanli</title>
+    <js file="asc-bj-tsing-house-handover-checkin.js"/>
+<!--     <js file="asc-bj-swu-bt-common.js"/> -->
+    <dataSource id="ts_handover_ds">
+        <table name="ts_handover" role="main"/>
+        <field table="ts_handover" name="bl_id"/>
+        <field table="ts_handover" name="ts_index"/>
+        <field table="ts_handover" name="comments"/>
+        <field table="ts_handover" name="deal_id"/>
+        <field table="ts_handover" name="dv_id"/>
+        <field table="ts_handover" name="dv_user_id"/>
+        <field table="ts_handover" name="dv_user_name"/>
+        <field table="ts_handover" name="fl_id"/>
+        <field table="ts_handover" name="handling_dv"/>
+        <field table="ts_handover" name="handling_em_id"/>
+        <field table="ts_handover" name="handling_em_name"/>
+        <field table="ts_handover" name="handling_time"/>
+        <field table="ts_handover" name="bl_name"/>
+        <field table="ts_handover" name="handover_sm_doc"/>
+        <field table="ts_handover" name="handover_type"/>
+        <field table="ts_handover" name="property_company"/>
+        <field table="ts_handover" name="rm_id"/>
+        <field table="ts_handover" name="rm_status_to"/>
+        <field table="ts_handover" name="handover_id"/>
+        <field table="ts_handover" name="deal_rm_id"/>
+        <sql dialect="oracle">
+            select * from ts_handover where handover_type=0
+        </sql>
+    </dataSource>
+    <dataSource id="ts_handover_check_ds">
+        <table name="ts_handover_check" role="main"/>
+        <field table="ts_handover_check" name="hc_id"/>
+        <field table="ts_handover_check" name="handover_id"/>
+        <field table="ts_handover_check" name="check_number"/>
+        <field table="ts_handover_check" name="device_name"/>
+        <field table="ts_handover_check" name="ts_index"/>
+        <field table="ts_handover_check" name="device_type"/>
+        <field table="ts_handover_check" name="check_option"/>
+    </dataSource>
+    <dataSource id="ts_device_type_ds">
+        <table name="ts_device_type" role="main"/>
+        <field table="ts_device_type" name="device_type"/>
+        <field table="ts_device_type" name="description"/>
+        <field table="ts_device_type" name="ts_index"/> 
+    </dataSource>
+    <dataSource id="ts_device_ds">
+        <table name="ts_device" role="main"/>
+        <field table="ts_device" name="device_name"/>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="description"/>
+        <field table="ts_device" name="ts_index"/> 
+    </dataSource>
+     <dataSource id="ts_dealrm_ds">
+        <table name="ts_deal_rm" role="main"/>
+        <field table="ts_deal_rm" name="deal_rm_id"/>
+        <field table="ts_deal_rm" name="deal_id"/>
+        <field table="ts_deal_rm" name="bl_id"/>
+        <field table="ts_deal_rm" name="fl_id"/>
+        <field table="ts_deal_rm" name="rm_id"/>
+        <field table="ts_deal_rm" name="status"/>
+    </dataSource>
+    <panel type="console" id="consolePanel" columns="4"  dataSource="ts_handover_ds">
+        <title translatable="true">shaixuan</title>
+        <action id="show">
+            <title translatable="true">show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">clear</title>
+            <command type="clearPanel" panelId="consolePanel"/>
+        </action>
+        <field table="ts_handover" name="handover_id"/>
+        <field table="ts_handover" name="rm_id">
+           <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue" fieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id"
+                    selectFieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id" 
+                    visibleFieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id" 
+                    restriction="ts_handover.handover_type='0'"
+                    showIndex="false"/>
+            </action>
+         </field>
+        
+        <field table="ts_handover" name="handling_time" alias="ts_handover.handling_time.from" op="&gt;">
+            <title translatable="true">jiaojieshijiancong</title>
+        </field>
+
+        <field table="ts_handover" name="handling_time" alias="ts_handover.handling_time.to" op="&lt;">
+            <title translatable="true">jiaojieshijiandao</title>
+        </field>
+    </panel>
+    <panel type="grid" id="ts_handover_grid" dataSource="ts_handover_ds"  selectionEnabled="true" showOnLoad="true">
+        <title translatable="true">jiaojiedanliebiao</title>
+        <action id="xinzeng">
+        <title translatable="true">xinzeng</title>
+            <command type="showPanel" panelId="ts_handover_form" newRecord="true"/>
+            <command type="showPanel" panelId="ts_handover_check_grid" show="false"/>
+        </action>
+        <field table="ts_handover" name="handover_id" controlType="link">
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+         <field table="ts_handover" name="bl_id" controlType="link">
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+        <field table="ts_handover" name="fl_id" controlType="link">
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+        <field table="ts_handover" name="rm_id" controlType="link">
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+        <field table="ts_handover" name="handling_time" controlType="link">
+            <title>jiaojieshijian</title>
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+        <field table="ts_handover" name="dv_id" controlType="link">
+            <title>yongfangdanwei</title>
+            <!--<command type="callFunction" functionName="handovercheckinControlller.onClickGrid(false)"/>-->
+            <command type="showPanel" panelId="ts_handover_form"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </field>
+    </panel>
+    <!--入住交接单详细-->
+    <panel type="form" id="ts_handover_form" columns="3" dataSource="ts_handover_ds"  selectionEnabled="true" showOnLoad="false">
+        <title translatable="true">jiaojiedanxiangxi</title>
+        <action id="save">
+            <title translatable="true">baocun</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="ts_handover_grid" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="ts_handover_check_grid"/>
+        </action>
+        <action id="delete" enabled="${!panel.newRecord}">
+            <title translatable="true">shanchu</title>
+        </action>
+         <action id="checkout">
+            <title translatable="true">checkout</title>
+        </action>
+        <field table="ts_handover" name="handover_id"/>
+        <field table="ts_handover" name="bl_id" required="true"/>
+        <field table="ts_handover" name="fl_id" required="true"/>
+        <field table="ts_handover" name="rm_id" required="true">
+        <action>
+           <command type="selectValue" fieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id"
+                    selectFieldNames="ts_deal_rm.bl_id,ts_deal_rm.fl_id,ts_deal_rm.rm_id,ts_deal_rm.deal_id,ts_deal_rm.deal_rm_id" 
+                    visibleFieldNames="ts_deal_rm.bl_id,ts_deal_rm.fl_id,ts_deal_rm.rm_id,ts_deal_rm.deal_id,ts_deal_rm.deal_rm_id" 
+                    restriction="ts_deal_rm.status=0"
+                    showIndex="false"/>
+         </action>
+        </field>
+        <field table="ts_handover" name="deal_id"/>
+        <field table="ts_handover" name="deal_rm_id" hidden="true"/>
+        <field></field>
+        
+        <field table="ts_handover" name="dv_user_id" required="true">
+            <title>yongfangdanweifuzerenbianhao</title><!-- 用房单位负责人编号 -->
+            <action>
+                <command type="selectValue" fieldNames="ts_handover.dv_id,ts_handover.dv_user_name,ts_handover.dv_user_id"
+                selectFieldNames="em.dv_id,em.name,em.em_id"
+                visibleFieldNames="em.dv_id,em.name,em.em_id"
+                showIndex="false"/>
+            </action>
+        </field>
+        <field table="ts_handover" name="dv_user_name">
+            <title>yongfangdanweifuzerenxingming</title>
+        </field>
+        
+        <field table="ts_handover" name="dv_id" required="true">
+            <title>yongfangdanwei</title>
+            
+        </field>
+        <field table="ts_handover" name="handling_em_id" required="true" value="${user.employee.id}"/><!-- 经办人编号 -->
+        <field table="ts_handover" name="handling_em_name" value="${user.name}"/>
+        <field table="ts_handover" name="handling_dv" value="${user.employee.organization.divisionId}"/>
+        <field table="ts_handover" name="property_company"/>
+        <field table="ts_handover" name="handling_time">
+            <title>jiaojieshijian</title>
+        </field>
+        <field table="ts_handover" name="handover_type" value="0" readOnly="true"/>
+        <field table="ts_handover" name="comments" colspan="2"/>
+    </panel>
+    
+    <!--交接检查详细列表-->
+    <panel type="grid" id="ts_handover_check_grid" dataSource="ts_handover_check_ds"  selectionEnabled="true" showOnLoad="false">
+        <title translatable="true">jiaojiejianchaneirongliebiao</title>
+        <action id="checkxinzeng">
+            <title translatable="true">xinzeng</title>
+            <command type="callFunction" functionName="handovercheckinControlller.newcheckform()"/>
+        </action>
+        <field table="ts_handover_check" name="hc_id" controlType="link">
+            <title translatable="true">xuhao</title>
+            <command type="callFunction" functionName="handovercheckinControlller.Ts_handover_check_form()"/>
+        </field>
+        <field table="ts_handover_check" name="device_type" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.Ts_handover_check_form()"/>
+        </field>
+        <field table="ts_handover_check" name="device_name" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.Ts_handover_check_form()"/>
+        </field>
+        <field table="ts_handover_check" name="check_number" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.Ts_handover_check_form()"/>
+        </field>
+        <field table="ts_handover_check" name="check_option" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.Ts_handover_check_form()"/>
+        </field>
+    </panel>
+    <!--交接检查详细修改-->
+    <panel type="form" id="ts_handover_check_form" dataSource="ts_handover_check_ds" showOnLoad="false" columns="3">
+        <title translatable="true">jiaojiejianchaneirongxiugai</title>
+        <action id="savecheck">
+            <title translatable="true">baocun</title>
+            <command type="callFunction" functionName="handovercheckinControlller.saveCheck()"/>
+        </action>
+        <action id="deletecheck">
+            <title translatable="true">shanchu</title>
+            <command type="callFunction" functionName="handovercheckinControlller.deleteCheck()"/>
+        </action>
+       
+        <field table="ts_handover_check" name="hc_id" hidden="true"/>
+        <field table="ts_handover_check" name="handover_id" readOnly="true"/>
+        <field table="ts_handover_check" name="device_type" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="callFunction" functionName="handovercheckinControlller.showDeviceTypePanel()"/> 
+            </action>
+        </field>
+        <field table="ts_handover_check" name="device_name" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="callFunction" functionName="handovercheckinControlller.showDevicePanel()"/>
+            </action>
+        </field>
+        <field table="ts_handover_check" name="check_number" required="true"/>
+        <field table="ts_handover_check" name="check_option"/>
+    </panel>
+    <!--工种分类选择和新增 -->
+    <panel type="grid" id="ts_device_type_grid" dataSource="ts_device_type_ds" showOnLoad="false">
+        <title translatable="true">gongzhongfenleiliebiao</title>
+        <action>
+            <title translatable="true">xinzeng</title>
+            <command type="callFunction" functionName="handovercheckinControlller.showDeviceTypeDetailForm()"/>
+        </action>
+        <field table="ts_device_type" name="device_type" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.selectDeviceType()"/>
+        </field>
+        <field table="ts_device_type" name="description"/>
+        <field table="ts_device_type" name="ts_index"/> 
+    </panel>
+    <panel type="form" id="ts_device_type_form" dataSource="ts_device_type_ds" showOnLoad="false">
+        <title translatable="true">tianjiagongzhongfenlei</title>
+        <action id="btnSave">
+            <title translatable="true">baocun</title>
+            <command type="callFunction" functionName="handovercheckinControlller.afterSaveDeviceType()"/>
+        </action>
+        <field table="ts_device_type" name="device_type"/>
+        <field table="ts_device_type" name="description"/>
+    </panel>
+    <!--验收项目选择和新增 -->
+     <panel type="grid" id="ts_device_grid" dataSource="ts_device_ds" showOnLoad="false">
+        <title translatable="true">yanshouxiangmuliebiao</title>
+        <action>
+            <title translatable="true">xinzeng</title>
+            <command type="callFunction" functionName="handovercheckinControlller.showDeviceDetailForm()"/>
+        </action>
+        <field table="ts_device" name="device_name" controlType="link">
+            <command type="callFunction" functionName="handovercheckinControlller.selectDevice()"/>
+        </field>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="description"/>
+    </panel>
+    <panel type="form" id="ts_device__form" dataSource="ts_device_ds" showOnLoad="false">
+        <title translatable="true">tianjiayanshouxiangmu</title>
+        <action id="btnSave">
+            <title translatable="true">baocun</title>
+            <command type="callFunction" functionName="handovercheckinControlller.afterSaveDevice()"/>
+        </action>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="device_name"/>
+        <field table="ts_device" name="description"/>
+    </panel>
+</view>

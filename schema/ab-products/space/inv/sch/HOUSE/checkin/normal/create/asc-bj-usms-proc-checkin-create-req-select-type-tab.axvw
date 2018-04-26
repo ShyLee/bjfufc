@@ -1,0 +1,93 @@
+<view version="2.0">
+   <js file="asc-bj-usms-proc-checkin-create-req-select-type-tab.js"/>
+   <js file="asc-bj-usms-constant.js"/>
+     <layout id="main">
+        <north id="requestPosition" initialSize="30%" split="true"/>
+        <center  id="gridPosition" />
+     </layout>
+	 <message name="messageConfirmUndo" translatable="true">Are you sure undo this request [{0}] ?</message>
+   
+	<dataSource id="activityTypeDs">
+		<table name="activitytype" role="main" />
+		<field name="activity_type" table="activitytype" />
+		<field name="prob_type" table="activitytype" />
+		<field name="description" table="activitytype" />
+		<field name="group_name" table="activitytype" />
+        <parameter name="activity_type" dataType="verbatim" value="1=1"/>
+		<restriction type="sql" 
+		sql="${parameters['activity_type']}" />
+    </dataSource>
+    
+    <panel type="grid" controlType="reportGrid" id="ascBjUsmsProcAsgnCreateReqSelectTypeTabGrid" showOnLoad="true" dataSource="activityTypeDs" layoutRegion="requestPosition">
+        <title translatable="true">Request Types</title>
+        
+        <field controlType="button" width="50"  id="select">
+            <title translatable="true">Select</title>
+        </field>
+		<field name="prob_type" table="activitytype" hidden="true"/>
+        <field name="activity_type" table="activitytype" width="100">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field name="description" table="activitytype" width="500">
+            <title translatable="true">Work Flow</title>
+        </field>
+    </panel>
+    
+    <dataSource id="reviewReqSelectTabDS">
+		<table name="activity_log" role="main"/>
+		<table name="sc_zzfcard" role="standard"/>
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="zzfcard_id" table="activity_log" hidden="true"/>
+        <field table="activity_log" name="activity_type"/>
+        <field table="sc_zzfcard" name="rent_type"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="activity_log" name="date_requested"/>
+        <field table="sc_zzfcard" name="apply_reason"/>
+        <field table="sc_zzfcard" name="card_apply"/>
+        
+        <parameter name="activityType" dataType="text" value=""/>
+        <restriction type="sql" sql="activity_log.created_by = '${user.name}' AND activity_log.activity_type= ${parameters['activityType']}"/>
+	</dataSource>
+
+    <panel type="grid" id="reviewReqSelectTabGrid" dataSource="reviewReqSelectTabDS" layoutRegion="gridPosition" showOnLoad="false">
+        <title translatable="true">Requests</title>
+        
+        <field id="check" controlType="button">
+            <title translatable="true">Check</title>
+        </field>
+        
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field table="sc_zzfcard" name="card_apply"/>
+        <field name="zzfcard_id" table="activity_log" hidden="true"/>
+        <field table="activity_log" name="activity_type"/>
+        <field table="sc_zzfcard" name="rent_type"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="activity_log" name="date_requested"/>
+        <field table="sc_zzfcard" name="apply_reason"/>
+    </panel>
+    
+    
+    <dataSource id="ascBjUsmsProcAsgnColumnReportJudgeDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <field table="helpdesk_step_log" name="step_log_id"/>
+        <field table="helpdesk_step_log" name="pkey_value"/>
+        <field table="helpdesk_step_log" name="step"/>
+        <field table="helpdesk_step_log" name="step_status_result"/>
+        <field table="helpdesk_step_log" name="activity_id"/>
+        <field table="helpdesk_step_log" name="status"/>
+    </dataSource>
+	
+    <dataSource id="ascBjUsmsProcAsgnActivityLogJudgeDS">
+        <table name="activity_log" role="main"/>
+        <field table="activity_log" name="activity_log_id"/>
+        <field table="activity_log" name="activity_type"/>
+        <field table="activity_log" name="status"/>
+    </dataSource>
+    
+     <dataSource id="sc_zzfcard_ds">
+        <table name="sc_zzfcard" role="main"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="cause_checkout" table="sc_zzfcard" />
+    </dataSource>
+	
+</view>

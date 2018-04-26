@@ -1,0 +1,86 @@
+<view version="2.0">
+    <message name="secondGridTitle" translatable="true">ShiYongDanWei: {0} -- AnDingEJiBieChaXunGeDanWeiJiaoZhiGongShiJiShiYongMianJi</message>
+    
+	<layout id="main"> 
+        <north id="northPosition" initialSize="50%" split="true"/>
+        <center id="centerPosition"/>
+    </layout>
+	
+    <title translatable="true">GeDanWei GeLeiRenYuan FangWu Shiyong DuiBi FenXi</title>
+	
+    <dataSource id="ds_asc-bj-usms-dp-em-dinge-rpt_north_grid_em" type="grouping">
+        <table name="em" role="main"/>
+        
+        <field name="dv_id"  groupBy="true">
+        	<title translatable="true">ShiYongDanWei</title>
+        </field>	
+        <field name="dingejibie_id"  groupBy="true"/>
+		
+		<field name="avg_area" formula="avg" baseField="em.area_rm" dataType="number"  size="6" decimals="2">
+				<title translatable="true">*</title>
+		</field>
+		
+		<sortField table="em" name="dv_id" ascending="true"/>		
+		<sortField table="em" name="dingejibie_id" ascending="true"/>		
+		<restriction type="sql" sql="em.dingejibie_id IS NOT NULL and em.dv_id IS NOT NULL"/>
+    </dataSource>
+    
+	<dataSource id="ds_asc-bj-usms-dp-em-dinge-rpt_byDinge_grid_em" type="grouping">
+        <table name="em" role="main"/>
+		<table name="sc_dinge_jibie" role="standard"/>
+		
+		<field table="sc_dinge_jibie" name="dingejibie_id" groupBy="true"/>
+        <field table="sc_dinge_jibie" name="area" groupBy="true"/>
+		
+        <field table="em" name="count_em" formula="COUNT" baseField="em.em_id" dataType="number" decimals="0">
+        	<title translatable="true">RenShu</title>
+		</field>
+		
+        <field table="em" name="sum_area" formula="sum" baseField="em.area_rm" dataType="number" decimals="2">
+        	<title translatable="true">ZongShiYongMianJi</title>
+		</field>
+		<field name="avg_area" formula="avg" baseField="em.area_rm" dataType="number"  size="6" decimals="2">
+				<title translatable="true">RenJunShiYongMianJi</title>
+		</field>
+		
+		<field table="em" name="diff_area" dataType="number" decimals="2">
+			<title translatable="true">RenJunChaE</title>
+			<sql dialect="generic">
+               CASE WHEN COUNT(em.em_id) &lt;=0 THEN (0-sc_dinge_jibie.area) ELSE  (sum(em.area_rm)/count(em.em_id)) - sc_dinge_jibie.area  END
+            </sql>
+		</field>
+		
+		<field name="area_order" baseField="em.area_rm" dataType="number"  size="6" decimals="0">
+			<title translatable="true">PaiMing</title>
+		</field>
+		<restriction type="sql" sql="em.dingejibie_id IS NOT NULL and em.dv_id=${parameters['dvIdRes']}"/>
+ 		<parameter name="dvIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<dataSource id="ds_asc-bj-usms-dp-em-dinge-rpt_order_em" type="grouping">
+        <table name="em" role="main"/>
+		
+		<field table="em" name="dv_id" groupBy="true"/>
+		<field name="avg_area" formula="avg" baseField="em.area_rm" dataType="number"  size="6" decimals="2"/>
+		
+		<!--restriction type="sql" sql="em.dingejibie_id =${parameters['dingeIdRes']}"/-->
+ 		<!--parameter name="dingeIdRes" dataType="text" value=""/-->
+		
+		<sortField name="avg_area" ascending="false"/>
+    </dataSource>
+	
+	
+	<panel id="ascDvDingeRenJunUseMianCrossRpt" type="crossTable" dataSource="ds_asc-bj-usms-dp-em-dinge-rpt_north_grid_em" layoutRegion="northPosition">
+		<title translatable="true">XueXiao GeDanWei GeJiBieRenJunShiYongMianJi</title>
+		<event type="onClickItem">
+		    <command type="callFunction" functionName="onCrossTableClick"/>
+		</event>
+	</panel>
+	
+    <panel id="ascBjUsmsDvEmGingEGrid" type="grid" showOnLoad="false" dataSource="ds_asc-bj-usms-dp-em-dinge-rpt_byDinge_grid_em" layoutRegion="centerPosition">
+        <title translatable="true">ShiYongDanWei</title>
+        <sortField table="sc_dinge_jibie" name="dingejibie_id" ascending="true"/>
+    </panel>
+    
+    <js file="asc-bj-usms-dp-em-dinge-rpt.js"/>
+</view>

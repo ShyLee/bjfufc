@@ -1,0 +1,67 @@
+<view version="2.0">
+    <layout type="borderLayout" id="mainLayout">
+        <west id="top" initialSize="30%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <title translatable="true">Define Rent</title>
+    <dataSource id="sc_zzfrentstd_dataSource1">
+        <table name="sc_zzfrentstd" role="main"/>
+        <field table="sc_zzfrentstd" name="unit_rent"/>
+        <field table="sc_zzfrentstd" name="is_fuli"/>
+        <field table="sc_zzfrentstd" name="date_started"/>
+        <field table="sc_zzfrentstd" name="description"/>
+        <field table="sc_zzfrentstd" name="year_order"/>
+    </dataSource>
+    <panel type="grid" id="room_stander_view" dataSource="sc_zzfrentstd_dataSource1" layout="mainLayout" region="west" recordLimit="0">
+        <sortFiel name="unit_rent" table="sc_zzfrentstd" ascending="true"/>
+        <title translatable="true">Define Rent</title>
+        <action id="addNew">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="room_stander_view_form" newRecord="true"/>
+        </action>
+        
+<!--         <field name="year_order" table="sc_zzfrentstd" controlType="link"> -->
+<!--             <command type="showPanel" panelId="room_stander_view_form"/> -->
+<!--         </field> -->
+		<field table="sc_zzfrentstd" name="year_order" controlType="link">
+			<command type="showPanel" panelId="room_stander_view_form"/>
+		</field>
+        <field name="unit_rent" table="sc_zzfrentstd" controlType="link">
+            <command type="showPanel" panelId="room_stander_view_form"/>
+        </field>
+        
+        <field name="is_fuli" table="sc_zzfrentstd" controlType="link" hidden="true">
+            <command type="showPanel" panelId="room_stander_view_form"/>
+        </field>
+        
+        <field name="date_started" table="sc_zzfrentstd" controlType="link" hidden="true">
+            <command type="showPanel" panelId="room_stander_view_form"/>
+        </field>
+        <field name="description" table="sc_zzfrentstd" controlType="link">
+            <command type="showPanel" panelId="room_stander_view_form"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="room_stander_view_form" showOnLoad="false" dataSource="sc_zzfrentstd_dataSource1" layout="mainLayout" region="center" >
+        <title translatable="true">Define Rent</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="room_stander_view" applyParentRestriction="false"/>
+        </action>
+        <action id="delete" enabled="${!panel.newRecord}">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="room_stander_view_form" show="false"/>
+            <command type="showPanel" panelId="room_stander_view" applyParentRestriction="false"/>
+        </action>
+        <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="room_stander_view_form" show="false"/>
+        </action>
+		<field table="sc_zzfrentstd" name="year_order"/>
+        <field table="sc_zzfrentstd" name="unit_rent"/>
+        <field table="sc_zzfrentstd" name="is_fuli" hidden="true"/>
+        <field table="sc_zzfrentstd" name="description"/>
+    </panel>
+</view>

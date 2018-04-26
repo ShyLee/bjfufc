@@ -1,0 +1,74 @@
+<view version="2.0">
+	<preferences>
+		<viewTitleBar show="false" />
+	</preferences>
+
+	<!-- 学院数据源 -->
+	<dataSource id="sc_ts_dv_dinge_ds">
+		<table name="sc_ts_dv_dinge" role="main" />
+		<field table="sc_ts_dv_dinge" name="dv_id" />
+		<field table="sc_ts_dv_dinge" name="dv_name" />
+		<field table="sc_ts_dv_dinge" name="area_ba" />
+		<field table="sc_ts_dv_dinge" name="area_bja" />
+		<field table="sc_ts_dv_dinge" name="area_bla" />
+		<field table="sc_ts_dv_dinge" name="area_da" />
+		<field table="sc_ts_dv_dinge" name="area_sa" />
+		<field table="sc_ts_dv_dinge" name="area_ja" />
+		<field table="sc_ts_dv_dinge" name="area_jba" />
+		<field table="sc_ts_dv_dinge" name="area_jea" />
+		<field table="sc_ts_dv_dinge" name="area_stu_bk" />
+		<field table="sc_ts_dv_dinge" name="area_stu_ss" />
+		<field table="sc_ts_dv_dinge" name="area_stu_bs" />
+		<field table="sc_ts_dv_dinge" name="area_dinge" />
+		<field table="sc_ts_dv_dinge" name="year_dinge" />
+		<restriction type="sql"
+			sql="bu_id in (select bu_id from bu where bu_class='XY')"></restriction>
+	</dataSource>
+	<panel type='console' columns="3" id="consolePanel" dataSource="sc_ts_dv_dinge_ds">
+
+		<title translatable="true">conditions</title>
+		<action id="show">
+			<title translatable="true">Show</title>
+			<command type="showPanel" panelId="viewDvDingePanel" />
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="consolePanel"/>
+		</action>
+		<field table="sc_ts_dv_dinge" name="dv_id" required="false">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                    fieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    selectFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    visibleFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+					restriction="bu_id in (select bu_id from bu where bu_class='XY')">
+                    <title>Floor Code</title>
+                </command>
+            </action>
+		</field>
+		<field table="sc_ts_dv_dinge" name="dv_name" required="false">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                    fieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    selectFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    visibleFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+					restriction="bu_id in (select bu_id from bu where bu_class='XY')">
+                    <title>Floor Code</title>
+                </command>
+            </action>
+		</field>
+		<field table="sc_ts_dv_dinge" name="year_dinge" required="false"/>
+	</panel>
+	<!-- 学院panel -->
+	<panel type="grid" id="viewDvDingePanel" dataSource="sc_ts_dv_dinge_ds"
+		showOnLoad="false" showCounts="true">
+		<action>
+			<title>Export</title>
+			<command type="exportPanel" outputType="xls" panelId="viewDvDingePanel" />
+		</action>
+		<indexField table="sc_ts_dv_dinge" name="dv_id" />
+	</panel>
+	
+</view>

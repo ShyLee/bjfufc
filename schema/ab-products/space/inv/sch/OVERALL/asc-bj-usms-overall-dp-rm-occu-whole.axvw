@@ -1,0 +1,186 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="27%" split="true"/>
+        <center id="rmcatPosition"/>
+    </layout>
+    
+	<!-- datasource for division summary data report -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-whole_grid_dv">
+		<table name="dv" role="main" />
+		
+		<field table="dv" name="bu_id" >
+			<title translatable="true">Division Type</title>
+        </field>
+		<field table="dv" name="dv_id" >
+			<title translatable="true">Division Name</title>
+        </field>
+		<field table="dv" name="count_em" >
+			<title translatable="true">Employee Count</title>
+        </field>
+		
+		<field table="dv" name="count_rm">
+			<title translatable="true">Room Count</title>
+        </field>
+		
+		<field table="dv" name="area_jianzhu">
+			<title translatable="true">Total Structure Area</title>
+		</field>
+		
+		<field table="dv" name="area_rm">
+			<title translatable="true">Total Usable Area</title>
+		</field>
+		
+		<!-- the following fields setting in the js, the data from the ds-->
+		<field name="dv_office_area"  dataType="number" decimals="2" >
+			<title translatable="true">Total Office Area</title>
+		</field>
+		<field name="dv_meeting_area"  dataType="number" decimals="2" >
+			<title translatable="true">Total Meeting Area</title>
+		</field>
+	</dataSource>
+	
+	<!-- dataSource for caculate the shiyong area of some special room type, used in the grid panel -->
+	<dataSource id="ds_asc-bj-usms-overall-dept-occu-whole_grid_dvTypeSum" distinct="true">
+		<table name="rm" role="main" />
+		<table name="dv" role="standard" />
+		
+		<field table="dv" name="bu_id">
+			<title translatable="true">Division Type</title>
+        </field>
+		<field table="dv" name="dv_id">
+			<title translatable="true">Division Name</title>
+        </field>
+		<field table="rm" name="dv_office_area"  dataType="number" decimals="2">
+			<sql dialect="generic">
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id  and rm.rm_type=${parameters['officeTypeRes']})
+        	</sql>
+        </field>
+		<field table="rm" name="dv_meeting_area"  dataType="number" decimals="2">
+			<sql dialect="generic">
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id  and rm.rm_type=${parameters['meetingTypeRes']})
+        	</sql>
+        </field>
+		
+		<parameter name="officeTypeRes" dataType="text" value=""/>
+		<parameter name="meetingTypeRes" dataType="text" value=""/>
+		
+		<sortField name="bu_id" table="dv" ascending="true" />
+		<sortField name="dv_id" table="dv" ascending="true" />
+	</dataSource>
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-whole_basic_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="site_id"/>
+		<field table="site" name="telephone"/>
+		<field table="site" name="youbian"/>
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+	<!-- dataSource for site summary panel -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-whole_sum_site" type="grouping">
+    	<table name="site" role="main"/>
+	    
+		
+		<field name="total_guihuayongdi" formula="SUM" dataType="number" baseField="site.guihuayongdi" decimals="2"/>
+		<field name="total_jianzhuyongdi" formula="SUM" dataType="number" baseField="site.jianzhuyongdi" decimals="2"/>
+		<field name="total_bldgs" formula="SUM" dataType="number" baseField="site.no_bldgs" decimals="0"/>
+		
+		<field name="total_teacher_plan" formula="SUM" dataType="number" baseField="site.count_teacher_plan" decimals="2"/>
+		<field name="total_student_plan" formula="SUM" dataType="number" baseField="site.count_student_plan" decimals="2"/>
+		<field name="total_teacher_actual" formula="SUM" dataType="number" baseField="site.count_teacher_actual" decimals="2"/>
+		<field name="total_student_actual" formula="SUM" dataType="number" baseField="site.count_student_actual" decimals="2"/>
+    </dataSource>
+	
+	<!-- dataSource for site summary panel,the total area of the special room type  -->
+    <dataSource id="ds_asc-bj-usms-overall-dept-occu-whole_typeSum" type="grouping">
+    	<sql dialect="generic">
+    	    SELECT DISTINCT
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id  and rm.rm_type=${parameters['officeTypeRes']})    ${sql.as} office_area,
+ 				(SELECT SUM(rm.area) FROM rm WHERE rm.dv_id=dv.dv_id  and rm.rm_type=${parameters['meetingTypeRes']})   ${sql.as} meeting_area
+        	FROM rm,dv WHERE rm.dv_id=dv.dv_id  and rm.dv_id  IS NOT NULL
+        </sql>
+    	<table name="rm" role="main" />
+		
+		<field name="total_office_area"  formula="SUM" baseField="rm.office_area" dataType="number" decimals="2"/>
+		<field name="total_meeting_area" formula="SUM" baseField="rm.meeting_area" dataType="number" decimals="2"/>
+		
+		<parameter name="officeTypeRes" dataType="text" value=""/>
+		<parameter name="meetingTypeRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuWhole_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-whole_basic_site" columns="2"  layoutRegion="sitePosition">
+    	<action id="fixedReport">
+			<title translatable="true">GuDingBaoBiao</title>
+		</action>
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="youbian"/>
+		<field table="site" name="telephone"/>
+    </panel>
+	
+	<!-- whole school summary data-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuWhole_siteSumGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-whole_sum_site" columns="3"  layoutRegion="sitePosition">
+	    <!-- row 1-->
+		<field name="total_guihuayongdi" dataType="number" decimals="2">
+			<title translatable="true">Plan Land</title>
+		</field>
+		<field id="plan" labelClass="prominentLabel">
+           		 <title translatable="true">Plan Person Quantity</title>
+        </field>
+		<field id="actual" labelClass="prominentLabel">
+           		 <title translatable="true">Actial Person Quantity</title>
+        </field>
+		<!-- row 2-->
+		<field name="total_jianzhuyongdi" dataType="number"  decimals="2">
+			<title translatable="true">Structure Land</title>
+		</field>
+		<field name="total_teacher_plan" dataType="number" decimals="2">
+			<title translatable="true">Plan Teacher Quantity</title>
+		</field>
+		<field name="total_teacher_actual" dataType="number"  decimals="2">
+			<title translatable="true">Actual Teacher Quantity</title>
+		</field>
+		<!-- row 3-->
+		<field name="total_bldgs" dataType="number"  decimals="0">
+			<title translatable="true">Building Quantity</title>
+		</field>
+		<field name="total_student_plan"  dataType="number"  decimals="2">
+			<title translatable="true">Plan Student Quantity</title>
+		</field>
+		<field name="total_student_actual"  dataType="number"  decimals="2">
+			<title translatable="true">Actual Student Quantity</title>
+		</field>
+    </panel>
+	
+	<!-- whole school  some special room type space summary data-->
+    <panel type="columnReport" id="ascBjUsmsOverallDeptOccuWhole_typeSumGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-whole_typeSum" columns="3"  layoutRegion="sitePosition">
+		<field name="total_office_area" dataType="number" decimals="2">
+			<title translatable="true">Total Office Area</title>
+		</field>
+		<field name="total_meeting_area" dataType="number" decimals="2" >
+			<title translatable="true">Total Meeting Area</title>
+		</field>
+    </panel>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallDeptOccuWhole_dvGrid" dataSource="ds_asc-bj-usms-overall-dept-occu-whole_grid_dv" layoutRegion="rmcatPosition">
+    	<title translatable="true">Xue Xiao Suo You Shi Yong Dan Wei</title>
+		<sortField name="bu_id" table="dv" ascending="true" />
+		<sortField name="dv_id" table="dv" ascending="true" />
+    </panel>
+	
+    
+    <js file="asc-bj-usms-overall-dp-rm-occu-whole.js"/>
+	<js file="asc-bj-usms-overall-common.js"/>
+</view>

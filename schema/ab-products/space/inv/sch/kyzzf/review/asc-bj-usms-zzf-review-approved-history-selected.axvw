@@ -1,0 +1,96 @@
+<view version="2.0">
+    <js file="asc-bj-zzf-common.js" />
+    <js file="asc-bj-usms-zzf-review-approved-history-selected.js"/>
+  
+	<dataSource id="consoleDS">
+		<table name="activity_log" role="main" />
+		<field table="activity_log" name="activity_log_id" />
+		<field table="activity_log" name="status" />
+		<field table="activity_log" name="date_requested" />
+		<field table="activity_log" name="activity_type"
+			required="false" />
+	</dataSource>
+	<dataSource id="reportGridDS">
+		<table name="activity_log" role="standard" />
+		<table name="em" role="standard" />
+		<table name="dv" role="standard" />
+		<table name="bh_zzf_apply" role="main"/>    
+		<field table="bh_zzf_apply" name="em_apply"/> 
+		<field table="em" name="name"/> 
+		<field table="dv" name="dv_name"/> 
+		<field table="activity_log" name="activity_log_id" />
+		<field table="activity_log" name="requestor" />
+		<field table="activity_log" name="date_requested" />
+		<field table="activity_log" name="status" />
+		<field table="activity_log" name="activity_type" />
+		<field table="activity_log" name="prob_type" />
+		<field table="activity_log" name="created_by" />
+        <field table="bh_zzf_apply" name="zzf_sq_id"/>
+		  <field table="bh_zzf_apply" name="em_dv"/>
+        <field table="bh_zzf_apply" name="status"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="activity_log_id"/>
+		<field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+		  <parameter name="activityType" dataType="text" value=""/>
+		<restriction type="sql"
+			sql="bh_zzf_apply.activity_log_id = activity_log.activity_log_id and activity_log.activity_type = ${parameters['activityType']} AND activity_log.activity_log_id in ( select distinct pkey_value from helpdesk_step_log where user_name='${user.name}' AND step_status_result in ('rejected','approved'))  " />
+	</dataSource>
+
+	<panel type="console" columns="4" labelsPosition="top"
+		id="requestConsole" dataSource="consoleDS">
+		<title translatable="true">Filter</title>
+		<sortField table="activity_log" name="activity_log_id"
+			ascending="false" />
+		<sortField table="activity_log" name="date_requested"
+			ascending="false" />
+		<action id="filter">
+			<title translatable="true">Show</title>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+		</action>
+
+		<field table="activity_log" name="status" />
+		<field table="activity_log" name="date_requested"
+			alias="activity_log.date_requested.from" required="false">
+			<title translatable="true">Date Requested From</title>
+		</field>
+		<field table="activity_log" name="date_requested"
+			alias="activity_log.date_requested.to" required="false">
+			<title translatable="true">Date Requested To</title>
+		</field>
+
+	</panel>
+
+
+	<panel type="grid" id="requestReportGrid" dataSource="reportGridDS"
+		controlType="reportGrid" useParentRestriction="false">
+		<title translatable="true">Select a Request to view more details</title>
+		 
+		<field controlType="button">
+			<title translatable="true">Select</title>
+			<command type="callFunction" functionName="SaveConsoleParameters" />
+			<command type="selectTabPage" tabPageName="view" />
+		</field>
+		
+		<field table="activity_log" name="activity_log_id" hidden="true"/>
+		<field table="activity_log" name="created_by" hidden="true"/>
+  		<field table="bh_zzf_apply" name="zzf_sq_id"/>
+		<field table="activity_log" name="date_requested" />
+		<field table="bh_zzf_apply" name="em_apply" hidden="true"/>
+		<field table="em" name="name"/> 
+		<field table="bh_zzf_apply" name="em_dv" hidden="true"/>
+		<field table="dv" name="dv_name"/> 
+		<field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+		<field table="bh_zzf_apply" name="date_begin" hidden="true"/>
+        <field table="bh_zzf_apply" name="date_end" hidden="true"/>
+		<field table="activity_log" name="status" hidden="true"/>
+		<field table="bh_zzf_apply" name="status" />
+		<sortField table="activity_log" name="activity_log_id" ascending="false" />
+	</panel>
+ </view>

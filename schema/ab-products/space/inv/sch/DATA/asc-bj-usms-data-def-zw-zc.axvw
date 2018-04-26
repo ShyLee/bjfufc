@@ -1,0 +1,19 @@
+<view version="2.0">
+    <title translatable="true">Teacher House Area</title>
+    <tabs workflow="enforced" id="warnTabs" tabRefreshPolicy="refreshOnSelect">
+        <tab name="zwjbTab" file="asc-bj-usms-data-zwjb.axvw">
+            <title translatable="true">zwjb</title>
+        </tab>
+        <tab name="zwTab" file="asc-bj-usms-data-zw.axvw">
+            <title translatable="true">zw</title>
+        </tab>
+        <tab name="zcjbTab" file="asc-bj-usms-data-zcjb.axvw">
+            <title translatable="true">zcjb</title>
+        </tab>
+        <tab name="zcTab" file="asc-bj-usms-data-zc.axvw">
+            <title translatable="true">zc</title>
+        </tab>
+    </tabs>
+	
+	<js file="asc-bj-usms-data-def-zw-zc.js"/>
+</view>

@@ -1,0 +1,87 @@
+<view version="2.0">
+    <title translatable="true">
+        Define School
+    </title>
+    <js file="asc-bj-usms-data-def-sch.js"/>
+    <dataSource id="abScDefSchoolDS">
+        <table name="sc_school" role="main"/>
+        <field table="sc_school" name="address"/>
+        <field table="sc_school" name="area_comn"/>
+        <field table="sc_school" name="area_jianzhu"/>
+        <field table="sc_school" name="area_land_occu"/>
+        <!--<field table="sc_school" name="area_land_occu_bl"/> 
+		建筑总占地  是从各个建筑物的占地面积统计上来的
+		-->
+	
+        <field table="sc_school" name="area_serv"/>
+        <field table="sc_school" name="area_shiyong"/>
+        <field table="sc_school" name="area_underground_jianzhu"/>
+        <field table="sc_school" name="count_bl"/>
+        <field table="sc_school" name="count_rm"/>
+        <field table="sc_school" name="count_student_actual"/>
+        <field table="sc_school" name="count_student_plan"/>
+        <field table="sc_school" name="count_teacher_actual"/>
+        <field table="sc_school" name="count_teacher_plan"/>
+        <field table="sc_school" name="date_jianxiao"/>
+        <field table="sc_school" name="description"/>
+        <field table="sc_school" name="head1"/>
+        <field table="sc_school" name="head2"/>
+        <field table="sc_school" name="notes"/>
+        <field table="sc_school" name="option1"/>
+        <field table="sc_school" name="option2"/>
+        <field table="sc_school" name="photo1"/>
+        <field table="sc_school" name="sch_code"/>
+        <field table="sc_school" name="sch_id"/>
+        <field table="sc_school" name="sch_name"/>
+        <field table="sc_school" name="sch_type"/>
+        
+        <field table="sc_school" name="telephone"/>
+        <field table="sc_school" name="web_url"/>
+        <field table="sc_school" name="zip"/>
+    </dataSource>
+    
+    <panel type="form" id="abScDefSchForm" columns="2" dataSource="abScDefSchoolDS">
+        <title translatable="true">
+            Define Employ
+        </title>
+        <action id="save">
+            <title translatable="true">
+                Save
+            </title>
+        </action>
+        <field table="sc_school" name="sch_id" hidden="true"/>
+        <field table="sc_school" name="sch_name"/>
+        <field table="sc_school" name="sch_code"/>
+        <field table="sc_school" name="sch_type"/>
+        <field table="sc_school" name="telephone"/>
+        <field table="sc_school" name="web_url"/>
+        <field table="sc_school" name="zip"/>
+        <field table="sc_school" name="head1"/>
+        <field table="sc_school" name="head2"/>
+        <field table="sc_school" name="area_comn" readOnly="true"/>
+        <field table="sc_school" name="area_jianzhu" readOnly="true"/>
+        <field table="sc_school" name="area_serv" readOnly="true"/>
+        <!--<field table="sc_school" name="area_land_occu_bl"/>-->
+		<field table="sc_school" name="area_shiyong" readOnly="true"/>
+	
+			
+       <field table="sc_school" name="area_underground_jianzhu" readOnly="true"/>
+       <field table="sc_school" name="area_land_occu"/>
+      
+        <field table="sc_school" name="count_bl" readOnly="true"/>
+        <field table="sc_school" name="count_rm" readOnly="true"/>
+        <field table="sc_school" name="count_student_actual" readOnly="true"/>
+        <field table="sc_school" name="count_student_plan"/>
+        <field table="sc_school" name="count_teacher_actual"  readOnly="true"/>
+        <field table="sc_school" name="count_teacher_plan"/>
+        <field table="sc_school" name="date_jianxiao"/>
+			<field />
+        <field table="sc_school" name="option1"/>
+        <field table="sc_school" name="option2"/>
+		<field table="sc_school" name="address" width='207'/>
+        <field table="sc_school" name="photo1"/>
+        <field table="sc_school" name="description" width='207'/>
+        <field table="sc_school" name="notes" width='207'/>
+    </panel>
+    
+</view>

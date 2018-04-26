@@ -1,0 +1,220 @@
+<view version="2.0">
+	<title translatable="true">Zf Bt LXQ</title>
+	<js file="asc-zf-bt-lxq.js"/>
+	
+	<dataSource id="zwDs">
+		<table name="sc_zw" role="main"/>
+		<table name="sc_zw_jb" role="standard"/>
+		<field table="sc_zw" name="zw_id"/>
+		<field table="sc_zw" name="zw_jb_id"/>
+		<field table="sc_zw" name="zw_name"/>
+		<field table="sc_zw" name="description"/>
+		<field table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_name"/>
+		<field table="sc_zw_jb" name="area_zf_std"/>
+		<field table="sc_zw_jb" name="amount_wf_std"/>
+	</dataSource>
+	<dataSource id="zcDs">
+		<table name="sc_zc" role="main"/>
+		<table name="sc_zc_jb" role="standard"/>
+		<field table="sc_zc" name="zc_id"/>
+		<field table="sc_zc" name="zc_name"/>
+		<field table="sc_zc" name="zc_jb_id"/>
+		<field table="sc_zc" name="description"/>
+		<field table="sc_zc_jb" name="zc_jb_name"/>
+		<field table="sc_zc_jb" name="area_zf_std"/>
+		<field table="sc_zc_jb" name="amount_wf_std"/>
+	</dataSource>
+	
+	
+    <dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+        <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="em_id" />
+        <field table="sc_zf_em" name="xm" />
+        <field table="sc_zf_em" name="sfzh" />
+        <field table="sc_zf_em" name="xb" />
+        <field table="sc_zf_em" name="em_type" />
+        <field table="sc_zf_em" name="date_first_gjj" />
+        <field table="sc_zf_em" name="date_come_sch" />
+        <field table="sc_zf_em" name="date_begin_work" />
+        <field table="sc_zf_em" name="date_retired" />
+        <field table="sc_zf_em" name="zw_get_date" />
+        <field table="sc_zf_em" name="zc_get_date" />
+        <field table="sc_zf_em" name="zw_name" />
+        <field table="sc_zf_em" name="zc_name" />
+        <field table="sc_zf_em" name="mphone" />
+        <field table="sc_zf_em" name="email" />
+        <field table="sc_zf_em" name="gzbm" />
+	</dataSource>
+    
+    <dataSource id="scZfBtLxqDs">
+		<table name="sc_zfbt_lxq" role="main" />
+        <field table="sc_zfbt_lxq" name="em_id" />
+        <field table="sc_zfbt_lxq" name="em_name" />
+        <field table="sc_zfbt_lxq" name="salary_num" />
+        <field table="sc_zfbt_lxq" name="dv_name" />
+        <field table="sc_zfbt_lxq" name="money_h" />
+        <field table="sc_zfbt_lxq" name="btxs" />
+        <field table="sc_zfbt_lxq" name="month_h" />
+        <field table="sc_zfbt_lxq" name="gl_h" />
+        <field table="sc_zfbt_lxq" name="btbz_h" />
+        <field table="sc_zfbt_lxq" name="money_glbt" />
+        <field table="sc_zfbt_lxq" name="salary_hj" />
+        <field table="sc_zfbt_lxq" name="money_a" />
+        <field table="sc_zfbt_lxq" name="money_b" />
+        <field table="sc_zfbt_lxq" name="money_c" />
+        <field table="sc_zfbt_lxq" name="money_hj" />
+        
+        <field table="sc_zfbt_lxq" name="date_begin_work" />
+        <field table="sc_zfbt_lxq" name="date_come_sch" />
+        <field table="sc_zfbt_lxq" name="sfzh" />
+        <field table="sc_zfbt_lxq" name="zw_name" />
+        <field table="sc_zfbt_lxq" name="zc_name" />
+        <field table="sc_zfbt_lxq" name="date_first_gjj"/>
+        <field table="sc_zfbt_lxq" name="zw_date"/>
+        <field table="sc_zfbt_lxq" name="zc_date"/>
+        <field table="sc_zfbt_lxq" name="zw_h" />
+        <field table="sc_zfbt_lxq" name="zc_h" />
+        <field table="sc_zfbt_lxq" name="po_name" />
+        <field table="sc_zfbt_lxq" name="po_sfzh" />
+        <field table="sc_zfbt_lxq" name="is_fl" />
+	</dataSource>
+    
+    <dataSource id="gzjlDs">
+		<table name="sc_zf_em_gzjl" role="main"/>
+        <field table="sc_zf_em_gzjl" name="auto_id"/>
+        <field table="sc_zf_em_gzjl" name="dw"/>
+		<field table="sc_zf_em_gzjl" name="date_begin"/>
+		<field table="sc_zf_em_gzjl" name="date_end"/>
+        <field table="sc_zf_em_gzjl" name="em_id"/>
+        <field table="sc_zf_em_gzjl" name="archive_id"/>
+        <sortField table="sc_zf_em_gzjl" name="date_begin"/>
+    </dataSource>
+    
+    <dataSource id="jyjlDs">
+		<table name="sc_zf_em_jyjl" role="main"/>
+        <field table="sc_zf_em_jyjl" name="auto_id"/>
+        <field table="sc_zf_em_jyjl" name="xl"/>
+		<field table="sc_zf_em_jyjl" name="school"/>
+		<field table="sc_zf_em_jyjl" name="date_begin"/>
+        <field table="sc_zf_em_jyjl" name="date_end"/>
+        <field table="sc_zf_em_jyjl" name="is_zz"/>
+        <field table="sc_zf_em_jyjl" name="em_id"/>
+        <field table="sc_zf_em_jyjl" name="archive_id"/>
+        <sortField table="sc_zf_em_jyjl" name="date_begin"/>
+    </dataSource>
+    
+	<tabs id="detailTabs" workflow="enforced" tabRefreshPolicy="refreshOnLoad">
+    	<tab name="applyListTab" selected="true">
+			<title translatable="true">Apply List</title>
+			 <panel type="grid" id="applyList" dataSource="scZfEmDs" multipleSelectionEnabled="true" showOnLoad="false">
+					<title translatable="true">LXQ No Deal List</title>
+					<action id="select">
+			        </action>
+			        <action id="deal">
+			            <title translatable="true">Deal</title>
+			        </action>
+			        <field table="sc_zf_em" name="archive_id" hidden="true"/>
+			        <field table="sc_zf_em" name="em_id" />
+			        <field table="sc_zf_em" name="xm" />
+			        <field table="sc_zf_em" name="sfzh" />
+			        <field table="sc_zf_em" name="xb" />
+			        <field table="sc_zf_em" name="em_type"/>
+			        <field table="sc_zf_em" name="date_first_gjj" />
+			        <field table="sc_zf_em" name="date_come_sch" />
+			        <field table="sc_zf_em" name="date_begin_work" />
+			        <field table="sc_zf_em" name="date_retired" />
+			        <field table="sc_zf_em" name="zw_name" />
+			        <field table="sc_zf_em" name="zc_name" />
+			        <field table="sc_zf_em" name="mphone" />
+		     </panel>
+		</tab>
+		<tab name="applyInfoTab">
+			<title translatable="true">Basic Info</title>
+			 <panel type="form" id="emInfoForm" dataSource="scZfBtLxqDs" columns="3" >
+		            <title translatable="true">Em Info</title>
+		            <action id="return">
+			            <title translatable="true">Return</title>
+			        </action>
+			        <action id="next">
+			            <title translatable="true">Next</title>
+			        </action>
+		            <field table="sc_zfbt_lxq" name="em_id" hidden="true"/>
+			        <field table="sc_zfbt_lxq" name="em_name" />
+			        <field table="sc_zfbt_lxq" name="salary_num" />
+			        <field table="sc_zfbt_lxq" name="dv_name" />
+			        
+			        <field table="sc_zfbt_lxq" name="date_begin_work" />
+			        <field table="sc_zfbt_lxq" name="date_come_sch" />
+			        <field table="sc_zfbt_lxq" name="sfzh" />
+			        
+			        <field table="sc_zfbt_lxq" name="zw_name" />
+			        <field table="sc_zfbt_lxq" name="zc_name" />
+			        <field table="sc_zfbt_lxq" name="date_first_gjj"/>
+			        
+			        <field table="sc_zfbt_lxq" name="zw_date"/>
+			        <field table="sc_zfbt_lxq" name="zc_date"/>
+					
+			        <field table="sc_zfbt_lxq" name="gl_h" />
+			       
+			        <field table="sc_zfbt_lxq" name="zw_h" >
+			        	<action>
+		        		<title>...</title>
+		        		<command type="selectValue" 
+			        		fieldNames="sc_zfbt_lxq.zw_h" 
+			        		selectFieldNames="sc_zw.zw_name" 
+			        		visibleFieldNames="sc_zw.zw_name"
+							actionListener="autoGetBtMoney"
+							/>
+		      			</action>
+					</field>
+			        <field table="sc_zfbt_lxq" name="zc_h" >
+			        	<action>
+		        		<title>...</title>
+		        		<command type="selectValue" 
+			        		fieldNames="sc_zfbt_lxq.zc_h" 
+			        		selectFieldNames="sc_zc.zc_name" 
+			        		visibleFieldNames="sc_zc.zc_name"
+							actionListener="autoGetBtMoney"
+							/>
+		      			</action>
+					</field>
+			        <field table="sc_zfbt_lxq" name="btbz_h" />
+			        
+			        <field table="sc_zfbt_lxq" name="po_name" />
+			        <field table="sc_zfbt_lxq" name="po_sfzh" />
+			        <field table="sc_zfbt_lxq" name="is_fl" />
+		     </panel>
+		     
+			<panel type="grid" id="gzjlGridPanel" showOnLoad="true" dataSource="gzjlDs">
+		            <title translatable="true">gzjl List</title>
+		            <action id="check">
+			            <title translatable="true">Check ZW ZC</title>
+			        </action>
+		            <field table="sc_zf_em_gzjl" name="auto_id" hidden="true"/>
+			        <field table="sc_zf_em_gzjl" name="dw"/>
+					<field table="sc_zf_em_gzjl" name="date_begin"/>
+					<field table="sc_zf_em_gzjl" name="date_end" />
+			        <field table="sc_zf_em_gzjl" name="em_id" hidden="true"/>
+			        <field table="sc_zf_em_gzjl" name="archive_id" hidden="true"/>  			
+		     </panel>
+		     
+		     <panel type="grid" id="jyjlGridPanel" showOnLoad="true" dataSource="jyjlDs">
+		            <title translatable="true">jyjl List</title>
+		            <field table="sc_zf_em_jyjl" name="auto_id" hidden="true"/>
+			        <field table="sc_zf_em_jyjl" name="xl" />
+					<field table="sc_zf_em_jyjl" name="school"/>
+					<field table="sc_zf_em_jyjl" name="date_begin"/>
+			        <field table="sc_zf_em_jyjl" name="date_end"/>
+			        <field table="sc_zf_em_jyjl" name="is_zz"/>
+			        <field table="sc_zf_em_jyjl" name="em_id" hidden="true"/>
+			        <field table="sc_zf_em_jyjl" name="archive_id" hidden="true"/>   			
+		     </panel>
+		</tab>
+		<tab name="ffTab" file="asc-zf-bt-lxq-ff.axvw">
+			<title translatable="true">Ff Info</title>
+		</tab>
+	 </tabs>
+	
+</view>

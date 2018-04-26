@@ -1,0 +1,175 @@
+<view version="2.0">
+    <title translatable="true">SUM ZZF</title>
+    
+     <layout type="borderLayout" id="mainLayout">
+        <north id="reportPanel" autoScroll="false" initialSize="70"/>
+        <center id="gridPanel"/>
+    </layout>
+    
+    
+    <dataSource id="SUMZZFDs">
+        <sql dialect="generic">
+            select distinct zzfnumber,zzfarea_jz,zzfarea_sy,ruzhu_count,kongzhi_count from(
+              select 
+                (select count(*) from rm where rm.rm_type in('30601','30602','30603','30604','30605','30606')) as zzfnumber,
+                (select sum(rm.area_fcz) from rm where rm.rm_type in('30601','30602','30603','30604','30605','30606')) as zzfarea_jz,
+                (select sum(rm.area) from rm where rm.rm_type in('30601','30602','30603','30604','30605','30606')) as zzfarea_sy,
+                (select count(*) from rm where rm_id in(select rm_id from sc_zzfcard where rm.bl_id=sc_zzfcard.bl_id) and rm.rm_type in('30601','30602','30603','30604','30605','30606')) as ruzhu_count,
+                (select count(*) from rm where rm_id not in(select rm_id from sc_zzfcard where rm.bl_id=sc_zzfcard.bl_id) and rm.rm_type in('30601','30602','30603','30604','30605','30606')) as kongzhi_count
+              from rm
+            )
+        </sql>
+        <table name="rm" role="main"/>
+        <field name="zzfnumber" table="rm" dataType="number" decimals="0">
+            <title>zzfnumber</title>
+        </field>
+        <field name="zzfarea_jz" table="rm" dataType="number">
+            <title>zzfarea_jz</title>
+        </field>
+        <field name="zzfarea_sy" table="rm" dataType="number">
+            <title>zzfarea_sy</title>
+        </field>
+        <field name="ruzhu_count" table="rm" dataType="number" decimals="0">
+            <title>ruzhu_count</title>
+        </field>
+        <field name="kongzhi_count" table="rm" dataType="number" decimals="0">
+            <title>kongzhi_count</title>
+        </field>
+    </dataSource>
+    
+    <dataSource id="countByBl">
+        <sql dialect="generic">
+            select 
+                name,              
+                bl_id,               
+                (select property.name from property where property.pr_id = bl.pr_id) as pr_name,
+                (select count(*) from rm where rm.rm_type in ('30601','30602','30603','30604','30605','30606') and rm.bl_id=bl.bl_id) as zzf_bl_zongshu,
+                (select count(*) from rm where rm_id not in(select rm_id from sc_zzfcard where sc_zzfcard.bl_id = bl.bl_id) and rm.rm_type in ('30601','30602','30603','30604','30605','30606') and rm.bl_id=bl.bl_id) as kongzhi_bl_count,
+                (select count(*) from rm where rm_id in(select rm_id from sc_zzfcard where sc_zzfcard.bl_id = bl.bl_id) and rm.rm_type in ('30601','30602','30603','30604','30605','30606') and rm.bl_id=bl.bl_id) as ruzhu_bl_count,
+                (select sum(rm.area_fcz) from rm where rm.bl_id = bl.bl_id and rm.rm_type in ('30601','30602','30603','30604','30605','30606')) as zzf_bl_area_jz,
+                (select sum(rm.area) from rm where rm.bl_id = bl.bl_id and rm.rm_type in ('30601','30602','30603','30604','30605','30606')) as zzf_bl_area_sy,
+                construction_type,
+                count_fl
+                from 
+                bl where bl_id in (select bl_id from rm where rm.rm_type in ('30601','30602','30603','30604','30605','30606') and bl.bl_id=rm.bl_id)
+        </sql>
+        <table name="bl" role="main"/>
+        <field name="name" table="bl" dataType="text"/>
+        <field name="bl_id" table="bl" dataType="text"/>
+        <field name="pr_name" table="bl" dataType="text">
+            <title>prName</title>
+        </field>
+        <field name="zzf_bl_zongshu" table="bl" dataType="number" decimals="0">
+            <title>zzfBlZongshu</title>
+        </field>
+        <field name="kongzhi_bl_count" table="bl" dataType="number" decimals="0">
+            <title>kongzhiBlCount</title>
+        </field>
+        <field name="ruzhu_bl_count" table="bl" dataType="number" decimals="0">
+            <title>ruzhuBlCount</title>
+        </field>
+        <field name="zzf_bl_area_jz" table="bl" dataType="number" decimals="2">
+            <title>zzfBlAreaJz</title>
+        </field>
+        <field name="zzf_bl_area_sy" table="bl" dataType="number" decimals="2">
+            <title>zzfBlAreaSy</title>
+        </field>
+        <field name="construction_type" table="bl"/>
+        <field name="count_fl" table="bl" dataType="number" decimals="0"/>
+    </dataSource>
+    
+    
+    <dataSource id="zzfRmDetail">
+        <table name="rm" role="main"/>
+        <table name="bl" role="standard"/>
+        <field table="bl" name="name"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="address"/>
+        <field table="rm" name="area_manual"/>
+        <field table="rm" name="area_jianzhu"/>
+        <field table="rm" name="ruzhu_status"/>
+        <field table="rm" name="huxing"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="rm" name="unit_code"/>
+        <field table="rm" name="area_yangtai"/>
+        <field table="rm" name="weixiu_log"/>
+        <field table="rm" name="eq_desc"/>
+        <restriction type="sql" sql="rm.rm_type in ('30601','30602','30603','30604','30605','30606')" />
+    </dataSource>
+    
+   <panel type="columnReport" id="zzfRoomPanel"  dataSource="SUMZZFDs" layoutRegion="reportPanel" columns="3">
+        <field name="zzfnumber" table="rm" dataType="number">
+            <title>zzfnumber</title>
+        </field>
+        <field name="zzfarea_jz" table="rm" dataType="number">
+            <title>zzfarea_jz</title>
+        </field>
+        <field name="zzfarea_sy" table="rm" dataType="number">
+            <title>zzfarea_sy</title>
+        </field>
+        <field name="ruzhu_count" table="rm" dataType="number">
+            <title>ruzhu_count</title>
+        </field>
+        <field name="kongzhi_count" table="rm" dataType="number">
+            <title>kongzhi_count</title>
+        </field>
+   </panel>
+   
+   <panel type="grid" id="zzfByBuildPanel"  dataSource="countByBl" showOnLoad="true" layoutRegion="gridPanel">
+        <title>building zzf</title>
+         <action id="abViewdefReport_export:XLS">
+            <title>XLS</title>
+            <command type="exportPanel" outputType="xls" panelId="zzfByBuildPanel"/>
+        </action>
+        <field name="name" table="bl" dataType="text" controlType="link">
+            <command type="callFunction" functionName="controller.showDetail()"/>
+        </field>
+        <field name="bl_id" table="bl"/>
+        <field name="pr_name" table="bl" dataType="text">
+            <title>prName</title>
+        </field>
+        <field name="zzf_bl_zongshu" table="bl" dataType="number" decimals="0">
+            <title>zzfBlZongshu</title>
+        </field>
+        <field name="kongzhi_bl_count" table="bl" dataType="number" decimals="0">
+            <title>kongzhiBlCount</title>
+        </field>
+        <field name="ruzhu_bl_count" table="bl" dataType="number" decimals="0">
+            <title>ruzhuBlCount</title>
+        </field>
+        <field name="zzf_bl_area_jz" table="bl" dataType="number">
+            <title>zzfBlAreaJz</title>
+        </field>
+        <field name="zzf_bl_area_sy" table="bl" dataType="number">
+            <title>zzfBlAreaSy</title>
+        </field>
+        <field name="construction_type" table="bl"/>
+        <field name="count_fl" table="bl" dataType="number" decimals="0"/>
+   </panel>
+   
+   <js file="asc-bj-zzf-house-summary-list.js" />
+   
+   <panel type="grid" id="zzfRmQD" showOnLoad="false" dataSource="zzfRmDetail">
+        <title translatable="true">zhou zhuan fang qing dan</title>
+        <field table="bl" name="name"/>
+        <field table="rm" name="bl_id" hidden="true"/>
+        <field table="rm" name="rm_id"/>
+        
+        <field table="rm" name="area_jianzhu"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="rm" name="address"/>
+        <field table="rm" name="unit_code"/>
+        
+        <field table="rm" name="huxing"/>
+        
+        
+        <field table="rm" name="ruzhu_status"/>
+        
+        <field table="rm" name="weixiu_log"  colspan="2"/>
+        <field table="rm" name="eq_desc"  colspan="2"/>
+    </panel>
+</view>
+
+

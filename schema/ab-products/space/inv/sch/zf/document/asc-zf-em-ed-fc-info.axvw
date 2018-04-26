@@ -1,0 +1,217 @@
+<view version="2.0">
+	<js file="asc-zf-em-ed-fc-info.js"/>
+
+	<title translatable="true">edit fc info</title>
+    <layout id="main">
+        <north id="consolePosition" initialSize="120" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout id="standard" containingLayout="main" region="center">
+        <west id="gridPosition" initialSize="30%" split="true"/>
+        <center id="formPosition"/>
+    </layout>	
+    
+    <dataSource id="scZfEmDs">
+		<table name="sc_zf_em" role="main" />
+       <field table="sc_zf_em" name="archive_id" />
+        <field table="sc_zf_em" name="gzbm" />
+        <field table="sc_zf_em" name="em_id" />
+        <field table="sc_zf_em" name="xm" />
+        <field table="sc_zf_em" name="sfzh" />
+        <field table="sc_zf_em" name="xb" />
+        <field table="sc_zf_em" name="em_type" />
+        <field table="sc_zf_em" name="date_leaved" />
+        <field table="sc_zf_em" name="date_first_gjj" />
+        <field table="sc_zf_em" name="date_come_sch" />
+        <field table="sc_zf_em" name="date_begin_work" />
+        <field table="sc_zf_em" name="date_retired" />
+        <field table="sc_zf_em" name="zw_jb_id" />
+        <field table="sc_zf_em" name="zw_jb_name" />
+        <field table="sc_zf_em" name="zw_id" />
+        <field table="sc_zf_em" name="zw_name" />
+		
+        <field table="sc_zf_em" name="zw_get_date" />
+		
+        <field table="sc_zf_em" name="zc_jb_id" />
+        <field table="sc_zf_em" name="zc_jb_name" />
+        <field table="sc_zf_em" name="zc_id" />
+        <field table="sc_zf_em" name="zc_name" />
+		
+        <field table="sc_zf_em" name="zc_get_date" />
+		
+        <field table="sc_zf_em" name="status_married" />
+        <field table="sc_zf_em" name="is_sworker" />
+        <field table="sc_zf_em" name="mphone" />
+        <field table="sc_zf_em" name="telephone" />
+        <field table="sc_zf_em" name="email" />
+        <field table="sc_zf_em" name="status_em" />
+        <field table="sc_zf_em" name="change_time" />
+        <field table="sc_zf_em" name="comments" />
+        <field table="sc_zf_em" name="has_deal_bt"/>
+        <field table="sc_zf_em" name="deal_type"/>
+        <field table="sc_zf_em" name="area_jz_std"/>
+        <field table="sc_zf_em" name="money_std"/>
+       
+       <restriction type="sql" sql="sc_zf_em.em_id = '${user.employee.id}'"/>
+	</dataSource>
+	
+	<dataSource id="scZfPoDs">
+		<table name="sc_zf_em_po" role="main"/>
+        <field table="sc_zf_em_po" name="archive_id"/>
+        <field table="sc_zf_em_po" name="sfzh"/>
+        <field table="sc_zf_em_po" name="xm"/>
+        <field table="sc_zf_em_po" name="xb"/>
+        <field table="sc_zf_em_po" name="dv_id"/>
+        <field table="sc_zf_em_po" name="dv_name"/>
+        <field table="sc_zf_em_po" name="dv_xz"/>
+        <field table="sc_zf_em_po" name="date_first_gjj"/>
+        <field table="sc_zf_em_po" name="date_begin_work"/>
+        <field table="sc_zf_em_po" name="date_retired"/>
+        <field table="sc_zf_em_po" name="zw_jb_id"/>
+        <field table="sc_zf_em_po" name="zw_jb_name"/>
+        <field table="sc_zf_em_po" name="zw_id"/>
+        <field table="sc_zf_em_po" name="zw_name"/>
+        <field table="sc_zf_em_po" name="zc_jb_id"/>
+        <field table="sc_zf_em_po" name="zc_jb_name"/>
+        <field table="sc_zf_em_po" name="zc_id"/>
+        <field table="sc_zf_em_po" name="zc_name"/>
+        <field table="sc_zf_em_po" name="area_jz_std"/>
+        <field table="sc_zf_em_po" name="area_d"/>
+        <field table="sc_zf_em_po" name="has_deal_bt"/>
+        <field table="sc_zf_em_po" name="deal_type"/>
+        <field table="sc_zf_em_po" name="status"/>
+        <field table="sc_zf_em_po" name="date_married"/>
+        <field table="sc_zf_em_po" name="change_time"/>
+	</dataSource>
+	
+	<panel type="console" id="ConsoleForm" dataSource="scZfEmDs" columns="2"  layoutRegion="consolePosition">
+    	<title translatable="true">Filter</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+            <command type="showPanel" panelId="GridForm"/>
+            <command type="callFunction" functionName="defZFEmEdFcController.detailTabs.disable();"/>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearForm"/>
+        </action>
+		<field table="sc_zf_em" name="em_id">
+			<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_em.em_id,sc_zf_em.xm" 
+	        		selectFieldNames="em.em_id,em.name" 
+	        		visibleFieldNames="em.em_id,em.name"/>
+      		</action>
+		</field>
+		<field table="sc_zf_em" name="xm">
+			<action>
+        		<title>...</title>
+        		<command type="selectValue" 
+	        		fieldNames="sc_zf_em.em_id,sc_zf_em.xm" 
+	        		selectFieldNames="em.em_id,em.name" 
+	        		visibleFieldNames="em.em_id,em.name"/>
+      		</action>
+		</field>
+		<field table="sc_zf_em" name="sfzh" required="false"/>
+		<field table="sc_zf_em" name="em_type"/>
+    </panel>
+    
+    <panel type="grid" id="GridForm" dataSource="scZfEmDs" layoutRegion="gridPosition">
+    	<title translatable="true">em list</title>
+        <field table="sc_zf_em" name="em_id" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+        <field table="sc_zf_em" name="archive_id" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+        <field table="sc_zf_em" name="xm" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+        <field table="sc_zf_em" name="sfzh" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+        <field table="sc_zf_em" name="xb" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+        <field table="sc_zf_em" name="em_type" controlType="link">
+        	<command type="callFunction" functionName="defZFEmEdFcController.linkToTabs()"/>
+        </field>
+    </panel>
+ 	<tabs id="detailTabs" workflow="free"  layoutRegion="formPosition">
+    	<tab name="emTab" selected="true">
+			<title translatable="true">em Info</title>
+		    <panel type="form" id="emForm" dataSource="scZfEmDs" columns="2">
+		    	<action id="print">
+                    <title>Print Detail</title>
+                </action>
+        		<field table="sc_zf_em" name="archive_id" readOnly="true"/>
+				<field table="sc_zf_em" name="em_id">
+					<action>
+		        		<title>...</title>
+		        		<command type="selectValue" 
+			        		fieldNames="sc_zf_em.em_id" 
+			        		selectFieldNames="em.em_id" 
+			        		visibleFieldNames="em.em_id,em.name"/>
+		      		</action>
+				</field>
+				<field table="sc_zf_em" name="gzbm"/>
+				<field table="sc_zf_em" name="xm" required="true"/>
+				<field table="sc_zf_em" name="sfzh"/>
+				<field table="sc_zf_em" name="xb"/>
+				<field table="sc_zf_em" name="em_type"/>
+				<field table="sc_zf_em" name="status_em"/>
+				<field table="sc_zf_em" name="date_begin_work"/>
+				<field table="sc_zf_em" name="date_come_sch"/>
+				<field table="sc_zf_em" name="zw_jb_id" hidden="true"/>
+        		<field table="sc_zf_em" name="zw_jb_name"/>
+        		<field table="sc_zf_em" name="zw_id" hidden="true"/>
+        		<field table="sc_zf_em" name="zw_name"/>
+				<field table="sc_zf_em" name="zw_get_date"/>
+        		<field table="sc_zf_em" name="zc_jb_id" hidden="true"/>
+        		<field table="sc_zf_em" name="zc_jb_name"/>
+        		<field table="sc_zf_em" name="zc_id" hidden="true"/>
+        		<field table="sc_zf_em" name="zc_name"/>
+				<field table="sc_zf_em" name="zc_get_date"/>
+				<field table="sc_zf_em" name="area_jz_std"/>
+				<field table="sc_zf_em" name="money_std"/>
+				<field table="sc_zf_em" name="status_married" readOnly="true"/>
+				<field table="sc_zf_em" name="date_first_gjj"/> 
+				<field table="sc_zf_em" name="is_sworker" readOnly="true"/>
+				<field table="sc_zf_em" name="date_leaved"/>
+				<field table="sc_zf_em" name="mphone"/>
+				<field table="sc_zf_em" name="date_retired"/>
+				<field table="sc_zf_em" name="email"/>
+				<field table="sc_zf_em" name="has_deal_bt" hidden="true"/>
+				<field table="sc_zf_em" name="telephone"/>
+				<field table="sc_zf_em" name="deal_type" hidden="true"/>
+				<feild></feild>
+				<field table="sc_zf_em" name="comments" width="207"/>
+    		</panel>
+		</tab>
+    	<tab name="partnerTab" >
+			<title translatable="true">partner Info</title>
+			
+			<panel type="grid" id="poGrid" dataSource="scZfPoDs">
+        		<field table="sc_zf_em_po" name="archive_id" hidden="false"/>
+		        <field table="sc_zf_em_po" name="xm"/>
+		        <field table="sc_zf_em_po" name="sfzh"/>
+        		<field table="sc_zf_em_po" name="dv_name"/>
+        		
+        		<field table="sc_zf_em_po" name="status"/>
+        		<field table="sc_zf_em_po" name="change_time"/>
+    		</panel>
+		</tab>
+    	<tab name="personalTab" file="asc-ed-fc-lvli-info-tab.axvw">
+			<title translatable="true">personal Info</title>
+		</tab>
+		<tab name="cqfTab" file="asc-zf-ed-fc-cq-info.axvw">
+			<title translatable="true">CQF Info</title>
+		</tab>
+		<tab name="hcqflTab" file="asc-zf-ed-fc-hcq-info.axvw">
+			<title translatable="true">HCQF Info</title>
+		</tab>
+		
+    </tabs>
+ 	
+</view>

@@ -1,0 +1,203 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-asgn-asgn-req-details-tab.js"/>
+    <js file="asc-bj-usms-proc-common.js"/>
+    
+    <dataSource id="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1DS">
+        <table name="activity_log" role="main"/>
+        <table name="rmtype" role="standard"/>
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+        <field name="phone_requestor" table="activity_log"/>
+        <field name="priority" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="time_required" table="activity_log"/>
+        <field name="dp_id" table="activity_log"/>
+        <field name="dv_id" table="activity_log"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="rm_type" table="activity_log"/>
+		<field name="rm_name_after" table="activity_log"/>
+        <field name="area" table="activity_log"/>
+        <field name="count_rm" table="activity_log"/>
+        <field name="rm_user" table="activity_log"/>
+        <field name="project_gp_id" table="activity_log"/>
+        <field name="date_used_from" table="activity_log"/>
+        <field name="date_used_to" table="activity_log"/>
+        <field name="bl_id" table="activity_log"/>
+        <field name="doc1" table="activity_log"/>
+        <field name="doc2" table="activity_log"/>
+		 <field name="comments" table="activity_log"/>
+		 <field name="name" table="rmtype"/>
+    </dataSource>
+    
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1" dataSource="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Requestor</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="selectTabPage" tabPageName="selectTab" clearRestriction="true"/>
+        </action>
+		
+		<action id="selectAssignTab">
+            <title translatable="true">Assign</title>
+			<command type="callFunction" functionName="ascBjUsmsProcAsgnAsgnReqDetailsTabController.onSelectAssignTab()"/>
+        </action>
+        
+        <field name="activity_log_id" table="activity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="dv_id" table="activity_log" readOnly="true">
+           <title translatable="true">ShengQingDanWei</title>
+        </field>
+        <field name="rm_cat" table="activity_log" hidden="true" readOnly="true"/>
+        <field id="activity_log.requestor_name">
+			<title translatable="true">ShenQingRen</title>
+        </field>
+        <field name="rm_type" table="activity_log" hidden="true"/>
+        <field name="name" table="rmtype" readOnly="true"/>
+        <field table="activity_log" name="requestor" readOnly="true" hidden="true"/>
+		<field table="activity_log" name="phone_requestor" readOnly="true"/>
+        <field name="date_required" table="activity_log" readOnly="true"/>
+        <field name="bl_id" table="activity_log" readOnly="true"/>
+        <field name="date_used_from" table="activity_log" readOnly="true"/>
+        <field name="date_used_to" table="activity_log" readOnly="true" hidden="true"/>
+    </panel>
+	
+	<panel type="form" columns="2" id="ascBjUsmsProcAsgnAsgnReqDetailsTabForm2" dataSource="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Requestor</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="selectTabPage" tabPageName="selectTab" clearRestriction="true"/>
+        </action>
+		
+		<action id="selectAssignTab">
+            <title translatable="true">Assign</title>
+			<command type="callFunction" functionName="ascBjUsmsProcAsgnAsgnReqDetailsTabController.onSelectAssignTab()"/>
+        </action>
+        
+        <field name="activity_log_id" table="activity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="rm_cat" table="activity_log" hidden="true" readOnly="true"/>
+        <field name="rm_type" table="activity_log" hidden="true"/>
+        <field name="name" table="rmtype" readOnly="true"/>
+        <field table="activity_log" name="requestor" readOnly="true" hidden="true" />
+		<field id="activity_log.requestor_name">
+			<title translatable="true">ShenQingRen</title>
+        </field>
+        <field table="activity_log" name="phone_requestor" readOnly="true"/>
+        <field name="dv_id" table="activity_log" readOnly="true"/>
+        <field name="date_required" table="activity_log" readOnly="true"/>
+        <field name="area" table="activity_log" readOnly="true"/>
+        <field name="count_rm" table="activity_log" readOnly="true"/>
+        <field name="rm_user" table="activity_log" readOnly="true" hidden="true" />
+		<field id="activity_log.rmUser_name">
+			<title translatable="true">ShiYongRen</title>
+        </field>
+        <field name="project_gp_id" table="activity_log" readOnly="true"/>
+        <field id="activity_log.zhiwu">
+            <title translatable="true">User ZhiWu</title>
+        </field>
+        <field id="activity_log.projectxz_id">
+            <title translatable="true">Project XingZhi</title>
+        </field>
+        <field id="activity_log.zhicheng">
+            <title translatable="true">User ZhiCeng</title>
+        </field>
+        <field id="activity_log.project_manager">
+            <title translatable="true">Project Leader</title>
+        </field>
+        <field name="bl_id" table="activity_log" readOnly="true"/>
+        <field name="date_used_from" table="activity_log" readOnly="true"/>
+        <field name="rm_name_after" table="activity_log" readOnly="true"/>
+        <field name="date_used_to" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnAsgnReqDetailsTabDestricptionForm1" dataSource="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Description</title>
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <!--<field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="area" table="activity_log" required="true"/>
+        <field name="count_rm" table="activity_log" required="true"/>-->
+        <field name="prob_type" table="activity_log" readOnly="true">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field/>
+        <field table="activity_log" name="description"
+         colspan="4" style="width: 100%; height: 80px;"
+         showSelectValueAction="false" readOnly="true"/>
+		 
+		  <field table="activity_log" name="comments"
+         colspan="4" style="width: 100%; height: 80px;"
+         showSelectValueAction="false" readOnly="true">
+         	  <title translatable="true">Requirement</title>
+			
+         </field>
+        
+        <field name="priority" table="activity_log" hidden="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnAsgnReqDetailsTabAttachmentForm1" dataSource="ascBjUsmsProcAsgnAsgnReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Attachment</title>
+        
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="doc1" table="activity_log" readOnly="true"/>
+        <field name="doc2" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    <dataSource id="ascBjUsmsProcAsgnAsgnReqDetailsTabHistoryPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <table name="afm_wf_steps" role="standard"/>
+		<table name="em" role="standard"/>
+		
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+		<field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    <panel type="grid" id="ascBjUsmsProcAsgnAsgnReqDetailsTabHistoryPanel" controlType="reportGrid" dataSource="ascBjUsmsProcAsgnAsgnReqDetailsTabHistoryPanelDS" showOnLoad="false">
+        <title translatable="true">History</title>
+        
+        <field name="step_log_id" table="helpdesk_step_log" hidden="true"/>
+        <field name="user_name" table="helpdesk_step_log" hidden="true"/>
+        <field name="name" table="em" hidden="true"/>
+        <field name="vn_id" table="helpdesk_step_log">
+            <title translatable="true">Step Responded By</title>
+        </field>
+        <field name="date_response" table="helpdesk_step_log">
+            <title translatable="true">On</title>
+        </field>
+        <field name="time_response" table="helpdesk_step_log" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">Workflow Step</title>
+        </field>
+        <field name="status" table="afm_wf_steps">
+            <title translatable="true">Status</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+</view>

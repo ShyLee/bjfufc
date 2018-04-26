@@ -1,0 +1,391 @@
+<view version="2.0">
+	<title translatable="true">FF Bt By Month</title>
+	<js file="asc-zf-bt-pay-by-month.js"/>
+	
+	<dataSource id="scZFBtListDs">
+		<!-- nvl((select money_bf from sc_zfbt_pause where sc_zfbt_pause.em_id = sc_zfbt.em_id and to_char(sc_zfbt_pause.date_hf,'yyyymm') = ${parameters['YYYYMM']}),0) back_pay, -->
+        <sql dialect="generic">
+        	select sc_zfbt.em_id,sc_zfbt.salary_num,sc_zfbt.em_name,sc_zfbt.date_come_school,sc_zfbt.money,sc_zfbt.date_pay_begin,
+        			sc_zfbt.zhiw_name zw_name,
+                    (select get_date from SC_ZF_EM_ZWJL where SC_ZF_EM_ZWJL.em_id = sc_zfbt.em_id and SC_ZF_EM_ZWJL.zw_name = sc_zfbt.zhiw_name) zw_get_date,
+                    sc_zfbt.zhic_name zc_name,
+                    (select get_date from SC_ZF_EM_ZCJL where SC_ZF_EM_ZCJL.em_id = sc_zfbt.em_id and SC_ZF_EM_ZCJL.zc_name = sc_zfbt.zhic_name) zc_get_date,
+        			nvl((select money_total from sc_zfbt_tz where sc_zfbt_tz.em_id = sc_zfbt.em_id and to_char(sc_zfbt_tz.pay_date,'yyyymm') = ${parameters['YYYYMM']}),0) tz_pay,
+        			case  
+        				when to_char(sc_zfbt.date_approve,'yyyymm') = ${parameters['YYYYMM']} then sc_zfbt.money_bf
+        				when to_char(sc_zfbt.date_approve,'yyyymm') != ${parameters['YYYYMM']} then 0 
+        			end back_pay,
+        			(
+        				money 
+        				+ nvl((select money_total from sc_zfbt_tz where sc_zfbt_tz.em_id = sc_zfbt.em_id and to_char(sc_zfbt_tz.pay_date,'yyyymm') = ${parameters['YYYYMM']}),0)
+        				+ (
+        					case  
+		        				when to_char(sc_zfbt.date_approve,'yyyymm') = ${parameters['YYYYMM']} then sc_zfbt.money_bf
+		        				when to_char(sc_zfbt.date_approve,'yyyymm') != ${parameters['YYYYMM']} then 0 
+		        			end
+        				)
+        			)
+        			sf_pay  
+    			from sc_zfbt left outer join SC_VIEW_ZF_ZWZC_CURRENT on SC_VIEW_ZF_ZWZC_CURRENT.em_id = sc_zfbt.em_id
+    		where sc_zfbt.status = 'sp' and to_date(${parameters['YYYYMM']},'yyyymm') >= (last_day(add_months(sc_zfbt.date_approve, -1)) + 1)   
+        </sql>
+        <table name="sc_zfbt" role="main"/>
+        <field table="sc_zfbt" name="em_id" dataType="text"/>
+        <field table="sc_zfbt" name="salary_num" dataType="text"/>
+		<field table="sc_zfbt" name="em_name" dataType="text"/>
+		<field table="sc_zfbt" name="date_come_school" dataType="date"/>
+		<field table="sc_zfbt" name="money" dataType="number" decimals="2" showTotals="true"/>
+		<field table="sc_zfbt" name="zw_name" dataType="text"/>
+		<field table="sc_zfbt" name="zw_get_date" dataType="date"/>
+		<field table="sc_zfbt" name="zc_name" dataType="text"/>
+		<field table="sc_zfbt" name="zc_get_date" dataType="date"/>
+		<field table="sc_zfbt" name="date_pay_begin" dataType="text"/>
+		
+		<field table="sc_zfbt" name="tz_pay" dataType="number" decimals="2" showTotals="true">
+			<title translatable="true">TZ BF Money</title>
+		</field>
+		<field table="sc_zfbt" name="back_pay" dataType="number" decimals="2" showTotals="true">
+			<title translatable="true">LXH BF Money</title>
+		</field>
+		<field table="sc_zfbt" name="sf_pay" dataType="number" decimals="2" showTotals="true">
+			<title translatable="true">SF Money</title>
+		</field>
+		
+        <parameter name="YYYYMM" dataType="text" value=""/>
+    </dataSource>
+    
+    <dataSource id="zfBtDs">
+		<table name="sc_zfbt" role="main"/>
+        <field table="sc_zfbt" name="id"/>
+        <field table="sc_zfbt" name="date_apply"/>
+        <field table="sc_zfbt" name="date_approve"/>
+        <field table="sc_zfbt" name="date_pay_begin"/>
+        <field table="sc_zfbt" name="date_gjj"/>
+        <field table="sc_zfbt" name="date_work_begin"/>
+        <field table="sc_zfbt" name="date_come_school"/>
+        <field table="sc_zfbt" name="date_retire"/>
+        <field table="sc_zfbt" name="date_gljd_begin"/>
+        <field table="sc_zfbt" name="date_gljd_end"/>
+        <field table="sc_zfbt" name="em_name"/>
+        <field table="sc_zfbt" name="em_sex"/>
+        <field table="sc_zfbt" name="em_id"/>
+        <field table="sc_zfbt" name="salary_num"/>
+        <field table="sc_zfbt" name="zhiw_name"/>
+        <field table="sc_zfbt" name="zhic_name"/>
+        <field table="sc_zfbt" name="mobile"/>
+        <field table="sc_zfbt" name="other_info"/>
+        <field table="sc_zfbt" name="em_residence"/>
+        <field table="sc_zfbt" name="po_name"/>
+        <field table="sc_zfbt" name="po_dv_name"/>
+        <field table="sc_zfbt" name="po_residence"/>
+        <field table="sc_zfbt" name="status"/>
+        <field table="sc_zfbt" name="approve_advice"/>
+        <field table="sc_zfbt" name="money"/>
+        
+        <restriction type="sql" sql="sc_zfbt.em_id in (select em_id from sc_zfbt_pause where ${parameters['YYYYMM']} = to_char(date_tf,'yyyymm'))"/>
+        <parameter name="YYYYMM" dataType="text" value=""/>
+    </dataSource>
+    
+    <dataSource id="scZFBtFFDs">
+        <table name="sc_zfbt_ff" role="main"/>
+        <field table="sc_zfbt_ff" name="id"/>
+		<field table="sc_zfbt_ff" name="em_id"/>
+		<field table="sc_zfbt_ff" name="salary_num"/>
+		<field table="sc_zfbt_ff" name="pay" showTotals="true"/>
+		<field table="sc_zfbt_ff" name="tz_pay" showTotals="true"/>
+		<field table="sc_zfbt_ff" name="back_pay" showTotals="true"/>
+		<field table="sc_zfbt_ff" name="actual_pay" showTotals="true"/>
+		<field table="sc_zfbt_ff" name="pay_month"/>
+		<field table="sc_zfbt_ff" name="pay_date"/>
+		<field table="sc_zfbt_ff" name="em_name"/>
+		<field table="sc_zfbt_ff" name="date_come_school"/>
+		<field table="sc_zfbt_ff" name="zhiw_name"/>
+		<field table="sc_zfbt_ff" name="zhic_name"/>
+		<field table="sc_zfbt_ff" name="zhiw_date"/>
+		<field table="sc_zfbt_ff" name="zhic_date"/>
+		<field table="sc_zfbt_ff" name="is_gd"/>
+    </dataSource>
+    
+    <dataSource id="scZfBtLxqDs">
+		<table name="sc_zfbt_lxq" role="main" />
+        <field table="sc_zfbt_lxq" name="em_id" />
+        <field table="sc_zfbt_lxq" name="em_name" />
+        <field table="sc_zfbt_lxq" name="salary_num" />
+        <field table="sc_zfbt_lxq" name="gl_h" />
+       	<field table="sc_zfbt_lxq" name="date_begin_work" />
+        <field table="sc_zfbt_lxq" name="date_come_sch" />
+        <field table="sc_zfbt_lxq" name="money_a" />
+        <field table="sc_zfbt_lxq" name="money_b" />
+        <field table="sc_zfbt_lxq" name="money_c" />
+        <field table="sc_zfbt_lxq" name="money_hj" showTotals="true"/>
+	</dataSource>
+	
+	<dataSource id="scZfBtLxqFFDs">
+		<table name="sc_zfbt_lxq_ff" role="main" />
+        <field table="sc_zfbt_lxq_ff" name="em_id" />
+        <field table="sc_zfbt_lxq_ff" name="em_name" />
+        <field table="sc_zfbt_lxq_ff" name="salary_num" />
+        <field table="sc_zfbt_lxq_ff" name="gl_h" />
+       	<field table="sc_zfbt_lxq_ff" name="date_begin_work" />
+        <field table="sc_zfbt_lxq_ff" name="date_come_sch" />
+        <field table="sc_zfbt_lxq_ff" name="money_a" />
+        <field table="sc_zfbt_lxq_ff" name="money_b" />
+        <field table="sc_zfbt_lxq_ff" name="money_c" />
+        <field table="sc_zfbt_lxq_ff" name="money_hj" showTotals="true"/>
+        <field table="sc_zfbt_lxq_ff" name="pay_date" />
+        <field table="sc_zfbt_lxq_ff" name="pay_month" />
+        <field table="sc_zfbt_lxq_ff" name="is_gd" />
+	</dataSource>
+    
+     <dataSource id="scZfBtJcDs">
+		<table name="sc_zfbt_jc" role="main" />
+        <field table="sc_zfbt_jc" name="id" />
+        <field table="sc_zfbt_jc" name="em_id" />
+        <field table="sc_zfbt_jc" name="em_name" />
+        <field table="sc_zfbt_jc" name="salary_num" />
+        <field table="sc_zfbt_jc" name="dv_name" />
+        <field table="sc_zfbt_jc" name="date_work_begin" />
+        <field table="sc_zfbt_jc" name="date_gjj" />
+        <field table="sc_zfbt_jc" name="gl_gjj" />
+        <field table="sc_zfbt_jc" name="zw_x" />
+        <field table="sc_zfbt_jc" name="zw_y" />
+        <field table="sc_zfbt_jc" name="zc_x" />
+        <field table="sc_zfbt_jc" name="zc_y" />
+        <field table="sc_zfbt_jc" name="btbz_x" />
+        <field table="sc_zfbt_jc" name="btbz_y"/>
+    	<field table="sc_zfbt_jc" name="ndjz"/>
+    	<field table="sc_zfbt_jc" name="ndgl"/>
+    	<field table="sc_zfbt_jc" name="area_jc"/>
+    	<field table="sc_zfbt_jc" name="money_bt" showTotals="true"/>
+    	<field table="sc_zfbt_jc" name="date_ff"/>
+    	
+    	<sortField table="sc_zfbt_jc" name="date_ff" ascending="true"/>
+	</dataSource>
+    
+     <dataSource id="scZfBtJcFFDs">
+		<table name="sc_zfbt_jc_ff" role="main" />
+        <field table="sc_zfbt_jc_ff" name="id" />
+        <field table="sc_zfbt_jc_ff" name="em_id" />
+        <field table="sc_zfbt_jc_ff" name="em_name" />
+        <field table="sc_zfbt_jc_ff" name="salary_num" />
+        <field table="sc_zfbt_jc_ff" name="zw_x" />
+        <field table="sc_zfbt_jc_ff" name="zw_y" />
+        <field table="sc_zfbt_jc_ff" name="zc_x" />
+        <field table="sc_zfbt_jc_ff" name="zc_y" />
+        <field table="sc_zfbt_jc_ff" name="btbz_x" />
+        <field table="sc_zfbt_jc_ff" name="btbz_y"/>
+    	<field table="sc_zfbt_jc_ff" name="area_jc"/>
+    	<field table="sc_zfbt_jc_ff" name="money_bt" showTotals="true"/>
+    	<field table="sc_zfbt_jc_ff" name="pay_date"/>
+    	<field table="sc_zfbt_jc_ff" name="pay_month"/>
+    	<field table="sc_zfbt_jc_ff" name="ref_id"/>
+    	<field table="sc_zfbt_jc_ff" name="is_gd"/>
+	</dataSource>
+    
+    <panel type="form" id="yearMonth"  dataSource="none" columns="1" >
+     		<title translatable="true">Select YYYYMM</title>
+	 		<action id="show">
+	            <title translatable="true">Show</title>
+	        </action>
+            <field>
+	        	<title>YYYYMM</title>
+	        	<html>
+	        		<select id="yyyymm"></select>
+	        	</html>
+	        </field>
+	</panel>
+    
+	<tabs id="detailTabs" workflow="free" tabRefreshPolicy="refreshOnLoad">
+    	<tab name="ffListTab" selected="true">
+			<title translatable="true">CurrentMM FF</title>
+			<panel type="grid" id="ffList" dataSource="scZFBtListDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+					<action id="saveFFDetail">
+			            <title translatable="true">SaveFFDetail</title>
+			        </action>
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action>
+		            <field table="sc_zfbt" name="em_id" dataType="text"/>
+			        <field table="sc_zfbt" name="salary_num" dataType="text"/>
+					<field table="sc_zfbt" name="em_name" dataType="text"/>
+					<field table="sc_zfbt" name="date_come_school" dataType="date"/>
+					<field table="sc_zfbt" name="zw_name" dataType="text">
+						<title translatable="true">zw_name</title>
+					</field>
+					<field table="sc_zfbt" name="zw_get_date" dataType="date">
+						<title translatable="true">zw_get_date</title>
+					</field>
+					<field table="sc_zfbt" name="zc_name" dataType="text">
+						<title translatable="true">zc_name</title>
+					</field>
+					<field table="sc_zfbt" name="zc_get_date" dataType="date">
+						<title translatable="true">zc_get_date</title>
+					</field>
+					<field table="sc_zfbt" name="money" dataType="number" decimals="2" showTotals="true"/>
+					<field table="sc_zfbt" name="tz_pay" dataType="number" decimals="2" showTotals="true">
+						<title translatable="true">TZ BF Money</title>
+					</field>
+					<field table="sc_zfbt" name="back_pay" dataType="number" decimals="2" showTotals="true">
+						<title translatable="true">LXH BF Money</title>
+					</field>
+					<field table="sc_zfbt" name="sf_pay" dataType="number" decimals="2" showTotals="true">
+						<title translatable="true">SF Money</title>
+					</field>
+		     </panel>
+		     
+		     <panel type="grid" id="hffList" dataSource="scZFBtFFDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+					<action id="transfer">
+			            <title translatable="true">Transfer</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action>
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        
+			        <field table="sc_zfbt_ff" name="id" hidden="true"/>
+					<field table="sc_zfbt_ff" name="em_id"/>
+					<field table="sc_zfbt_ff" name="salary_num"/>
+					<field table="sc_zfbt_ff" name="em_name"/>
+					<field table="sc_zfbt_ff" name="date_come_school"/>
+					<field table="sc_zfbt_ff" name="zhiw_name"/>
+					<field table="sc_zfbt_ff" name="zhiw_date"/>
+					<field table="sc_zfbt_ff" name="zhic_name"/>
+					<field table="sc_zfbt_ff" name="zhic_date"/>
+					<field table="sc_zfbt_ff" name="pay" showTotals="true"/>
+					<field table="sc_zfbt_ff" name="tz_pay" showTotals="true"/>
+					<field table="sc_zfbt_ff" name="back_pay" showTotals="true"/>
+					<field table="sc_zfbt_ff" name="actual_pay" showTotals="true"/>
+					<field table="sc_zfbt_ff" name="pay_month" hidden="true"/>
+					<field table="sc_zfbt_ff" name="pay_date" hidden="true"/>
+					
+					<field table="sc_zfbt_ff" name="is_gd"/>
+		     </panel>
+		</tab>
+		<tab name="tfListTab">
+			<title translatable="true">CurrentMM TF</title>
+			<panel type="grid" id="tfList" dataSource="zfBtDs">
+					<title translatable="true">CurrentMM TF</title>
+			        <field table="sc_zfbt" name="id" hidden="true"/>
+			        <field table="sc_zfbt" name="em_id"/>
+			        <field table="sc_zfbt" name="salary_num"/>
+			        <field table="sc_zfbt" name="em_name"/>
+			        <field table="sc_zfbt" name="em_sex"/>
+			        <field table="sc_zfbt" name="date_work_begin"/>
+			        <field table="sc_zfbt" name="date_come_school"/>
+			        <field table="sc_zfbt" name="zhiw_name"/>
+			        <field table="sc_zfbt" name="zhic_name"/>
+			        <field table="sc_zfbt" name="mobile"/>
+			        <field table="sc_zfbt" name="em_residence"/>
+			        <field table="sc_zfbt" name="po_name"/>
+			        <field table="sc_zfbt" name="po_dv_name"/>
+			        <field table="sc_zfbt" name="po_residence"/>
+			        <field table="sc_zfbt" name="money"/>
+		     </panel>
+		</tab>
+		
+		<tab name="lxqListTab">
+			<title translatable="true">Lxq FF</title>
+			<panel type="grid" id="lxqList" dataSource="scZfBtLxqDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+			        <action id="saveFFDetail">
+			            <title translatable="true">SaveFFDetail</title>
+			        </action>
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action>
+			        <field table="sc_zfbt_lxq" name="em_id" />
+			        <field table="sc_zfbt_lxq" name="em_name" />
+			        <field table="sc_zfbt_lxq" name="salary_num" />
+			        <field table="sc_zfbt_lxq" name="gl_h" />
+			       	<field table="sc_zfbt_lxq" name="date_begin_work" />
+			        <field table="sc_zfbt_lxq" name="date_come_sch" />
+			        <field table="sc_zfbt_lxq" name="money_a" />
+			        <field table="sc_zfbt_lxq" name="money_b" />
+			        <field table="sc_zfbt_lxq" name="money_c" />
+			        <field table="sc_zfbt_lxq" name="money_hj" showTotals="true"/>
+		     </panel>
+		     
+		     <panel type="grid" id="lxqListFF" dataSource="scZfBtLxqFFDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action> 
+			        <field table="sc_zfbt_lxq_ff" name="em_id" />
+			        <field table="sc_zfbt_lxq_ff" name="em_name" />
+			        <field table="sc_zfbt_lxq_ff" name="salary_num" />
+			        <field table="sc_zfbt_lxq_ff" name="gl_h" />
+			       	<field table="sc_zfbt_lxq_ff" name="date_begin_work" />
+			        <field table="sc_zfbt_lxq_ff" name="date_come_sch" />
+			        <field table="sc_zfbt_lxq_ff" name="money_a" />
+			        <field table="sc_zfbt_lxq_ff" name="money_b" />
+			        <field table="sc_zfbt_lxq_ff" name="money_c" />
+			        <field table="sc_zfbt_lxq_ff" name="money_hj" showTotals="true"/>
+			        <field table="sc_zfbt_lxq_ff" name="pay_date" hidden="true"/>
+			        <field table="sc_zfbt_lxq_ff" name="pay_month" hidden="true"/>
+			        <field table="sc_zfbt_lxq_ff" name="is_gd" />
+		     </panel>
+		</tab>
+		
+		<tab name="jcListTab">
+			<title translatable="true">Jc FF</title>
+			<panel type="grid" id="jcList" dataSource="scZfBtJcDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+			        <action id="saveFFDetail">
+			            <title translatable="true">SaveFFDetail</title>
+			        </action>
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action>
+			        
+			        <field table="sc_zfbt_jc" name="id" hidden="true"/>
+			        <field table="sc_zfbt_jc" name="em_id" hidden="true"/>
+			        <field table="sc_zfbt_jc" name="salary_num" />
+			        <field table="sc_zfbt_jc" name="em_name" />
+			        <field table="sc_zfbt_jc" name="zw_x" />
+			        <field table="sc_zfbt_jc" name="zw_y" />
+			        <field table="sc_zfbt_jc" name="zc_x" />
+			        <field table="sc_zfbt_jc" name="zc_y" />
+			        <field table="sc_zfbt_jc" name="btbz_x" />
+			        <field table="sc_zfbt_jc" name="btbz_y"/>
+			    	<field table="sc_zfbt_jc" name="area_jc"/>
+			    	<field table="sc_zfbt_jc" name="money_bt" showTotals="true"/>
+		     </panel>
+		     
+		     <panel type="grid" id="jcListFF" dataSource="scZfBtJcFFDs" showCounts="false" multipleSelectionEnabled="true" showOnLoad="false">
+			        <action id="file">
+			            <title translatable="true">File</title>
+			        </action>
+			        <action id="report">
+			            <title translatable="true">Report</title>
+			        </action> 
+			        
+			        <field table="sc_zfbt_jc_ff" name="id" hidden="true"/>
+			        <field table="sc_zfbt_jc_ff" name="em_id" hidden="true"/>
+			        <field table="sc_zfbt_jc_ff" name="salary_num" />
+			        <field table="sc_zfbt_jc_ff" name="em_name" />
+			        <field table="sc_zfbt_jc_ff" name="zw_x" />
+			        <field table="sc_zfbt_jc_ff" name="zw_y" />
+			        <field table="sc_zfbt_jc_ff" name="zc_x" />
+			        <field table="sc_zfbt_jc_ff" name="zc_y" />
+			        <field table="sc_zfbt_jc_ff" name="btbz_x" />
+			        <field table="sc_zfbt_jc_ff" name="btbz_y"/>
+			    	<field table="sc_zfbt_jc_ff" name="area_jc"/>
+			    	<field table="sc_zfbt_jc_ff" name="money_bt" showTotals="true"/>
+			    	<field table="sc_zfbt_jc_ff" name="is_gd"/>
+		     </panel>
+		</tab>
+		
+	 </tabs>
+	
+</view>

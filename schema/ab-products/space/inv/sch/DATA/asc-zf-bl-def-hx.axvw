@@ -1,0 +1,61 @@
+ <view version="2.0">
+ 	<title translatable="true">Define Huxing Photo</title>
+    <layout type="borderLayout" id="mainLayout">
+        <north id="formPosition" split="true" initialSize="130"/>
+        <center autoScroll="true" id="gridPosition"/>
+    </layout>
+    
+   <dataSource id="scBlHxDs">
+		<table name="sc_bl_hx" role="main"/>
+        <field table="sc_bl_hx" name="id"/>
+        <field table="sc_bl_hx" name="bl_id"/>
+		<field table="sc_bl_hx" name="huxing"/>
+		<field table="sc_bl_hx" name="area_jianzhu"/>
+        <field table="sc_bl_hx" name="photo"/>
+    </dataSource>
+    
+    <panel type="form" id="formPanel" showOnLoad="true" dataSource="scBlHxDs" columns="2" layoutRegion="formPosition">
+         <title translatable="true">Define Huxing</title>
+         <action id="save">
+              <title translatable="true">Save</title>             
+         </action>
+         <!-- <action id="delete">
+              <title translatable="true">Delete</title>
+          </action> -->
+		  <field table="sc_bl_hx" name="id" />								
+		  <field table="sc_bl_hx" name="huxing"/>								
+          <field table="sc_bl_hx" name="bl_id" readOnly="true"/>
+          <field table="sc_bl_hx" name="area_jianzhu" required="true"/>		
+          <field table="sc_bl_hx" name="photo"/>	
+     </panel> 
+     
+     <panel type="grid" id="gridPanel" showOnLoad="true" dataSource="scBlHxDs" layoutRegion="gridPosition" multipleSelectionEnabled="true">
+            <title translatable="true">Huxing List</title>
+            <sortField name="bl_id" table="sc_bl_hx" ascending="true"/>
+            <sortField name="huxing" table="sc_bl_hx" ascending="true"/>
+            	<action id="add">
+              		<title translatable="true">Add New</title> 
+        		</action>
+            	<action id="delete">
+              		<title translatable="true">Delete</title>             
+        		</action>
+             	<action id="refresh">
+              		<title translatable="true">refresh</title>             
+        		</action>     
+        		<field table="sc_bl_hx" name="id" controlType="link">                                             
+                    <command type="showPanel" panelId="formPanel"/>
+                </field>   				    	 					
+        		<field table="sc_bl_hx" name="huxing" controlType="link">	   				    	 					
+                	<command type="showPanel" panelId="formPanel"/>
+                </field>	   				    	 					
+                <field table="sc_bl_hx" name="area_jianzhu" controlType="link">
+                	<command type="showPanel" panelId="formPanel"/>	
+                </field>
+     </panel>
+  
+	<js file="asc-zf-bl-def-hx.js"/>
+
+</view>
+ 
+ 
+    

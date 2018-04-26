@@ -1,0 +1,110 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="12%" split="true"/>
+        <center id="rmcatPosition"/>
+    </layout>
+    
+	<message name="total" translatable="true">Total</message>
+	
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-off-bl-info-main_grid_bl">
+		<table name="bl" role="main" />
+		
+		<field table="bl" name="bl_id"/>
+		<field table="bl" name="use1"/>
+		<field table="bl" name="area_building_manual"/>
+		<field table="bl" name="area_rm" />
+		<field table="bl" name="manage_area" dataType="number" decimals="2">
+			<title translatable="true">Management Division Area</title>
+			<sql dialect="generic">
+				(SELECT SUM(rm.area) FROM rm WHERE rm.bl_id=bl.bl_id   and bl.acc_type!='yxz'  and rm.rm_cat=${parameters['manageDvRes']})
+            </sql>
+		</field>
+		<field table="bl" name="teaching_area" dataType="number" decimals="2">
+			<title translatable="true">Teaching Division Area</title>
+			<sql dialect="generic">
+				(SELECT SUM(rm.area) FROM rm  WHERE rm.bl_id=bl.bl_id  and bl.acc_type!='yxz'  and rm.rm_cat=${parameters['teachDvRes']})
+            </sql>
+		</field>
+		<field table="bl" name="classroom_area" dataType="number" decimals="2">
+			<title translatable="true">Classroom Area</title>
+			<sql dialect="generic">
+    	          (SELECT SUM(rm.area) FROM rm  WHERE rm.bl_id=bl.bl_id and bl.acc_type!='yxz'  and rm.rm_cat=${parameters['classroomRes']}) 
+            </sql>
+		</field>
+		<field table="bl" name="lab_area" dataType="number" decimals="2">
+			<title translatable="true">Lab Area</title>
+			<sql dialect="generic">
+    	          (SELECT SUM(rm.area) FROM rm  WHERE rm.bl_id=bl.bl_id  and bl.acc_type!='yxz'  and rm.rm_cat=${parameters['labroomRes']}) 
+            </sql>
+		</field>
+		<!--field table="bl" name="em_count_designed"/>
+		<field table="bl" name="count_em"/-->
+		<field name="vacant_rm"  dataType="number" decimals="2">
+			<title translatable="true">Vacant Room Quantity</title>
+			<sql dialect="generic">
+    	             (SELECT COUNT(*) FROM rm   WHERE  rm.rm_type=${parameters['vacantRmRes']} and rm.bl_id=bl.bl_id and bl.acc_type!='yxz')
+            </sql>
+		</field>
+		<field name="vacant_area"  dataType="number" decimals="2">
+			<title translatable="true">Vacant Room Area</title>
+			<sql dialect="generic">
+    	             (SELECT SUM(rm.area) FROM rm WHERE  rm.rm_type=${parameters['vacantRmRes']} and rm.bl_id=bl.bl_id and bl.acc_type!='yxz')
+            </sql>
+		</field>
+		
+		<parameter name="classroomRes" dataType="text" value=""/>
+		<parameter name="labroomRes" dataType="text" value=""/>
+		<parameter name="manageDvRes" dataType="text" value=""/>
+		<parameter name="teachDvRes" dataType="text" value=""/>
+		<parameter name="vacantRmRes" dataType="text" value=""/>
+		<parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="bl.acc_type!='yxz' and bl.use1 IN ('TE','OFF','TEOFF','TEASS','TELV') and bl.site_id=${parameters['siteIdRes']}"/>
+	</dataSource>
+	
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-off-bl-info-main_basic_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="site_id"/>
+		<field table="site" name="telephone"/>
+		<field table="site" name="youbian"/>
+		
+		<field table="site" name="guihuayongdi"/>
+		<field table="site" name="jianzhuyongdi"/>
+		<field table="site" name="no_bldgs"/>
+		<field table="site" name="count_teacher_plan"/>
+		<field table="site" name="count_student_plan"/>
+		<field table="site" name="count_teacher_actual"/>
+		<field table="site" name="count_student_actual"/>
+		<field table="site" name="site_image"/>
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallOffBlInfoMain_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-off-bl-info-main_basic_site" columns="3"  layoutRegion="sitePosition">
+    	<!--action id="shoSiteImage">
+			<title translatable="true">Xian Shi Xiao Qu Image</title>
+		</action-->
+		<!--row1-->
+		<field table="site" name="name"/>
+    </panel>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallOffBlInfoMain_blGrid" dataSource="ds_asc-bj-usms-overall-off-bl-info-main_grid_bl" layoutRegion="rmcatPosition">
+        <title translatable="true">Xue Xiao Suo You Ban Gong Da Lou</title>
+		<sortField name="bl_id" table="bl" ascending="true" />
+    </panel>
+    
+    <js file="asc-bj-usms-overall-off-bl-info-main-wd.js"/>
+	<js file="asc-bj-usms-overall-common.js"/>
+</view>

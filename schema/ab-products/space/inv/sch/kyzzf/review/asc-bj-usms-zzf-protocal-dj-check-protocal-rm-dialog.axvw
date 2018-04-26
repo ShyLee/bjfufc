@@ -1,0 +1,29 @@
+<view version="2.0">
+	<js file="asc-bj-usms-zzf-protocal-dj-check-protocal-rm-dialog.js"/>
+	
+	 <dataSource id='zzf_protocal_rm_ds'>
+        <table name='bh_zzf_protocal_rm' role='main'/>
+        <table name='bl' role='standard'/>
+        <field table='bh_zzf_protocal_rm' name='id'/>
+        <field table='bl' name='name'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+        <field table='bh_zzf_protocal_rm' name='bl_id'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='is_active'/>
+        <field table='bh_zzf_protocal_rm' name='protocal_id'/>
+        <field table='bh_zzf_protocal_rm' name='rm_id'/>
+        <parameter name="partyBRepId" dataType="text" value=""/>
+        <restriction type="sql" sql=" bh_zzf_protocal_rm.protocal_id in ( select bh_zzf_protocal.protocal_id from bh_zzf_protocal where bh_zzf_protocal.party_b_rep = ${parameters['partyBRepId']}) "/>
+    </dataSource>
+
+	 <panel id='protocalRm' type='grid' dataSource='zzf_protocal_rm_ds'>
+        <!-- <title>show protocal rooms</title> -->
+        <field table='bl' name='name'/>
+        <field table='bh_zzf_protocal_rm' name='fl_id'/>
+        <field table='bh_zzf_protocal_rm' name='area_jianZhu'/>
+        <field table='bh_zzf_protocal_rm' name='area_rm'/>
+        <field table='bh_zzf_protocal_rm' name='area_xy'/>
+    </panel>
+</view>

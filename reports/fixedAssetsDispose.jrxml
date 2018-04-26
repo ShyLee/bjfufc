@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fixedAssetsDispose" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="09b2f8cc-c284-44b5-bfee-4ae81ad25ec7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select rownum,a.bl_id,a.area_building_manual,a.area_jianzhu_yuan,a.area_rm,a.date_xiazhang,decode(a.status,'syz','使用中','ybc','已报拆','pdc','已批待拆','ycc','已拆除','ycs','已出售','qt','其他') z_status,decode(a.use1,'UNKNOWN','未知','HALL','会堂','JGST','教工食堂','KYRM','科研用房','LVWF','生活及福利用房','TSASS','实验及辅助用房','GYM','体育馆','LIB','图书馆','ADBL','行政用房','XSST','学生食堂','XSFS','学生宿舍','CR','教室','JGZZ','教工住宅','ZZF','周转房') z_use1,decode(a.construction_type,'N/A','未知','HH','混合','ZM','砖木','ZH','砖混','GH','钢混','QG','轻钢','KJ','框架','JY','简易','QT','其他') z_type from sc_bl_xz a]]>
+	</queryString>
+	<field name="ROWNUM" class="java.math.BigDecimal"/>
+	<field name="BL_ID" class="java.lang.String"/>
+	<field name="AREA_BUILDING_MANUAL" class="java.math.BigDecimal"/>
+	<field name="AREA_JIANZHU_YUAN" class="java.math.BigDecimal"/>
+	<field name="AREA_RM" class="java.math.BigDecimal"/>
+	<field name="DATE_XIAZHANG" class="java.sql.Timestamp"/>
+	<field name="Z_STATUS" class="java.lang.String"/>
+	<field name="Z_USE1" class="java.lang.String"/>
+	<field name="Z_TYPE" class="java.lang.String"/>
+	<variable name="AREA_RM_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{AREA_RM}]]></variableExpression>
+	</variable>
+	<variable name="AREA_BUILDING_MANUAL_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{AREA_BUILDING_MANUAL}]]></variableExpression>
+	</variable>
+	<variable name="AREA_JIANZHU_YUAN_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{AREA_JIANZHU_YUAN}]]></variableExpression>
+	</variable>
+	<variable name="AREA_RM_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{AREA_RM}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="137" y="0" width="254" height="50" uuid="11abc7c5-fef3-4f5c-852c-046094212193"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[已下账建筑物列表]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-29" x="374" y="50" width="84" height="29" uuid="7ebda8f1-2a69-4f7e-93ac-fc9a4beea0ae"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[报表日期：]]></text>
+			</staticText>
+			<textField pattern="yyyy年MM月dd日" isBlankWhenNull="false">
+				<reportElement key="textField-8" x="458" y="50" width="91" height="29" uuid="5a4ac258-ac33-44e8-bc3a-a85aff37a438"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="37" y="50" width="100" height="29" uuid="ae0b7bfb-0aae-46bc-b9b2-88f01274048b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[填表单位：]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-2" mode="Opaque" x="73" y="0" width="64" height="36" backcolor="#CCCCCC" uuid="038baca6-bf7a-483a-8314-54b30441154c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[建筑物编码]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" mode="Opaque" x="298" y="0" width="55" height="36" backcolor="#CCCCCC" uuid="3643f4d2-b391-4edb-848c-499a3cbab2cc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[下账日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-25" mode="Opaque" x="248" y="18" width="50" height="18" backcolor="#CCCCCC" uuid="ff329f75-04eb-4c18-b7f0-4e208e47a76a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[平方米]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-21" mode="Opaque" x="415" y="0" width="49" height="36" backcolor="#CCCCCC" uuid="4a342b4b-21ff-45cb-a4e9-4ac09c8aeecc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[建筑用途]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" mode="Opaque" x="248" y="0" width="50" height="18" backcolor="#CCCCCC" uuid="8db69bb3-76af-478e-b799-8ffe1692d340"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[使用面积]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" mode="Opaque" x="187" y="0" width="61" height="18" backcolor="#CCCCCC" uuid="477020cc-a08f-4b48-a63e-e62a3d8dbf35"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[原建筑面积]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-25" mode="Opaque" x="187" y="18" width="61" height="18" backcolor="#CCCCCC" uuid="f0be0420-7f24-4f6f-ba29-0b1f4ef6f474"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[平方米]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-15" mode="Opaque" x="464" y="0" width="64" height="36" backcolor="#CCCCCC" uuid="bf567a60-2f4b-48cb-bf73-34a42d2f864a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[建筑结构]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-23" mode="Opaque" x="353" y="0" width="62" height="36" backcolor="#CCCCCC" uuid="1c2db587-91d7-4313-b0eb-12e7aeb71340"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[
+建筑物状态]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-25" mode="Opaque" x="137" y="18" width="50" height="18" backcolor="#CCCCCC" uuid="e6a005c9-ff04-4755-b975-b10799ccc9b2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[平方米]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" mode="Opaque" x="137" y="0" width="50" height="18" backcolor="#CCCCCC" uuid="f10d5da5-67e4-4bee-aa79-dc437b5fe663"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[建筑面积]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-1" mode="Opaque" x="37" y="0" width="35" height="36" backcolor="#CCCCCC" uuid="3145cdeb-f050-43f4-bb4a-8175f9756f01"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="72" y="0" width="65" height="20" uuid="8b22ef86-5de9-460a-a19b-ccc114f6a378"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BL_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="0" width="51" height="20" uuid="1a7b4358-524e-4033-ab46-433554fb33fd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREA_RM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="55" height="20" uuid="72d2006b-2383-4ec8-890a-e515dbdb2215"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE_XIAZHANG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="61" height="20" uuid="0e6f316e-f9d9-419b-b891-4f4743891e76"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREA_JIANZHU_YUAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="0" width="50" height="20" uuid="fa79545a-18dc-41cf-bfac-51fc8183bb70"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREA_BUILDING_MANUAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="0" width="35" height="20" uuid="3bbfba11-b809-4db0-ae45-d6eb76d89825"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ROWNUM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="0" width="61" height="20" uuid="37dd1577-d02c-4a31-a7b8-d6bb6f15841e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Z_STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="0" width="49" height="20" uuid="0f9baff5-7c3e-4eba-b41d-55d419f89def"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Z_USE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="64" height="20" uuid="986a144c-6827-47f7-8a79-fedf6d042add"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Z_TYPE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="39" y="0" width="52" height="20" uuid="cd8edc41-a237-483a-9660-10b26f05bf00"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[合计：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="137" y="0" width="50" height="20" uuid="72623d31-62df-4fbf-8de2-0aed70c27411"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{AREA_BUILDING_MANUAL_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="61" height="20" uuid="b92af8ba-7bd3-45e5-9b48-fe2d035237f2"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{AREA_JIANZHU_YUAN_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="0" width="51" height="20" uuid="1c1ede75-e5d7-423b-987c-58bd6bc2166e"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{AREA_RM_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

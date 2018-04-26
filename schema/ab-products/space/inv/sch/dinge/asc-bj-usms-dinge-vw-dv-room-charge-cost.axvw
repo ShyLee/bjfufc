@@ -1,0 +1,72 @@
+<view version="2.0">
+    <title>chaxunxuexiaogedanweifangchanziyuantiaojiefei</title>
+    <js file="asc-bj-usms-dinge-vw-dv-room-charge-cost.js"/>
+    
+    <dataSource id="sc_ts_dv_dinge_ds">
+        <table name="sc_ts_dv_dinge" role="main"/>
+        <field table="sc_ts_dv_dinge" name="area_bg"/>
+        <field table="sc_ts_dv_dinge" name="area_dazl"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge"/>
+        <field table="sc_ts_dv_dinge" name="area_dv"/>
+        <field table="sc_ts_dv_dinge" name="area_ja"/>
+        <field table="sc_ts_dv_dinge" name="area_oa"/>
+        <field table="sc_ts_dv_dinge" name="area_ta"/>
+        <field table="sc_ts_dv_dinge" name="area_teac"/>
+        <field table="sc_ts_dv_dinge" name="area_yjs"/>
+        <field table="sc_ts_dv_dinge" name="area_za"/>
+        <field table="sc_ts_dv_dinge" name="area_zdxk"/>
+        <field table="sc_ts_dv_dinge" name="comments"/>
+        <field table="sc_ts_dv_dinge" name="count_bs"/>
+        <field table="sc_ts_dv_dinge" name="count_cx"/>
+        <field table="sc_ts_dv_dinge" name="count_em_jb"/>
+        <field table="sc_ts_dv_dinge" name="count_fg"/>
+        <field table="sc_ts_dv_dinge" name="count_fl"/>
+        <field table="sc_ts_dv_dinge" name="count_fx"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+        <field table="sc_ts_dv_dinge" name="count_qz"/>
+        <field table="sc_ts_dv_dinge" name="count_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_xz"/>
+        <field table="sc_ts_dv_dinge" name="count_ys"/>
+        <field table="sc_ts_dv_dinge" name="count_zc"/>
+        <field table="sc_ts_dv_dinge" name="count_zd"/>
+        <field table="sc_ts_dv_dinge" name="count_zf"/>
+        <field table="sc_ts_dv_dinge" name="count_zg"/>
+        <field table="sc_ts_dv_dinge" name="count_zl"/>
+        <field table="sc_ts_dv_dinge" name="count_zx"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="formula_id"/>
+        <field table="sc_ts_dv_dinge" name="money_month"/>
+        <field table="sc_ts_dv_dinge" name="money_y"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+     </dataSource>
+     <panel type="console" id="sc_ts_dv_dinge_console" columns="2" dataSource="sc_ts_dv_dinge_ds">
+        <title translatable="true">shaixuan</title>
+        <action id="xianshi">
+            <title translatable="true">xianshi</title>
+        </action>
+        <action id="qingchu">
+            <title translatable="true">qingchu</title>
+            <command type="clearPanel" panelId="sc_ts_dv_dinge_console"/>
+        </action>
+         <field>
+	        <title translatable="true">year</title>
+	        <html>
+	              <input type="text" id="year" name="year" size="30" />
+	        </html>
+        </field>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+    </panel>
+     <panel type="grid" id="sc_ts_dv_dinge_grid" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false">
+        <title translatable="true">xuexiaosuoyoujiaoxuedanwei</title>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="money_y"/>
+        <field table="sc_ts_dv_dinge" name="area_oa"/>
+        <field table="sc_ts_dv_dinge" name="area_dv"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+        <field table="sc_ts_dv_dinge" name="money_month"/>
+     </panel>
+</view>

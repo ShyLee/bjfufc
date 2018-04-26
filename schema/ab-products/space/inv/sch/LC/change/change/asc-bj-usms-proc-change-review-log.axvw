@@ -1,0 +1,80 @@
+<view version="2.0">
+    <title translatable="true">View Change Log</title>
+    
+    <js file="asc-bj-usms-proc-change-review-log.js"/>
+    
+    <dataSource id="ascBjUsmsProcChangeReviewLogDS">
+        <table name="sc_update_log" role="main"/>
+        <table name="activity_log" role="standard"/>
+        
+        <field name="log_id" table="sc_update_log"/>
+        <field name="activity_log_id" table="activity_log">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="requestor" table="activity_log"/>
+        <field name="prob_type" table="activity_log">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="date_requested" table="activity_log"/>
+        <field name="bl_id" table="sc_update_log"/>
+        <field name="fl_id" table="sc_update_log"/>
+        <field name="rm_id" table="sc_update_log"/>
+		<field name="rm_cat" table="activity_log"/>
+		<field name="rm_type" table="activity_log"/>
+		<field name="rm_name" table="activity_log">
+			<title translatable="true">FangJianMingCheng</title>
+        </field>
+		<field name="rm_cat_after" table="activity_log"/>
+		<field name="rm_type_after" table="activity_log"/>
+		<field name="rm_name_after" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="date_created" table="sc_update_log"/>
+        <field name="time_created" table="sc_update_log"/>
+        <field name="operator" table="sc_update_log"/>
+        <field name="description" table="sc_update_log"/>
+        
+        <parameter name="activityType" dataType="text" value=""/>
+        
+        <restriction type="sql" sql="activity_log.activity_type= ${parameters['activityType']}"/>
+    </dataSource>
+    
+    <panel type="console" columns="3" id="ascBjUsmsProcChangeReviewLogConsole" dataSource="ascBjUsmsProcChangeReviewLogDS">
+        <title translatable="true">Filter</title>
+        
+        <action id="filter">
+            <title translatable="true">Show</title>
+            <command type="showPanel" panelId="ascBjUsmsProcChangeReviewLogGrid"/>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearPanel" panelId="ascBjUsmsProcChangeReviewLogConsole"/>
+        </action>
+        <field name="activity_log_id" table="activity_log" required="false">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="date_created" table="sc_update_log" required="false"/>
+        <field name="bl_id" table="sc_update_log" required="false"/>
+        <field name="requestor" table="activity_log" required="false">
+        	<action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.requestor" 
+				 selectFieldNames="em.em_id"
+                 visibleFieldNames="em.em_id,em.name,em.sex,em.dv_id"></command>
+            </action>
+		</field>	
+        <field name="operator" table="sc_update_log" required="false"/>
+        <field name="fl_id" table="sc_update_log" required="false"/>
+        <field name="date_requested" table="activity_log" required="false"/>
+        <field/>
+        <field name="rm_id" table="sc_update_log" required="false"/>
+        
+    </panel>
+    
+    <panel type="grid" id="ascBjUsmsProcChangeReviewLogGrid" showOnLoad="false" controlType="reportGrid" dataSource="ascBjUsmsProcChangeReviewLogDS">
+        <title translatable="true">Logs</title>
+        
+        <sortField table="sc_update_log" name="log_id"/>
+    </panel>
+</view>

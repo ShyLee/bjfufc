@@ -1,0 +1,603 @@
+<view version="2.0">
+    <message name="buildingName" translatable="true">Building Name</message>
+    <message name="noImage" translatable="true">The building photo isn't exists</message>
+    <message name="treeTitle" translatable="true">Xiao Qu : {0}</message>
+    <message name="imagePanelTitle" translatable="true">Jian Zhu Wu : {0}</message>
+    <message name="noSite" translatable="true">No Site</message>
+    
+    <css>
+        .prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;}
+    </css>
+    
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north id="console" autoScroll="true" split="true" initialSize="90"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout id="nested_center" containingLayout="mainLayout" region="center">
+        <west id="blTree" autoScroll="true" split="true" initialSize="25%"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout id="nested_center2" containingLayout="nested_center" region="center">
+        <north autoScroll="true" split="false" initialSize="30%"/>
+        <center id="blInfo" autoScroll="true"/>
+    </layout>
+    <layout id="nested_center2_north" containingLayout="nested_center2" region="north">
+        <west id="basicInfo" autoScroll="true" split="true" initialSize="28%"/>
+        <center id="blPhoto" autoScroll="true"/>
+    </layout>
+    <title translatable="true">
+        Building Infomation Abstracts
+    </title>
+    
+    <!-- dataSource for site tree -->
+    <dataSource id="abScBasic_tree_siteDS">
+       
+        <table name="site" role="main"/>
+        <field table="site" name="site_id" dataType="text"/>
+        <field table="site" name="name" dataType="text"/>
+        <sortField table="site" name="site_id" ascending="true"/>
+        <parameter name="prId" dataType="verbatim" value="IS NOT NULL"/>
+        <parameter name="blId" dataType="verbatim" value="IS NOT NULL"/>
+        
+		<parameter name="oldBlName" dataType="verbatim" value="1=1"/>
+		<parameter name="blUseFor" dataType="verbatim" value="IS NOT NULL"/>
+		<restriction type="sql" sql="site_id in (select site_id from property where pr_id ${parameters['prId']} AND pr_id in (SELECT pr_id FROM bl where bl_id ${parameters['blId']} AND use1 ${parameters['blUseFor']} AND  ${parameters['oldBlName']}))"/>
+    </dataSource>
+    
+    <!-- dataSource for building tree -->
+    <dataSource id="abScBasic_photo_blDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="bl" name="bldg_photo"/>
+        <field table="bl" name="image_map_file"/>
+        <field table="bl" name="image_file"/>
+    </dataSource>
+    
+    
+    <dataSource id="ds_ab-sp-def-loc_console_bl_fl">
+        <table name="bl" role="main"/>
+        <table name="property" role="standard"/>
+        <field table="bl" name="pr_id"/>
+        <field table="property" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="use1"/>
+        <field table="bl" name="old_bl_name"/>
+    </dataSource>
+    
+    <panel type="console" columns="4" id="sbfFilterPanel" labelsPosition="top" dataSource="ds_ab-sp-def-loc_console_bl_fl" layoutRegion="console">
+        <title translatable="true">
+            Filter
+        </title>
+        <action id="show">
+            <title translatable="true">
+                Show
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="sbfFilterPanel"/>
+        </action>
+        
+        <field table="bl" name="pr_id">
+            <action>
+                <title>
+                    ...
+                </title>
+                <tooltip>
+                    Select Value
+                </tooltip>
+                <command type="selectValue"
+                 fieldNames="bl.pr_id"
+                 selectFieldNames="property.pr_id"
+                 visibleFieldNames="property.site_id,property.pr_id,property.name"
+                 showIndex="false"/>
+            </action>
+        </field>
+        
+        <field table="bl" name="bl_id">
+            <action>
+                <title translatable="true">
+                    ...
+                </title>
+                <command type="selectValue"
+                 fieldNames="bl.bl_id,bl.pr_id"
+                 selectFieldNames="bl.bl_id,bl.pr_id"
+                 visibleFieldNames="bl.site_id,bl.pr_id,bl.bl_id,bl.name"
+                 restriction="bl.acc_type!='yxz'">
+                </command>
+            </action>
+        </field>
+        <field table="bl" name="use1">
+        </field>
+        <field table="bl" name="old_bl_name"/>
+    </panel>
+    
+    <dataSource id="abScBasic_tree_prDS">
+      
+        <table name="property" role="main"/>
+        <field table="property" name="site_id" dataType="text"/>
+        <field table="property" name="pr_id" dataType="text"/>
+        <field table="property" name="name" dataType="text"/>
+        <field table="property" name="qty_no_bldgs_calc" dataType="text"/>
+        <sortField table="property" name="pr_id" ascending="true"/>
+        <parameter name="prId" dataType="verbatim" value="IS NOT NULL"/>
+        <parameter name="blId" dataType="verbatim" value="IS NOT NULL"/>
+        <parameter name="oldBlName" dataType="verbatim" value="1=1"/>
+		<parameter name="blUseFor" dataType="verbatim" value="IS NOT NULL"/>
+		<sortField table="property" name="pr_id" ascending="true"/>
+		<restriction type="sql" sql="property.pr_id ${parameters['prId']} AND pr_id in (SELECT pr_id FROM bl where bl_id ${parameters['blId']} AND use1 ${parameters['blUseFor']} AND  ${parameters['oldBlName']})"/>
+    </dataSource>
+    
+    <!-- dataSource for building tree -->
+    <dataSource id="ds_asc_bj_usms_bl_summary_info_tree_bl">
+     
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id" dataType="text"/>
+        <field table="bl" name="pr_id" dataType="text"/>
+        <field table="bl" name="bl_id" dataType="text"/>
+        <field table="bl" name="name" dataType="text"/>
+        <sortField table="bl" name="name" ascending="true"/>
+        <parameter name="blId" dataType="verbatim" value="IS NOT NULL"/>
+        <parameter name="oldBlName" dataType="verbatim" value="1=1"/>
+		<parameter name="blUseFor" dataType="verbatim" value="IS NOT NULL"/>
+		
+		<restriction type="sql" sql="bl.bl_id ${parameters['blId']} AND use1 ${parameters['blUseFor']} AND ${parameters['oldBlName']} AND bl.acc_type != 'yxz'"/>
+		
+    </dataSource>
+    <!-- site tree panel-->
+    <panel type="tree" id="site_tree" dataSource="abScBasic_tree_siteDS" layoutRegion="blTree">
+        <title translatable="true">
+            Xiao Qu
+        </title>
+       <panel type="tree" id="pr_tree" dataSource="abScBasic_tree_prDS">
+            <field table="property" name="pr_id"/>
+            <field table="property" name="name"/>
+        </panel>
+        <panel type="tree" id="bl_tree" dataSource="ds_asc_bj_usms_bl_summary_info_tree_bl">
+            <event type="onClickNode">
+                <command type="callFunction" functionName="buildingAbstractController.onClickBlNode()"/>
+            </event>
+            <field table="bl" name="bl_id" hidden="true"/>
+            <field table="bl" name="name"/>
+        </panel> 
+    </panel>
+    
+    <!-- dataSource for building info panel -->
+    <dataSource id="ds_ScBlBasicInfo_tabs_bl">
+        <table name="bl" role="main"/>
+        <table name="site" role="standard"/>
+        <field table="site" name="name"/>
+        
+          <field table="bl" name="old_bl_name"/>
+        <!-- 建筑物信息 -->
+	    <field table="bl" name="state_desc"/>
+	      <field table="bl" name="address1"/>
+	      <field table="bl" name="bl_use_type"/>
+		  <field table="bl" name="area_bl_comn_gp"/>
+		  <field table="bl" name="area_building_manual"/>
+		  <field table="bl" name="area_jianzhu_all"/>
+		  <field table="bl" name="area_land"/>
+		  <field table="bl" name="area_land_net"/>
+		  <field table="bl" name="area_rm"/>
+		  <field table="bl" name="area_underground"/>
+		  <field table="bl" name="area_use_net"/>
+		  <field table="bl" name="bl_id"/>
+		  <field table="bl" name="old_bl_name"/>
+		  <field table="bl" name="bl_situation"/>
+		  <field table="bl" name="bldg_photo"/>
+		  <field table="bl" name="building_cat"/>
+		  <field table="bl" name="comments"/>
+		  <field table="bl" name="construction_type"/>
+		  <field table="bl" name="count_rm_keyong"/>
+		  <field table="bl" name="count_underground"/>
+		  <field table="bl" name="count_upground"/>
+		  <field table="bl" name="date_building_end"/>
+		  <field table="bl" name="dwg_src"/> 
+		  <field table="bl" name="gongtanlv"/>
+		  <field table="bl" name="grp_uid"/>
+		  <field table="bl" name="name"/>
+		  <field table="bl" name="origial_cad"/>
+		  <field table="bl" name="pr_id"/>
+		  <field table="bl" name="quake_grade"/>
+		  <field table="bl" name="share_serv_rate"/>
+		  <field table="bl" name="site_id"/>
+		  <field table="bl" name="status"/>
+		  <field table="bl" name="use1"/>
+		  <field table="bl" name="years_plan_use"/>
+		  <field table="bl" name="area_jianzhu_all"/>
+		  <field table="bl" name="date_begin"/>
+		  <field table="bl" name="date_examine"/>
+		  <field table="bl" name="count_em"/>
+		  <!-- <field table="bl" name="use1_code"/> -->
+		  <field table="bl" name="name_building"/>
+		  <field table="bl" name="height"/>
+		  <field table="bl" name="eaves_height"/>
+		  <field table="bl" name="area_unsold"/>
+		  <field table="bl" name="area_sold"/>
+		  <field table="bl" name="count_suite_sold"/>
+		  <field table="bl" name="date_rent"/>
+		  <field table="bl" name="area_defence"/>
+		  <field table="bl" name="area_underground"/>
+		  <field table="bl" name="is_dangerous_house"/>
+		  <field table="bl" name="relic_level"/>
+		  <field table="bl" name="fire_message"/>
+		  <field table="bl" name="monitor_message"/>
+		  <field table="bl" name="roof_type"/>
+		  <field table="bl" name="spark_gap_type"/>
+		  <field table="bl" name="hvac_type"/>
+		  <field table="bl" name="rain_drainage_type"/>
+		  <field table="bl" name="count_elevator"/>
+		  <field table="bl" name="is_temp_build"/>
+		  <field table="bl" name="area_plan"/>
+		  <field table="bl" name="atype_code"/>
+		  <field table="bl" name="srcid"/>
+		  <field table="bl" name="date_acquire"/>
+		  <field table="bl" name="area_underground"/>
+		  <field table="bl" name="use_status"/>
+		  <field table="bl" name="area_ziyong"/>
+		  <field table="bl" name="area_rent"/>
+		  <field table="bl" name="area_lend"/>
+		  <field table="bl" name="area_invest"/>
+		  <field table="bl" name="area_danbao"/>
+		  <field table="bl" name="area_other"/>
+		  <field table="bl" name="lend_df_dp"/>
+		  <field table="bl" name="date_dv_use"/>
+		  <field table="bl" name="guzhuwu_unit"/>
+		  <field table="bl" name="parcelland_address"/>
+		  <field table="bl" name="operator"/>
+		  <field table="bl" name="build_company"/>
+		  <field table="bl" name="value_book"/>
+		  <field table="bl" name="project_reply_docno"/>
+		  <field table="bl" name="plan_number"/>
+		  <field table="bl" name="construction_permit"/>
+		  <field table="bl" name="check_record_no"/>
+		  <field table="bl" name="exam_accept_number"/>
+		  <field table="bl" name="area_plan"/>
+		  <field table="bl" name="project_code"/>
+		  <field table="bl" name="archive_no"/>
+		  <field table="bl" name="design_org"/>
+		  <field table="bl" name="designer"/>
+		  <field table="bl" name="project_super_org"/>
+		  <field table="bl" name="supervis_org"/>
+		  <field table="bl" name="supervisor"/>
+		  <field table="bl" name="build_org"/>
+		  <field table="bl" name="qa_period"/>
+		  <field table="bl" name="date_last_daxiu"/>
+	    <field table="bl" name="date_use"/>
+		<field table="bl" name="fund_src"/>
+		<field table="bl" name="self_collected_funds"/>
+		<field table="bl" name="value_market"/>
+		<field table="bl" name="value_original_all"/>
+		<field table="bl" name="unsold_area_seg"/>
+		<field table="bl" name="unsold_value_seg"/>
+		<field table="bl" name="acc_type"/>
+		<field table="bl" name="rm_laiyuan"/>
+		<field table="bl" name="value_market_uinc_sold"/>
+		<field table="bl" name="value_market_inc_sold"/>
+		<field table="bl" name="area_jianzhu_yuan"/>
+		<field table="bl" name="value_origi_uinc_sold"/>
+		<field table="bl" name="value_original_all"/>
+		<field table="bl" name="value_fiscal_alloc"/>
+		<field table="bl" name="business_income"/>
+		<field table="bl" name="ysw_income"/>
+		<field table="bl" name="value_income"/>
+        <field table="bl" name="other_surplus_funds"/>  
+		<field table="bl" name="other_funds"/>
+		<field table="bl" name="czxjy_funds"/>
+		<field table="bl" name="in_acc_em"/>
+		<field table="bl" name="auditor"/>
+		<field table="bl" name="in_acc_proof"/>
+		<field table="bl" name="asset_num"/>
+		<field table="bl" name="asset_name"/>
+		<field table="bl" name="atype_code" />
+		<field table="bl" name="cgzzxs_id"/>
+		<field table="bl" name="value_type"/>
+		<field table="bl" name="zhejiu_add"/>
+		<field table="bl" name="net_book_value"/>
+		<field table="bl" name="account_proof"/>
+		<field table="bl" name="zhejiu_status"/>
+		<field table="bl" name="avg_price"/>
+		<field table="bl" name="value_ziyong"/>
+		<field table="bl" name="value_lend"/>
+		<field table="bl" name="value_rent"/>
+		<field table="bl" name="building_type"/>	
+		<field table="bl" name="value_invest"/>
+		<field table="bl" name="value_danbao"/>
+		<field table="bl" name="value_other"/>
+		<field table="bl" name="deprec_method"/>
+		<field table="bl" name="deprec_months"/>
+		<field table="bl" name="remain_rate"/>
+		<field table="bl" name="depre_reserves"/>
+			<field table="bl" name="atype_name"/>
+		<field table="bl" name="value_original"/>
+		<field table="bl" name="value_net"/>
+   			<!-- 产权信息 --> 
+   			<field table="bl" name="date_fazheng"/>
+			<field table="bl" name="ownership_code"/>
+			<field table="bl" name="ownship_shape"/>
+			<field table="bl" name="fcz_in_number"/>
+			<field table="bl" name="ownship_shape"/>
+			<field table="bl" name="land_code"/>
+			<field table="bl" name="quanszm"/>
+			<field table="bl" name="quansxz"/>
+			<field table="bl" name="quanszh"/>
+		    <field table="bl" name="date_faz"/>
+			<field table="bl" name="mesure_unit"/>	
+			<field table="bl" name="area_land_net"/>
+			<field table="bl" name="area_bl_comn_gp"/>
+			<field table="bl" name="avg_price"/>
+            <field table="bl" name="dv_use"/>
+        <parameter name="blIdRes" dataType="text" value=""/>
+        <restriction type="sql" sql="bl.bl_id=${parameters['blIdRes']}"/>
+    </dataSource>
+    
+	 <dataSource id='assetDs'>
+			<table name="asset_source" role="main"/>
+			<field table="asset_source" name="id"/>
+			<field table="asset_source" name="bl_id"/>
+			<field table="asset_source" name="code"/>
+			<field table="asset_source" name="asset_code"/>
+			<field table="asset_source" name="asset_count"/>
+			<field table="asset_source" name="asset_type"/>
+			<field table="asset_source" name="description"/>
+			  <parameter name="blIdRes" dataType="text" value=""/>
+        <restriction type="sql" sql="asset_source.bl_id=${parameters['blIdRes']}"/>
+	</dataSource>
+	    
+    <dataSource id="emDS">
+        <table name="em" role="main"/>
+        <table name="dv" role="standard"/>
+        <table name="dp" role="standard"/>
+        <field table="em" name="em_id"/>
+        <field table="em" name="name"/> 
+        <field table="em" name="bl_id"/>
+        <field table="em" name="fl_id"/>
+        <field table="em" name="rm_id"/>
+        <field table="em" name="sex"/>
+        <field table="em" name="minzu"/>
+        <field table="dv" name="dv_name"/>
+        <field table="dp" name="dp_name"/>
+        <field table="em" name="zaigangzhuangtai_id"/>
+        <parameter name="blIdRes" dataType="text" value=""/>
+        <restriction type="sql" sql="em.bl_id=${parameters['blIdRes']}"/>
+    </dataSource>
+	<dataSource id="dvInfoDs">
+		              <sql dialect="generic">
+						select bu.name,dv.dv_name,a.count_rm,a.total_jianzhu ,a.total_area from (
+							  SELECT dv_id,
+							         COUNT (rm_id) count_rm,
+							         SUM (area_fcz) total_jianzhu,
+							         SUM (area) total_area
+							    FROM rm 
+							   WHERE bl_id =  ${parameters['blId']} and dv_id is not null
+							GROUP BY dv_id
+							)  a left join dv on a.dv_id=dv.dv_id left join bu on dv.bu_id=bu.bu_id
+                            </sql>
+				    <table name="dv" role="main"/>		
+		            <field table="dv" name="name" dataType="text"/>
+		            <field table="dv" name="dv_name"  dataType="text"/>
+		            <field table="dv" name="count_rm"  dataType="text"/>
+		            <field table="dv" name="total_jianzhu"  dataType="text"/>
+		            <field table="dv" name="total_area"  dataType="text"/>	
+					<parameter name="blId" dataType="text" value=""/>
+			
+	</dataSource>
+	<dataSource id='rmDs'>
+			<table name="rm" role="main"/>
+			<table name="rmuse" role="standard"/>
+	        <table name="rmcat" role="standard"/>
+	        <table name="rmtype" role="standard"/>
+	        <table name="dv" role="standard"/>
+	        <table name="dp" role="standard"/>
+			<field table="rm" name="bl_id"/>
+			<field table="rm" name="fl_id"/>
+			<field table="rm" name="rm_id"/>
+			<field table="rm" name="name"/>
+        	<field table="rmuse" name="rm_use"/>
+        	<field table="rmuse" name="rmuse_name"/>
+       		<field table="rmcat" name="rm_cat"/>
+       		<field table="rmcat" name="rmcat_name"/>
+        	<field table="rmtype" name="rm_type"/>
+       		<field table="rmtype" name="rmtype_name"/>    
+			<field table="rm" name="dv_id"/>
+	        <field table="dv" name="dv_name"/>
+	        <field table="rm" name="dp_id"/>
+	        <field table="dp" name="dp_name"/>
+			<field table="rm" name="rm_use"/>
+			<field table="rm" name="rm_cat"/>
+	        <field table="rm" name="rm_type" />
+			<field table="rm" name="area"/>
+			<field table="rm" name="chaoxiang"/>
+			<field table="rm" name="option1"/>
+			<field table="rm" name="count_design"/>
+			<field table="rm" name="notes"/>
+		 	<parameter name="blIdRes" dataType="text" value=""/>
+        <restriction type="sql" sql="rm.bl_id=${parameters['blIdRes']}"/>
+	</dataSource>
+	
+    <panel type="html" id="buildingPhotos" layoutRegion="blPhoto" showOnLoad="false">
+       <title translatable="true">Jian Zhu Wu</title>
+	
+			<html>
+				<div style="padding:10px">
+				<img id="bl_photo"  style="width:100%;height:75%;" />
+			    </div>
+			</html>
+    </panel>
+    
+    <!-- base building info panel-->
+    <panel type="columnReport" id="abScBlBasicInfoForm" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="1" showOnLoad="false" layoutRegion="basicInfo">
+	     <title translatable="true">Ji Ben Xin Xi</title>
+	 		<!--<field id="basic" labelClass="prominentLabel" cssClass="prominentLabel"/>-->
+			<field table="bl" name="bl_id"/>
+			<field table="bl" name="name"/>	
+			<field table="site" name="name"/> 
+			<field table="bl" name="pr_id"/> 
+		    <field table="bl" name="area_building_manual"/>
+			<field table="bl" name="area_rm"/>
+			<field table="bl" name="use_status"/>
+			<field table="bl" name="use1"/>
+			<field table="bl" name="state_desc" colspan="2" />
+    </panel>
+    <!-- the tabs of  building info -->
+   <tabs id="abScBlBasicInfoTabs" workflow="free" layoutRegion="blInfo" >
+   		<!--  建筑物信息 -->
+        <tab name="tabStructureInfo"  selected="true" >
+            <title translatable="true">structure_info</title>
+            <panel id="structure_info" type="columnReport" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="2" showOnLoad="false">
+                  <field table="bl" name="old_bl_name"/>
+				<field table="bl" name="height"/>
+				<field table="bl" name="area_jianzhu_yuan"/>
+				<field table="bl" name="area_land"/>
+				<field table="bl" name="count_rm_keyong"/>
+				<field table="bl" name="count_em"/>
+				<field table="bl" name="construction_type"/>
+				<field table="bl" name="quake_grade"/>
+				<field table="bl" name="count_upground"/>
+                <field table="bl" name="count_underground" readOnly="true"/>
+				<field table="bl" name="gongtanlv" />
+				<field table="bl" name="share_serv_rate"/>
+				<field table="bl" name="atype_code" />
+				<field table="bl" name="atype_name"/>
+				<field table="bl" name="bl_use_type"/>
+				<field table="bl" name="land_code"/>
+				<field table="bl" name="value_original"/>
+                <field table="bl" name="value_net"/>
+				<field table="bl" name="date_dv_use"/>
+				<field table="bl" name="years_plan_use"/>
+				<field table="bl" name="address1"/>
+				<field></field>
+				<field table="bl" name="comments" colspan="2"/>
+            </panel>
+        </tab>
+		<!-- 修缮状态 -->
+		<tab name="tabRepairsInfo">
+            <title translatable="true">repairs_info</title>
+            <panel id="repairs_info" type="columnReport" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="2">
+                <field table="bl" name="build_company"/>
+                <field table="bl" name="plan_number"/>
+                <field table="bl" name="project_reply_docno"/>
+				<field table="bl" name="construction_permit"/>
+				<field table="bl" name="project_code"/>
+				<field table="bl" name="project_super_org"/>
+				<field table="bl" name="design_org"/>
+				<field table="bl" name="designer"/>
+				<field table="bl" name="supervis_org"/>
+                <field table="bl" name="supervisor"/>
+				<field table="bl" name="build_org"/>
+				<field table="bl" name="qa_period"/>
+				<field table="bl" name="date_begin"/>
+                <field table="bl" name="date_examine"/>
+				<field table="bl" name="date_building_end"/>
+				<field table="bl" name="date_acquire"/>
+				<field table="bl" name="date_dv_use"/>
+				<field table="bl" name="date_last_daxiu"/>
+            </panel>
+        </tab>
+		
+        <!--  产权信息  -->
+        <tab name="tabBuildInfo">
+            <title translatable="true">build_info</title>
+            <panel id="build_info" type="columnReport" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="2">
+               <field table="bl" name="ownship_shape"/>
+				<field table="bl" name="rm_laiyuan"/>
+				<field table="bl" name="acc_type"/>
+				<field table="bl" name="date_use"/>
+				<field table="bl" name="quansxz"/>
+				<field table="bl" name="quanszm"/>
+				<field table="bl" name="quanszh"/>
+				<field table="bl" name="date_fazheng"/>
+				<field table="bl" name="srcid"/>
+				<field table="bl" name="date_acquire"/>
+				<field table="bl" name="cgzzxs_id"/>
+				<field table="bl" name="address1">
+					<title>zuoluodizhi</title>
+				</field>
+            </panel>
+        </tab>
+ 		
+         <!-- 使用状态-->
+        <tab name="tabPropertyInfo">
+            <title translatable="true">property_info</title>
+            <panel id="property_info" type="columnReport" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="2">
+				<field table="bl" name="value_original"/>
+				<field table="bl" name="value_net"/>
+				<field table="bl" name="fund_src"/>
+				<field table="bl" name="value_type"/>
+				<field table="bl" name="area_ziyong" />
+				<field table="bl" name="value_ziyong"/>
+				<field table="bl" name="area_rent" />
+				<field table="bl" name="value_rent"/>
+				<field table="bl" name="area_lend" />
+				<field table="bl" name="value_lend"/>
+				<field table="bl" name="area_invest" />
+				<field table="bl" name="value_invest"/>
+				<field table="bl" name="area_danbao" />
+				<field table="bl" name="value_danbao"/>
+				<field table="bl" name="area_other"/>
+				<field table="bl" name="value_other"/>
+				<field table="bl" name="mesure_unit"/>  
+            </panel>
+        </tab>
+		
+        <!--   资产信息 -->
+        <tab name="tabAssetsInfo">
+            <title translatable="true">assets_info</title>
+            <panel id="assets_info" type="columnReport" dataSource="ds_ScBlBasicInfo_tabs_bl" columns="2">
+                <field table="bl" name="value_fiscal_alloc"/>
+                <field table="bl" name="value_income"/>
+                <field table="bl" name="ysw_income"/>
+                <field table="bl" name="other_funds"/>
+                <field table="bl" name="other_surplus_funds"/>                   
+            </panel>
+        </tab>
+      
+			
+        <!-- 房间信息 -->
+		<tab name="tabRoomInfo">
+            <title translatable="true">Room_Info</title>
+            <panel id="roomInfoGrid" type="grid" dataSource="rmDs" >
+                <field table="rm" name="bl_id"/>
+                <field table="rm" name="fl_id"/>
+                <field table="rm" name="rm_id"/>
+                <field table="rm" name="name"/>
+                <field table="rmuse" name="rmuse_name"/>
+                <field table="rmcat" name="rmcat_name"/>
+                <field table="rmtype" name="rmtype_name"/>    
+                <field table="dv" name="dv_name"/>
+                <field table="dp" name="dp_name"/>
+                <field table="rm" name="area"/>
+                <field table="rm" name="chaoxiang"/>
+                <field table="rm" name="option1"/>
+                <field table="rm" name="count_design"/>           
+                <field table="rm" name="notes"/>           
+            </panel>
+            
+        </tab>
+		      
+        <!-- 使用人信息 -->
+        <tab name="tabUserInfo">
+            <title translatable="true">user_info</title>
+           <panel id="dvInfoGrid" type="grid"  controlType="reportGrid" dataSource="dvInfoDs" >
+                 	<!-- <field table="dv" name="name">
+					   <title>danwei_leixing</title>
+					   </field> -->
+                    <field table="dv" name="dv_name" />
+                    <field table="dv" name="count_rm"/>
+                    <field table="dv" name="total_jianzhu">
+					   <title>jianzhumianji_zong</title>
+					   </field>
+                    <field table="dv" name="total_area" >
+					   <title>shiyongmianji_zong</title>
+					   </field>  
+           		</panel>
+        </tab>
+
+    </tabs>
+    <js file="asc-bj-usms-bl-summary-info-wd.js"/>
+</view>

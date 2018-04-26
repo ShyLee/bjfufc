@@ -1,0 +1,86 @@
+<view version="2.0">
+	<js file="asc-zf-bt-def-fl-info-hcq-tab.js"/>
+	<dataSource id="scZfcqDs">
+		<table name="sc_zf_hcq" role="main" />
+		<field table="sc_zf_hcq" name="auto_id" />
+        <field table="sc_zf_hcq" name="archive_id"/>
+        <field table="sc_zf_hcq" name="em_id" />
+        <field table="sc_zf_hcq" name="xm" />
+        <field table="sc_zf_hcq" name="dv_id" />
+        <field table="sc_zf_hcq" name="dv_name" />
+        <field table="sc_zf_hcq" name="bl_id" />
+        <field table="sc_zf_hcq" name="bl_name" />
+        <field table="sc_zf_hcq" name="fl_id" />
+        <field table="sc_zf_hcq" name="unit_id" />
+        <field table="sc_zf_hcq" name="rm_id" />
+        <field table="sc_zf_hcq" name="rm_addr" />
+        <field table="sc_zf_hcq" name="community" />
+        <field table="sc_zf_hcq" name="super_type" />
+        <field table="sc_zf_hcq" name="zf_type_id" />
+        <field table="sc_zf_hcq" name="zf_type_name" />
+        <field table="sc_zf_hcq" name="owner_names" />
+        <field table="sc_zf_hcq" name="cqz_code" />
+        <field table="sc_zf_hcq" name="date_building_end" />
+        <field table="sc_zf_hcq" name="area_jianzhu" />
+        <field table="sc_zf_hcq" name="ytys" />
+        <field table="sc_zf_hcq" name="area_yt" />
+        <field table="sc_zf_hcq" name="area_sy" />
+        <field table="sc_zf_hcq" name="area_hd" />
+        <field table="sc_zf_hcq" name="bl_type" />
+        <field table="sc_zf_hcq" name="chaoxiang" />
+        <field table="sc_zf_hcq" name="huxing_id" />
+        <field table="sc_zf_hcq" name="huxing" />
+        <field table="sc_zf_hcq" name="date_gf" />
+        <field table="sc_zf_hcq" name="price_unit" />
+        <field table="sc_zf_hcq" name="price_sum" />
+        <field table="sc_zf_hcq" name="zw_jb_id" />
+        <field table="sc_zf_hcq" name="zw_jb_name" />
+        <field table="sc_zf_hcq" name="zw_id" />
+        <field table="sc_zf_hcq" name="zw_name" />
+        <field table="sc_zf_hcq" name="zc_jb_id" />
+        <field table="sc_zf_hcq" name="zc_jb_name" />
+        <field table="sc_zf_hcq" name="zc_id" />
+        <field table="sc_zf_hcq" name="zc_name" />
+        <field table="sc_zf_hcq" name="p_zw_jb_id" />
+        <field table="sc_zf_hcq" name="p_zw_jb_name" />
+        <field table="sc_zf_hcq" name="p_zw_id" />
+        <field table="sc_zf_hcq" name="p_zw_name" />
+        <field table="sc_zf_hcq" name="p_zc_jb_id" />
+        <field table="sc_zf_hcq" name="p_zc_jb_name" />
+        <field table="sc_zf_hcq" name="p_zc_id" />
+        <field table="sc_zf_hcq" name="p_zc_name" />
+        <field table="sc_zf_hcq" name="dw_sale_rm" />
+        <field table="sc_zf_hcq" name="wxjjbz" />
+        <field table="sc_zf_hcq" name="doc_fcz" />
+        <field table="sc_zf_hcq" name="description" />
+        <field table="sc_zf_hcq" name="change_time" />
+        <field table="sc_zf_hcq" name="c_deal" />
+        <field table="sc_zf_hcq" name="c_date_jy" />
+        <field table="sc_zf_hcq" name="c_price_je" />
+        <field table="sc_zf_hcq" name="c_em_id" />
+        <field table="sc_zf_hcq" name="c_archive_id" />
+        <field table="sc_zf_hcq" name="c_sfzh" />
+		<field table="sc_zf_hcq" name="is_audit_admin" />
+	</dataSource>
+
+    <panel type="grid" id="hcqfGrid" dataSource="scZfcqDs">
+    	<title translatable="true">HCQF list</title>
+    	<field table="sc_zf_hcq" name="auto_id" hidden="true"/>
+        <field table="sc_zf_hcq" name="rm_addr" >
+        </field>
+        <field table="sc_zf_hcq" name="dw_sale_rm" >
+        </field>
+        <field table="sc_zf_hcq" name="owner_names" >
+        </field>
+        <field table="sc_zf_hcq" name="area_jianzhu" >
+        </field>
+        <field table="sc_zf_hcq" name="zf_type_name" >
+        </field>
+        <field table="sc_zf_hcq" name="date_gf" >
+        </field>
+        <field table="sc_zf_hcq" name="is_audit_admin" >
+        </field>
+    </panel>
+    
+ 	
+</view>

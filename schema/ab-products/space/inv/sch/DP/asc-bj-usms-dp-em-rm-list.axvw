@@ -1,0 +1,222 @@
+<view version="2.0">
+	
+	<message name="yuanxi" translatable="true">yuanxi:</message>
+	<message name="danwei" translatable="true">leixing:</message>
+	<message name="total" translatable="true">total</message>
+	
+    <title translatable="true">Search Employ And Room By Division</title>
+	
+    <layout type="borderLayout" id="mainLayout">
+        <north id="north" initialSize="30%" split="true"/>
+        <center id="center"/>
+        <south id="south" initialSize="30%" split="true"/>
+    </layout>
+	
+    <!-- Retrieves all funding sources, and additional visible fields per funding source. -->
+    <dataSource id="abScSearchEmRmByDvGridDS">
+        <table name="bu" role="main"/>
+		
+        <field table="bu" name="bu_id"/>
+        <field table="bu" name="area_rm"/>
+        <field table="bu" name="area_jianzhu"/>
+        <field name="mianjibi" dataType="number" size="6" decimals="2"/>
+        <restriction type="sql" sql="EXISTS (SELECT 1 FROM dv WHERE dv.bu_id = bu.bu_id)"/>
+    </dataSource>
+	
+    <panel type="grid" id="abScSearchEmRmByDvGrid" dataSource="abScSearchEmRmByDvGridDS" layoutRegion="north">
+        <title translatable="true">Unit List</title>
+        <field table="bu" name="bu_id" controlType="link">
+            <command type="callFunction" functionName="onBarChartClick"/>
+        </field>
+        <field table="bu" name="area_rm" controlType="link">
+            <command type="callFunction" functionName="onBarChartClick"/>
+        </field>
+        <field table="bu" name="area_jianzhu" controlType="link">
+            <command type="callFunction" functionName="onBarChartClick"/>
+        </field>
+        <field table="bu" name="mianjibi" dataType="number" controlType="link">
+            <title translatable="true">Area Rate</title>
+            <command type="callFunction" functionName="onBarChartClick"/>
+        </field>
+		<field/>
+    </panel>
+    
+	
+	<dataSource id="abScSearchEmRmByDvRowDS" type="grouping">
+        <table name="dv" role="main"/>
+		<table name="em" role="standard"/>
+		
+        <field name="dv_id" table="dv" groupBy="true"/>
+        <field name="count_rm" table="dv" groupBy="true"/>
+        <field name="area_rm" table="dv" groupBy="true"/>
+        <field name="count_student" table="dv" groupBy="true"/>
+        <field name="count_em" table="dv" groupBy="true"/>
+		
+		<field name="changjiangxuezhe" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">changjiangxuezhe</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['changjiangxuezhe']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+		
+		<field name="zhenggao" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">zhenggao</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['zhenggao']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+		<field name="fugao" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">fugao</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['fugao']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+		<field name="zhongji" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">zhongji</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['zhongji']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+		<field name="chuji" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">chuji</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['chuji']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+		<field name="waiji" formula="count" baseField="em.dv_id" dataType="number" size="6" decimals="0">
+            <title translatable="true">waiji</title>
+            <sql dialect="generic">
+               ( select count(em.em_id) from em where em.zhic_bz_id = ${parameters['waiji']} and em.dv_id=dv.dv_id )
+            </sql>
+        </field>
+	
+        <sortField name="dv_id" table="dv"/>
+        <restriction type="sql"
+            sql="EXISTS( select 1 from em where dv.dv_id=em.dv_id) and dv.bu_id  ${parameters['buId']} "/>
+		<parameter name="changjiangxuezhe" dataType="text" value="IS NOT NULL"/>
+        <parameter name="zhenggao" dataType="text" value="IS NOT NULL"/>
+		<parameter name="fugao" dataType="text" value="IS NOT NULL"/>
+		<parameter name="zhongji" dataType="text" value="IS NOT NULL"/>
+		<parameter name="chuji" dataType="text" value="IS NOT NULL"/>
+		<parameter name="waiji" dataType="text" value="IS NOT NULL"/>
+		<parameter name="buId" dataType="verbatim" value="IS NOT NULL"/>
+    </dataSource>
+	
+	<panel type="grid" id="abScSearchEmRmByDvCrossTable" dataSource="abScSearchEmRmByDvRowDS" layoutRegion="center" showOnLoad="false">
+		<title>Show Devision Details</title>
+		<field name="dv_id" table="dv" controlType="link">
+			<command type="callFunction" functionName="onBarClick"/>
+		</field>
+        <field name="count_rm" table="dv" controlType="link">
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+        <field name="area_rm" table="dv" controlType="link">
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+        <field name="count_student" table="dv" controlType="link">
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="count_em" table="dv" controlType="link">
+			<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="changjiangxuezhe"  controlType="link">
+        	<title>changjiangxuezhe</title>
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+        <field name="zhenggao"  controlType="link">
+        	<title>zhenggao</title>
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="fugao"  controlType="link">
+			<title>fugao</title>
+			<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="zhongji"  controlType="link">
+			<title>zhongji</title>
+			<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="chuji"  controlType="link">
+			<title>chuji</title>
+			<command type="callFunction" functionName="onBarClick"/>
+		</field>
+		<field name="waiji"  controlType="link">
+        	<title>waiji</title>
+        	<command type="callFunction" functionName="onBarClick"/>
+		</field>
+	
+	</panel>
+    
+    
+    <dataSource id="abScSearchEmRmByDvGridReportShowDS">
+        <table name="em" role="main"/>
+        <table name="rm" role="standard"/>
+		<!--
+		<table name="sc_dinge_jibie" role="standard"/>
+		-->
+        <field table="em" name="name"/>
+        <field table="em" name="em_id"/>
+        <field table="em" name="sex"/>
+		<!--
+        <field table="em" name="dingejibie_id"/>
+        -->
+		<field table="em" name="bl_id"/>
+        <field table="em" name="fl_id"/>
+        <field table="em" name="rm_id"/>
+        <field table="rm" name="area_manual"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="em" name="area_rm"/>
+        <field table="rm" name="chaoxiang"/>
+		<!--
+		<field table="sc_dinge_jibie" name="area"/>
+        -->
+		<field name="chaoemianji" baseField="em.dingemianji" dataType="number" decimals="2">
+            <title translatable="true">Chao e Mian Ji</title>
+            <!--
+			<sql dialect="generic">
+               (em.area_rm - sc_dinge_jibie.area)
+            </sql>
+			-->
+        </field>
+        <field name="chaoemianjibi" baseField="em.dingemianji" dataType="number" decimals="2">
+            <title translatable="true">Chao e Mian Ji Bi</title>
+            <!--
+			<sql dialect="generic">
+                CASE WHEN sc_dinge_jibie.area &lt;=0 THEN 0 ELSE  (em.area_rm - sc_dinge_jibie.area)/sc_dinge_jibie.area  END
+            </sql>
+			-->
+        </field>
+        <restriction type="sql"
+            sql="(em.dv_id in (select dv.dv_id from dv where dv.bu_id ${parameters['bId']}))"/>
+       <parameter name="bId" dataType="verbatim" value="IS NOT NULL"/>
+    </dataSource>
+    <panel type="grid" id="abScSearchEmRmByDvGridReportShow" dataSource="abScSearchEmRmByDvGridReportShowDS" layoutRegion="south" showOnLoad="false">
+        <title translatable="true">Room User</title>
+		<field table="em" name="name" hidden="true"/>
+        <field id="name" controlType="button">
+			<title translatable="true">View Employ</title>
+		</field>
+        <field table="em" name="em_id" hidden="true"/>
+		<field table="em" name="name"/>
+        <field table="em" name="sex"/>
+		<!--
+        <field table="em" name="dingejibie_id"/>
+        -->
+		<field table="em" name="bl_id"/>
+        <field table="em" name="fl_id"/>
+        <field table="em" name="rm_id"/>
+        <field table="rm" name="area_manual"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="em" name="area_rm"/>
+		<!--
+        <field table="sc_dinge_jibie" name="area"/>
+        -->
+		<field name="chaoemianji" dataType="number"  decimals="2">
+            <title translatable="true">Chao e Mian Ji</title>
+        </field>
+		<field name="chaoemianjibi" dataType="number"  decimals="2">
+            <title translatable="true">Chao e Mian Ji Bi</title>
+        </field>
+    </panel>
+    <js file="asc-bj-usms-dp-em-rm-list.js"/>
+	<js file="asc-bj-usms-def-common.js"/>
+</view>

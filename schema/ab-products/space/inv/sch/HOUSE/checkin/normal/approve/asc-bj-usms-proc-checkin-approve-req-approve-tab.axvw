@@ -1,0 +1,178 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-checkin-approve-req-approve-tab.js"/>
+    <js file="asc-bj-usms-proc-common.js"/>
+    <js file="asc-bj-usms-constant.js"/>
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        
+        <field table="sc_zzfcard" name="em_id"  required="true" readOnly="true" />
+		<field name="em_name" table="sc_zzfcard"  required="true" readOnly="true" />
+		<field name="identi_code" table="sc_zzfcard" required="true"/>
+		<field name="sex" table="sc_zzfcard" required="true"/>
+		<field name="dv_name" table="sc_zzfcard" required="true" readOnly="true"/>
+	    <field name="marriage_stat" table="sc_zzfcard" required="false"/>
+		<field name="is_working_parents" table="sc_zzfcard" required="false"/>
+		<field name="phone" table="sc_zzfcard" required="true"/>
+		<field name="email" table="sc_zzfcard" required="true"/>
+		<field name="is_rc" table="sc_zzfcard"/>
+		<field name="date_work_begin" table="sc_zzfcard" required="false"/>
+        <field name="curr_addr" table="sc_zzfcard"  />
+		<field name="xueli" table="sc_zzfcard"  />
+		<field name="zhiw_id" table="sc_zzfcard"  />
+		<field name="zhic_id" table="sc_zzfcard"  />
+		<field name="po_name" table="sc_zzfcard" required="false"/>
+		<field name="po_dv_id" table="sc_zzfcard" required="false"/>
+		<field name="po_em_id" table="sc_zzfcard" required="false"/>
+		<field name="po_identi_code" table="sc_zzfcard"  required="false"/>
+		<field name="yxhx" table="sc_zzfcard"/>
+		<field name="rent_type" table="sc_zzfcard"/>
+		<field name="doc1" table="sc_zzfcard"/>
+		<field name="doc2" table="sc_zzfcard"/>
+		<field name="apply_reason" table="sc_zzfcard"/>
+		<field name="apply_beizhu" table="sc_zzfcard"/>
+		<field table="sc_zzfcard" name="card_apply"/>
+		<field table="sc_zzfcard" name="card_status"/>
+		<field table="sc_zzfcard" name="card_id"/>
+    </dataSource>
+
+    <panel type="form" columns="3" id="requestorInfoFrom" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Requestor Info</title>
+        <action id="back">
+            <title translatable="true">Back</title>
+			<command type="callFunction" functionName="ascBjUsmsProcAsgnApproveReqApproveTabController.onBack()"/>
+        </action>
+        <action id="approve">
+            <title translatable="true">ShenPi</title>
+			<command type="callFunction" functionName="ascBjUsmsProcAsgnApproveReqApproveTabController.onShowApproveWindow()"/>
+        </action>
+		<field name="card_id" table="sc_zzfcard" hidden="true" readOnly="true"/>
+		<field table="sc_zzfcard" name="em_id"  readOnly="true" required="true"/>
+		<field name="em_name" table="sc_zzfcard"  readOnly="true" required="true"/>
+		<field name="identi_code" table="sc_zzfcard" required="true" readOnly="true"/>
+		<field name="sex" table="sc_zzfcard" readOnly="true"/>
+		<field name="dv_name" table="sc_zzfcard" readOnly="true"/>
+	    <field name="marriage_stat" table="sc_zzfcard" readOnly="true"/>
+		<field name="is_working_parents" table="sc_zzfcard" readOnly="true"/>
+		<field name="phone" table="sc_zzfcard" readOnly="true"/>
+		<field name="email" table="sc_zzfcard" readOnly="true"/>
+		<field name="is_rc" table="sc_zzfcard" required="true" readOnly="true"/>
+		<field name="date_work_begin" table="sc_zzfcard" readOnly="true"/>
+        <field name="curr_addr" table="sc_zzfcard" readOnly="true"/>
+		
+		<field name="xueli" table="sc_zzfcard" readOnly="true"/>
+		<field name="zhiw_id" table="sc_zzfcard" readOnly="true"/>
+		<field name="zhic_id" table="sc_zzfcard" readOnly="true"/>
+		
+		<field name="po_name" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_dv_id" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_em_id" table="sc_zzfcard" readOnly="true"/>
+		<field name="po_identi_code" table="sc_zzfcard" readOnly="true"/>
+    </panel>
+
+    <panel type="form" columns="3" id="destricptionForm" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Description</title>
+        <field name="card_id" table="sc_zzfcard" readOnly="true" hidden="true"/>
+        <field table="sc_zzfcard" name="card_apply"/>
+		<field name="rent_type" table="sc_zzfcard" readOnly="true" required="true"/>
+		<field name="yxhx" table="sc_zzfcard" readOnly="true"/>
+		<!-- <field name="doc1" table="sc_zzfcard" readOnly="true"/>
+		<field name="doc2" table="sc_zzfcard" readOnly="true"/> 
+		<field/>-->
+		<field name="apply_reason" table="sc_zzfcard" required="true" readOnly="true"/>
+		<field name="apply_beizhu" table="sc_zzfcard" readOnly="true"/>
+    </panel>
+       
+    
+    
+    <dataSource id="historyPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <table name="afm_wf_steps" role="standard"/>
+        <table name="em" role="standard"/>
+        <field name="pkey_value" table="helpdesk_step_log"/>
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+        <field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="date_created" table="helpdesk_step_log"/>
+        <field name="time_created" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    
+    <!--以下是历史记录-->
+    <panel type="grid" id="historyPanel" controlType="reportGrid" dataSource="historyPanelDS" sortEnabled="false" layoutRegion="historyRegion" showOnLoad="false">
+        <title translatable="true">History</title>
+        <field name="pkey_value" table="helpdesk_step_log" hidden="true"/>
+        <field name="step_log_id" table="helpdesk_step_log">
+        	<title translatable="true">Step Num</title>
+        </field>
+        <field name="step" table="afm_wf_steps">
+        	<title translatable="true">Step Comment</title>
+        </field>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="date_created" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="status" table="afm_wf_steps" hidden="false">
+            <title translatable="true">Status</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+
+
+    
+    <dataSource id="approveFormDS">
+        <table name="activity_log" role="main"/>
+
+        <table name="activity_log_step_waiting" role="standard"/>
+        <field table="activity_log" name="activity_log_id"/>
+        <field table="activity_log" name="approved_by"/>
+        <field table="activity_log_step_waiting" name="activity_log_id"/>
+        <field table="activity_log_step_waiting" name="step"/>
+        <field table="activity_log_step_waiting" name="comments"/>
+        <field table="activity_log_step_waiting" name="step_code"/>
+        <field table="activity_log_step_waiting" name="step_log_id"/>
+        <field table="activity_log_step_waiting" name="user_name"/>
+        <field table="activity_log_step_waiting" name="em_id"/> 
+        
+        <restriction type="sql" sql="activity_log_step_waiting.user_name = '${user.employee.id}'"/> 
+    </dataSource>
+    
+    <!-- 审批弹出的对话框 -->
+   <panel type="form" columns="2" id="approveForm" dataSource="approveFormDS" hidden="true" showOnLoad="false">
+        <title translatable="true">Approve Infomation</title>
+        <action id="approve">
+            <title translatable="true">QueRen</title>
+        </action> 
+        <action id="reject">
+            <title translatable="true">Reject</title>
+        </action>       
+        <field colspan="2">
+            <title translatable="true">Comments</title>
+            <html>
+                <span id="activity_log_step_waiting.comments.required_star" style="font-size: 10px; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; color: red;" name="activity_log_step_waiting.comments.required_star">*</span>
+                <textarea id="comments" cols="65" rows="5" maxlength="1000" minlength="1" onchange="afm_form_values_changed=true;"
+                 onfocus="window.temp=this.value;" name="comments"></textarea>
+            </html>
+        </field>
+        <field table="activity_log_step_waiting" name="step"/>
+        <field table="activity_log_step_waiting" name="step_code" hidden="true"/>
+        <field table="activity_log_step_waiting" name="activity_log_id" hidden="true"/>
+        <field table="activity_log" name="activity_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="step_log_id" hidden="true"/>
+        <field table="activity_log_step_waiting" name="user_name" hidden="true"/>
+        <field table="activity_log_step_waiting" name="comments" hidden="true"/>
+    </panel>
+</view>

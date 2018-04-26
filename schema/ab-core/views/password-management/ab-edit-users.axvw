@@ -1,0 +1,195 @@
+<view version="2.0">
+    <title>Add or Edit Users</title>
+    
+    <layout id="main">
+        <west  initialSize="50%" split="true"/>
+        <center id="right"/>
+    </layout>
+    <layout id="botton" containingLayout="main" region="west">
+    	<north id="top"  initialSize="80" split="true"/>		
+        <center id="left"/>
+    </layout> 
+    <css>
+    	.selectValue {
+			    position: relative;
+			    left: -6px;
+			    margin-bottom: -5px !important;
+			    margin-bottom: -4px; /* top positioning triggers an IE8 bug. Adjusted margin instead. */
+			    height: 20px;
+			    width: 19px;
+			}
+    </css>
+    <js file="ab-edit-users.js"/>
+    <dataSource id="consoleDs">
+    	<table name="em" role="main"/>
+    	<field table="em" name="em_id"/>
+    	<field table="em" name="name"/>
+    	<field table="em" name="dv_id"/>
+		
+    </dataSource>
+    
+    <panel type="console" id="consolePanel" dataSource="consoleDs" labelsPosition="top"  columns="2" layoutRegion="top">
+    	<title>Filter</title>
+    	<action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearForm"/>
+        </action>
+        <field table="em" name="name"/>
+    	<field table="em" name="dv_id"/>
+    </panel>
+    
+    
+    <dataSource id="usersDs">
+        <sql dialect="generic">
+            SELECT em.em_id, em.name as em_name, em.dv_id,  afm_users.email,afm_users.user_name,afm_users.role_name,
+            afm_users.user_pwd,afm_users.locale,afm_users.home_page
+            FROM afm_users LEFT OUTER JOIN em
+            ON em.email = afm_users.email
+			WHERE  afm_users.role_name is not null ${parameters['emName']}
+			
+        </sql>
+        <sql dialect="oracle">
+            SELECT em.em_id, em.name as em_name, em.dv_id, afm_users.email,afm_users.user_name ,afm_users.role_name,afm_roles.role_title,
+            afm_users.user_pwd,afm_users.locale,afm_users.home_page
+            FROM afm_users, em,afm_roles
+            WHERE em.email(+) = afm_users.email ${parameters['emName']}
+			   AND afm_users.role_name is not null
+			   AND afm_users.user_level !=3 and afm_roles.role_name=afm_users.role_name
+        </sql>
+        <table name="afm_users" role='main'/>
+        <field name="user_name"/>
+        <field name="role_name"/>
+        <field name="dv_id" dataType="text"/>
+        <field name="em_name" dataType="text"/>
+        <field name="email"/>
+		<field name="role_title" dataType="text"/>
+        <parameter name="emName" dataType="verbatim" value=" and 1 = 1 "/>
+    </dataSource>
+    
+    <panel type="grid" id="users" dataSource="usersDs" layoutRegion="left">
+        <title>Users</title>
+        
+        <action>
+            <title>Add New User</title>
+            <command type="showPanel" panelId="user" newRecord="true"/>
+        </action>
+        
+        <sortField name="user_name" table="afm_users" ascending="true"/>
+        
+        <field name="user_name" controlType="link">
+            <command type="showPanel" panelId="user"/>
+        </field>
+        <field name="role_name" controlType="link">
+            <command type="showPanel" panelId="user"/>
+        </field>
+		<field name="role_title" controlType="link">
+			<title>Role Title</title>
+            <command type="showPanel" panelId="user"/>
+        </field>
+        <field name="dv_id" controlType="link">
+        	<title>Division Name</title>
+            <command type="showPanel" panelId="user"/>
+        </field>
+        <field name="em_name" controlType="link">
+        	<title>Employee Name</title>
+            <command type="showPanel" panelId="user"/>
+        </field>
+        <field name="email" controlType="link">
+            <command type="showPanel" panelId="user"/>
+        </field>
+    </panel>
+    
+    <dataSource id="userDs">
+        <table name="afm_users"/>
+        <field name="user_name"/>
+        <field name="is_named_user"/>
+        <field name="bim_license"/>
+        <field name="user_pwd"/>
+        <field name="num_retries"/>
+        <field name="home_page"/>
+        <field name="clr_scheme"/>
+        <field name="locale"/>
+        <field name="email"/>
+        <field name="role_name"/>
+        <field name="group_1"/>
+        <field name="group_2"/>
+        <field name="group_3"/>
+        <field name="group_4"/>
+        <field name="group_5"/>
+        <field name="preferences"/>
+    </dataSource>
+ 		 
+    <dataSource id="employeeDs">
+        <table name="em"/>
+        <field name="em_id"/>
+        <field name="email"/>
+    </dataSource>
+    
+    <panel type="form" id="user" dataSource="userDs" showOnLoad="false" layoutRegion="right">
+        <title>Edit User</title>
+        
+        <action id="save">
+            <title>Save</title>
+        </action>
+        <action>
+            <title>Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="users" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="user" show="false"/>
+        </action>
+        <action>
+            <title>Cancel</title>
+            <command type="showPanel" panelId="user" show="false"/>
+        </action>
+        
+        <field id="em_name_text" required="true">
+            <title>ZhiGongHao</title>
+            <html>
+                 <input type="text" id="em_name_text_input" value="" class="inputField" disabled="disabled"/>
+                 <img id="em_name_selectValue"  class="selectValue" tabindex="" value="..." onclick="selectUserName();" src="/archibus/schema/ab-system/graphics/ab-icons-ellipses.gif"/>
+            </html>
+        </field>
+        <field name="user_name">
+            
+        </field>
+        <field name="role_name" required="true">
+        	 <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="afm_users.role_name,afm_users.role_desc"
+                 selectFieldNames="afm_roles.role_name,afm_roles.role_title"
+                 visibleFieldNames="afm_roles.role_name,afm_roles.role_title"
+				 applyfielter="false">
+                </command>
+            </action>
+        </field>
+        <field name="user_pwd">
+            <action id="changePassword">
+                <title>Change Password</title>
+                <command type="openDialog" viewName="ab-change-password-admin.axvw" width="500" height="300" closeButton="false"/>
+            </action>
+        </field>
+        <field name="num_retries"/>
+        <field name="home_page"/>
+        <field name="clr_scheme"/>
+        <field name="locale" value="zh_CN"/>
+        <field name="email" hidden="true"/>
+        <field name="is_named_user"/>
+        <field name="bim_license"/>
+        <field name="preferences"/>
+    </panel>
+     
+    <dataSource id="scSchoolMailUrlDs">
+        <table name="sc_school"/>
+        <field name="sch_id"/>
+        <field name="web_url"/>
+    </dataSource>
+    
+    <message name="changePasswordTitle">Change Password</message>
+    <message name="changePasswordText">Type new password:</message>
+    <message name="addUserTitle">Add New User</message>
+    <message name="editUserTitle">Edit User</message>
+</view>

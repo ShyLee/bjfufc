@@ -1,0 +1,89 @@
+<view version="2.0">
+    <title>Protocol List</title>
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north split="true" initialSize="10%"/>
+        <center/>
+		<south initialSize="0"/>
+    </layout>
+    
+    <dataSource id="zzfCardDs">
+        <table name="sc_zzfcard" role="main"/>
+        <tabel name="bl" role="standard"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="sc_zzfcard" name="card_type"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_id_z"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="doc1"/>
+        <field table="sc_zzfcard" name="doc2"/>
+    </dataSource>
+    
+    <panel id="zzf_console" type="console" dataSource="zzfCardDs" layout="mainLayout" region="north" columns="2">
+        <title translatable="true">Filter</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearPanel" panelId="zzf_console"/>
+            <command type="showPanel" panelId="zzf_protocol_list"/>
+        </action>
+        <field table="sc_zzfcard" name="date_checkin" readOnly="false" alias="date_from">
+            <title translatable="true">From date</title>
+        </field>
+        <field table="sc_zzfcard" name="date_checkin" readOnly="false" alias="date_to">
+            <title translatable="true">To date</title>
+        </field>
+    </panel>
+    
+    <panel id="zzf_protocol_list" type="grid" dataSource="zzfCardDs" layout="mainLayout" region="center">
+        <title translatable="true">Protocol List</title>
+        <field id="details" controlType="button">
+            <title>details</title>
+        </field>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_id_z"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="card_type" hidden="true"/>
+    </panel>
+	
+	<panel id="zzf_protocol_details" type="form" dataSource="zzfCardDs" layout="mainLayout" region="south" columns="2">
+		<field table="sc_zzfcard" name="em_id" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="em_id_z" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="em_name" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="identi_code" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="is_em" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="is_rc" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="bl_id" readOnly="true" required="false"/>
+        <field table="bl" name="name" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="fl_id" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="rm_id" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="date_checkin" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="true" required="false"/>
+        <field table="sc_zzfcard" name="card_type" hidden="true" readOnly="true" required="false"/>
+		<field table="sc_zzfcard" name="doc1"/>
+        <field table="sc_zzfcard" name="doc2"/>
+	</panel>
+	
+    <js file="asc-bj-usms-house-view-all-pro.js"/>
+</view>

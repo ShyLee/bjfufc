@@ -1,0 +1,15 @@
+<view version="2.0">
+	<js file="asc-bj-usms-zzf-generate-protocol.js" />
+    <title translatable="true">Register Protocal House</title>
+        <preferences>
+        <viewTitleBar show="true"/>
+    </preferences>
+    <tabs workflow="free" id="reviewTabs" tabRefreshPolicy="refreshOnSelect">
+        <tab name="selectRequestTab" selected="true" file="asc-bj-usms-zzf-generate-protocal-selected.axvw">
+            <title translatable="true">Select Item</title>
+        </tab>
+        <tab name="view" file="asc-bj-usms-zzf-generate-protocal-detail.axvw">
+            <title translatable="true">Detail</title>
+        </tab>
+    </tabs>
+</view>

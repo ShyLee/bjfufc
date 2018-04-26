@@ -1,0 +1,286 @@
+<view version="2.0">
+    <js file="asc-bj-tsing-house-handover-checkout.js"/>
+    <title translatable="true">HouseHandoverCheckOut</title>
+   
+    <dataSource id="ascBjTsingHouseTsHandoverDs">
+        <table name="ts_handover" role="main"/>
+        <field table="ts_handover" name="handover_id"/>
+        <field table="ts_handover" name="dv_id"/>
+        <field table="ts_handover" name="bl_id"/>
+        <field table="ts_handover" name="bl_name"/>
+        <field table="ts_handover" name="fl_id"/>
+        <field table="ts_handover" name="rm_id"/>
+        <field table="ts_handover" name="dv_user_id"/>
+        <field table="ts_handover" name="dv_user_name"/>
+        <field table="ts_handover" name="handling_dv"/>
+        <field table="ts_handover" name="handling_em_id"/>
+        <field table="ts_handover" name="handling_em_name"/>
+        <field table="ts_handover" name="handling_time"/>
+        <field table="ts_handover" name="rm_status_to"/>
+        <field table="ts_handover" name="deal_id"/>
+        <field table="ts_handover" name="property_company"/>
+        <field table="ts_handover" name="handover_type"/>
+        <field table="ts_handover" name="handover_sm_doc"/>
+        <field table="ts_handover" name="comments"/>
+        <field table="ts_handover" name="ts_index"/>
+        <field table="ts_handover" name="deal_rm_id"/>
+        <restriction type="sql" sql="handover_type='1'"/>
+    </dataSource>
+    <dataSource id="ascBjTsingHouseTsHandoverCheckDs">
+        <table name="ts_handover_check" role="main"/>
+        <field table="ts_handover_check" name="hc_id"/>
+        <field table="ts_handover_check" name="handover_id"/>
+        <field table="ts_handover_check" name="device_type"/>
+        <field table="ts_handover_check" name="device_name"/>
+        <field table="ts_handover_check" name="check_number"/>
+        <field table="ts_handover_check" name="check_option"/>
+        <field table="ts_handover_check" name="ts_index"/>
+    </dataSource>
+    <dataSource id="ascBjTsingHouseTsDeviceTypeDs">
+        <table name="ts_device_type" role="main"/>
+        <field table="ts_device_type" name="device_type"/>
+        <field table="ts_device_type" name="description"/>
+        <field table="ts_device_type" name="ts_index"/> 
+    </dataSource>
+    <dataSource id="ascBjTsingHouseTsDeviceDs">
+        <table name="ts_device" role="main"/>
+        <field table="ts_device" name="device_name"/>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="description"/>
+        <field table="ts_device" name="ts_index"/> 
+    </dataSource>
+     <dataSource id="ts_dealrm_ds">
+        <table name="ts_deal_rm" role="main"/>
+        <field table="ts_deal_rm" name="deal_rm_id"/>
+        <field table="ts_deal_rm" name="deal_id"/>
+        <field table="ts_deal_rm" name="bl_id"/>
+        <field table="ts_deal_rm" name="fl_id"/>
+        <field table="ts_deal_rm" name="rm_id"/>
+        <field table="ts_deal_rm" name="status"/>
+    </dataSource>
+     <dataSource id="rm_ds">
+        <table name="rm" role="main"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="ruzhu_status"/>
+    </dataSource>
+    <!-- 筛选面板 -->
+    <panel type="console" id="consoleForm" dataSource="ascBjTsingHouseTsHandoverDs"  columns="3">
+         <title translatable="true">Filter</title>
+         <action id="btnFilter">
+            <title translatable="true">Filter</title>
+            <command type="callFunction" functionName="controller.doFilter()"/>
+         </action>
+         <action id="btnCancel">
+            <title translatable="true">Cancel</title>
+         </action>
+         <field table="ts_handover" name="handover_id"/>
+         <field table="ts_handover" name="dv_id">
+            <title translatable="true">ReturnDv</title>
+         </field>
+         <field table="ts_handover" name="rm_id">
+           <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue" fieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id"
+                    selectFieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id" 
+                    visibleFieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id" 
+                    restriction="ts_handover.handover_type='1'"
+                    showIndex="false"/>
+            </action>
+         </field>
+         <field table="ts_handover" name="handling_time" alias="ts_handover.dateFrom">
+            <title translatable="true">DateFrom</title>
+         </field>
+         <field table="ts_handover" name="handling_time" alias="ts_handover.dateTo">
+            <title translatable="true">DateTo</title>
+         </field>
+    </panel>
+    <!-- 交接单列表面板 -->
+    <panel type="grid" id="handoverListPanel" dataSource="ascBjTsingHouseTsHandoverDs" >
+        <title translatable="true">HandOverList</title>
+        <action id="btnAddNewHandOver">
+            <title translatable="true">AddNew</title>
+            <command type="showPanel" panelId="handoverDetailPanel" newRecord="true"/>
+            <command type="showPanel" panelId="HandoverCheckPanel" show="false"/>
+            <command type="callFunction" functionName="controller.afterShowHandoverPanel()"/>
+        </action>
+        <indexFile table="ts_handover" name="ts_index"/>
+        <field table="ts_handover" name="handover_id" controlType="link">
+            <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="bl_id" controlType="link">
+            <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="fl_id" controlType="link">
+            <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="rm_id" controlType="link">
+            <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="handling_time" controlType="link">
+            <title translatable="true">ReturnTime</title>
+              <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="dv_id" controlType="link">
+            <title translatable="true">ReturnDv</title>
+              <command type="showPanel" panelId="handoverDetailPanel"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+        </field>
+        <field table="ts_handover" name="ts_index" hidden="true"/>
+    </panel>
+    <!-- 交接单详细 -->
+    <panel type="form" id="handoverDetailPanel" dataSource="ascBjTsingHouseTsHandoverDs" showOnLoad="false"  columns="3">
+        <title translatable="true">HandOverDetailList</title>
+         <action id="btnSave">
+            <title translatable="true">save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="handoverListPanel" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="HandoverCheckPanel"/>
+         </action>
+         <action id="btnDelete" enabled="${!panel.newRecord}">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="handoverListPanel" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="handoverDetailPanel" show="false"/>
+            <command type="showPanel" panelId="HandoverCheckPanel" show="false"/>
+         </action>
+         <field table="ts_handover" name="handover_id"/>
+         <field table="ts_handover" name="bl_id" required="true"/>
+         <field table="ts_handover" name="fl_id" required="true"/>
+         <field table="ts_handover" name="rm_id" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue" fieldNames="ts_handover.bl_id,ts_handover.fl_id,ts_handover.rm_id,ts_handover.deal_id,ts_handover.deal_rm_id"
+                    selectFieldNames="ts_deal_rm.bl_id,ts_deal_rm.fl_id,ts_deal_rm.rm_id,ts_deal_rm.deal_id,ts_deal_rm.deal_rm_id" 
+                    visibleFieldNames="ts_deal_rm.bl_id,ts_deal_rm.fl_id,ts_deal_rm.rm_id,ts_deal_rm.deal_id,ts_deal_rm.deal_rm_id" 
+                    restriction="ts_deal_rm.status=1"
+                    showIndex="false"/>
+            </action>
+         </field>
+         <field table="ts_handover" name="deal_id" readOnly="true"/>
+         <field table="ts_handover" name="deal_rm_id" hidden="true"/>
+         <field table="ts_handover" name="rm_status_to"/>
+         <field table="ts_handover" name="dv_user_id" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="selectValue" fieldNames="ts_handover.dv_id,ts_handover.dv_user_id,ts_handover.dv_user_name"
+                    selectFieldNames="em.dv_id,em.em_id,em.name" 
+                    visibleFieldNames="em.em_id,em.name,em.dv_id" 
+                    filterFieldNames="ts_handover.dv_id" 
+                    showIndex="false"/>
+            </action>
+         </field>
+         <field table="ts_handover" name="dv_user_name"/>
+         <field table="ts_handover" name="dv_id" required="true">
+            <title translatable="true">ReturnDv</title>
+         </field>
+         <field table="ts_handover" name="handling_em_id" required="true" value="${user.employee.id}"/>
+         <field table="ts_handover" name="handling_em_name" value="${user.name}"/>
+         <field table="ts_handover" name="handling_dv"  value="${user.employee.organization.divisionId}"/>
+         <field table="ts_handover" name="property_company"/>
+         <field table="ts_handover" name="handling_time">
+            <title translatable="true">ReturnTime</title>
+         </field>
+         <field table="ts_handover" name="handover_type" value="1" readOnly="true"/>
+    </panel>
+    <!-- 交接检查内容列表 -->
+    <panel type="grid" id="HandoverCheckPanel" dataSource="ascBjTsingHouseTsHandoverCheckDs" showOnLoad="false" >
+        <title translatable="true">HandOverCheckList</title>
+        <action id="btnAddNew">
+            <title translatable="true">AddNew</title>
+            <command type="callFunction" functionName="controller.showHandoverCheckDetailForm()"/>
+        </action>
+        <field table="ts_handover_check" name="hc_id" hidden="true"/>
+        <field table="ts_handover_check" name="handover_id" controlType="link">
+            <command type="callFunction" functionName="controller.showEditeHandoverCheckDetailForm()"/>
+        </field>
+        <field table="ts_handover_check" name="device_type"/>
+        <field table="ts_handover_check" name="device_name"/>
+        <field table="ts_handover_check" name="check_number"/>
+        <field table="ts_handover_check" name="check_option"/>
+    </panel>
+    <!-- 交接检查内容详细 -->
+    <panel type="form" id="HandovercheckDetailPanel" dataSource="ascBjTsingHouseTsHandoverCheckDs" showOnLoad="false" columns="3">
+        <title translatable="true">CheckDetailPanel</title>
+        <action id="btnSave">
+            <title translatable="true">save</title>
+            <command type="callFunction" functionName="controller.saveHandoverCheck()"/>
+        </action>
+        <action id="btnDelete">
+            <title translatable="true">Delete</title>
+            <command type="callFunction" functionName="controller.deleteHandoverCheckDetailForm()"/>
+        </action>
+        <field table="ts_handover_check" name="hc_id" hidden="true"/>
+        <field table="ts_handover_check" name="handover_id" readOnly="true"/>
+        <field table="ts_handover_check" name="device_type" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="callFunction" functionName="controller.showDeviceTypePanel()"/> 
+            </action>
+        </field>
+        <field table="ts_handover_check" name="device_name" required="true">
+            <action>
+                <title>...</title>
+                <tooltip>Select Value</tooltip>
+                <command type="callFunction" functionName="controller.showDevicePanel()"/> 
+            </action>
+        </field>
+        <field table="ts_handover_check" name="check_number" required="true"/>
+        <field table="ts_handover_check" name="check_option"/>
+    </panel>
+    <!-- 工种分类选择和新增 -->
+    <panel type="grid" id="deviceTypePanel" dataSource="ascBjTsingHouseTsDeviceTypeDs" showOnLoad="false">
+        <title translatable="true">DeviceTypeList</title>
+        <action id="btnAddNew">
+            <title translatable="true">AddNewDeviceType</title>
+            <command type="callFunction" functionName="controller.showDeviceTypeDetailForm()"/>
+        </action>
+        <field table="ts_device_type" name="device_type" controlType="link">
+            <command type="callFunction" functionName="controller.selectDeviceType()"/>
+        </field>
+        <field table="ts_device_type" name="description"/>
+        <field table="ts_device_type" name="ts_index"/> 
+    </panel>
+    <panel type="form" id="deviceTypeDetailPanel" dataSource="ascBjTsingHouseTsDeviceTypeDs" showOnLoad="false">
+        <title translatable="true">DeviceTypeDetail</title>
+        <action id="btnSave">
+            <title translatable="true">save</title>
+            <command type="callFunction" functionName="controller.afterSaveDeviceType()"/>
+        </action>
+        <field table="ts_device_type" name="device_type"/>
+        <field table="ts_device_type" name="description"/>
+    </panel>
+    <!-- 验收项目和新增 -->
+    <panel type="grid" id="deviceNamePanel" dataSource="ascBjTsingHouseTsDeviceDs" showOnLoad="false">
+        <title translatable="true">DeviceList</title>
+        <action id="btnAddNew">
+            <title translatable="true">AddNewDevice</title>
+            <command type="callFunction" functionName="controller.showDeviceDetailForm()"/>
+        </action>
+        <field table="ts_device" name="device_name" controlType="link">
+            <command type="callFunction" functionName="controller.selectDevice()"/>
+        </field>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="description"/>
+    </panel>
+    <panel type="form" id="deviceNameDetailPanel" dataSource="ascBjTsingHouseTsDeviceDs" showOnLoad="false">
+        <title translatable="true">DeviceDetail</title>
+        <action id="btnSave">
+            <title translatable="true">save</title>
+            <command type="callFunction" functionName="controller.afterSaveDevice()"/>
+        </action>
+        <field table="ts_device" name="device_type"/>
+        <field table="ts_device" name="device_name"/>
+        <field table="ts_device" name="description"/>
+    </panel>
+</view>

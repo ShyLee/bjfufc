@@ -1,0 +1,41 @@
+<view version="2.0">
+    
+    <title translatable="true">Assign</title>
+    
+    <layout type="boarderLayout" id="mianLayout">
+        <north id="north" split="true" initialSize="8%"/>
+        <center id="center"/>
+    </layout>
+    
+    <panel type="html" id="selectPanle" layoutRegion="north">
+        <html>
+            <div style="line-height:50px;text-align:center;width:100%;height:100%;">
+                <input type="radio" name="radio" class="radio" id="a" value="employee" onClick="ascCheckinController.radioChange()"/>
+                <label translatable="true">employee</label>
+                <input type="radio" name="radio" class="radio" id="b" value="outside" style="margin-left:100px" onClick="ascCheckinController.radioChange()"/>
+                <label translatable="true">outside</label>
+                <input type="radio" name="radio" class="radio" id="d" value="boshi" style="margin-left:100px" onClick="ascCheckinController.radioChange()"/>
+                <label translatable="true">boshi</label>
+            </div>
+        </html>
+    </panel>
+    
+    <tabs workflow="enforced" id="assignTabs" tabRefreshPolicy="refreshOnSelect" layoutRegion="center">
+    	<!--
+        <tab name="detailTab" file="asc-bj-usms-proc-checkin-asgn-req-select-tab.axvw">
+            <title translatable="true">Register Detail</title>
+        </tab>
+		-->
+        <tab name="yuangongTab" file="asc-bj-usms-proc-checkin-employee-tab.axvw">
+            <title translatable="true">Employee Assign</title>
+        </tab>
+        <tab name="wailaiTab" file="asc-bj-usms-proc-checkin-outside-tab.axvw">
+            <title translatable="true">Outside Assign</title>
+        </tab>
+       <tab name="boshiTab" file="asc-bj-usms-proc-checkin-boshi-tab.axvw">
+            <title translatable="true">Boshi Assign</title>
+        </tab>
+    </tabs>
+    
+    <js file="asc-bj-usms-proc-checkin.js"/>
+</view>

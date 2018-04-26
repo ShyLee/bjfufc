@@ -1,0 +1,18 @@
+<view version="2.0">
+    <title translatable="true">Assign</title>
+    
+    <tabs workflow="enforced" id="assignTabs" tabRefreshPolicy="refreshOnLoad">
+        <tab name="selectTab" selected="true" file="asc-bj-usms-proc-asgn-asgn-req-select-tab.axvw">
+            <title translatable="true">Select Request</title>
+        </tab>
+        
+        <tab name="detailsTab" file="asc-bj-usms-proc-asgn-asgn-req-details-tab.axvw">
+            <title translatable="true">Details</title>
+        </tab>
+        
+        <tab name="assignTab" file="asc-bj-usms-proc-asgn-asgn-req-asgn-tab.axvw">
+            <title translatable="true">Assign</title>
+        </tab>
+        
+    </tabs>
+</view>

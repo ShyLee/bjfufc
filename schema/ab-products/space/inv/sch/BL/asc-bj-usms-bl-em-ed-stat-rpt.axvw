@@ -1,0 +1,121 @@
+<view version="2.0">
+	<message name="treeTitle" translatable="true">Xiao Qu : {0}</message>
+	<message name="noSite" translatable="true">No Site</message>
+	<message name="total" translatable="true">Total</message>
+	<message name="byDingeTitle" translatable="true">Jian Zhu Wu : {0} -- AnDingeJiBieTongJiFeiXiJiaoZhiGongShiJiShiYongMianJi</message>
+	<message name="byGangWeiTitle" translatable="true">Jian Zhu Wu : {0} -- AnGangWeiJiBeiHeBiaoZhunZhiChengTongJiFeiXiJiaoZhiGongShiJiShiYongMianJi</message>
+	
+	
+    <title translatable="true">View Employee ranks by Building</title>
+	
+    <layout type="borderLayout" id="mainLayout">
+        <west id="treePosition" initialSize="20%" split="true"/>
+        <center />
+    </layout>
+    <layout id="nested_center" containingLayout="mainLayout" region="center">
+        <north id="byDingePosition" initialSize="35%" split="true"/>
+        <center id="byGangWeiPosition"/>
+    </layout>
+	
+    <!-- dataSource for site tree -->
+    <dataSource id="abScEmDingeRpt_tree_siteDS">
+        <table name="site" role="main"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="name"/>
+		<restriction type="sql" sql="EXISTS(SELECT 1 FROM bl where bl.site_id=site.site_id)"/>
+    </dataSource>
+	
+	<!-- dataSource for building tree -->
+    <dataSource id="abScEmDingeRpt_tree_blDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+    </dataSource>
+    
+	<!-- site tree panel-->
+	<panel type="tree" id="abScEmDingeRptSite_tree" dataSource="abScEmDingeRpt_tree_siteDS" layoutRegion="treePosition">
+        <title translatable="true">Xiao Qu</title>
+
+        <panel type="tree" id="abScEmDingeRptBl_tree" dataSource="abScEmDingeRpt_tree_blDS">
+        	<event type="onClickNode">
+                	<command type="callFunction" functionName="onClickBlNode"/>
+            </event>
+            <field table="bl" name="bl_id"/>
+        </panel>
+    </panel>
+	
+	<dataSource id="ds_ab-sc-rpt-em-dinge-by-bl_total_em" type="grouping">
+        <table name="em" role="main"/>
+		<field name="bl_id" table="em" groupBy="true"/>
+		<field name="total_count_em" formula="count" baseField="em.em_id" dataType="number" decimals="0"/>
+    </dataSource>
+	
+    <dataSource id="ds_ab-sc-rpt-em-dinge-by-bl_byDinge_grid_em" type="grouping">
+        <table name="em" role="main"/>
+		<table name="sc_dinge_jibie" role="standard"/>
+		
+		<field table="em" name="dingejibie_id" groupBy="true"/>
+        <field table="sc_dinge_jibie" name="area" groupBy="true"/>
+		
+        <field table="em" name="count_em" formula="COUNT" baseField="em.em_id" dataType="number" decimals="0">
+        	<title translatable="true">Employee Count</title>
+		</field>
+		
+        <field table="em" name="sum_area" formula="sum" baseField="em.area_rm" dataType="number" decimals="2">
+        	<title translatable="true">Total Usable Area</title>
+		</field>
+		<field table="em" name="avg_area" dataType="number" decimals="2">
+			<title translatable="true">Avg. Usable Area</title>
+			<sql dialect="generic">
+               CASE WHEN COUNT(em.em_id) &lt;=0 THEN 0 ELSE  sum(em.area_rm)/count(em.em_id)  END
+            </sql>
+		</field>
+		<field table="em" name="diff_area" dataType="number" decimals="2">
+			<title translatable="true">Different Area of per Person</title>
+			<sql dialect="generic">
+               CASE WHEN COUNT(em.em_id) &lt;=0 THEN (0-sc_dinge_jibie.area) ELSE  (sum(em.area_rm)/count(em.em_id)) - sc_dinge_jibie.area  END
+            </sql>
+		</field>
+		<restriction type="sql" sql="em.bl_id=${parameters['blIdRes']}"/>
+ 		<parameter name="blIdRes" dataType="text" value=""/>
+    </dataSource>
+	
+	<dataSource id="ds_ab-sc-rpt-em-dinge-by-bl_byGangWei_grid_em" type="grouping">
+        <table name="em" role="main"/>
+		<table name="sc_dinge_jibie" role="standard"/>
+        
+		<field table="sc_dinge_jibie" name="gangweijibie_id"  groupBy="true"/>
+		<field table="sc_dinge_jibie" name="zhic_bz_id"  groupBy="true" />
+		<field table="sc_dinge_jibie" name="dingejibie_id" groupBy="true"/>
+		<field table="sc_dinge_jibie" name="area" groupBy="true"/>
+		
+        <field table="em" name="count_em" formula="COUNT" baseField="em.em_id" dataType="number" decimals="0">
+        	<title translatable="true">Employee Count</title>
+		</field>
+		
+        <field table="em" name="sum_area" formula="sum" baseField="em.area_rm" dataType="number" decimals="2">
+        	<title translatable="true">Total Usable Area</title>
+		</field>
+		<field table="em" name="avg_area" dataType="number" decimals="2">
+			<title translatable="true">Avg. Usable Area</title>
+			<sql dialect="generic">
+               CASE WHEN COUNT(em.em_id) &lt;=0 THEN 0 ELSE  sum(em.area_rm)/count(em.em_id)  END
+            </sql>
+		</field>
+		
+		<restriction type="sql" sql="em.bl_id=${parameters['blIdRes']}"/>
+ 		<parameter name="blIdRes" dataType="text" value=""/>
+    </dataSource>
+    	
+    <!-- cross table report-->
+	<panel id="abScEmDingeRptPanel_byDinge" type="grid" controlType="reportGrid"  dataSource="ds_ab-sc-rpt-em-dinge-by-bl_byDinge_grid_em" showOnLoad="false"  layoutRegion="byDingePosition">
+		<title translatable="true">Jian Zhu Wu</title>
+	</panel>
+	
+	<!-- cross table report-->
+	<panel id="abScEmDingeRptPanel_byGangWei" type="grid"  dataSource="ds_ab-sc-rpt-em-dinge-by-bl_byGangWei_grid_em" showOnLoad="false"  layoutRegion="byGangWeiPosition">
+		<title translatable="true">Jian Zhu Wu</title>
+	</panel>
+	
+    <js file="asc-bj-usms-bl-em-ed-stat-rpt.js"/>
+</view>

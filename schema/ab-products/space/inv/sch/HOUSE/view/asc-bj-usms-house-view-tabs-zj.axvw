@@ -1,0 +1,20 @@
+<view version="2.0">
+    <title translatable="true">Date Warn</title>
+    
+    <tabs workflow="enforced" id="warnTabs" tabRefreshPolicy="refreshOnSelect">
+        <tab name="zijiaoTab" file="asc-bj-usms-house-view-zijiao-rent.axvw">
+            <title translatable="true">Zijiao Warn</title>
+        </tab>
+        <tab name="daikouTab" file="asc-bj-usms-house-view-daikou-rent.axvw">
+            <title translatable="true">Daikou Warn</title>
+        </tab>
+        <!-- <tab name="protocolTab" file="asc-bj-usms-house-view-protocol.axvw">
+            <title translatable="true">Protocol Warn</title>
+        </tab>
+        <tab name="tengtuiTab" file="asc-bj-usms-house-view-protocol-tengtui.axvw">
+            <title translatable="true">Tengtui Protocol Warn</title>
+        </tab> -->
+    </tabs>
+	
+	<js file="asc-bj-usms-house-view-tabs-zj.js"/>
+</view>

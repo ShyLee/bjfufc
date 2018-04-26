@@ -1,0 +1,133 @@
+<view version="2.0">
+    <title translatable="true">Highlight Rooms by Category and Type</title>
+    
+    <layout id="main">
+        <west id="treePosition" initialSize="20%" split="true"/>
+        <center/>
+    </layout>
+    
+    <layout id="nested_center" containingLayout="main" region="center">
+        <center id="dwgPosition"/>
+        <south id="legentPosition" initialSize="35%" split="true"/>
+    </layout>
+    
+    <message name="total" translatable="true">Total</message>
+    <message name="drawingPanelTitle1" translatable="true">Highlight Rooms by Category and Type</message>
+	<message name="treeTitle" translatable="true">Xiao Qu : {0}</message>
+	<message name="crossPanelTitle" translatable="true">Room Type Zhai Yao : {0}</message>
+    
+	<!-- dataSource for site tree -->
+    <dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_site">
+        <table name="site" role="main"/>
+        <field table="site" name="site_id"/>
+        <field table="site" name="name"/>
+		<restriction type="sql" sql="EXISTS(SELECT 1 FROM bl where bl.site_id=site.site_id)"/>
+    </dataSource>
+	
+	<!-- dataSource for building tree -->
+    <dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_bl">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="name"/>
+    </dataSource>
+	
+	<!-- dataSource for floor tree -->
+    <dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_fl">
+        <sql dialect="generic">
+            SELECT
+            rm.bl_id ${sql.as} bl_id,
+            rm.fl_id ${sql.as} fl_id,
+            rm.dwgname ${sql.as} dwgname
+            FROM rm WHERE rm.dwgname IS NOT NULL AND rm.rm_cat IS NOT NULL AND rm.rm_type IS NOT NULL GROUP BY rm.bl_id,rm.fl_id,rm.dwgname
+        </sql>
+        <table name="fl" role="main"/>
+		<field name="bl_id"/>
+        <field name="fl_id"/>
+        <field name="dwgname"/>
+        <sortField table="fl" name="fl_id" ascending="true"/>
+    </dataSource>
+    
+	<!-- dataSource for floor drawing highlight -->
+    <dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_drawing_rmHighlight">
+        <table name="rm" role="main"/>
+        <table name="rmtype" role="standard"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="rm_std"/>
+        <field table="rm" name="rm_type" legendKey="true"/>
+        <field table="rmtype" name="hpattern_acad"/>
+        <restriction type="sql" sql="rm.rm_type IS NOT NULL"/>
+    </dataSource>
+    
+	<!-- dataSource for floor drawing label -->
+    <dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_drawing_rmLabel">
+        <table name="rm" role="main"/>
+        <field name="bl_id" hidden="true"/>
+        <field name="fl_id" hidden="true"/>
+        <field name="rm_id"/>
+        <field name="name"/>
+        <field name="area"/>
+		<field name="dv_id"/>
+    </dataSource>
+    
+	<!-- dataSource for room type abstract  -->
+	<dataSource id="ds_ab-sc-hl-rm-by-rmcat-rmtype_grid_rm" type="grouping">
+        <table name="rm" role="main"/>
+        <table name="rmtype" role="standard"/>
+        <field name="rm_cat" table="rmtype" groupBy="true"/>
+        <field name="rm_type" table="rmtype" groupBy="true"/>
+        <field name="hpattern_acad" table="rmtype" groupBy="true"/>
+        <field name="total_count" formula="count" baseField="rm.rm_id" dataType="number" decimals="0"/>
+        <field name="total_area" formula="sum" baseField="rm.area" dataType="number" decimals="2"/>
+        <!--field name="avg_area" formula="avg" baseField="rm.area" dataType="number" decimals="2"/-->
+        <restriction type="sql" sql="rm.rm_cat IS NOT NULL AND rm.rm_type IS NOT NULL"/>
+    </dataSource>
+	
+	<!-- tree panel -->
+    <panel type="tree" id="abScHlRmByRmcatRmtype_SiteTree" dataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_site" layoutRegion="treePosition">
+        <title translatable="true">Xiao Qu</title>
+
+        <panel type="tree" id="abScHlRmByRmcatRmtype_BlTree" dataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_bl">
+            <field table="bl" name="bl_id"/>
+            <field table="bl" name="name"/>
+        </panel>
+		<panel type="tree" id="abScHlRmByRmcatRmtype_FlTree" dataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_tree_fl">
+            <event type="onClickNode">
+                <command type="callFunction" functionName="onFlTreeClick"/>
+            </event>
+        </panel>
+    </panel>
+	
+	<!-- drawing panel -->
+    <panel type="drawing" id="abScHlRmByRmcatRmtype_DrawingPanel" layoutRegion="dwgPosition" multiple="false"
+     highlightDataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_drawing_rmHighlight"
+     labelsDataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_drawing_rmLabel">
+     	<action id="exportDOCX">
+			<title translatable="true">Export</title>
+			<tooltip translatable="true">Export current view of drawing to Docx file.</tooltip>
+			<command type="exportPanel" outputType="docx" panelId="abScHlRmByRmcatRmtype_DrawingPanel"/>
+		</action>
+        <title translatable="true"></title>
+    </panel>
+    
+    <panel type="grid" id="abScHlRmByRmcatRmtype_TypeSumGrid" dataSource="ds_ab-sc-hl-rm-by-rmcat-rmtype_grid_rm" showOnLoad="false" layoutRegion="legentPosition">
+        <title translatable="true">Room Type Zhai Yao</title>
+        <sortField table="rmtype" name="rm_cat" ascending="true"/>
+        <sortField table="rmtype" name="rm_type" ascending="true"/>
+        <field id="abScHlRmByRmcatRmtype_TypeSumGrid_legend" table="rmtype" name="hpattern_acad" controlType="color">
+            <title translatable="true">Legend</title>
+        </field>
+        <field name="rm_cat" table="rmtype"/>
+        <field name="rm_type" table="rmtype"/>
+        <field name="total_count" dataType="number" decimals="0">
+            <title translatable="true">Room Count</title>
+        </field>
+        <field name="total_area" dataType="number" decimals="2">
+            <title translatable="true">Total Usable Area</title>
+        </field>
+    </panel>
+    
+    <js file="asc-bj-usms-bl-highlight-type-info.js"/>
+</view>

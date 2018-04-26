@@ -1,0 +1,131 @@
+<view version="2.0">
+    <js file="asc-bj-usms-proc-checkin-review-tab.js"/>
+    
+    <layout type="borderLayout" id="centerLayout">
+        <north  id="emInfoRegion"  split="true" initialSize="35%"/>
+        <center autoScroll="true" id="descRegion" initialSize="35%"/>
+        <south autoScroll="true" id="historyRegion" initialSize="30%"/>
+    </layout>
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+       <field name="card_id" table="sc_zzfcard" hidden="false" readOnly="true" required="false"/>
+		<field table="sc_zzfcard" name="em_id"  required="true" readOnly="true" />
+		<field name="em_name" table="sc_zzfcard"  required="true" readOnly="true" />
+		<field name="identi_code" table="sc_zzfcard" required="true"/>
+		<field name="sex" table="sc_zzfcard" required="true"/>
+		<field name="dv_name" table="sc_zzfcard" required="true" readOnly="true"/>
+	    <field name="marriage_stat" table="sc_zzfcard" required="false"/>
+		<field name="is_working_parents" table="sc_zzfcard" required="false"/>
+		<field name="phone" table="sc_zzfcard" required="true"/>
+		<field name="email" table="sc_zzfcard" required="true"/>
+		<field name="is_rc" table="sc_zzfcard"/>
+		<field name="date_work_begin" table="sc_zzfcard" required="false"/>
+        <field name="curr_addr" table="sc_zzfcard"  />
+		<field name="xueli" table="sc_zzfcard"  />
+		<field name="zhiw_id" table="sc_zzfcard"  />
+		<field name="zhic_id" table="sc_zzfcard"  />
+		<field name="po_name" table="sc_zzfcard" required="false"/>
+		<field name="po_dv_id" table="sc_zzfcard" required="false"/>
+		<field name="po_em_id" table="sc_zzfcard" required="false"/>
+		<field name="po_identi_code" table="sc_zzfcard"  required="false"/>
+		<field name="yxhx" table="sc_zzfcard"/>
+		<field name="rent_type" table="sc_zzfcard"/>
+		<field name="doc1" table="sc_zzfcard"/>
+		<field name="doc2" table="sc_zzfcard"/>
+		<field name="apply_reason" table="sc_zzfcard"/>
+		<field name="apply_beizhu" table="sc_zzfcard"/>
+		<field table="sc_zzfcard" name="card_apply"/>
+    </dataSource>
+    
+    <panel type="form" columns="3" id="teacherInfoForm" dataSource="sc_zzfcardDataSource" layoutRegion="emInfoRegion">
+        <title translatable="true">Requestor</title>
+		 <!--返回-->
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="callFunction" functionName="ascBjUsmsProcReviewDetailController.onBack()"/>
+        </action>
+        
+        <field name="card_id" table="sc_zzfcard" hidden="true" required="false"/>
+		<field table="sc_zzfcard" name="em_id" required="true"/>
+		<field name="em_name" table="sc_zzfcard" required="true"/>
+		<field name="identi_code" table="sc_zzfcard" required="true"/>
+		<field name="sex" table="sc_zzfcard"/>
+		<field name="dv_name" table="sc_zzfcard"/>
+	    <field name="marriage_stat" table="sc_zzfcard"/>
+		<field name="is_working_parents" table="sc_zzfcard"/>
+		<field name="phone" table="sc_zzfcard"/>
+		<field name="email" table="sc_zzfcard"/>
+		<field name="is_rc" table="sc_zzfcard" required="true"/>
+		<field name="date_work_begin" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+		
+		<field name="xueli" table="sc_zzfcard"  />
+		<field name="zhiw_id" table="sc_zzfcard"  />
+		<field name="zhic_id" table="sc_zzfcard"  />
+		
+		<field name="po_name" table="sc_zzfcard"/>
+		<field name="po_dv_id" table="sc_zzfcard"/>
+		<field name="po_em_id" table="sc_zzfcard"/>
+		<field name="po_identi_code" table="sc_zzfcard"/>
+    </panel>
+	
+	<panel type="form" columns="3" id="descForm" dataSource="sc_zzfcardDataSource" layoutRegion="descRegion">
+        <title translatable="true">Description</title>
+        <field name="card_id" table="sc_zzfcard" hidden="true"/>
+        <field table="sc_zzfcard" name="card_apply"/>
+		<field name="rent_type" table="sc_zzfcard" required="true"/>
+		<field name="yxhx" table="sc_zzfcard"/>
+		<!-- <field name="doc1" table="sc_zzfcard" readOnly="true"/>
+		<field name="doc2" table="sc_zzfcard" readOnly="true"/> 
+		<field/>-->
+		<field name="apply_reason" table="sc_zzfcard" required="true" width="207px"/>
+		<field name="apply_beizhu" table="sc_zzfcard" width="207px"/>
+    </panel>
+    
+    <dataSource id="historyPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <table name="afm_wf_steps" role="standard"/>
+        <table name="em" role="standard"/>
+        <field name="pkey_value" table="helpdesk_step_log"/>
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+        <field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="date_created" table="helpdesk_step_log"/>
+        <field name="time_created" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    
+    <!--以下是历史记录-->
+    <panel type="grid" id="historyPanel" controlType="reportGrid" dataSource="historyPanelDS" sortEnabled="false" showOnLoad="false" layoutRegion="historyRegion">
+        <title translatable="true">History</title>
+        <field name="pkey_value" table="helpdesk_step_log" hidden="true"/>
+        <field name="step_log_id" table="helpdesk_step_log">
+        	<title translatable="true">Step Num</title>
+        </field>
+        <field name="step" table="afm_wf_steps">
+        	<title translatable="true">Step Comment</title>
+        </field>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="date_created" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="status" table="afm_wf_steps" hidden="false">
+            <title translatable="true">Status</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+</view>
+   

@@ -1,0 +1,239 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <north id="sitePosition" initialSize="28%" split="true"/>
+        <center id="rmcatPosition"/>
+    </layout>
+    
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-rm-main_grid_rm" type="grouping">
+    	<sql dialect="generic">
+    		SELECT rm.bl_id   ${sql.as} bl_id,
+			       rmcat.name ${sql.as} rmcat_name,
+				   rmcat.description ${sql.as} rmcat_desc,
+			       rm.rm_cat  ${sql.as} rm_cat,
+                   CASE WHEN bl.gongtanlv =1 THEN 0 ELSE sum(rm.area)/(1-bl.gongtanlv) END ${sql.as} rmcat_bl_area_jianzhu,
+				   sum(rm.area)  ${sql.as} rmcat_bl_area_shiyong
+           FROM rm,bl,rmcat
+           WHERE rm.bl_id=bl.bl_id and  rm.rm_cat=rmcat.rm_cat and rm.rm_cat IS NOT NULL 
+		     and bl.site_id=${parameters['siteIdRes']}
+           GROUP BY rm.rm_cat, rmcat.name, rmcat.description, rm.bl_id, bl.gongtanlv
+		   union all
+		   (
+              select bl.bl_id ${sql.as} bl_id,
+			   rmcat.name ${sql.as} rmcat_name,
+			   rmcat.description ${sql.as} rmcat_desc,
+			   bl.building_cat ${sql.as} rm_cat,
+			   bl.area_building_manual ${sql.as} rmcat_bl_area_jianzhu,
+			   bl.area_rm ${sql.as} rmcat_bl_area_shiyong 
+            from bl,rmcat where bl.building_cat=rmcat.rm_cat and bl.building_cat is not null  and bl.site_id=${parameters['siteIdRes']}
+			)
+           union all 
+           (
+            select br.bl_id ${sql.as} bl_id,
+			   rmcat.name ${sql.as} rmcat_name,
+			   rmcat.description ${sql.as} rmcat_desc,
+			   br.rm_cat ${sql.as} rm_cat,
+			   br.area_jianzhu ${sql.as} rmcat_bl_area_jianzhu,
+			   br.area_shiyong ${sql.as} rmcat_bl_area_shiyong 
+            from sc_bl_rmcat br,rmcat,bl 
+			where br.rm_cat=rmcat.rm_cat and br.bl_id=bl.bl_id 
+			     and bl.building_cat is null 
+				 and bl.site_id=${parameters['siteIdRes']}
+            )    	        
+        </sql>
+		<table name="rm" role="main" />
+		
+		<field table="rm" name="rmcat_name" groupBy="true" >
+			<title translatable="true">Lei Bie Bian Ma</title>
+        </field>
+		
+		<field table="rm" name="rm_cat" groupBy="true" >
+			<title translatable="true">Room Category</title>
+        </field>
+		
+		<field table="rm" name="rmcat_desc" groupBy="true" >
+			<title translatable="true">Description</title>
+        </field>
+		
+		<field name="total_area_shiyong" formula="SUM" dataType="number" 
+			baseField="rm.rmcat_bl_area_shiyong" decimals="2">
+			<title translatable="true">Usable Area</title>
+		</field>
+		<field name="total_area_jianzhu" formula="SUM" dataType="number" 
+			baseField="rm.rmcat_bl_area_jianzhu" decimals="2" >
+			<title translatable="true">Structure Area</title>
+		</field>
+		
+		<field name="percent_area" dataType="number"  size="6" decimals="2">
+			<title translatable="true">Zhan Bi</title>
+		</field>
+		
+		<sortField name="rmcat_name" table="rm" ascending="true" /> 
+		<parameter name="siteIdRes" dataType="text" value=""/>
+	</dataSource>
+	
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-rm-main_noServ_grid_rm" type="grouping">
+    	<sql dialect="generic">
+    		SELECT rm.bl_id   ${sql.as} bl_id,
+			       rmcat.name ${sql.as} rmcat_name,
+				   rmcat.description ${sql.as} rmcat_desc,
+			       rm.rm_cat  ${sql.as} rm_cat,
+                   CASE WHEN bl.share_serv_rate =1 THEN 0 ELSE sum(rm.area)/(1-bl.share_serv_rate) END ${sql.as} rmcat_bl_area_jianzhu,
+				   sum(rm.area)  ${sql.as} rmcat_bl_area_shiyong
+           FROM rm,bl,rmcat
+           WHERE rm.bl_id=bl.bl_id and  rm.rm_cat=rmcat.rm_cat and rm.rm_cat IS NOT NULL and rm.rm_cat != 'SERV' 
+		     and bl.site_id=${parameters['siteIdRes']} 
+           GROUP BY rm.rm_cat, rmcat.name, rmcat.description, rm.bl_id, bl.share_serv_rate
+		   union all
+		   (
+              select bl.bl_id ${sql.as} bl_id,
+			   rmcat.name ${sql.as} rmcat_name,
+			   rmcat.description ${sql.as} rmcat_desc,
+			   bl.building_cat ${sql.as} rm_cat,
+			   bl.area_building_manual ${sql.as} rmcat_bl_area_jianzhu,
+			   bl.area_rm ${sql.as} rmcat_bl_area_shiyong 
+             from bl,rmcat 
+			 where bl.building_cat=rmcat.rm_cat and bl.building_cat is not null 
+			     and rmcat.rm_cat != 'SERV' and bl.site_id=${parameters['siteIdRes']} 
+			)
+           union all 
+           (
+            select br.bl_id ${sql.as} bl_id,
+			   rmcat.name ${sql.as} rmcat_name,
+			   rmcat.description ${sql.as} rmcat_desc,
+			   br.rm_cat ${sql.as} rm_cat,
+			   CASE WHEN bl.share_serv_rate =1 THEN 0 ELSE br.area_shiyong/(1-bl.share_serv_rate) END ${sql.as} rmcat_bl_area_jianzhu,
+			   br.area_shiyong ${sql.as} rmcat_bl_area_shiyong 
+            from sc_bl_rmcat br,rmcat,bl 
+			where br.rm_cat=rmcat.rm_cat and br.bl_id=bl.bl_id and bl.building_cat is null 
+			  and rmcat.rm_cat != 'SERV'  and bl.site_id=${parameters['siteIdRes']}
+            )    	
+        </sql>
+		<table name="rm" role="main" />
+		
+		<field table="rm" name="rmcat_name" groupBy="true" >
+			<title translatable="true">Lei Bie Bian Ma</title>
+        </field>
+		
+		<field table="rm" name="rm_cat" groupBy="true" >
+			<title translatable="true">Room Category</title>
+        </field>
+		
+		<field table="rm" name="rmcat_desc" groupBy="true" >
+			<title translatable="true">Description</title>
+        </field>
+		
+		<field name="total_area_jianzhu" formula="SUM" dataType="number" 
+			baseField="rm.rmcat_bl_area_jianzhu" decimals="2" >
+			<title translatable="true">Structure Area</title>
+		</field>
+		
+		<field name="total_area_shiyong" formula="SUM" dataType="number" 
+			baseField="rm.rmcat_bl_area_shiyong" decimals="2">
+			<title translatable="true">Usable Area</title>
+		</field>
+		
+		<field name="percent_area" dataType="number"  size="6" decimals="2">
+			<title translatable="true">Zhan Bi</title>
+		</field>
+		
+		<sortField name="rmcat_name" table="rm" ascending="true" />
+		<parameter name="siteIdRes" dataType="text" value=""/>
+	</dataSource>
+	
+	<!-- dataSource for site basic info panel -->
+    <dataSource id="ds_asc-bj-usms-overall-rm-main_basic_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="name"/>
+		<field table="site" name="address"/>
+		<field table="site" name="site_id"/>
+		<field table="site" name="telephone"/>
+		<field table="site" name="youbian"/>
+		
+		<field table="site" name="guihuayongdi"/>
+		<field table="site" name="jianzhuyongdi"/>
+		<field table="site" name="no_bldgs"/>
+		<field table="site" name="count_teacher_plan"/>
+		<field table="site" name="count_student_plan"/>
+		<field table="site" name="count_teacher_actual"/>
+		<field table="site" name="count_student_actual"/>
+		<field table="site" name="area_rm"/>
+		<field table="site" name="area_gross_int"/>
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+	<!-- base university info panel-->
+    <panel type="columnReport" id="ascBjUsmsOverallRmMain_siteBasicGrid" dataSource="ds_asc-bj-usms-overall-rm-main_basic_site" columns="3"  layoutRegion="sitePosition">
+    	<!-- row 1-->
+		<field name="name"/>
+		<field name="address"/>
+		<field/>
+		
+		<!-- row 2-->
+		<field name="youbian"/>
+		<field name="telephone"/>
+		<field/>
+		
+		<!-- row 3-->
+		<field name="guihuayongdi" />
+		<field id="plan" labelClass="prominentLabel">
+           		 <title translatable="true">Gui Hua Ren Shu</title>
+        </field>
+		<field id="actual" labelClass="prominentLabel">
+           		 <title translatable="true">Mu Qian Shi Ji Ren Shu</title>
+        </field>
+		
+		<!-- row 4-->
+		<field name="jianzhuyongdi" />
+		<field name="count_teacher_plan">
+			<title translatable="true">Jiao Zhi Gong Ren Shu</title>
+        </field>
+		<field name="count_teacher_actual">
+			<title translatable="true">Jiao Zhi Gong Ren Shu</title>
+        </field>
+		
+		<!-- row 5-->
+		<field name="no_bldgs" />
+		<field name="count_student_plan">
+			<title translatable="true">Xue Sheng Ren Shu</title>
+        </field>
+		<field name="count_student_actual">
+			<title translatable="true">Xue Sheng Ren Shu</title>
+        </field>
+		
+		<!-- row 6-->
+		<field name="area_gross_int" >
+			<title translatable="true">Zong Jian Zhu Mian Ji</title>
+		</field>	
+		<field name="area_rm">
+			<title translatable="true">Zong Shi Yong Mian Ji</title>
+		</field>	
+		<field/>
+    </panel>
+	
+	<tabs id="schMainRmCatSumTabs"  layoutRegion="rmcatPosition">
+        <tab name="weiFenTan" selected="true">
+            <title translatable="true">weiFenTanServ</title>
+    		<panel type="grid" id="ascBjUsmsOverallRmMain_rmcat1SumGrid" dataSource="ds_asc-bj-usms-overall-rm-main_grid_rm">
+    			<title translatable="true">XueXiao SuoYou FangWu LeiBie</title>
+    		</panel>
+        </tab>
+		<tab name="yiFenTan" >
+            <title translatable="true">yiFenTanServ</title>
+    		<panel type="grid" id="ascBjUsmsOverallRmMain_rmcat2SumGrid" dataSource="ds_asc-bj-usms-overall-rm-main_noServ_grid_rm">
+    			<title translatable="true">XueXiao SuoYou FangWu LeiBie Chule Serv</title>
+    		</panel>
+        </tab>
+    </tabs>
+    
+    <js file="asc-bj-usms-overall-rm-main.js"/>
+	<js file="asc-bj-usms-overall-common.js"/>
+</view>

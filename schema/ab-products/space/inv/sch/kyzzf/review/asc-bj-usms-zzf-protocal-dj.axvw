@@ -1,0 +1,15 @@
+<view version="2.0">
+    <title translatable="true">Approve Request</title>
+    
+    <tabs workflow="enforced" id="approveTabs" tabRefreshPolicy="refreshOnLoad">
+        
+        <tab name="selectRequestTab" selected="true" file="asc-bj-usms-zzf-protocal-dj-select-tab.axvw">
+            <title translatable="true">Select Request</title>
+        </tab>
+        
+        <tab name="approveRequestTab" file="asc-bj-usms-zzf-protocal-dj-input-info-tab.axvw">
+            <title translatable="true">Approve</title>
+        </tab>
+        
+    </tabs>
+</view>

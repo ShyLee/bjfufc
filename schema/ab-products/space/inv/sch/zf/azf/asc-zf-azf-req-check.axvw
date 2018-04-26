@@ -1,0 +1,145 @@
+<view version="2.0">
+    <title>Azf Request</title>
+    
+    <dataSource id="azfEmDs">
+        <table name="sc_azf_em" role="main"/>
+        <field table="sc_azf_em" name="id"/>
+        <field table="sc_azf_em" name="archive_id"/>
+        <field table="sc_azf_em" name="em_id"/>
+        <field table="sc_azf_em" name="xm"/>
+        <field table="sc_azf_em" name="sfzh"/>
+        <field table="sc_azf_em" name="gzbm"/>
+        <field table="sc_azf_em" name="dv_id"/>
+        <field table="sc_azf_em" name="dv_name"/>
+        <field table="sc_azf_em" name="date_azf_begin"/>
+        <field table="sc_azf_em" name="azf_price"/>
+        <field table="sc_azf_em" name="date_azf_end_ought"/>
+        <field table="sc_azf_em" name="azf_doc"/>
+    </dataSource>
+    
+    <dataSource id="reqEmDs">
+        <sql dialect="generic">
+            SELECT sc_zf_em.archive_id,
+            sc_zf_em.em_id,
+            sc_zf_em.xm ,
+            sc_zf_em.xb ,
+            sc_zf_em.sfzh ,
+            sc_zf_em.date_come_sch ,
+            sc_zf_em.gzbm ,
+            sc_zf_em.status_em ,
+            sc_zf_em.mphone ,
+            sc_zf_em.is_sworker ,
+            sc_zf_em.email ,
+            sc_zf_em.zc_id ,
+            sc_zf_em.zc_name ,
+            sc_zf_em.zw_id ,
+            sc_zf_em.zw_name ,
+            sc_zf_em_po.xm as po_xm,
+            sc_zf_em_po.sfzh as po_sfzh
+            FROM sc_zf_em
+            LEFT OUTER JOIN
+            sc_zf_em_po
+            ON     sc_zf_em.archive_id = sc_zf_em_po.archive_id
+        </sql>
+        <table name="sc_zf_em" role="main"/>
+        <field table="sc_zf_em" name="archive_id"/>
+        <field table="sc_zf_em" name="em_id"/>
+        <field table="sc_zf_em" name="xm"/>
+        <field table="sc_zf_em" name="xb"/>
+        <field table="sc_zf_em" name="sfzh"/>
+        <field table="sc_zf_em" name="date_come_sch"/>
+        <field table="sc_zf_em" name="gzbm"/>
+        <field table="sc_zf_em" name="status_em"/>
+        <field table="sc_zf_em" name="mphone"/>
+        <field table="sc_zf_em" name="is_sworker"/>
+        <field table="sc_zf_em" name="email"/>
+        <field table="sc_zf_em" name="zc_id"/>
+        <field table="sc_zf_em" name="zc_name"/>
+        <field table="sc_zf_em" name="zw_id"/>
+        <field table="sc_zf_em" name="zw_name"/>
+        <field table="sc_zf_em" name="po_xm" dataType="text"/>
+        <field table="sc_zf_em" name="po_sfzh" dataType="text"/>
+    </dataSource>
+    
+    <dataSource id="cqDetailDs">
+        <table name="sc_zf_cq" role="main"/>
+        <field table="sc_zf_cq" name="auto_id"/>
+        <field table="sc_zf_cq" name="archive_id"/>
+        <field table="sc_zf_cq" name="super_type"/>
+        <field table="sc_zf_cq" name="owner_names"/>
+        <field table="sc_zf_cq" name="cqz_code"/>
+        <field table="sc_zf_cq" name="rm_addr"/>
+        <field table="sc_zf_cq" name="area_jianzhu"/>
+    </dataSource>
+    
+    <tabs id="printTabs" workflow="enforced">
+        <tab name="reqTab" selected="true">
+            <title>Check Card</title>
+            <panel type="form" id="reqEmDetail" dataSource="reqEmDs" columns="3" newRecord="true">
+                <title>Em Detail</title>
+                <action id="print">
+                    <title>Print Detail</title>
+                </action>
+                <action id="next">
+                    <title>Next Step</title>
+                </action>
+                <field table="sc_zf_em" name="archive_id" readOnly="false" required="true">
+                    <action>
+                        <title>...</title>
+                        <command type="callFunction" functionName="onSelectEm()"/>
+                    </action>
+                </field>
+                <field table="sc_zf_em" name="em_id" readOnly="true"/>
+                <field table="sc_zf_em" name="xm" readOnly="true"/>
+                <field table="sc_zf_em" name="xb" readOnly="true"/>
+                <field table="sc_zf_em" name="sfzh" readOnly="true"/>
+                <field table="sc_zf_em" name="date_come_sch" readOnly="true"/>
+                <field table="sc_zf_em" name="gzbm" readOnly="true"/>
+                <field table="sc_zf_em" name="status_em" readOnly="true"/>
+                <field table="sc_zf_em" name="mphone" readOnly="true"/>
+                <field table="sc_zf_em" name="is_sworker" readOnly="true"/>
+                <field table="sc_zf_em" name="po_xm" readOnly="true">
+                    <title>Po Name</title>
+                </field>
+                <field table="sc_zf_em" name="po_sfzh" readOnly="true">
+                    <title>Po Sfzh</title>
+                </field>
+                <field table="sc_zf_em" name="email" hidden="true"/>
+                <field table="sc_zf_em" name="zc_id" hidden="true"/>
+                <field table="sc_zf_em" name="zc_name" hidden="true"/>
+                <field table="sc_zf_em" name="zw_id" hidden="true"/>
+                <field table="sc_zf_em" name="zw_name" hidden="true"/>
+            </panel>
+            
+            <panel type="grid" id="cqfDetail" dataSource="cqDetailDs">
+                <title>Em Room Detail</title>
+                <field table="sc_zf_cq" name="archive_id"/>
+                <field table="sc_zf_cq" name="super_type"/>
+                <field table="sc_zf_cq" name="owner_names"/>
+                <field table="sc_zf_cq" name="cqz_code"/>
+                <field table="sc_zf_cq" name="rm_addr"/>
+                <field table="sc_zf_cq" name="area_jianzhu"/>
+            </panel>
+        </tab>
+        <tab name="checkTab">
+            <title>Appr Detail</title>
+            <panel type="form" id="azfEmDetail" dataSource="azfEmDs" columns="2">
+                <title>Azf Detail</title>
+                <action id="save">
+                    <title>Save</title>
+                </action>
+                <action id="prev">
+                    <title>Prev Step</title>
+                </action>
+                <field table="sc_azf_em" name="id" hidden="true"/>
+                <field table="sc_azf_em" name="archive_id" readOnly="true"/>
+                <field table="sc_azf_em" name="gzbm" readOnly="true"/>
+                <field table="sc_azf_em" name="azf_price" readOnly="true"/>
+                <field table="sc_azf_em" name="date_azf_begin" required="true" onchange="azfReqController.dateChange()"/>
+                <field table="sc_azf_em" name="date_azf_end_ought" readOnly="true"/>
+                <field table="sc_azf_em" name="azf_doc"/>
+            </panel>
+        </tab>
+    </tabs>
+    <js file="asc-zf-azf-req-check.js"/>
+</view>

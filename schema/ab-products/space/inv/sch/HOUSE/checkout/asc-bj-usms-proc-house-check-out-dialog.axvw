@@ -1,0 +1,256 @@
+<view version="2.0">
+    <js file="asc-bj-usms-proc-house-check-out-dialog.js"/>
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="cause_checkout" table="sc_zzfcard"/>
+        <field name="date_checkout_actual" table="sc_zzfcard"/>
+        <field name="date_payrent_last" table="sc_zzfcard"/>
+        
+        <field name="fee_water_info" table="sc_zzfcard"/>
+        <field name="fee_ele_info" table="sc_zzfcard"/>
+        <field name="pro_info" table="sc_zzfcard"/>
+        <field name="pro_other_info" table="sc_zzfcard"/>
+        <field name="pro_people" table="sc_zzfcard"/>
+        
+        <field name="rent_info" table="sc_zzfcard"/>
+        <field name="key_info" table="sc_zzfcard"/>
+        <field name="furniture_info" table="sc_zzfcard"/>
+        <field name="room_info" table="sc_zzfcard"/>
+        <field name="fcb_other_info" table="sc_zzfcard"/>
+        <field name="fcb_people" table="sc_zzfcard"/>
+        
+        <field name="date_work_begin" table="sc_zzfcard"/>
+        <field name="date_checkin" table="sc_zzfcard"/>
+        <field name="total_rent" table="sc_zzfcard"/>
+        <field name="date_checkout_ought" table="sc_zzfcard"/>
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="zj_document" table="sc_zzfcard"/>
+        <field name="tzb_document" table="sc_zzfcard"/>
+        
+        
+        <field name="num_water_b" table="sc_zzfcard"/>
+        <field name="num_ele_b" table="sc_zzfcard"/>
+        <field name="num_gas_b" table="sc_zzfcard"/>
+        <field name="money_water_b" table="sc_zzfcard"/>
+        <field name="money_ele_b" table="sc_zzfcard"/>
+        <field name="money_gas_b" table="sc_zzfcard"/>
+        
+        
+        
+        
+        
+        
+        
+    </dataSource>
+
+       
+    <panel type="form" columns="3" id="rentOutInfo" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Rentout Info</title>
+        <action id="save">
+            <title translatable="true">save</title>
+        </action>
+        <action id="cancel">
+            <title translatable="true">cancel</title>
+        </action>
+        <action id="report">
+            <title translatable="true">printPDF</title>
+        </action>
+        <field name="card_id" table="sc_zzfcard" hidden="true"/>
+        
+        <field name="date_work_begin" table="sc_zzfcard" hidden="true"/>
+        <field name="date_checkin" table="sc_zzfcard" hidden="true"/>
+        <field name="date_checkout_ought" table="sc_zzfcard" hidden="true"/>
+        <field name="bl_id" table="sc_zzfcard" hidden="true"/>
+        <field name="fl_id" table="sc_zzfcard" hidden="true"/>
+        <field name="rm_id" table="sc_zzfcard" hidden="true"/>
+        <field name="identi_code" table="sc_zzfcard" hidden="true"/>
+        <field name="date_checkout_actual" table="sc_zzfcard" required="true" onchange="rentOutController.autoSetDate()"/>
+        <field name="cause_checkout" table="sc_zzfcard" required="true"/>
+        <field name="date_payrent_last" table="sc_zzfcard" required="true"/>
+        
+        <field name="zj_document" table="sc_zzfcard"/>
+        <field name="tzb_document" table="sc_zzfcard"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="proInfo" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Property Info</title>
+        <field name="card_id" table="sc_zzfcard" hidden="true"/>
+        
+        <!-- <field name="fee_water_info" table="sc_zzfcard"  width="207px"/>
+        <field name="fee_ele_info" table="sc_zzfcard"  width="207px"/>
+        <field name="pro_info" table="sc_zzfcard" width="207px"/>
+        <field name="pro_other_info" table="sc_zzfcard"  width="207px"/>
+        <field name="pro_people" table="sc_zzfcard"/> -->
+        
+        <field name="num_water_b" table="sc_zzfcard"/>
+        <field name="money_water_b" table="sc_zzfcard"/>
+        <field name="num_ele_b" table="sc_zzfcard"/>
+        <field name="money_ele_b" table="sc_zzfcard"/>
+        <field name="num_gas_b" table="sc_zzfcard"/>
+        <field name="money_gas_b" table="sc_zzfcard"/>
+        
+    </panel>
+    
+    <panel type="form" columns="2" id="FCBInfo" dataSource="sc_zzfcardDataSource">
+        <title translatable="true">Fcb Info</title>
+        <field name="card_id" table="sc_zzfcard" hidden="true"/>
+        
+        <field name="rent_info" table="sc_zzfcard"  width="207px"/>
+        <field name="key_info" table="sc_zzfcard"  width="207px"/>
+        <field name="furniture_info" table="sc_zzfcard"  width="207px"/>
+        <field name="room_info" table="sc_zzfcard"  width="207px"/>
+        <field name="fcb_other_info" table="sc_zzfcard"  width="207px"/>
+        <field name="fcb_people" table="sc_zzfcard"/>
+    </panel>
+	
+	 <dataSource id="rmDs">
+        <table name="rm" role="main"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="kzlzys" table="rm"/>
+        <field name="yzlzys" table="rm"/>
+        <field name="num_water" table="rm"/>
+        <field name="num_ele" table="rm"/>
+        <field name="num_gas" table="rm"/>
+        <field name="money_water" table="rm"/>
+        <field name="money_ele" table="rm"/>
+        <field name="money_gas" table="rm"/>
+     </dataSource>
+    
+    
+    <dataSource id="scZfhcqDs">
+		<table name="sc_zf_hcq" role="main" />
+		<field table="sc_zf_hcq" name="auto_id" />
+        <field table="sc_zf_hcq" name="archive_id"/>
+        <field table="sc_zf_hcq" name="em_id" />
+        <field table="sc_zf_hcq" name="xm" />
+        <field table="sc_zf_hcq" name="dv_id" />
+        <field table="sc_zf_hcq" name="dv_name" />
+        <field table="sc_zf_hcq" name="bl_id" />
+        <field table="sc_zf_hcq" name="bl_name" />
+        <field table="sc_zf_hcq" name="fl_id" />
+        <field table="sc_zf_hcq" name="unit_id" />
+        <field table="sc_zf_hcq" name="rm_id" />
+        <field table="sc_zf_hcq" name="rm_addr" />
+        <field table="sc_zf_hcq" name="community" />
+        <field table="sc_zf_hcq" name="super_type" />
+        <field table="sc_zf_hcq" name="zf_type_id" />
+        <field table="sc_zf_hcq" name="zf_type_name" />
+        <field table="sc_zf_hcq" name="owner_names" />
+        <field table="sc_zf_hcq" name="cqz_code" />
+        <field table="sc_zf_hcq" name="date_building_end" />
+        <field table="sc_zf_hcq" name="area_jianzhu" />
+        <field table="sc_zf_hcq" name="ytys" />
+        <field table="sc_zf_hcq" name="area_yt" />
+        <field table="sc_zf_hcq" name="area_sy" />
+        <field table="sc_zf_hcq" name="area_hd" />
+        <field table="sc_zf_hcq" name="bl_type" />
+        <field table="sc_zf_hcq" name="chaoxiang" />
+        <field table="sc_zf_hcq" name="huxing" />
+        <field table="sc_zf_hcq" name="date_gf" />
+        <field table="sc_zf_hcq" name="price_unit" />
+        <field table="sc_zf_hcq" name="price_sum" />
+        <field table="sc_zf_hcq" name="zw_jb_id" />
+        <field table="sc_zf_hcq" name="zw_jb_name" />
+        <field table="sc_zf_hcq" name="zw_id" />
+        <field table="sc_zf_hcq" name="zw_name" />
+        <field table="sc_zf_hcq" name="zc_jb_id" />
+        <field table="sc_zf_hcq" name="zc_jb_name" />
+        <field table="sc_zf_hcq" name="zc_id" />
+        <field table="sc_zf_hcq" name="zc_name" />
+        <field table="sc_zf_hcq" name="p_zw_jb_id" />
+        <field table="sc_zf_hcq" name="p_zw_jb_name" />
+        <field table="sc_zf_hcq" name="p_zw_id" />
+        <field table="sc_zf_hcq" name="p_zw_name" />
+        <field table="sc_zf_hcq" name="p_zc_jb_id" />
+        <field table="sc_zf_hcq" name="p_zc_jb_name" />
+        <field table="sc_zf_hcq" name="p_zc_id" />
+        <field table="sc_zf_hcq" name="p_zc_name" />
+        <field table="sc_zf_hcq" name="dw_sale_rm" />
+        <field table="sc_zf_hcq" name="wxjjbz" />
+        <field table="sc_zf_hcq" name="doc_fcz" />
+        <field table="sc_zf_hcq" name="description" />
+        <field table="sc_zf_hcq" name="change_time" />
+        <field table="sc_zf_hcq" name="c_deal" />
+        <field table="sc_zf_hcq" name="c_date_jy" />
+        <field table="sc_zf_hcq" name="c_price_je" />
+        <field table="sc_zf_hcq" name="c_em_id" />
+        <field table="sc_zf_hcq" name="c_archive_id" />
+        <field table="sc_zf_hcq" name="c_sfzh" />
+		<field table="sc_zf_hcq" name="c_xm" />
+		<field table="sc_zf_hcq" name="is_audit_admin" />
+	</dataSource>
+	
+	
+	<dataSource id="scZfcqDs">
+		<table name="sc_zf_cq" role="main" />
+		<field table="sc_zf_cq" name="auto_id" />
+        <field table="sc_zf_cq" name="archive_id"/>
+        <field table="sc_zf_cq" name="em_id" />
+        <field table="sc_zf_cq" name="xm" />
+        <field table="sc_zf_cq" name="dv_id" />
+        <field table="sc_zf_cq" name="dv_name" />
+        <field table="sc_zf_cq" name="bl_id" />
+        <field table="sc_zf_cq" name="bl_name" />
+        <field table="sc_zf_cq" name="fl_id" />
+        <field table="sc_zf_cq" name="unit_id" />
+        <field table="sc_zf_cq" name="rm_id" />
+        <field table="sc_zf_cq" name="rm_addr" />
+        <field table="sc_zf_cq" name="community" />
+        <field table="sc_zf_cq" name="super_type" />
+        <field table="sc_zf_cq" name="zf_type_id" />
+        <field table="sc_zf_cq" name="zf_type_name" />
+        <field table="sc_zf_cq" name="owner_names" />
+        <field table="sc_zf_cq" name="cqz_code" />
+        <field table="sc_zf_cq" name="date_building_end" />
+        <field table="sc_zf_cq" name="area_jianzhu" />
+        <field table="sc_zf_cq" name="ytys" />
+        <field table="sc_zf_cq" name="area_yt" />
+        <field table="sc_zf_cq" name="area_sy" />
+        <field table="sc_zf_cq" name="area_hd" />
+        <field table="sc_zf_cq" name="bl_type" />
+        <field table="sc_zf_cq" name="chaoxiang" />
+        <field table="sc_zf_cq" name="huxing" />
+        <field table="sc_zf_cq" name="date_gf" />
+        <field table="sc_zf_cq" name="price_unit" />
+        <field table="sc_zf_cq" name="price_sum" />
+        <field table="sc_zf_cq" name="zw_jb_id" />
+        <field table="sc_zf_cq" name="zw_jb_name" />
+        <field table="sc_zf_cq" name="zw_id" />
+        <field table="sc_zf_cq" name="zw_name" />
+        <field table="sc_zf_cq" name="zc_jb_id" />
+        <field table="sc_zf_cq" name="zc_jb_name" />
+        <field table="sc_zf_cq" name="zc_id" />
+        <field table="sc_zf_cq" name="zc_name" />
+        <field table="sc_zf_cq" name="p_zw_jb_id" />
+        <field table="sc_zf_cq" name="p_zw_jb_name" />
+        <field table="sc_zf_cq" name="p_zw_id" />
+        <field table="sc_zf_cq" name="p_zw_name" />
+        <field table="sc_zf_cq" name="p_zc_jb_id" />
+        <field table="sc_zf_cq" name="p_zc_jb_name" />
+        <field table="sc_zf_cq" name="p_zc_id" />
+        <field table="sc_zf_cq" name="p_zc_name" />
+        <field table="sc_zf_cq" name="dw_sale_rm" />
+        <field table="sc_zf_cq" name="wxjjbz" />
+        <field table="sc_zf_cq" name="doc_fcz" />
+        <field table="sc_zf_cq" name="description" />
+        <field table="sc_zf_cq" name="change_time" />
+        <field table="sc_zf_cq" name="c_deal" />
+        <field table="sc_zf_cq" name="c_date_jy" />
+        <field table="sc_zf_cq" name="c_price_je" />
+        <field table="sc_zf_cq" name="c_em_id" />
+        <field table="sc_zf_cq" name="c_archive_id" />
+        <field table="sc_zf_cq" name="c_sfzh" />
+        <field table="sc_zf_cq" name="c_xm" />
+		<field table="sc_zf_cq" name="is_audit_admin" />
+	</dataSource>
+    
+    
+    
+</view>

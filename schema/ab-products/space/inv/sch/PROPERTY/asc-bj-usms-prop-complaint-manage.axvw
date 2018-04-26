@@ -1,0 +1,176 @@
+<view version="2.0">
+    <title translatable="true">Complaint Management</title>
+    <message name="addComplaint" translatable="true">Add Complaint</message>
+    <layout type="borderLayout" id="mainLayout">
+        <north id="consolePanel" initialSize="13%" split="true"/>
+        <west id="propCompanyGridPanel" initialSize="30%" split="true" autoScroll="true"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="mainLayout1" containingLayout="mainLayout" region="center">
+        <north id="complaintGridPanel" initialSize="40%" split="true" autoScroll="true"/>
+        <center id="formPanel" autoScroll="true"/>
+    </layout>
+    
+    <dataSource id="ts_prop_company_Ds">
+     	<table name="ts_prop_company" role="main"/>
+    	<field table="ts_prop_company" name="prop_code"/>
+    	<field table="ts_prop_company" name="prop_name"/>
+    	
+   		<restriction type="sql" sql="ts_prop_company.prop_code in (SELECT DISTINCT cp_prop_code FROM ts_prop_complaint)"/>
+    </dataSource>
+    
+    <dataSource id="complaintManagement_DS">
+        <table name="ts_prop_company" role="standard"/>
+	    <table name="ts_prop_complaint" role="main"/> 
+
+        <field table="ts_prop_company" name="prop_code"/>
+        <field table="ts_prop_company" name="prop_name"/>  
+        
+        <field table="ts_prop_complaint" name="cp_prop_code"/>     
+        <field table="ts_prop_complaint" name="cp_comments"/>
+        <field table="ts_prop_complaint" name="cp_content"/>
+        <field table="ts_prop_complaint" name="cp_dp_id"/>
+        <field table="ts_prop_complaint" name="cp_dv_id"/>
+        <field table="ts_prop_complaint" name="cp_em_id"/>
+        <field table="ts_prop_complaint" name="cp_id"/>
+        <field table="ts_prop_complaint" name="cp_replier"/>
+        <field table="ts_prop_complaint" name="cp_reply_desc"/>
+        <field table="ts_prop_complaint" name="cp_status"/>
+        <field table="ts_prop_complaint" name="date_comp"/>
+        <field table="ts_prop_complaint" name="date_reply"/>
+              
+    </dataSource>
+    
+    <panel type="console" id="propCompanyConsole" dataSource="complaintManagement_DS" columns="3" layoutRegion="consolePanel">
+        <title>Console</title>
+        <action id="filter">
+            <title translatable="true">Filter</title>
+            <!-- <command type="showPanel" panelId="propCompanyGrid"/> -->
+            <command type="callFunction" functionName="tsPropComplaintControlller.filter()"/>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="callFunction" functionName="tsPropComplaintControlller.consoleClear()"/> 
+        </action>
+        <field table="ts_prop_company" name="prop_name"/> 
+        <field table="ts_prop_complaint" name="cp_status"/>
+         
+        <field table="ts_prop_complaint" name="date_comp"/> 
+         
+    </panel>
+    <panel type="grid" id="propCompanyGrid" dataSource="ts_prop_company_Ds" layoutRegion="propCompanyGridPanel" showOnLoad="true">
+        <title>Property Company</title>
+        <action id="add">
+            <title>New</title>
+        </action>
+        <field table="ts_prop_company" name="prop_code" controlType="link" >
+             <command type="callFunction" functionName="tsPropComplaintControlller.showComplaintGrid()"/>
+        </field>
+        <field table="ts_prop_company" name="prop_name" controlType="link">
+             <command type="callFunction" functionName="tsPropComplaintControlller.showComplaintGrid()"/>
+        </field> 
+    </panel>
+
+    <panel type="grid" id="complaintGrid" dataSource="complaintManagement_DS" layoutRegion="complaintGridPanel" showOnLoad="false">
+        <title>Complaint List</title>
+       <!--  <action id="add">
+            <title>New</title>
+        </action>  -->
+        <field name="row_number" dataType="number" decimals="0" controlType="link">
+             <title translatable="true">Xu Hao</title>
+        </field>
+        <field table="ts_prop_complaint" name="cp_id" controlType="link" hidden="true">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+        <field table="ts_prop_company" name="prop_code" hidden="true"/>
+        
+         <field table="ts_prop_complaint" name="cp_status" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_company" name="prop_name" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="cp_comments" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="date_comp" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="date_reply" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="cp_em_id" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="cp_dv_id" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+         <field table="ts_prop_complaint" name="cp_dp_id" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+        <field table="ts_prop_complaint" name="cp_content" controlType="link">
+        	<command type="showPanel" panelId="complaintForm"/>
+        	
+        </field>
+              
+        <!-- <field table="ts_prop_complaint" name="cp_prop_code"/> -->
+        <field table="ts_prop_complaint" name="cp_replier"/>
+        <field table="ts_prop_complaint" name="cp_reply_desc"/>
+        
+       
+        
+    </panel>
+    <panel type="form" id="complaintForm" columns="2" dataSource="complaintManagement_DS" layoutRegion="formPanel" showOnLoad="false">
+        <title translatable="true">Cheack Complaint</title>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="callFunction" functionName="tsPropComplaintControlller.complaintForm_afterSave()"/>
+        </action>
+      
+        <action id="delete" enabled="${!panel.newRecord}">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="callFunction" functionName="tsPropComplaintControlller.complaintForm_afterDelete()"/>
+        </action>
+        <field table="ts_prop_complaint" name="cp_id" hidden="true"/>
+        <field table="ts_prop_complaint" name="cp_prop_code">
+        	<action>
+                <tooltip translatable="true">Select Property Company</tooltip>
+                <title>...</title>
+                <command type="selectValue" 
+                 fieldNames="ts_prop_complaint.cp_prop_code" 
+                 selectFieldNames="ts_prop_company.prop_code"
+                 restriction=""              
+                 visibleFieldNames="ts_prop_company.prop_code,ts_prop_company.prop_name" 
+                 applyFilter="false"/>
+            </action>
+        	
+        </field> 
+        <field table="ts_prop_complaint" name="cp_status"/> 
+        <field table="ts_prop_complaint" name="cp_em_id" readOnly="true"/>
+
+ <!--        <field table="ts_prop_company" name="prop_name" readOnly="false"/> -->
+<!--         <field table="ts_prop_company" name="prop_code" readOnly="true"/> -->
+        <field table="ts_prop_complaint" name="cp_dv_id" readOnly="true"/>    
+		<field table="ts_prop_complaint" name="cp_dp_id" readOnly="true"/>
+		<field table="ts_prop_complaint" name="cp_replier"/>
+		<field table="ts_prop_complaint" name="date_comp"/>
+        <field table="ts_prop_complaint" name="date_reply"/>
+        <field table="ts_prop_complaint" name="cp_content"/>
+        <field table="ts_prop_complaint" name="cp_reply_desc"/>
+        <field table="ts_prop_complaint" name="cp_comments"/>
+         
+    </panel>
+    <js file="asc-bj-usms-prop-complaint-manage.js"/>
+    <js file="asc-bj-usms-prop-common.js "/>
+</view>

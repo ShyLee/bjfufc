@@ -1,0 +1,98 @@
+<view version="2.0">
+    <title>System Log View Page</title>
+    
+    <dataSource id="logDataSource">
+        <table name="sys_log"/>
+        <field name="id"/>
+		<field name="id_string" dataType="text">
+            <sql dialect="generic" >
+                to_char(id)
+            </sql>
+        </field>
+		
+        <field name="operator"/>
+ 		<field name="operate"/>
+        <field name="oper_date"/>
+		
+		<field name="oper_date_string" dataType="text">
+            <sql dialect="generic" >
+                to_char(oper_date,'yyyy-mm-dd HH24:MI:SS')
+            </sql>
+        </field>
+		
+        <field name="target"/>
+        <field name="ip_addr"/>
+        <field name="flag"/>
+        <field name="oldvalues"/>
+        <field name="newvalues"/>
+        <field name="description"/>
+        <field name="target_pk"/>
+		<sortField name="id" ascending="false"/>
+		<restriction type="sql"  sql="sys_log.flag='true'"/>
+    </dataSource>
+
+    <panel type="console" id="Log_console" dataSource="logDataSource" columns="3">
+        <title>Filter</title>
+        <action id="search">
+        	
+            <title>Show</title>
+            <command type="showPanel" panelId="Log_grid"/>
+        </action>
+        <action id="clear">
+            <title>Clear</title>
+            <command type="showPanel" panelId="Log_grid" clearRestriction="true"/>
+            <command type="clearPanel" panelId="Log_console"/>
+        </action>
+        <field table="sys_log" name="operator" required="false"/>
+		<field table="sys_log" name="operate" required="false"/>
+		<field table="sys_log" name="target" required="false"/>
+		<field table="sys_log" name="oper_date" alias="oper_date_from" required="false" op="&gt;=">
+		    <title translatable="true">Date From</title>
+		</field>
+		<field table="sys_log" name="oper_date" alias="oper_date_to" required="false" op="&lt;=">
+		    <title translatable="true">Date To</title>
+		</field>
+    </panel>
+    
+    <panel type="grid" id="Log_grid" dataSource="logDataSource"  recordLimit="300" showCounts="true">
+        <title  translatable="true">Data Events</title>
+		<indexField table="sys_log" name="id" />
+		<field controlType="button">
+            <title>See Detail</title>
+            <command type="openDialog" panelId="detailLog" width="600" height="400"/>
+			<!--<command type="callFunction" functionName="hwLogController.showOrHideDifButton()"/>-->
+        </field>
+		<field table="sys_log" name="id"/>
+		<field table="sys_log" name="operator"/>
+ 		<field table="sys_log" name="operate"/>
+        <field table="sys_log" name="oper_date_string">
+        	<title  translatable="true">Operate Date</title>
+        </field>
+        <field table="sys_log" name="target"/>
+        <field table="sys_log" name="ip_addr"/>
+        <field table="sys_log" name="oldvalues"/>
+        <field table="sys_log" name="newvalues"/>
+        <field table="sys_log" name="description"/>
+    </panel>
+	
+	 <panel type="columnReport" id="detailLog" dataSource="logDataSource"   showCounts="true" columns="1" showOnLoad="false">
+        <title>Detail Information</title>
+		<indexField table="sys_log" name="id"/>
+		<field table="sys_log" name="id" readOnly="true" hidden="true"/>
+		<field table="sys_log" name="id_string">
+        	<title>Log Id</title>
+        </field>
+		<field table="sys_log" name="operator" readOnly="true" />
+ 		<field table="sys_log" name="operate" readOnly="true"/>
+		<field table="sys_log" name="oper_date_string">
+        	<title>Operate Date</title>
+        </field>
+		<field table="sys_log" name="oper_date" hidden="true" required="false"/>
+		<field table="sys_log" name="target" readOnly="true"/>
+        <field table="sys_log" name="ip_addr" readOnly="true"/>
+        <field table="sys_log" name="oldvalues" readOnly="true"  width="200px"/>
+        <field table="sys_log" name="newvalues" readOnly="true"  rowspan="4" />
+        <field table="sys_log" name="description" readOnly="true"  rowspan="4"/>
+    </panel>
+</view>
+

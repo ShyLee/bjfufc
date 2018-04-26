@@ -1,0 +1,157 @@
+<view version="2.0">
+    <title translatable="true">View Room Summary and Room Inventory by Room Category and Type</title>
+    
+    <layout id="main">
+        <north id="rmcatPosition" initialSize="35%" split="true"/>
+        <center id="rmtypePosition"/>
+		<south id="rmPosition" initialSize="40%" split="true"/>
+    </layout>
+    
+	<message name="total" translatable="true">Total</message>
+	<message name="secondPanelTitle" translatable="true">Room Category : {0}</message>
+	<message name="bottomPanelTitle" translatable="true">Room Type : {0}</message>
+   
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rmcat">
+		<table name="rmcat" role="main" />
+		
+		<field table="rmcat" name="rm_cat"  controlType="link">
+			<title translatable="true">Room Category</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+        </field>
+		
+	 
+		<field table="rmcat" name="name" controlType="link">
+			<title translatable="true">Lei Bie Dai Ma</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+        </field>
+		
+		<field table="rmcat" name="tot_count" controlType="link">
+			<title translatable="true">Room Count</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+		</field>
+		
+		<field table="rmcat" name="area" controlType="link">
+			<title translatable="true">Total Usable Area</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+		</field>
+		<field table="rmcat" name="area_jianzhu" controlType="link">
+			<title translatable="true">Total Structure Area</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+		</field>
+		
+		<field name="percent_area" dataType="number"  size="6" decimals="2" controlType="link">
+			<title translatable="true">Zhan Bi</title>
+			<command type="callFunction" functionName="onRefreshSecondReport"/>
+		</field>
+		
+		<sortField name="name" table="rmcat" ascending="true" />
+	</dataSource>
+	
+	<!-- datasource for rmtype report-->
+    <dataSource id="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rmtype">
+		<table name="rmtype" role="main" />
+		
+		<field table="rmtype" name="rm_type" controlType="link">
+			<title translatable="true">Room Type</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+        </field>
+	<!-- 
+		<field table="rmtype" name="description" controlType="link">
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+        </field>
+	 -->
+		<field table="rmtype" name="tot_count" controlType="link">
+			<title translatable="true">Room Count</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+		</field>
+		
+		<field table="rmtype" name="area"  controlType="link">
+			<title translatable="true">Total Usable Area</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+		</field>
+		
+		<field table="rmtype" name="area_jianzhu"  controlType="link">
+			<title translatable="true">Total Structure Area</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+		</field>
+	<!--
+		<field table="rmtype" name="area_avg" controlType="link">
+            <title translatable="true">Average Area</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+        </field>
+		 -->
+		 	<field table="rmtype" name="count_em"  controlType="link">
+			<title translatable="true">xiaoneitaoshu</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+		</field>
+			<field table="rmtype" name="area_avg"  controlType="link">
+			<title translatable="true">xiaowaitaoshu</title>
+			<command type="callFunction" functionName="onRefreshBottomReport"/>
+		</field>
+		<sortField name="rm_type" table="rmtype" ascending="true" />
+		
+		<restriction type="sql" sql="rmtype.rm_cat=${parameters['rmcatRes']}"/>
+		<parameter name="rmcatRes" dataType="text" value=""/>
+		
+	</dataSource>
+	
+	<!-- dataSource for room panel -->
+    <dataSource id="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rm">
+        <table name="rm" role="main"/>
+		
+		<field table="rm" name="bl_id"/>
+		<field table="rm" name="address"/>
+	    <field table="rm" name="unit_code"/>
+        <field table="rm" name="fl_id"/>
+		<field table="rm" name="rm_id"/>
+		<field table="rm" name="huxing"/>
+		<field table="rm" name="area"/>
+		<field table="rm" name="area_comn_rm"/>
+		<field table="rm" name="chaoxiang"/>
+		<field table="rm" name="owner_name"/>
+		<field table="rm" name="dv_id"/>
+		
+		<field table="rm" name="name"/>
+		<field table="rm" name="rm_std"/>
+		<field table="rm" name="count_design"/>
+		<field table="rm" name="cap_em"/>
+		<field table="rm" name="rm_cat"/>
+		<field table="rm" name="rm_type"/>
+		<field table="rm" name="rm_use"/>
+		
+    </dataSource>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="abScRptRmbySumRmtypeRmcat_rmcatSumGrid" dataSource="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rmcat" layoutRegion="rmcatPosition">
+        <title translatable="true">University All Room Category</title>
+    </panel>
+	
+    <panel type="grid" id="abScRptRmbySumRmtypeRmcat_rmtypeSumGrid" dataSource="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rmtype" showOnLoad="false" layoutRegion="rmtypePosition">
+        <title translatable="true">Room Category</title>
+    </panel>
+    
+	<panel type="grid" id="abScRptRmbySumRmtypeRmcat_rmGrid" dataSource="ds_ab-sc-rpt-rm-by-sum-rmtype-rmcat_grid_rm" showOnLoad="false" layoutRegion="rmPosition">
+        <title translatable="true">Room Type</title>
+		<field table="rm" name="bl_id">
+		<title translatable="true">louyumingchen</title>
+		</field>
+		<field table="rm" name="address">
+		<title translatable="true">zuoluo</title>
+		</field>
+	    <field table="rm" name="unit_code"/>
+		
+		<field table="rm" name="rm_id"/>
+		<field table="rm" name="huxing"/>
+		<field table="rm" name="area"/>
+		<field table="rm" name="area_comn_rm"/>
+		<field table="rm" name="chaoxiang"/>
+		<field table="rm" name="owner_name"/>
+		<field table="rm" name="dv_id">
+		<title translatable="true">suoshudanwei</title>
+		</field>
+    </panel>
+	
+    
+    <js file="asc-bj-usms-type-rm-list.js"/>
+</view>

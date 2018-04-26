@@ -1,0 +1,190 @@
+<view version="2.0">
+    
+    <title>ZiJiao Baopan</title>
+    
+    <layout>
+        <north split="true" initialSize="11%"/>
+        <center/>
+        <south initialSize="0"/>
+    </layout>
+    
+    <dataSource id="zzfFeeDs">
+        <sql dialect="generic">
+            SELECT sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            sc_zzf_fee.em_id,
+            sc_zzf_fee.em_id_z,
+            sc_zzf_fee.em_name,
+            sc_zzf_fee.identi_code,
+            (select dv_name from sc_zzfcard where card_id = sc_zzf_fee.card_id) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_manual,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            sc_zzf_fee.memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'house'  AND  djfr is null))
+            union all
+            SELECT
+            sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            (select em_id from em where em.em_zh=sc_zzfcard.djfr) as em_id,
+            sc_zzfcard.djfr as em_id_z,
+            (select name from em where em.em_zh=sc_zzfcard.djfr) as em_name,
+            (select identi_code from em where em.em_zh=sc_zzfcard.djfr) as identi_code,
+            (select dv_name from dv where dv_id = (select dv_id from em where em_zh = sc_zzfcard.djfr)) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_manual,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            (case when sc_zzf_fee.em_name is not null Then ${parameters['descBefore']} || sc_zzf_fee.em_name|| ${parameters['descAfter']}Else ''End) as memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'house'  AND  djfr is not null))
+        </sql>
+        <table name="sc_zzf_fee" role="main"/>
+        <field table="sc_zzf_fee" name="fee_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="card_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id_z" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="identi_code" dataType="text"/>
+        <field table="sc_zzf_fee" name="dv_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="fl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="rm_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="area_manual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="area_lease" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="price" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="rate" dataType="int"/>
+        <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="memo" dataType="text"/>
+        <field table="sc_zzf_fee" name="year" dataType="text"/>
+        <field table="sc_zzf_fee" name="month" dataType="text"/>
+		<sortField table="sc_zzf_fee" name="em_id"/>
+        <parameter name="descBefore" dataType="verbatim" value="1111"/>
+        <parameter name="descAfter" dataType="verbatim" value="1111"/>
+    </dataSource>
+    
+    <panel id="console_panel" type="console" dataSource="none" columns="2" layout="mainLayout" region="north">
+        <title>Baopan Month</title>
+        <action id="show">
+            <title>Show</title>
+        </action>
+        <action id="clear">
+            <title>Clear</title>
+        </action>
+        <field>
+            <title>Year</title>
+            <html>
+                <select id="selectYear">
+                    <option value=""></option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </html>
+        </field>
+        <field>
+            <title>Month</title>
+            <html>
+                <select id="selectMonth">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </html>
+        </field>
+    </panel>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfFeeDs" showOnLoad="false" layout="mainLayout" region="center">
+        <title translatable="true">Room Rent List</title>
+        <action id="createFee">
+            <title>CreateFee</title>
+        </action>
+        
+        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+            <title></title>
+            <action>
+                <title>Export</title>
+                <command type="exportPanel" outputType="xls" panelId="zzf_fee_detail"/>
+            </action>
+        </action>
+		<indexField table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="fee_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="card_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id_z" dataType="text" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="identi_code" dataType="text"/>
+        <field table="sc_zzf_fee" name="dv_name" dataType="text">
+            <title>Dv Name</title>
+        </field>
+        <field table="sc_zzf_fee" name="bl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text">
+        	<title>Building Name</title>
+        </field>
+        <field table="sc_zzf_fee" name="fl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="rm_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="area_lease" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="price" dataType="number" decimals="2">
+        	<title>Price</title>
+        </field>
+        <field table="sc_zzf_fee" name="rate" dataType="int" hidden="true"/>
+        <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="memo" dataType="text"/>
+    </panel>
+    
+    
+    <js file="asc-bj-usms-house-view-zijiao-rent-baopan.js"/>
+</view>

@@ -1,0 +1,300 @@
+<view version="2.0">
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north id="consolePanel" autoScroll="true" split="true" initialSize="100"/>
+        <center autoScroll="true"/>
+    </layout>
+    <layout type="boarderLayout" id="centerLayout" containingLayout="mainLayout" region="center">
+        <west id="treePosition" autoScroll="true" split="true" initialSize="20%"/>
+        <center id="zzfDetailPosition" autoScroll="true"/>
+    </layout>
+     
+    <dataSource id="treeBlDS">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="pr_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <parameter name="rmType" dataType="verbatim" value="1=1"/>
+        <restriction type="sql" sql="bl.acc_type != 'yxz'  and bl_id in 
+        (select bl_id from rm where${parameters['rmType']})"/>
+    </dataSource>
+    <dataSource id="treeFlDS">
+        <table name="fl" role="main"/>
+        <field table="fl" name="bl_id"/>
+        <field table="fl" name="fl_id"/>
+        <parameter name="rmType" dataType="verbatim" value="1=1"/>
+        <restriction type="sql" sql="bl_id||fl_id in 
+        (select bl_id||fl_id from rm where${parameters['rmType']})"/>
+    </dataSource>
+    <dataSource id="treeRmDS">
+        <table name="rm" role="main"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_id"/>
+        <parameter name="rmType" dataType="verbatim" value="1=1"/>
+        <restriction type="sql" sql="${parameters['rmType']}"/>
+    </dataSource>
+    
+    <dataSource id="consoleDs">
+        <table name="bl" role="main"/>
+        <field table="bl" name="site_id"/>
+        <field table="bl" name="bl_id"/>
+        <field table="bl" name="date_building_end"/>
+        <field table="bl" name="name"/>
+        <field table="bl" name="date_use"/>
+        <field table="bl" name="construction_type"/>
+        <field table="bl" name="address1"/>
+        <field table="bl" name="location"/>
+        <field table="bl" name="area_rm"/>
+        <field table="bl" name="use1" readOnly="true"/>
+        <field table="bl" name="pr_id"/>
+        <field table="bl" name="bldg_photo"/>
+        <field table="bl" name="image_file"/>
+    </dataSource>
+    
+    <dataSource id="rmDetail">
+        <table name="rm" role="main"/>
+        <table name="bl" role="standard"/>
+        <field table="bl" name="name"/>
+        <field table="rm" name="bl_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="rm_use"/>
+        <field table="rm" name="rm_cat"/>
+        <field table="rm" name="rm_type"/>
+        <field table="rm" name="name"/>
+        <field table="rm" name="area_manual" decimals="2"/>
+        <field table="rm" name="chaoxiang"/>
+        <field table="rm" name="rm_photo"/>
+        <field table="rm" name="address"/>
+        <field table="rm" name="area_yangtai" decimals="2"/>
+        <field table="rm" name="eq_desc"/>
+        <field table="rm" name="huxing"/>
+        <field table="rm" name="ruzhu_status" readOnly="true"/>
+        <field table="rm" name="unit_code"/>
+        <field table="rm" name="weixiu_log"/>
+        <field table="rm" name="gl_area" decimals="2" dataType="number">
+            (select gl_area from rm)
+        </field>
+        <field table="rm" name="hd_area" decimals="2"/>
+        <field table="rm" name="guik_dv"/>
+        <field table="rm" name="guik_dv_fzr"/>
+        <field table="rm" name="area_jianzhu"/>
+        <field table="rm" name="kzlzys"/>
+        <field table="rm" name="rm_type"/>
+		<field table="rm" name="id"/>
+		<field table="rm" name="rent_std"/>
+		<field table="rm" name="renter_sex"/>
+		<field table="rm" name="num_water"/>
+		<field table="rm" name="num_ele"/>
+		<field table="rm" name="num_gas"/>
+		<field table="rm" name="money_water"/>
+		<field table="rm" name="money_ele"/>
+		<field table="rm" name="money_gas"/>
+    </dataSource>
+    
+    <dataSource id="scBlHxDS">
+        <table name="sc_bl_hx" role="main"/>
+        <field table="sc_bl_hx" name="id"/>
+        <field table="sc_bl_hx" name="bl_id"/>
+        <field table="sc_bl_hx" name="huxing"/>
+        <field table="sc_bl_hx" name="photo"/>
+    </dataSource>
+    
+    <panel type="console" columns="3" id="sbfFilterPanel" labelsPosition="top" dataSource="consoleDs" layoutRegion="consolePanel">
+        <title translatable="true">Filter</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+        </action>
+        
+        <field table="bl" name="site_id">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="bl.site_id"
+                 selectFieldNames="bl.site_id"
+                 visibleFieldNames="bl.site_id,site.name"
+                 sortFieldNames="bl.site_id"
+                 restriction="bl.acc_type !='yxz' and bl.bl_id in(select bl_id from rm where rm.rm_type in ('30601','30602','30603','30604','30605','30606'))">
+                </command>
+            </action>
+        </field>
+        <field table="bl" name="pr_id">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="bl.site_id,bl.pr_id"
+                 selectFieldNames="bl.site_id,bl.pr_id"
+                 visibleFieldNames="bl.site_id,site.name,bl.pr_id"
+                 sortFieldNames="bl.site_id"
+                 filterFieldNames="bl.site_id"
+                 restriction="bl.acc_type !='yxz' and bl.bl_id in(select bl_id from rm where rm.rm_type in ('30601','30602','30603','30604','30605','30606'))">
+                </command>
+            </action>
+        </field>
+        <field table="bl" name="bl_id">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="bl.site_id,bl.pr_id,bl.bl_id"
+                 selectFieldNames="bl.site_id,bl.pr_id,bl.bl_id"
+                 visibleFieldNames="bl.site_id,site.name,bl.pr_id,bl.bl_id,bl.name"
+                 sortFieldNames="bl.site_id"
+                 filterFieldNames="bl.pr_id"
+                 restriction="bl.acc_type !='yxz' and bl.bl_id in(select bl_id from rm where rm.rm_type in ('30601','30602','30603','30604','30605','30606'))">
+                </command>
+            </action>
+        </field>
+        
+    </panel>
+    
+    <panel type="tree" id="bl_tree" dataSource="treeBlDS" layoutRegion="treePosition">
+        <title translatable="true">Xuanze Fangjian</title>
+        <field table="bl" name="site_id" hidden="true"/>
+        <field table="bl" name="pr_id" hidden="true"/>
+        <field table="bl" name="bl_id" hidden="true"/>
+        <field table="bl" name="name"/>
+        <panel type="tree" id="fl_tree" dataSource="treeFlDs">
+            <field table="fl" name="bl_id" hidden="true"/>
+            <field table="fl" name="fl_id"/>
+        </panel>
+        <panel type="tree" id="rm_tree" dataSource="treeRmDs">
+            <event type="onClickNode">
+                <command type="callFunction" functionName="defZzfRoomController.onClickRmNode()"/>
+            </event>
+            <field table="rm" name="bl_id" hidden="true"/>
+            <field table="rm" name="fl_id" hidden="true"/>
+            <field table="rm" name="rm_id"/>
+        </panel>
+    </panel>
+    
+    <panel id="rm_detail" type="form" columns="2" showOnLoad="false" dataSource="rmDetail" layoutRegion="zzfDetailPosition">
+        <title translatable="true">Room Info</title>
+        <action id="add">
+            <title translatable="true">Add JFXF</title>
+        </action>
+        <action id="save">
+            <title translatable="true">Save</title>
+        </action>
+        <field table="bl" name="name" readOnly="true"/>
+        <field table="rm" name="bl_id" readOnly="true"/>
+        <field table="rm" name="fl_id" readOnly="true"/>
+        <field table="rm" name="unit_code"/>
+        <field table="rm" name="rm_id" readOnly="true"/>
+        <field table="rm" name="chaoxiang"/>
+		<field table="rm" name="rm_cat" readOnly="true"/>
+        <field table="rm" name="rm_type">
+        	<action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="rm.rm_cat,rm.rm_type"
+                 selectFieldNames="rm.rm_cat,rm.rm_type"
+                 visibleFieldNames="rm.rm_cat,rm.rm_type,rmtype.rmtype_name"/>
+            </action>
+        </field>
+        <field table="rm" name="area_jianzhu"/>
+        <field table="rm" name="area_manual" required="true" readOnly="false" decimals="2"></field>
+        <field table="rm" name="area_yangtai" decimals="2"/>
+        <field table="rm" name="gl_area" decimals="2"/>
+        <field table="rm" name="hd_area" decimals="2"/>
+        <field table="rm" name="kzlzys"/>
+        
+        <field table="rm" name="rent_std" hidden="true"/> 
+        <field>
+            <title translatable="true">Rent Std</title>
+            <html>
+                <input type="text" id="priceNum" style="width:148px;height:20px;text-align:center;" value="0" onchange="defZzfRoomController.changeRentNum()">
+                    <select id="selectDw" onchange="defZzfRoomController.changeRentNum()">
+                        <option value="byTotal" translatable="true">byTotal</option>
+                        <option value="byArea" translatable="true">byArea</option>
+                    </select>
+                </input>
+            </html>
+        </field>
+		<field table="rm" name="renter_sex"/>
+		<field table="rm" name="num_water"/>
+		<field table="rm" name="money_water"/>
+		<field table="rm" name="num_ele"/>
+		<field table="rm" name="money_ele"/>
+		<field table="rm" name="num_gas"/>
+		<field table="rm" name="money_gas"/>
+        
+        <field table="rm" name="address" width="207" required="true"/>
+        <field table="rm" name="guik_dv" hidden="true"/>
+        <field table="rm" name="guik_dv_fzr" hidden="true"/>
+        <field table="rm" name="eq_desc" rowspan="3" width="207"/>
+        <field table="rm" name="weixiu_log" rowspan="3" width="207"/>
+        <field table="rm" name="huxing" hidden="true"/>
+		<field/>
+        <field table="rm" name="id" cssClass="inputValueChg">
+            <action>
+            <title>...</title>
+                <command type="callFunction" functionName="onSelectHx()"/>
+            </action>
+        </field> 
+        <field id="huxing_photo" controlType="image" colspan="2" width="407" height="300">
+                    <title>Huxing Photo</title>
+        </field>       
+        
+        
+        <field colspan="1">
+            <title>Photo</title>
+            <html>
+                <table border="0">
+                    <tr>
+                        <td>
+                            <input type="file" id="uploadFileRm" size="13" style="width:157px;margin:0;padding:0"/>
+                        </td>
+                        <td>
+                            <input type="button" id="startUploadRm" value="OK" style="width:50px;"/>
+                        </td>
+                    </tr>
+                </table>
+                <img id="rm_photo" style="width:100%;"/>
+            </html>
+        </field>
+    </panel>
+    
+    <dataSource id="zzfJfDs">
+		<table name="bjfu_zzf_jfxf" role="main"/>
+        <field table="bjfu_zzf_jfxf" name="id"/>
+        <field table="bjfu_zzf_jfxf" name="bl_id"/>
+        <field table="bjfu_zzf_jfxf" name="bl_name"/>
+        <field table="bjfu_zzf_jfxf" name="fl_id"/>
+        <field table="bjfu_zzf_jfxf" name="rm_id"/>
+        <field table="bjfu_zzf_jfxf" name="area_jianzhu"/>
+       <field table="bjfu_zzf_jfxf" name="huxing"/>
+        <field table="bjfu_zzf_jfxf" name="area_yt"/>
+        <field table="bjfu_zzf_jfxf" name="date_rz"/>
+    </dataSource>
+    
+    <panel type="form" id="dealForm"  dataSource="zzfJfDs" columns="3" showOnLoad="false" layoutRegion="zzfDetailPosition">
+            <title translatable="true">Add JFXF</title>
+            <action id="save">
+	            <title translatable="true">Save</title>
+	        </action>
+	        <action id="delete">
+	            <title translatable="true">Delete</title>
+	        </action>
+	        <action id="return">
+	            <title translatable="true">Return</title>
+	        </action>
+	        
+            <field table="bjfu_zzf_jfxf" name="id" hidden="true"/>
+	        <field table="bjfu_zzf_jfxf" name="bl_id"/>
+	        <field table="bjfu_zzf_jfxf" name="bl_name"/>
+	        <field table="bjfu_zzf_jfxf" name="fl_id"/>
+	        <field table="bjfu_zzf_jfxf" name="rm_id"/>
+	        <field table="bjfu_zzf_jfxf" name="area_jianzhu"/>
+	        <field table="bjfu_zzf_jfxf" name="huxing"/>
+	        <field table="bjfu_zzf_jfxf" name="area_yt"/>
+	        <field table="bjfu_zzf_jfxf" name="date_rz"/>
+     </panel>
+    
+    <js file="asc-bj-usms-house-def-room.js"/>
+    
+</view>

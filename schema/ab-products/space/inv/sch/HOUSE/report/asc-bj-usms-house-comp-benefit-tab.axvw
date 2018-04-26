@@ -1,0 +1,194 @@
+<view version="2.0">
+	<!-- Layout -->
+	<layout type="borderLayout" id="mainLayout">
+		<north id="consoleLayout" initialSize="80" split="true" />
+		<center id="gridLayout" />
+	</layout>
+	<title>Dui bi zhu fang bu tie jiao gong fu li fang</title>
+    
+	<dataSource id="scEmDs">
+		<table name="em" role="main" />
+		<field table="em" name="em_id" />
+		<field table="em" name="name" />
+	</dataSource>
+	<panel id="codeConsole" type="console" dataSource="scEmDs"
+		 layoutRegion="consoleLayout" columns="2">
+		<title>Cha xun tiao jian</title>
+		<action id="show">
+			<title>Show</title>
+		</action>
+		<action id="clear">
+			<title>Clear</title>
+			<command type="clearPanel" panelId="codeConsole" />
+		</action>
+        <action id="showAll">
+            <title>Dui bi suo you</title>
+        </action>
+          <field table="em" name="name" />
+         <field table="em" name="em_id">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                    fieldNames="em.em_id,em.name" selectFieldNames="em.em_id,em.name"
+                    visibleFieldNames="em.em_id,em.name">
+                </command>
+            </action>
+         </field>    
+	</panel>
+	
+    <dataSource id="unlikeds">
+        <sql dialect="generic">
+               SELECT card.bl_id ${sql.as} bl_id,
+                  card.fl_id ${sql.as} fl_id,
+                  card.rm_id ${sql.as} rm_id,
+                  bt.bt_bl_id ${sql.as} bt_bl_id ,
+                  bt.bt_fl_id  ${sql.as} bt_fl_id ,
+                  bt.bt_rm_id ${sql.as}  bt_rm_id,
+                  card.em_id ${sql.as}  em_id,
+                  em.name ${sql.as}  name,
+                  em.phone ${sql.as} phone,
+                  bt.zhiji_name ${sql.as} zhiji_name,
+                  card_bl.name|| '-'||card.fl_id|| '-'||card.rm_id  ${sql.as} fuli_address,
+                  bl_bt.name|| '-'||bt.bt_fl_id|| '-'||bt.bt_rm_id  ${sql.as} bt_address
+                FROM sc_zzfcard card,
+                  sc_bt_acc bt,
+                  em,bl card_bl,bl bl_bt
+                WHERE card.em_id =bt.em_id
+                AND card.em_id =em.em_id
+                and card.bl_id=card_bl.bl_id
+                and card.bl_id=bl_bt.bl_id
+                AND card.card_id  not IN
+                  (SELECT card.card_id
+                  FROM sc_zzfcard
+                  WHERE sc_zzfcard.bl_id = bt.bt_bl_id
+                  AND bt.fl_id           = bt.bt_fl_id
+                  AND bt.rm_id           = bt.bt_rm_id
+                  )
+                
+        </sql>
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="em_id" dataType="text" />
+        <field table="sc_zzfcard" name="name"  dataType="text" >
+        	<title>jiao zhi gong xing ming</title>
+		</field>	
+        <field table="sc_zzfcard" name="phone"  dataType="text" />
+        <field table="sc_zzfcard" name="zhiji_name"  dataType="text" >
+        	<title>zhi ji ming cheng</title>
+		</field>	
+        <field table="sc_zzfcard" name="bt_address"  dataType="text" >
+            <title>Zhu fang bu tie di zhi</title>
+        </field>
+        <field table="em" name="fuli_address"  dataType="text" >
+            <title>Fu li fang di zhi</title>
+        </field>
+    </dataSource>
+    
+    
+	    <dataSource id="likeds">
+        <sql dialect="generic">
+               SELECT card.bl_id ${sql.as} bl_id,
+                  card.fl_id ${sql.as} fl_id,
+                  card.rm_id ${sql.as} rm_id,
+                  bt.bt_bl_id ${sql.as} bt_bl_id ,
+                  bt.bt_fl_id  ${sql.as} bt_fl_id ,
+                  bt.bt_rm_id ${sql.as}  bt_rm_id,
+                  card.em_id ${sql.as}  em_id,
+                  em.name ${sql.as}  name,
+                  em.phone ${sql.as} phone,
+                  bt.zhiji_name ${sql.as} zhiji_name,
+                  card_bl.name|| '-'||card.fl_id|| '-'||card.rm_id  ${sql.as} fuli_address,
+                  bl_bt.name|| '-'||bt.bt_fl_id|| '-'||bt.bt_rm_id  ${sql.as} bt_address
+                FROM sc_zzfcard card,
+                  sc_bt_acc bt,
+                  em,bl card_bl,bl bl_bt
+                WHERE card.em_id =bt.em_id
+                AND card.em_id =em.em_id
+                and card.bl_id=card_bl.bl_id
+                and card.bl_id=bl_bt.bl_id
+                AND card.card_id IN
+                  (SELECT card.card_id
+                  FROM sc_zzfcard
+                  WHERE sc_zzfcard.bl_id = bt.bt_bl_id
+                  AND bt.fl_id           = bt.bt_fl_id
+                  AND bt.rm_id           = bt.bt_rm_id
+                  )          
+        </sql>
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="em_id" dataType="text" />
+        <field table="sc_zzfcard" name="name"  dataType="text" >
+        	<title>jiao zhi gong xing ming</title>
+		</field>	
+        <field table="sc_zzfcard" name="phone"  dataType="text" />
+        <field table="sc_zzfcard" name="zhiji_name"  dataType="text" >
+        	<title>zhi ji ming cheng</title>
+		</field>	
+        <field table="sc_zzfcard" name="bt_address"  dataType="text" >
+            <title>Zhu fang bu tie di zhi</title>
+        </field>
+        <field table="em" name="fuli_address"  dataType="text" >
+            <title>Fu li fang di zhi</title>
+        </field>
+    </dataSource>
+
+    
+     <dataSource id="allds">
+        <sql dialect="generic">
+               SELECT card.bl_id ${sql.as} bl_id,
+                  card.fl_id ${sql.as} fl_id,
+                  card.rm_id ${sql.as} rm_id,
+                  bt.bt_bl_id ${sql.as} bt_bl_id ,
+                  bt.bt_fl_id  ${sql.as} bt_fl_id ,
+                  bt.bt_rm_id ${sql.as}  bt_rm_id,
+                  card.em_id ${sql.as}  em_id,
+                  em.name ${sql.as}  name,
+                  em.phone ${sql.as} phone,
+                  bt.zhiji_name ${sql.as} zhiji_name,
+                  card_bl.name|| '-'||card.fl_id|| '-'||card.rm_id  ${sql.as} fuli_address,
+                  bl_bt.name|| '-'||bt.bt_fl_id|| '-'||bt.bt_rm_id  ${sql.as} bt_address
+                FROM sc_zzfcard card,
+                  sc_bt_acc bt,
+                  em,bl card_bl,bl bl_bt
+                WHERE card.em_id =bt.em_id
+                AND card.em_id =em.em_id
+                and card.bl_id=card_bl.bl_id
+                and card.bl_id=bl_bt.bl_id
+        </sql>
+        <table name="sc_zzfcard" role="main"/>
+        <field table="sc_zzfcard" name="em_id" dataType="text" />
+        <field table="sc_zzfcard" name="name"  dataType="text" >
+        	<title>jiao zhi gong xing ming</title>
+		</field>	
+        <field table="sc_zzfcard" name="phone"  dataType="text" />
+        <field table="sc_zzfcard" name="zhiji_name"  dataType="text" >
+        	<title>zhi ji ming cheng</title>
+		</field>
+        <field table="sc_zzfcard" name="bt_address"  dataType="text" >
+            <title>Zhu fang bu tie di zhi</title>
+        </field>
+        <field table="em" name="fuli_address"  dataType="text" >
+            <title>Fu li fang di zhi</title>
+        </field>
+    </dataSource>
+    
+	<tabs workflow="free" id="benefitTab" tabRefreshPolicy="never"
+		layoutRegion="gridLayout">
+		<tab name="unlikeTab" selected="true">
+			<title>Di zhi bu yi zhi de zhu fang ji lu</title>
+			<panel id="unlikeGrid" type="grid" dataSource="unlikeds">
+			</panel>
+		</tab>
+		 <tab name="sameTab">
+			<title>Di zhi yi zhi de zhu fang ji lu</title>
+			
+			<panel id="sameGrid" type="grid" dataSource="likeds">
+			</panel>
+		</tab> 
+        <tab name="allTab">
+            <title>suo you de zhu fang ji lu</title>
+            
+			<panel id="allGrid" type="grid" dataSource="allds">
+            </panel>
+        </tab>
+	</tabs>
+	<js file="asc-bj-usms-house-comp-benefit-tab.js" />
+</view>

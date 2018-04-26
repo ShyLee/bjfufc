@@ -1,0 +1,51 @@
+<view version="2.0">
+	 <title translatable="true">Define Room Standards</title>
+	<layout type="borderLayout" id="mainLayout">
+		<west split="true" initialSize="30%"/>
+		 <center autoScroll="true"/>
+	</layout>
+	<dataSource id="sc_zzfdepositstd_dataSource">
+		<table name="sc_zzfdepositstd" role="main"/>
+			<field name="deposit_std" table="sc_zzfdepositstd"/>
+			<field name="description" table="sc_zzfdepositstd"/>
+	</dataSource>
+	<panel type="grid" id="room_stander_view" dataSource="sc_zzfdepositstd_dataSource" layout="mainLayout" region="west" recordLimit="0">
+		<sortField name="deposit_std" table="sc_zzfdepositstd"/>
+		 <title translatable="true">Room Standards</title>
+		 <action id="addNew">
+		 	<title translatable="true">Add New</title>
+			<command type="showPanel" panelId="room_stander_form" newRecord="true"/>
+		 </action>
+		 <action id="refresh">
+		 	<title>Refresh</title>
+			<command type="showPanel" panelId="room_stander_view"></command>
+		 </action>
+		 <field name="deposit_std" table="sc_zzfdepositstd" controlType="link">
+		 <command type="showPanel" panelId="room_stander_form"/>
+		 </field>
+	
+		  <field name="description" table="sc_zzfdepositstd" controlType="link">
+            <command type="showPanel" panelId="room_stander_form"/>
+        </field>
+	</panel>
+	<panel type="form" id="room_stander_form" dataSource="sc_zzfdepositstd_dataSource" layout="mainLayout" region="center" >
+		 <title translatable="true">Room Standards</title>
+		 <action id="save">
+		 	 <title translatable="true">Save</title>
+			 <command type="saveForm"/>
+			 <command type="showPanel" panelId="room_stander_view" applyParentRestriction="false"/>
+		 </action>
+		 <action enabled="${!panel.newRecord}">
+		 	<title translatable="true">Delete</title>
+			<command type="deleteRecord"/>
+			<command type="showPanel" panelId="room_stander_form" show="false"/>
+			<command type="showPanel" panelId="room_stander_view" applyParentRestriction="false"/>
+		 </action>
+		  <action id="cancel">
+		  	<title translatable="true">Cancel</title>
+			<command type="showPanel" panelId="room_stander_form" show="false"/>
+		  </action>
+		  <field name="deposit_std" table="sc_zzfdepositstd"/>
+		 <field name="description" table="sc_zzfdepositstd"/>
+	</panel>
+</view>

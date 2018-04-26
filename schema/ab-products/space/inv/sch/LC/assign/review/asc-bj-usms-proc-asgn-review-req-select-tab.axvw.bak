@@ -1,0 +1,71 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-asgn-review-req-select-tab.js"/>
+    
+    <dataSource id="ascBjUsmsProcAsgnReviewReqSelectTabDS">
+        <table name="activity_log_hactivity_log" role="main"/>
+		<table name="em" role="standard"/>
+        
+        <field name="activity_log_id" table="activity_log_hactivity_log"/>
+        <field name="status" table="activity_log_hactivity_log"/>
+        <field name="requestor" table="activity_log_hactivity_log"/>
+		<field name="name" table="em"/>
+        <field name="prob_type" table="activity_log_hactivity_log"/>
+        <field name="activity_type" table="activity_log_hactivity_log"/>
+        <field name="date_requested" table="activity_log_hactivity_log"/>
+        <field name="description" table="activity_log_hactivity_log"/>
+        
+        <parameter name="activityType" dataType="text" value=""/>
+        
+        <restriction type="sql" sql="activity_log_hactivity_log.requestor = '${user.employee.id}' AND activity_log_hactivity_log.activity_type= ${parameters['activityType']}"/>
+    </dataSource>
+    
+    <panel type="console" columns="4" id="ascBjUsmsProcAsgnReviewReqSelectTabConsole" labelsPosition="top" dataSource="ascBjUsmsProcAsgnReviewReqSelectTabDS">
+        <title translatable="true">Filter</title>
+        
+        <action id="filter">
+            <title translatable="true">Show</title>
+            <command type="showPanel" panelId="ascBjUsmsProcAsgnReviewReqSelectTabGrid"/>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+            <command type="clearPanel" panelId="ascBjUsmsProcAsgnReviewReqSelectTabConsole"/>
+        </action>
+        
+        <field table="activity_log_hactivity_log" name="prob_type" readOnly="false">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field table="activity_log_hactivity_log" name="status" readOnly="false"/>
+        <field table="activity_log_hactivity_log" name="date_requested" readOnly="false" alias="activity_log_hactivity_log.date_requested.from" required="false" op="&gt;=">
+            <title translatable="true">Date Requested From</title>
+        </field>
+        <field table="activity_log_hactivity_log" name="date_requested" readOnly="false" alias="activity_log_hactivity_log.date_requested.to" required="false" op="&lt;=">
+            <title translatable="true">Date Requested To</title>
+        </field>
+    </panel>
+    
+    <panel type="grid" id="ascBjUsmsProcAsgnReviewReqSelectTabGrid" showOnLoad="false" controlType="reportGrid" dataSource="ascBjUsmsProcAsgnReviewReqSelectTabDS">
+        <title translatable="true">Requests</title>
+        
+        <sortField table="activity_log_hactivity_log" name="activity_log_id" ascending="false"/>
+        
+        <field controlType="button">
+            <title translatable="true">Select</title>
+            <command type="callFunction" functionName="selectNextTab(this.restriction['activity_log_hactivity_log.activity_log_id'])"/>
+        </field>
+        <field name="activity_log_id" table="activity_log_hactivity_log" width="100">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="activity_type" table="activity_log_hactivity_log" hidden="true"/>
+        <field name="prob_type" table="activity_log_hactivity_log">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field name="requestor" table="activity_log_hactivity_log" hidden="true"/>
+		<field name="name" table="em">
+			<title translatable="true">ShenQingRen</title>
+        </field>
+        <field name="status" table="activity_log_hactivity_log"/>
+        <field name="date_requested" table="activity_log_hactivity_log"/>
+        <field name="description" table="activity_log_hactivity_log"/>
+    </panel>
+</view>

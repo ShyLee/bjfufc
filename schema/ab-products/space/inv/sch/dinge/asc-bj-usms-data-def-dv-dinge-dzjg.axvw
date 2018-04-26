@@ -1,0 +1,66 @@
+<view version="2.0">
+
+	<preferences>
+		<viewTitleBar show="false" />
+	</preferences>
+
+	<!-- 党政数据源 -->
+	<dataSource id="sc_ts_dv_dinge_ds_dz">
+		<table name="sc_ts_dv_dinge" role="main" />
+		<field table="sc_ts_dv_dinge" name="dv_id" />
+		<field table="sc_ts_dv_dinge" name="dv_name" />
+		<field table="sc_ts_dv_dinge" name="area_dz_ba" />
+		<field table="sc_ts_dv_dinge" name="area_dz_za" />
+		<field table="sc_ts_dv_dinge" name="area_dinge" />
+		<field table="sc_ts_dv_dinge" name="year_dinge" />
+		<restriction type="sql"
+			sql="bu_id in (select bu_id from bu where bu_class='DZGL')"></restriction>
+	</dataSource>
+
+	<panel type='console' columns="3" id="consolePanel" dataSource="sc_ts_dv_dinge_ds_dz">
+
+		<title translatable="true">conditions</title>
+		<action id="show">
+			<title translatable="true">Show</title>
+			<command type="showPanel" panelId="viewDvDingePanelDZ" />
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="consolePanel"/>
+		</action>
+		<field table="sc_ts_dv_dinge" name="dv_id" required="false">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                    fieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    selectFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    visibleFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    restriction="bu_id in (select bu_id from bu where bu_class='DZGL')">
+                    <title>Floor Code</title>
+                </command>
+            </action>
+        </field>
+		<field table="sc_ts_dv_dinge" name="dv_name" required="false">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                    fieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    selectFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    visibleFieldNames="sc_ts_dv_dinge.dv_id,sc_ts_dv_dinge.dv_name"
+                    restriction="bu_id in (select bu_id from bu where bu_class='DZGL')">
+                    <title>Floor Code</title>
+                </command>
+            </action>
+        </field>
+		<field table="sc_ts_dv_dinge" name="year_dinge" required="false"/>
+	</panel>
+	<!-- 党政机关panel -->
+	<panel type="grid" id="viewDvDingePanelDZ" dataSource="sc_ts_dv_dinge_ds_dz"
+		showOnLoad="false" showCounts="true">
+		<action>
+			<title>Export</title>
+			<command type="exportPanel" outputType="xls" panelId="viewDvDingePanelDZ" />
+		</action>
+        <indexField table="sc_ts_dv_dinge" name="dv_id" />
+	</panel>
+</view>

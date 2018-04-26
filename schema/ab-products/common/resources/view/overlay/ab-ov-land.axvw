@@ -1,0 +1,42 @@
+<view version="2.0">
+    <title>ab-ov-land</title>
+    
+    <report />
+    <dataSource id="ds_abOvland_data">
+        <table name="sc_parcelland" role="main"/>
+        <field table="sc_parcelland" name="land_code"/>
+        <field table="sc_parcelland" name="area_land"/>
+        <field table="sc_parcelland" name="assets_name"/>
+        <field table="sc_parcelland" name="chanqx_sid"/>
+        <field table="sc_parcelland" name="date_build"/>
+        <field table="sc_parcelland" name="parcelland_address"/>
+        <field table="sc_parcelland" name="ehandle"/>
+        <field table="sc_parcelland" name="dwgname"/>
+    </dataSource>       
+
+    
+    <panel id="panel_abOvland_data" type="paginatedReport" format="table" role="data" dataSource="ds_abOvland_data">
+        <title translatable="true">Buildings</title> 
+        <field table="sc_parcelland" name="land_code"/>
+        <field table="sc_parcelland" name="area_land"/>
+        <field table="sc_parcelland" name="assets_name"/>
+        <field table="sc_parcelland" name="chanqx_sid"/>
+        <field table="sc_parcelland" name="date_build"/>
+        <field table="sc_parcelland" name="parcelland_address"/>
+        <field table="sc_parcelland" name="ehandle"/>
+        <field table="sc_parcelland" name="dwgname"/>
+
+
+    </panel>
+</view>
+
+
+
+
+
+
+
+
+
+
+

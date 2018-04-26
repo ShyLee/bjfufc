@@ -1,0 +1,107 @@
+<view version='2.0'>
+    <dataSource id='zzf_protocol_ds'>
+        <table name='bh_zzf_protocal' role='main'/>
+        <field table='bh_zzf_protocal' name='protocal_id'/>
+        <field table='bh_zzf_protocal' name='protocal_sq_id'/>
+        <field table='bh_zzf_protocal' name='payment_type'/>
+        <field table='bh_zzf_protocal' name='payment_num'/>
+        <field table='bh_zzf_protocal' name='date_begin'/>
+        <field table='bh_zzf_protocal' name='date_end'/>
+        <field table='bh_zzf_protocal' name='live_time'/>
+        <field table='bh_zzf_protocal' name='pay_period'/>
+        <field table='bh_zzf_protocal' name='party_b'/>
+        <field table='bh_zzf_protocal' name='party_b_rep'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_b_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_b_contacts'/>
+        <field table='bh_zzf_protocal' name='party_b_con_tel'/>
+        <field table='bh_zzf_protocal' name='party_a'/>
+        <field table='bh_zzf_protocal' name='party_a_rep'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_tel'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_dv'/>
+        <field table='bh_zzf_protocal' name='party_a_rep_email'/>
+        <field table='bh_zzf_protocal' name='party_a_contacts'/>
+        <field table='bh_zzf_protocal' name='party_a_con_tel'/>
+        <field table='bh_zzf_protocal' name='date_apply'/>
+        <field table='bh_zzf_protocal' name='rm_use'/>
+        <field table='bh_zzf_protocal' name='rm_address'/>
+        <field table='bh_zzf_protocal' name='area_rent'/>
+        <field table='bh_zzf_protocal' name='area_protocal'/>
+        <field table='bh_zzf_protocal' name='price_rent'/>
+        <field table='bh_zzf_protocal' name='price_rent_std'/>
+        <field table='bh_zzf_protocal' name='price_total_rent'/>
+        <field table='bh_zzf_protocal' name='preparer'/>
+        <field table='bh_zzf_protocal' name='status_protocal'/>
+        <field table='bh_zzf_protocal' name='is_active'/>
+        <field table='bh_zzf_protocal' name='examine_context'/>
+        <field table='bh_zzf_protocal' name='examine_people'/>
+        <field table='bh_zzf_protocal' name='date_examine'/>
+        <field table='bh_zzf_protocal' name='time_pre'/>
+    </dataSource>
+    
+    <title>
+        Room dash board
+    </title>
+    
+    <panel id='dashBoardConsole' type='console' dataSource='zzf_protocol_ds' columns="2">
+        <title translatable="true">
+            Filter
+        </title>
+        <action id="show">
+            <title translatable="true">
+                show
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                clear
+            </title>
+            <command type="clearPanel" panelId="dashBoardConsole"/>
+        </action>
+        <action id="Protocal">
+            <title translatable="true">
+                Protocal
+            </title>
+        </action>
+        <field table='bh_zzf_protocal' name='date_begin' required="true"/>
+        <field table='bh_zzf_protocal' name='date_end' required="true"/>
+    </panel>
+    <dataSource id='zzf_fees_ds'>
+        <table name='bh_zzf_fees' role='main'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='pay_state'/>
+        <field table='bh_zzf_fees' name='expenditure'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='doc'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </dataSource>
+    <panel id='feesInfo' type='grid' dataSource='zzf_fees_ds' multipleSelectionEnabled="true">
+        <title>
+            feeslInfo
+        </title>
+        <action id="delete">
+            <title translatable="true">
+                delete
+            </title>
+        </action>
+        <field table='bh_zzf_fees' name='protocal_id'/>
+        <field table='bh_zzf_fees' name='fees_id'/>
+        <field table='bh_zzf_fees' name='should_fees_date'/>
+        <field table='bh_zzf_fees' name='should_fees_money'/>
+        <field table='bh_zzf_fees' name='practical_fees_date'/>
+        <field table='bh_zzf_fees' name='practical_fees_money'/>
+        <field table='bh_zzf_fees' name='party_contacts'/>
+        <field table='bh_zzf_fees' name='party_rep'/>
+        <field table='bh_zzf_fees' name='party_contacts_tel'/>
+        <field table='bh_zzf_fees' name='comments'/>
+    </panel>
+    <js file="asc-bj-def-room-dash-board.js"/>
+</view>

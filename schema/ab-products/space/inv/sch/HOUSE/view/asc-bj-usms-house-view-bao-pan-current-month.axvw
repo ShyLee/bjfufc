@@ -1,0 +1,244 @@
+<view version="2.0">
+    <title>Month Baopan</title>
+    
+    <dataSource id="zzfFeeDsFinance">
+        <sql dialect="generic">
+            SELECT sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            sc_zzf_fee.em_id,
+            sc_zzf_fee.em_id_z,
+            sc_zzf_fee.em_name,
+            sc_zzf_fee.identi_code,
+            (select dv_name from sc_zzfcard where card_id = sc_zzf_fee.card_id) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            sc_zzf_fee.memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'finance'  AND  djfr is null  and to_char(sc_zzf_fee.date_pay_begin,'yyyy-mm')=to_char(sysdate,'yyyy-mm')))
+            union all
+            SELECT
+            sc_zzf_fee.fee_id,
+            sc_zzf_fee.card_id,
+            (select em_id from em where em.em_zh=sc_zzfcard.djfr) as em_id,
+            sc_zzfcard.djfr as em_id_z,
+            (select name from em where em.em_zh=sc_zzfcard.djfr) as em_name,
+            (select identi_code from em where em.em_zh=sc_zzfcard.djfr) as identi_code,
+            (select dv_name from dv where dv_id = (select dv_id from em where em_zh = sc_zzfcard.djfr)) as dv_name,
+            sc_zzf_fee.bl_id,
+            sc_zzf_fee.fl_id,
+            sc_zzf_fee.rm_id,
+            sc_zzf_fee.area_lease,
+            sc_zzf_fee.price,
+            sc_zzf_fee.rate,
+            sc_zzf_fee.pay_ought,
+            sc_zzf_fee.pay_actual,
+            (SELECT name
+            FROM bl
+            WHERE bl_id = sc_zzf_fee.bl_id)
+            AS bl_name,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'yyyy') AS year,
+            TO_CHAR (sc_zzf_fee.date_pay_begin, 'mm') AS month,
+            (case when sc_zzf_fee.em_name is not null Then ${parameters['descBefore']} || sc_zzf_fee.em_name|| ${parameters['descAfter']}Else ''End) as memo
+            FROM sc_zzf_fee
+            LEFT OUTER JOIN sc_zzfcard ON sc_zzf_fee.card_id = sc_zzfcard.card_id
+            WHERE     ( (sc_zzfcard.payment_to = 'finance'  AND  djfr is not null  and to_char(sc_zzf_fee.date_pay_begin,'yyyy-mm')=to_char(sysdate,'yyyy-mm')))
+        </sql>
+        <table name="sc_zzf_fee" role="main"/>
+        <field table="sc_zzf_fee" name="fee_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="card_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_id_z" dataType="text"/>
+        <field table="sc_zzf_fee" name="em_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="identi_code" dataType="text"/>
+        <field table="sc_zzf_fee" name="dv_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text"/>
+        <field table="sc_zzf_fee" name="fl_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="rm_id" dataType="text"/>
+        <field table="sc_zzf_fee" name="area_lease" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="price" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="rate" dataType="int"/>
+        <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2"/>
+        <field table="sc_zzf_fee" name="memo" dataType="text"/>
+        <field table="sc_zzf_fee" name="year" dataType="text"/>
+        <field table="sc_zzf_fee" name="month" dataType="text"/>
+        <sortField table="sc_zzf_fee" name="em_id"/>
+        <parameter name="descBefore" dataType="verbatim" value="1111"/>
+        <parameter name="descAfter" dataType="verbatim" value="1111"/>
+    </dataSource>
+    
+    <dataSource id="zzfFeeDsHouse">
+        <table name="sc_zzf_fee" role="main"/>
+        <table name="sc_zzfcard" role="standard"/>
+        <field table="sc_zzf_fee" name="fee_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="card_id" hidden="true"/>
+        <field table="sc_zzf_fee" name="em_id"/>
+        <field table="sc_zzf_fee" name="em_name"/>
+        <field table="sc_zzf_fee" name="identi_code"/>
+        <field table="sc_zzf_fee" name="bl_id"/>
+        <field table="sc_zzf_fee" name="bl_name" dataType="text">
+            <title>Building Name</title>
+            <sql dialect="generic">
+                (select name from bl where bl_id = sc_zzf_fee.bl_id)
+            </sql>
+        </field>
+        <field table="sc_zzf_fee" name="fl_id"/>
+        <field table="sc_zzf_fee" name="rm_id"/>
+        <field table="sc_zzf_fee" name="rent_period"/>
+        <field table="sc_zzf_fee" name="date_pay_begin"/>
+        <field table="sc_zzf_fee" name="date_pay_end"/>
+        <field table="sc_zzf_fee" name="price"/>
+        <field table="sc_zzf_fee" name="area_lease" showTotals="true"/>
+        <field table="sc_zzf_fee" name="pay_ought" showTotals="true"/>
+        <field table="sc_zzf_fee" name="pay_actual" showTotals="true"/>
+        <field table="sc_zzfcard" name="payment_to" hidden="true"/>
+        <sortField table="sc_zzf_fee" name="fee_id"/>
+        <sortField table="sc_zzf_fee" name="em_id"/>
+        <restriction type="sql" sql="sc_zzfcard.payment_to = 'house' and to_char(sc_zzf_fee.date_pay_begin,'yyyy-mm')=to_char(sysdate,'yyyy-mm') "/>
+    </dataSource>
+    
+    <tabs workflow="free" id="warnTabs" tabRefreshPolicy="refreshOnSelect">
+        <tab name="daikouTab" selected="true">
+            <title translatable="true">Daikou</title>
+            <panel id="financeFeesPanel" type="grid" dataSource="zzfFeeDsFinance" showCounts="true">
+                <title translatable="true">Room Rent List</title>
+                <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+                    <title></title>
+                    <action>
+                        <title>Export</title>
+                        <command type="exportPanel" outputType="xls" panelId="financeFeesPanel"/>
+                    </action>
+                </action>
+                <indexField table="sc_zzf_fee" name="em_id"/>
+                <field table="sc_zzf_fee" name="fee_id" dataType="text" hidden="true"/>
+                <field table="sc_zzf_fee" name="card_id" dataType="text" hidden="true"/>
+                <field table="sc_zzf_fee" name="em_id" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="em_id_z" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="em_name" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="identi_code" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="dv_name" dataType="text" controlType="link">
+                    <title>Dv Name</title>
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="bl_id" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="bl_name" dataType="text" controlType="link">
+                	<title>Building Name</title>
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="fl_id" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="rm_id" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="area_lease" dataType="number" decimals="2" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="price" dataType="number" decimals="2" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="rate" dataType="int" controlType="link" hidden="true">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="pay_ought" dataType="number" decimals="2" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="pay_actual" dataType="number" decimals="2" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="memo" dataType="text" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('financeFeesPanel')"/>
+                </field>
+            </panel>
+        </tab>
+        <tab name="zijiaoTab">
+            <title translatable="true">Zijiao</title>
+            <panel id="houseFeesPanel" type="grid" dataSource="zzfFeeDsHouse" showCounts="true" recordLimit="5">
+                <title translatable="true">Room Rent List</title>
+                <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+                    <title></title>
+                    <action>
+                        <title>Export</title>
+                        <command type="exportPanel" outputType="xls" panelId="houseFeesPanel"/>
+                    </action>
+                </action>
+                <indexField table="sc_zzf_fee" name="fee_id"/>
+                <indexField table="sc_zzf_fee" name="em_id"/>
+                <field table="sc_zzf_fee" name="fee_id" hidden="true"/>
+                <field table="sc_zzf_fee" name="card_id" hidden="true"/>
+                <field table="sc_zzf_fee" name="em_id" controlType="link">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="em_name">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="identi_code">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="bl_id">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="bl_name" dataType="text">
+                    <title>Building Name</title>
+                    <sql dialect="generic">
+                        (select name from bl where bl_id = sc_zzf_fee.bl_id)
+                    </sql>
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="fl_id">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="rm_id">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="rent_period">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="date_pay_begin">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="date_pay_end">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="price">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="area_lease" showTotals="true">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="pay_ought" showTotals="true">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+                <field table="sc_zzf_fee" name="pay_actual" showTotals="true">
+                    <command type="callFunction" functionName="monthBaoPanController.showDetail('houseFeesPanel')"/>
+                </field>
+            </panel>
+        </tab>
+    </tabs>
+    
+    <js file="asc-bj-usms-house-view-bao-pan-current-month.js"/>
+</view>

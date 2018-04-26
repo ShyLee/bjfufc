@@ -1,0 +1,102 @@
+<view version="2.0">
+      <title translatable="true">Define Rent Fee Standards</title>
+	  <css>
+	  	#editRentTable td{border: 1px solid #CAD8EA; font-weight:bold}
+	  	#editRentTable th{border: 1px solid #7ea3d3; font-weight:bold;font-size:15px; text-align:center;background-color:#CAD8EA}
+	  </css>
+    <layout type="borderLayout" id="mainLayout">
+        <west id="top" initialSize="30%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+  
+        <layout type="borderLayout" id="subLayout" containingLayout="mainLayout"  region="center">
+        <north id="stdDetailFormLayout" initialSize="35%" split="true"/>
+        <center id="stdDetailPanelLayout" autoScroll="true"/>
+    </layout>
+    <dataSource id="rent_std_ds">
+        <table name="bh_zzf_rent_std" role="main"/>
+        <field table="bh_zzf_rent_std" name="rent_std"/>
+        <field table="bh_zzf_rent_std" name="rent_std_desc"/>
+    </dataSource>
+	
+   <dataSource id="rent_std_detail_ds">
+        <table name="bh_zzf_rent_std_detail" role="main"/>
+        <field table="bh_zzf_rent_std_detail" name="rent_std"/>
+        <field table="bh_zzf_rent_std_detail" name="area_begin"/>
+        <field table="bh_zzf_rent_std_detail" name="area_end"/>
+        <field table="bh_zzf_rent_std_detail" name="fee"/>
+    </dataSource>
+    
+    <panel type="grid" id="stdGrid" dataSource="rent_std_ds" layout="mainLayout" region="west" recordLimit="0">
+        <sortField name="rent_std" table="bh_zzf_rent_std" ascending="true"/>
+        <title translatable="true">Rent Fee Standards</title>
+        <action id="addNew">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="detailsPanel" newRecord="true"/>
+            <command type="showPanel" panelId="rentDetailGrid" show="false"/>
+        </action>
+        <field name="rent_std" table="bh_zzf_rent_std" controlType="link">
+            <command type="showPanel" panelId="detailsPanel"/>
+			<command type="showPanel" panelId="rentDetailGrid"/>
+        </field>
+        <field name="rent_std_desc" table="bh_zzf_rent_std" controlType="link">
+            <command type="showPanel" panelId="detailsPanel"/>
+			<command type="showPanel" panelId="rentDetailGrid"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="detailsPanel" showOnLoad="false" columns="1" dataSource="rent_std_ds" layoutRegion="stdDetailFormLayout">
+        <title translatable="true">Rent Standard</title>
+		<action id="edit">
+            <title translatable="true">Edit</title>
+        </action>
+        <action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="stdGrid" applyParentRestriction="false"/>
+        </action>
+        <action id="delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="detailsPanel" show="false"/>
+            <command type="showPanel" panelId="stdGrid" applyParentRestriction="false"/>
+        </action>
+      <!--  <action id="cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="stdGrid" show="false"/>
+        </action>-->
+        <field table="bh_zzf_rent_std" name="rent_std"/>
+        <field table="bh_zzf_rent_std" name="rent_std_desc"/>
+    </panel>
+	
+	<panel type="grid" id="rentDetailGrid" controlType="reportGrid" showOnLoad="false" columns="1" dataSource="rent_std_detail_ds" layoutRegion="stdDetailPanelLayout">
+        <title translatable="true">Rent Standard Detail</title>
+        <field table="bh_zzf_rent_std_detail" name="rent_std" hidden="true"/>
+        <field table="bh_zzf_rent_std_detail" name="area_begin"/>
+        <field table="bh_zzf_rent_std_detail" name="area_end"/>
+        <field table="bh_zzf_rent_std_detail" name="fee"/>
+    </panel>
+	
+	
+	<panel type="html" id="rentDetailEditForm" showOnLoad="false" buttonsPosition="footer" >
+        <title translatable="true">Edit Standard</title>
+       
+		<action id="Add">
+            <title translatable="true">Add Row</title>
+        </action>
+        <action id="Delete">
+            <title translatable="true">Delete</title>
+        </action>
+		 <action id="save">
+            <title translatable="true">Save</title>
+        </action>
+		<html>
+			<table width="430"  cellspacing="2" cellpadding="2" id="editRentTable"  >
+			<tr >
+				<th width="120"><span translatable="true">Begin With</span></th><th width="120"><span translatable="true">End With</span></th><th width="120"><span translatable="true">Fee</span></th>
+			</tr>
+		</table>
+		</html>
+    </panel>
+    <js file="asc-bj-zzf-def-rent-fee-std.js"/>
+</view>

@@ -1,0 +1,116 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-change-create-req-basic-input-tab.js"/>
+    
+    <message name="noRoomType" translatable="true">Please input Room Category and Room Type</message>
+    
+    <dataSource id="ascBjUsmsProcChangeCreateReqBasicInputTabFormDS">
+        <table name="activity_log" role="main"/>
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+        <field name="phone_requestor" table="activity_log"/>
+        <field name="priority" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="time_required" table="activity_log"/>
+        <field name="dp_id" table="activity_log"/>
+        <field name="dv_id" table="activity_log"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="rm_type" table="activity_log"/>
+		<field name="rm_name" table="activity_log"/>
+        <field name="rm_name_after" table="activity_log"/>
+        <field name="rm_cat_after" table="activity_log"/>
+        <field name="rm_type_after" table="activity_log"/>
+        <field name="bl_id" table="activity_log"/>
+        <field name="fl_id" table="activity_log"/>
+        <field name="rm_id" table="activity_log"/>
+    </dataSource>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcChangeCreateReqBasicInputTabForm" dataSource="ascBjUsmsProcChangeCreateReqBasicInputTabFormDS" showOnLoad="true" newRecord="true">
+        
+        <title translatable="true">Requestor</title>
+		
+		 <action id="back">
+            <title translatable="true">Back</title>
+            <command type="callFunction" functionName="ascBjUsmsProcChangeCreateReqBasicInputTabController.onBack()"/>
+        </action>
+        
+        <action id="submit">
+            <title translatable="true">Submit</title>
+        </action>
+        
+        <field name="activity_log_id" table="activity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+		<field table="activity_log" name="requestor" value="${user.name}">
+        	<action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.requestor" 
+				 selectFieldNames="em.em_id"
+                 visibleFieldNames="em.em_id,em.name,em.sex,em.dv_id"></command>
+            </action>
+		</field>	
+        <field table="activity_log" name="phone_requestor" hidden="true" value="${user.employee.phone}"/>
+        <field name="rm_id" table="activity_log" required="true">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.bl_id,activity_log.fl_id,activity_log.rm_id,activity_log.rm_cat,activity_log.rm_type,activity_log.rm_name"
+                 selectFieldNames="rm.bl_id,rm.fl_id,rm.rm_id,rm.rm_cat,rm.rm_type,rm.name"
+                 visibleFieldNames="rm.bl_id,rm.rm_id,rm.name,rm.rm_cat,rm.rm_type,rm.dv_id"></command>
+            </action>
+        </field>
+        <field name="bl_id" table="activity_log"/>
+        <field name="fl_id" table="activity_log" hidden="true"/>
+        <field/>
+        <field/>
+        <field name="rm_cat" table="activity_log">
+            <title translatable="true">Current Room Category</title>
+        </field>
+        <field name="rm_cat_after" table="activity_log">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.rm_cat_after"
+                 selectFieldNames="rmcat.rm_cat"
+                 visibleFieldNames="rmcat.rm_cat,rmcat.description"></command>
+            </action>
+        </field>
+        <field name="rm_type" table="activity_log">
+            <title translatable="true">Current Room Type</title>
+        </field>
+        <field name="rm_type_after" table="activity_log">
+            <action>
+                <title>...</title>
+                <command type="selectValue"
+                 fieldNames="activity_log.rm_cat_after,activity_log.rm_type_after"
+                 selectFieldNames="rmtype.rm_cat, rmtype.rm_type"
+                 visibleFieldNames="rmtype.rm_cat, rmtype.rm_type,rmtype.description"></command>
+            </action>
+        </field>
+		<field name="rm_name" table="activity_log"/>
+        <field name="rm_name_after" table="activity_log"/>
+    </panel>
+    
+    
+    <panel type="form" columns="1" id="ascBjUsmsProcChangeCreateReqBasicInputTabDestricptionForm" formLabelWidth="25" dataSource="ascBjUsmsProcChangeCreateReqBasicInputTabFormDS" newRecord="true">
+        
+        <title translatable="true">Description</title>
+        
+        <field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="prob_type" table="activity_log" required="true" readOnly="true">
+            <title translatable="true">Request Type</title>
+        </field>
+        
+        <field table="activity_log" name="description"
+         colspan="4" required="true" style="width: 100%; height: 80px;"
+         showSelectValueAction="false"/>
+        
+        <field name="priority" table="activity_log" hidden="true"/>
+    </panel>
+    
+</view>

@@ -1,0 +1,224 @@
+<view version="2.0">
+    
+    <title translatable="true">Define Dv Dinge Params</title>
+   <layout type="borderLayout" id="mainLayout">
+        <north autoScroll="true" split="true" initialSize="85"/>
+        <center/>
+    </layout>
+    <layout id="nested_center" containingLayout="mainLayout" region="center">
+        <north initialSize="86%" split="true"/>
+        <center />
+    </layout>
+<!--     学院数据源 -->
+    <dataSource id="sc_ts_dv_dinge_ds">
+        <table name="sc_ts_dv_dinge" role="main"/>
+        <field table="sc_ts_dv_dinge" name="area_da"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_ba"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_za"/>
+        <field table="sc_ts_dv_dinge" name="area_jba"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bk"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bs"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="bu_id"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+        <restriction type="sql" sql="bu_id in (select bu_id from bu where bu_class='XY')"></restriction>
+    </dataSource>
+<!--     党政数据源 -->
+	    <dataSource id="sc_ts_dv_dinge_ds_dz">
+        <table name="sc_ts_dv_dinge" role="main"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_ba"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_za"/>
+        
+        <field table="sc_ts_dv_dinge" name="bu_id" />
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+        <restriction type="sql" sql="bu_id in (select bu_id from bu where bu_class='DZGL')"></restriction>
+    </dataSource>
+    
+
+    <panel type='console' columns="1"  id="consolePanel"  dataSource="none" layout="mainLayout" region="north"  >
+        <title translatable="true">Place Input A Year</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+        </action>
+         <field name="year"  id="year" dataType="text" onchange="abDefineDvParamsController.verifyYear()">
+            <title translatable="true">Year</title>
+        </field>
+    </panel>
+
+	<tabs id="projectWizard" workflow="free" layout="nested_center" region="north" >
+    	<tab name="xy" selected="true">
+		        <title translatable="true">xueyuan</title>
+<!-- 	    	学院panel -->
+		    <panel type="grid" id="viewDvDingePanel" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false" showCounts="true" >
+		        <action id="initinal">
+		            <title translatable="true">Initinal</title>
+		        </action>
+		        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+		        	<title></title>
+		        	<action>
+		            <title>Export</title>
+		            <command type="exportPanel" outputType="xls" panelId="viewDvDingePanel"/>
+		            </action>
+		            <action id="import">
+		            <title>Import</title>
+		            	<command type="callFunction" functionName="importDvParamsDetail"></command>
+		           </action>
+		        </action>
+		        <field table="sc_ts_dv_dinge" name="dv_id" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="dv_name" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="count_stu_bk" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="count_stu_ss" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="count_stu_bs" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="area_jba" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="area_da" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetail"/>
+		        </field>
+				 <field table="sc_ts_dv_dinge" name="bu_id" hidden="true"/>
+		           
+		       
+		        <field table="sc_ts_dv_dinge" name="year_dinge" />
+		    </panel>
+	   </tab>
+	   <tab name="dzjg" selected="false">
+		        <title translatable="true">dangZhengGuanLi</title>
+<!-- 	    	党政机关panel -->
+		    <panel type="grid" id="viewDvDingePanelDZ" dataSource="sc_ts_dv_dinge_ds_dz" showOnLoad="false" showCounts="true" >
+		        <action id="initinaldz">
+		            <title translatable="true">Initinaldz</title>
+		        </action>
+		        <action type="menu" imageName="/schema/ab-core/graphics/icons/view/ab-arcgis-layers-16.png">
+		        	<title></title>
+		        	<action>
+		            <title>Export</title>
+		            <command type="exportPanel" outputType="xls" panelId="viewDvDingePanelDZ"/>
+		            </action>
+		            <action id="importdz">
+		            <title>Import</title>
+		            	<command type="callFunction" functionName="importDvParamsDetail"></command>
+		           </action>
+		        </action>
+		        <field table="sc_ts_dv_dinge" name="dv_id" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetailDZ"/>
+		        </field>
+		        <field table="sc_ts_dv_dinge" name="dv_name" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetailDZ"/>
+		        </field>
+				 <field table="sc_ts_dv_dinge" name="area_dz_za" controlType="link">
+		            <command type="callFunction" functionName="editDvParamsDetailDZ"/>
+		        </field>
+				 <field table="sc_ts_dv_dinge" name="bu_id" hidden="true"/>
+		        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+		        
+		    </panel>
+	   </tab>
+	</tabs>
+	
+<!--    点击链接出现的学院详信息界面才C -->
+    <panel type="form" id="editDvDingePanel" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false"  columns="1" >
+        <title translatable="true">Edit Dinge Params And Select Formula</title>        
+
+        <action id="abRepairtyEdit_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="viewDvDingePanel" applyParentRestriction="false"/>
+        </action>
+        <sortField table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bk"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bs"/>
+        <field table="sc_ts_dv_dinge" name="area_da"/>
+        <field table="sc_ts_dv_dinge" name="area_jba"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge" readOnly="true"/>
+    </panel>
+    
+<!--    点击链接出现的党政详信息界面才C -->
+    <panel type="form" id="editDvDingePanelDZ" dataSource="sc_ts_dv_dinge_ds_dz" showOnLoad="false"  columns="1" >
+        <title translatable="true">Edit Dinge Params And Select Formula</title>        
+
+        <action id="abRepairtyEdit_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="viewDvDingePanelDZ" applyParentRestriction="false"/>
+        </action>
+        <sortField table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_za"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge" readOnly="true"/>
+    </panel>
+    
+    
+    <panel type="grid" id="viewDvParams" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false" selectionEnabled="true">
+        <title translatable="true">Dinge Params List  desc</title>
+<!--         <field table="sc_ts_dv_dinge" name="area_da"/> -->
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="area_dz_za"/>
+        <field table="sc_ts_dv_dinge" name="area_jba"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bk"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_stu_bs"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+
+      </panel>
+
+	<tabs id="importFileTabs" layoutRegion="importPanel" showOnLoad="false">
+
+		<tab name="importFileTabs_selection" useFrame="false" selected="true">
+			<title translatable="true">Import Files</title>
+			<!-- 点击action import 弹出的页面 -->
+			<panel type="html" id="selectedPanel" showOnLoad="fale">
+				<html>
+					<table id="selectionTable" class="panel">
+
+						<tr id="in1">
+							<td align="right">
+								<b translatable="true">Rent Excel</b>
+							</td>
+							<td>
+								<input type="file" id="inLocalFileBrow" name="filename"
+									size="60">
+								</input>
+							</td>
+							<td>
+								<input type="button" id="import" value="Submit Import" onClick="submitImport()" />
+							</td>
+						</tr>
+					</table>
+				</html>
+			</panel>
+		</tab>
+
+			<!-- 进度展示 -->
+		<tab name="importFileTabs_progress" useFrame="false" >
+			<title translatable="true">Progress</title>
+			<panel type="html" id="importProgressPanel" showOnLoad="false">
+
+			</panel>
+		</tab>
+	</tabs>
+	<js file="schema/ab-core/controls/progress/ab-progress.js"/>
+  	<js file="asc-bj-usms-dinge-ed-param-value.js"/>
+  	<js file="asc-bj-usms-dinge-ed-param-import.js"/>
+</view>

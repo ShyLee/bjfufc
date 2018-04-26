@@ -1,0 +1,128 @@
+<view version="2.0">
+    <title>
+        yao shi ji fang wu ka pian guan li
+    </title>
+    
+    <layout type="borderLayout" id="mainLayout">
+        <north id="top" initialSize="13%" split="true"/>
+        <center id="center" autoScroll="true"/>
+        
+    </layout>
+    <layout type="borderLayout" id="bodyLayout"
+     containingLayout="mainLayout" region="center">
+        <west id="gridPanel" initialSize="25%" split="true"/>
+        <center id="formPanel" autoScroll="true"/>
+        
+    </layout>
+    
+    <dataSource id="tsRmKey">
+        <table name="ts_rm_key" role="main"/>
+        <field name="bl_id" table="ts_rm_key"/>
+        <field name="fl_id" table="ts_rm_key"/>
+        <field name="rm_id" table="ts_rm_key"/>
+        <field name="prop_code" table="ts_rm_key"/>
+        <field name="count_key" table="ts_rm_key"/>
+        <field name="key_type" table="ts_rm_key"/>
+        <field name="key_mgmt" table="ts_rm_key"/>
+        <field name="card_elec" table="ts_rm_key"/>
+        <field name="card_water" table="ts_rm_key"/>
+        <field name="card_gas" table="ts_rm_key"/>
+        <field name="card_air_condition" table="ts_rm_key"/>
+        <field name="comments" table="ts_rm_key"/>
+        
+    </dataSource>
+    
+    <panel type="console" id="ts_rm_key_console" dataSource="tsRmKey" layoutRegion="top" columns="4">
+        <title translatable="true">
+            Filter
+        </title>
+        <action id="show">
+            <title translatable="true">
+                Show
+            </title>
+        </action>
+        <action id="clear">
+            <title translatable="true">
+                Clear
+            </title>
+            <command type="clearPanel" panelId="ts_rm_key_console"/>
+        </action>
+        
+        <field name="bl_id" table="ts_rm_key"/>
+        <field name="fl_id" table="ts_rm_key"/>
+        <field name="rm_id" table="ts_rm_key"/>
+        
+    </panel>
+    
+    <panel type="grid" id="ts_rm_key_grid" dataSource="tsRmKey" layoutRegion="gridPanel" columns="2">
+        <title translatable="true">
+            fang jian xin xi
+        </title>
+        <action id="new">
+            <title translatable="true">
+                New
+            </title>
+        </action>
+        <field name="bl_id" table="ts_rm_key" controlType="link">
+        	 <command type="callFunction" functionName="tsRmKeyController.initPrimaryKey()"/>
+        </field>
+        <field name="fl_id" table="ts_rm_key" controlType="link">
+        	 <command type="callFunction" functionName="tsRmKeyController.initPrimaryKey()"/>
+        </field>
+        <field name="rm_id" table="ts_rm_key" controlType="link">
+        	 <command type="callFunction" functionName="tsRmKeyController.initPrimaryKey()"/>
+        </field>
+        <field name="key_type" table="ts_rm_key" controlType="link">
+        	 <command type="callFunction" functionName="tsRmKeyController.initPrimaryKey()"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="ts_rm_key_form" dataSource="tsRmKey" layoutRegion="formPanel" columns="2">
+        
+        <title translatable="true">
+            ji ben xin xi
+        </title>
+        <action id="save">
+            <title translatable="true">
+                Save
+            </title>
+        </action>
+        <action id="delete">
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="ts_rm_key_grid" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="ts_rm_key_form"/>
+            <title translatable="true">
+                Delete
+            </title>
+        </action>
+        
+        <field name="bl_id" table="ts_rm_key"/>
+        
+        <field name="fl_id" table="ts_rm_key"/>
+        <field name="rm_id" table="ts_rm_key"/>
+        <field name="prop_code" table="ts_rm_key">
+            <action>
+                <tooltip>
+                    Select Value
+                </tooltip>
+                <command type="selectValue"
+                 fieldNames="ts_rm_key.prop_code"
+                 selectFieldNames="ts_prop_company.prop_code,ts_prop_company.prop_name"
+                 visibleFieldNames="ts_prop_company.prop_code,ts_prop_company.prop_name"
+                 showIndex="true"/>
+                
+            </action>
+        </field>
+        <field name="count_key" table="ts_rm_key"/>
+        <field name="key_type" table="ts_rm_key"/>
+        <field name="key_mgmt" table="ts_rm_key"/>
+        <field name="card_elec" table="ts_rm_key"/>
+        <field name="card_water" table="ts_rm_key"/>
+        <field name="card_gas" table="ts_rm_key"/>
+        <field name="card_air_condition" table="ts_rm_key"/>
+        <field name="comments" table="ts_rm_key" width='207'/>
+        
+    </panel>
+    
+    <js file="asc-bj-usms-prop-key-rmcard-manage.js"/>
+</view>

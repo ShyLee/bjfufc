@@ -1,0 +1,93 @@
+<view version="2.0">
+	<dataSource id="zwDs">
+		<table name="sc_zw" role="main"/>
+		<table name="sc_zw_jb" role="standard"/>
+		<field table="sc_zw" name="zw_id"/>
+		<field table="sc_zw" name="zw_jb_id"/>
+		<field table="sc_zw" name="zw_name"/>
+		<field table="sc_zw" name="description"/>
+		<field table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_name"/>
+		<field table="sc_zw_jb" name="area_zf_std"/>
+		<field table="sc_zw_jb" name="amount_wf_std"/>
+	</dataSource>
+	
+	<panel type="grid" id="zwPanel" dataSource="zwDs">
+		<indexField table="sc_zw" name="zw_id"/>
+		<field table="sc_zw" name="zw_id" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+		<field table="sc_zw" name="zw_name" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="zw_jb_name" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="area_zf_std" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="amount_wf_std" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+		<field table="sc_zw" name="description" controlType="link">
+			<command type="callFunction" functionName="zwController.edit()"/>
+		</field>
+	</panel>
+	<panel type="form" id="zwForm" dataSource="zwDs" showOnLoad="false">
+		<title>edit</title>
+		<action id="save">
+			<title>save</title>
+			<command type="saveForm"/>
+		</action>
+		<action id="clear">
+			<title>clear</title>
+		</action>
+		<field table="sc_zw" name="zw_id" readOnly="true"/>
+		<field table="sc_zw" name="zw_name" readOnly="true"/>
+		<field table="sc_zw" name="zw_jb_id">
+			<action>
+				<title translatable="true">...</title>
+				<command type="selectValue"
+					fieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					selectFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					visibleFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					applyFilter="false">
+				</command>
+			</action>
+		</field>
+		<field table="sc_zw_jb" name="zw_jb_name">
+			<action>
+				<title translatable="true">...</title>
+				<command type="selectValue"
+					fieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					selectFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					visibleFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					applyFilter="false">
+				</command>
+			</action>
+		</field>
+		<field table="sc_zw_jb" name="area_zf_std">
+			<action>
+				<title translatable="true">...</title>
+				<command type="selectValue"
+					fieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					selectFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					visibleFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					applyFilter="false">
+				</command>
+			</action>
+		</field>
+		<field table="sc_zw_jb" name="amount_wf_std">
+			<action>
+				<title translatable="true">...</title>
+				<command type="selectValue"
+					fieldNames="sc_zw.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					selectFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					visibleFieldNames="sc_zw_jb.zw_jb_id,sc_zw_jb.zw_jb_name,sc_zw_jb.area_zf_std,sc_zw_jb.amount_wf_std"
+					applyFilter="false">
+				</command>
+			</action>
+		</field>
+	</panel>
+	<js file="asc-bj-usms-data-zw.js"/>
+</view>

@@ -1,0 +1,227 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-change-review-req-details-tab.js"/>
+    
+    <dataSource id="ascBjUsmsProcAsgnReviewReqDetailsTabForm1DS">
+        <table name="activity_log" role="main"/>
+		<table name="em" role="standard"/>
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+		<field name="name" table="em"/>
+        <field name="phone_requestor" table="activity_log"/>
+        <field name="priority" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="time_required" table="activity_log"/>
+        <field name="dp_id" table="activity_log"/>
+        <field name="dv_id" table="activity_log"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="rm_type" table="activity_log"/>
+        <field name="rm_cat_after" table="activity_log"/>
+        <field name="rm_type_after" table="activity_log"/>
+		<field name="rm_name" table="activity_log"/>
+        <field name="rm_name_after" table="activity_log"/>
+        <field name="bl_id" table="activity_log"/>
+        <field name="fl_id" table="activity_log"/>
+        <field name="rm_id" table="activity_log"/>
+        <field name="doc1" table="activity_log"/>
+        <field name="doc2" table="activity_log"/>
+    </dataSource>
+    
+    <dataSource id="ascBjUsmsProcAsgnReviewReqDetailsTabForm2DS">
+        <table name="hactivity_log" role="main"/>
+		<table name="em" role="standard"/>
+        
+        <field name="activity_log_id" table="hactivity_log"/>
+        <field name="activity_type" table="hactivity_log"/>
+        <field name="description" table="hactivity_log"/>
+        <field name="requestor" table="hactivity_log"/>
+		<field name="name" table="em"/>
+        <field name="phone_requestor" table="hactivity_log"/>
+        <field name="priority" table="hactivity_log"/>
+        <field name="prob_type" table="hactivity_log"/>
+        <field name="date_required" table="hactivity_log"/>
+        <field name="time_required" table="hactivity_log"/>
+        <field name="dp_id" table="hactivity_log"/>
+        <field name="dv_id" table="hactivity_log"/>
+        <field name="rm_cat" table="hactivity_log"/>
+        <field name="rm_type" table="hactivity_log"/>
+        <field name="rm_cat_after" table="hactivity_log"/>
+        <field name="rm_type_after" table="hactivity_log"/>
+        <field name="bl_id" table="hactivity_log"/>
+        <field name="fl_id" table="hactivity_log"/>
+        <field name="rm_id" table="hactivity_log"/>
+        <field name="doc1" table="hactivity_log"/>
+        <field name="doc2" table="hactivity_log"/>
+		<field name="rm_name" table="hactivity_log"/>
+        <field name="rm_name_after" table="hactivity_log"/>
+    </dataSource>
+    
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabForm1" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Requestor</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="selectTabPage" tabPageName="selectRequestTab" clearRestriction="true"/>
+        </action>
+        
+        <field name="activity_log_id" table="activity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field table="activity_log" name="requestor" hidden="true"/>
+		<field name="name" table="em">
+			<title translatable="true">ShenQingRen</title>
+        </field>
+        <field table="activity_log" name="phone_requestor" hidden="true" value="${user.employee.phone}"/>
+        <field name="rm_id" table="activity_log"  readOnly="true"/>
+        <field name="bl_id" table="activity_log" readOnly="true"/>
+        <field name="fl_id" table="activity_log" hidden="true"/>
+        <field/>
+        <field/>
+        <field name="rm_cat" table="activity_log" readOnly="true">
+            <title translatable="true">Current Room Category</title>
+        </field>
+        <field name="rm_cat_after" table="activity_log" readOnly="true"/>
+        <field name="rm_type" table="activity_log" readOnly="true">
+            <title translatable="true">Current Room Type</title>
+        </field>
+        <field name="rm_type_after" table="activity_log" readOnly="true"/>
+		<field name="rm_name" table="activity_log" readOnly="true"/>
+        <field name="rm_name_after" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabForm2" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm2DS" showOnLoad="false">
+        
+        <title translatable="true">Requestor</title>
+        
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="selectTabPage" tabPageName="selectRequestTab" clearRestriction="true"/>
+        </action>
+        
+        <field name="activity_log_id" table="hactivity_log" hidden="false" readOnly="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field table="hactivity_log" name="requestor"  hidden="true"/>
+		<field name="name" table="em">
+			<title translatable="true">ShenQingRen</title>
+        </field>
+        <field table="hactivity_log" name="phone_requestor" hidden="true" value="${user.employee.phone}"/>
+        <field name="rm_id" table="hactivity_log"  readOnly="true"/>
+        <field name="bl_id" table="hactivity_log" readOnly="true"/>
+        <field name="fl_id" table="hactivity_log" hidden="true"/>
+        <field/>
+        <field/>
+        <field name="rm_cat" table="hactivity_log" readOnly="true">
+            <title translatable="true">Current Room Category</title>
+        </field>
+        <field name="rm_cat_after" table="hactivity_log" readOnly="true"/>
+        <field name="rm_type" table="hactivity_log" readOnly="true">
+            <title translatable="true">Current Room Type</title>
+        </field>
+        <field name="rm_type_after" table="hactivity_log" readOnly="true"/>
+		<field name="rm_name" table="hactivity_log" readOnly="true"/>
+        <field name="rm_name_after" table="hactivity_log" readOnly="true"/>
+    </panel>
+    
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabDestricptionForm1" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Description</title>
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="activity_type" table="activity_log" hidden="true"/>
+        <field name="prob_type" table="activity_log" readOnly="true">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field/>
+        <field table="activity_log" name="description"
+         colspan="4" style="width: 100%; height: 80px;"
+         showSelectValueAction="false" readOnly="true"/>
+        
+        <field name="priority" table="activity_log" hidden="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabDestricptionForm2" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm2DS" showOnLoad="false">
+        
+        <title translatable="true">Description</title>
+        <field name="activity_log_id" table="hactivity_log" hidden="true"/>
+        <field name="activity_type" table="hactivity_log" hidden="true"/>
+        <field name="prob_type" table="hactivity_log" readOnly="true">
+            <title translatable="true">Request Type</title>
+        </field>
+        <field/>
+        <field table="hactivity_log" name="description"
+         colspan="4" style="width: 100%; height: 80px;"
+         showSelectValueAction="false" readOnly="true"/>
+        
+        <field name="priority" table="hactivity_log" hidden="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabAttachmentForm1" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm1DS" showOnLoad="false">
+        
+        <title translatable="true">Attachment</title>
+        
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="doc1" table="activity_log" readOnly="true"/>
+        <field name="doc2" table="activity_log" readOnly="true"/>
+    </panel>
+    
+    <panel type="form" columns="2" id="ascBjUsmsProcAsgnReviewReqDetailsTabAttachmentForm2" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabForm2DS" showOnLoad="false">
+        
+        <title translatable="true">Attachment</title>
+        
+        <field name="activity_log_id" table="hactivity_log" hidden="true"/>
+        <field name="doc1" table="hactivity_log" readOnly="true"/>
+        <field name="doc2" table="hactivity_log" readOnly="true"/>
+    </panel>
+    
+    <dataSource id="ascBjUsmsProcAsgnReviewReqDetailsTabHistoryPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+		<table name="em" role="standard"/>
+		
+        <table name="afm_wf_steps" role="standard"/>
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+		<field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    <panel type="grid" id="ascBjUsmsProcAsgnReviewReqDetailsTabHistoryPanel" controlType="reportGrid" dataSource="ascBjUsmsProcAsgnReviewReqDetailsTabHistoryPanelDS" showOnLoad="false">
+        <title translatable="true">History</title>
+        
+        <field name="step_log_id" table="helpdesk_step_log" hidden="true"/>
+        <field name="user_name" table="helpdesk_step_log" hidden="true"/>
+        <field name="name" table="em" hidden="true"/>
+        <field name="vn_id" table="helpdesk_step_log">
+            <title translatable="true">Step Responded By</title>
+        </field>
+        <field name="date_response" table="helpdesk_step_log">
+            <title translatable="true">On</title>
+        </field>
+        <field name="time_response" table="helpdesk_step_log" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">Workflow Step</title>
+        </field>
+        <field name="status" table="afm_wf_steps">
+            <title translatable="true">Status</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+</view>

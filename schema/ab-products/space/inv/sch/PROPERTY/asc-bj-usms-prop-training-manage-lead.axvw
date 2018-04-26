@@ -1,0 +1,150 @@
+<view version="2.0">
+	<title>train doc read manage</title>
+	<message name="formTitle" translatable="true">train doc : {0}</message>
+    <dataSource id="tsRelicManageDS">
+        <table name="ts_train_read" role="main"/>
+        <table name="ts_relic_manage" role="standard"/>
+	    <field name="pk_id" table="ts_train_read"/>
+	    <field name="mg_id" table="ts_train_read"/>
+	    <field name="is_read" table="ts_train_read"/>
+	    <field name="em_id" table="ts_train_read"/>
+	    <field name="dv_id" table="ts_train_read"/>
+	    <field name="date_read" table="ts_train_read"/>
+	    <field table="ts_relic_manage" name="doc1"/>
+	    <field table="ts_relic_manage" name="mg_id"/>
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_text"/>
+		<field table="ts_relic_manage" name="mg_people"/>
+		<field table="ts_relic_manage" name="mg_date"/>
+		<field table="ts_relic_manage" name="beizhu"/>
+		<parameter name="dv" dataType="text" value="${user.employee.organization.divisionId}"/>
+		<restriction type="sql" sql="ts_train_read.dv_id=${parameters['dv']} and ts_train_read.is_read='N'"/>
+    </dataSource>
+    
+     <dataSource id="tsRelicManageDS2">
+        <table name="ts_train_read" role="main"/>
+        <table name="ts_relic_manage" role="standard"/>
+	    <field name="pk_id" table="ts_train_read"/>
+	    <field name="mg_id" table="ts_train_read"/>
+	    <field name="is_read" table="ts_train_read"/>
+	    <field name="em_id" table="ts_train_read"/>
+	    <field name="dv_id" table="ts_train_read"/>
+	    <field name="date_read" table="ts_train_read"/>
+	    <field table="ts_relic_manage" name="doc1"/>
+	    <field table="ts_relic_manage" name="mg_id"/>
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_text"/>
+		<field table="ts_relic_manage" name="mg_people"/>
+		<field table="ts_relic_manage" name="mg_date"/>
+		<field table="ts_relic_manage" name="beizhu"/>
+		<parameter name="dv" dataType="text" value="${user.employee.organization.divisionId}"/>
+		<restriction type="sql" sql="ts_train_read.dv_id=${parameters['dv']} and ts_train_read.is_read='Y'"/>
+    </dataSource>
+     <dataSource id="tsRelicManageDocDS">
+        <table name="ts_relic_manage" role="main"/>
+	    <field table="ts_relic_manage" name="mg_id"/>
+	    <field table="ts_relic_manage" name="doc1"/>
+	 </dataSource>
+	 <dataSource id="tstrainReadDS">
+        <table name="ts_train_read" role="main"/>
+	    <field name="pk_id" table="ts_train_read"/>
+	    <field name="mg_id" table="ts_train_read"/>
+	    <field name="is_read" table="ts_train_read"/>
+	    <field name="em_id" table="ts_train_read"/>
+	    <field name="dv_id" table="ts_train_read"/>
+	    <field name="date_read" table="ts_train_read"/>
+	    </dataSource>
+	<panel type="console" id="ts_relic_manage_console" dataSource="tsRelicManageDS" columns="2" > 
+		<title translatable="true">Filter</title>
+		<action id="show">
+			<title translatable="true">Show</title>
+			<command type="showPanel" panelId="ts_relic_manage_grid"/>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="ts_relic_manage_console"/>
+		</action>
+		
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_date" alias="ts_relic_manage.mg_date.from" op="&gt;=">
+		  <title translatable="true">from</title>
+		</field>
+		<field table="ts_relic_manage" name="mg_date" alias="ts_relic_manage.mg_date.to" op="&lt;=">
+		  <title translatable="true">to</title>
+		</field>
+	</panel>
+    
+	<panel type="grid" id="ts_relic_manage_grid" dataSource="tsRelicManageDS" showOnLoad="true" selectionEnabled="true" >
+		
+		<title translatable="true">no read</title>
+		
+			<field name="pk_id" table="ts_train_read" hidden="true"/>
+		<field table="ts_relic_manage" name="mg_id" controlType="link">
+			<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>	 
+		<field table="ts_relic_manage" name="mg_name" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_type" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_text" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field name="dv_id" table="ts_train_read" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_date" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_people" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="beizhu" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+		<field name="is_read" table="ts_train_read" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.saveRead()"/>
+		</field>
+	</panel>
+	<panel type="form" id="ts_relic_manage_form" dataSource="tsRelicManageDocDS" showOnLoad="false">
+	    <title translatable="true">train doc</title>
+	    <field name="mg_id" table="ts_relic_manage" hidden="true"/>
+	    <field table="ts_relic_manage" name="doc1" readOnly="true"/>
+	</panel>
+	<panel type="grid" id="ts_relic_manage_isread_grid" dataSource="tsRelicManageDS2" showOnLoad="true" >
+		<title translatable="true">is read</title>
+		<field name="pk_id" table="ts_train_read" hidden="true"/>
+		<field table="ts_relic_manage" name="mg_id" controlType="link">
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>	 
+		<field table="ts_relic_manage" name="mg_name" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_type" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_text" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field name="dv_id" table="ts_train_read" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_date" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="mg_people" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field table="ts_relic_manage" name="beizhu" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+		<field name="is_read" table="ts_train_read" controlType="link">
+		<command type="callFunction" functionName="TsingHouseRelicManageController.showDailogIsRead()"/>
+		</field>
+	</panel>
+	<js file="asc-bj-usms-prop-training-manage-lead.js"/>
+</view>

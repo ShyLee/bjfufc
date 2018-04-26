@@ -1,0 +1,79 @@
+<view version="2.0">
+    <title translatable="true">View Rooms Summary Data by Room Type</title>
+    
+    <layout id="main">
+        <north id="consolePosition" initialSize="20%" split="true"/>
+        <center id="rptPosition"/>
+    </layout>
+    
+    <message name="rptPanelTitle" translatable="true">Rooms Category Summary Data: {0}</message>
+	<message name="err_dates" translatable="true">The To Date value should always be greater than From Date!</message>
+   
+    <!-- dataSource for site tree -->
+    <dataSource id="abScRptRmsDatabyRmcatType_console_bl">
+        <table name="bl" role="main"/>
+        <field table="bl" name="date_bl"/>
+    </dataSource>
+	
+	<panel type="console" id="abScRptRmsDatabyRmcatTypeConsolePanel" columns="3" dataSource="abScRptRmsDatabyRmcatType_console_bl" layoutRegion="consolePosition">
+        <title translatable="true">Filter</title>
+		<action id="show">
+			<title translatable="true">Show</title>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+		</action>
+		
+        <field id="date_from" dataType="date">
+			<title translatable="true">From Date</title>
+		</field>
+		<field id="date_to" dataType="date">
+			<title translatable="true">To Date</title>
+		</field>
+    </panel>
+	
+	<!-- datasource for cross table report ,addition grouping by none -->
+    <dataSource id="ds_ab-sc-rpt-rooms-data-by-roomcattype_cross_rm" type="grouping">
+		<table name="rm" role="main" />
+		<table name="rmcat" role="standard" />
+		<table name="rmtype" role="standard" />
+		
+		<field table="rm" name="rm_cat" groupBy="true">
+			<title translatable="true">Room Category</title>
+        </field>
+		
+		<field table="rm" name="rm_type"  groupBy="true">
+			<title translatable="true">Room Type</title>
+		</field>
+		
+		<field table="rm" name="rm_type"  groupBy="true">
+			<title translatable="true">Room Type</title>
+		</field>
+		
+		<field name="total_area" formula="SUM" dataType="number" 
+			baseField="rm.area" decimals="2">
+			<title translatable="true">Used Area</title>
+		</field>
+		<sortField name="fl_id" table="rm" ascending="true" />
+		<sortField name="dv_id" table="rm" ascending="true" />
+		
+		<restriction type="sql" sql="rm.bl_id=${parameters['blIdRes']}"/>
+		<parameter name="blIdRes" dataType="verbatim" value="1=1"/>
+	</dataSource>
+	
+    <!-- cross table report-->
+	<panel id="abScRptRmsDatabyRmcatTypeCrossPanel" type="crossTable" dataSource="ds_ab-sc-show-dv-stack-by-bl_cross_rm" showOnLoad="false"  layoutRegion="crossPosition">
+		<action id="exportDOCX">
+			<title translatable="true">DOC</title>
+			<tooltip translatable="true">Export current view to Docx file.</tooltip>
+			<command type="exportPanel" outputType="docx" panelId="abScShowDvStackCrossPanel"/>
+		</action>
+		<action id="showChart">
+			<title translatable="true">Show Chart</title>
+			<command type="callFunction" functionName="onShowRoomsSumInLineChart"/>
+		</action>
+	</panel>
+	
+    
+    <js file="asc-bj-usms-type-stat-history.js"/>
+</view>

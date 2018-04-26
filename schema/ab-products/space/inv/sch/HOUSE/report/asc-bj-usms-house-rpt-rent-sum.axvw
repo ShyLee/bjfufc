@@ -1,0 +1,90 @@
+<view version="2.0">
+    <title translatable="true">View rpt rent revenue</title>
+	
+    <layout id="main">
+        <north id="console" initialSize="13%" split="true"/>
+        <center autoScroll="true"/>
+    </layout>
+	<layout id="nested_center" containingLayout="main" region="center">
+        <west id="sumGridPosition" initialSize="45%" split="true"/>
+        <center id="chartPosition"/>
+    </layout>
+    
+    <dataSource id="ds_asc-bj-usms-house-rpt-rent-sum">
+		<table name="sc_zzfrent" role="main" />
+		<field table="sc_zzfrent" name="year"/>
+		<field table="sc_zzfrent" name="month"/>
+		<field table="sc_zzfrent" name="tot_rent" showTotals="true"/>
+		<field table="sc_zzfrent" name="count_rm"/>
+		<field table="sc_zzfrent" name="count_em"/>
+		<field table="sc_zzfrent" name="area"/>
+		
+	</dataSource>
+
+    <panel type="console" columns="2" id="ascBjZzfRentSum_console" dataSource="ds_asc-bj-usms-house-rpt-rent-sum" layoutRegion="console">
+        <title translatable="true">Filter</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <field table="sc_zzfrent" name="year" alias="sc_zzfrent.year.from"> 
+			<title translatable="true">year from</title> 
+		</field>	
+		<field table="sc_zzfrent" name="month" alias="sc_zzfrent.month.from">
+			<title translatable="true">month from</title> 
+		</field>   
+		<field table="sc_zzfrent" name="year" alias="sc_zzfrent.year.to">
+			<title translatable="true">year to</title>
+		</field> 	  
+		<field table="sc_zzfrent" name="month" alias="sc_zzfrent.month.to">
+			<title translatable="true">month to</title> 
+		</field>	             
+    </panel>  
+	 
+	<panel id="absBjUsmsZzfRentRevenueCht" 
+    		type="chart" 
+    		controlType="stackedBarChart"  
+    		dataSource="ds_asc-bj-usms-house-rpt-rent-sum" 
+    		showLegendOnLoad="true" 
+    		showLegendAsPopUp="false" 
+    		legendLocation="right" 
+			showOnLoad="false"
+    		showDataTips="true" 
+    		fillType="solid"
+    		width="95%"
+    		height="50%"
+			layoutRegion="chartPosition">
+	<title translatable="true"></title>
+  	<groupingAxis dataSource="ds_asc-bj-usms-house-rpt-rent-sum" table="sc_zzfrent"
+  		field="month" labelRotation="40">
+  		<title translatable="true">Yue Fen</title>
+  	</groupingAxis>
+
+  	<dataAxis dataSource="ds_asc-bj-usms-house-rpt-rent-sum" table="sc_zzfrent"
+  		field="tot_rent">
+  		<title translatable="true">Zu Jin Shou ru</title>
+  	</dataAxis>
+  </panel>
+  
+    <panel type="grid" controlType="reportGrid" id="zzfWhole_manageDvSumGrid" dataSource="ds_asc-bj-usms-house-rpt-rent-sum" layoutRegion="sumGridPosition" showOnLoad="false">
+    	<title translatable="true">rpt rent revenue : zhuo zhuang fang</title>
+		 <action id="exportXLS">
+            <title>
+                XLS
+            </title>
+            <command type="exportPanel" outputType="xls" panelId="zzfWhole_manageDvSumGrid"/>
+        </action>
+		<sortField name="month" table="sc_zzfrent"/>
+		<field table="sc_zzfrent" name="month"/>
+		<field table="sc_zzfrent" name="year"/>
+		<field table="sc_zzfrent" name="tot_rent" showTotals="true"/>
+		<field table="sc_zzfrent" name="count_rm"/>
+		<field table="sc_zzfrent" name="count_em"/>
+		<field table="sc_zzfrent" name="area" showTotals="true"/>
+		
+		<indexField table="sc_zzfrent" name="month"/>
+    </panel>
+	
+    <js file="asc-bj-usms-house-rpt-rent-sum.js"/>
+	<js file="asc-bj-usms-house-common.js"/>
+	
+</view>

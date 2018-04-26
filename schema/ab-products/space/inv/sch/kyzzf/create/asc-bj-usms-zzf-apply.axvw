@@ -1,0 +1,65 @@
+<view version="2.0">
+    <title translatable="true">Apply For ZZF Form</title>
+	<js file="asc-bj-zzf-common.js" />
+    <js file="asc-bj-usms-zzf-apply.js"/>
+	
+	<dataSource id="activityLogDs">
+		<table name="activity_log" role="main" />
+		<field name="activity_log_id" table="activity_log" />
+		<field name="prob_type" table="activity_log" />
+		<field name="activity_type" table="activity_log" />
+		<field name="requestor" table="activity_log" />
+		<field name="phone_requestor" table="activity_log" />
+		<field name="dv_id" table="activity_log" />
+	</dataSource>
+	
+    <dataSource id="applyTableDs">
+        <table name="bh_zzf_apply" role="main"/>     
+        <field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply" />
+        <field table="bh_zzf_apply" name="status"/>
+        <field table="bh_zzf_apply" name="em_apply" />
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile"/>
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source"/>
+        <field table="bh_zzf_apply" name="target"/>
+        <field table="bh_zzf_apply" name="benefit"/>
+        <field table="bh_zzf_apply" name="team_situation"/>
+        <field table="bh_zzf_apply" name="activity_log_id"/>
+    </dataSource> 
+	<panel type="form" columns="3" id="applyForm"  dataSource="applyTableDs" newRecord="true">
+        <title translatable="true">Apply for ZZF</title>
+		
+        <action id="createRequest" mainAction="true">
+			   <title>Create New Request</title>
+		</action>
+		<!-- 
+        <action id="ReviewRequest" >
+			   <title>Review My Request</title>
+		</action>
+         -->
+		<field table="bh_zzf_apply" name="activity_log_id" hidden="true"/>
+ 		<field table="bh_zzf_apply" name="zzf_sq_id"/>
+        <field table="bh_zzf_apply" name="date_apply"/>
+        <field table="bh_zzf_apply" name="status" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="em_apply" value="${user.name}" readOnly="true" />
+		<field table="bh_zzf_apply" name="em_dv"/>
+		<field table="bh_zzf_apply" name="em_mobile" />
+		<field table="bh_zzf_apply" name="em_email"/>
+        <field table="bh_zzf_apply" name="em_cat"/>
+        <field table="bh_zzf_apply" name="project_cat" cssClass="shortField"/>
+        <field table="bh_zzf_apply" name="date_begin"/>
+        <field table="bh_zzf_apply" name="date_end"/>
+        <field table="bh_zzf_apply" name="area_apply"/>
+        <field table="bh_zzf_apply" name="project_source" colspan="3"/>
+        <field table="bh_zzf_apply" name="target"  colspan="3"/>
+        <field table="bh_zzf_apply" name="benefit"  colspan="3"/>
+        <field table="bh_zzf_apply" name="team_situation"  colspan="3"/>
+    </panel>
+</view>

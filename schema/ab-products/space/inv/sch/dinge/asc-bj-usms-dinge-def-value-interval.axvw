@@ -1,0 +1,71 @@
+<view version="2.0">
+    <js file="asc-bj-usms-dinge-def-value-interval.js"/>
+    <title translatable="true">dingyicanshuquzhikongjian</title>
+     <layout type="borderLayout" id="mainLayout">
+        <north id="console" autoScroll="true" split="true" initialSize="70"/>
+        <center autoScroll="true"/>
+     </layout>
+     <layout id="nested_center" containingLayout="mainLayout" region="center">
+        <west id="left" autoScroll="true" split="true" initialSize="40%"/>
+        <center id="right" autoScroll="true"/>
+     </layout>
+     
+     <dataSource id="sc_value_interval_DS">
+       <table name="sc_value_interval" role="main"/>
+       <field name="section_id" table="sc_value_interval"/>
+       <field name="param_name" table="sc_value_interval"/>
+       <field name="lower_value" table="sc_value_interval"/>
+       <field name="upper_value" table="sc_value_interval"/>
+       <field name="param_value" table="sc_value_interval"/>
+       <field name="upper_symbol" table="sc_value_interval"/>
+       <field name="lower_symbol" table="sc_value_interval"/>
+       <field name="description" table="sc_value_interval"/>
+     </dataSource>
+    <panel type="console" id="valueConsoleGrid" dataSource="sc_value_interval_DS" layoutRegion="console">
+        <title translatable="true">filter</title>
+        <action id="show">
+            <title translatable="true">show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">clear</title>
+            <command type="clearForm"/>
+        </action>
+        <field name="section_id" table="sc_value_interval" hidden="true"/>
+        <field name="param_name" table="sc_value_interval"/>
+    </panel>
+    
+    <panel type="grid" id="sc_value_interval_grid" dataSource="sc_value_interval_DS" layoutRegion="left">
+       <title translatable="true">list</title>
+       <action id="new">
+            <title translatable="true">new</title>
+        </action>
+       <field name="section_id" table="sc_value_interval" hidden="true"/>
+       <field name="param_name" table="sc_value_interval" controlType="link">
+        <command type="showPanel" panelId="sc_value_interval_form"/>
+       </field>
+       <field name="lower_value" table="sc_value_interval"/>
+       <field name="upper_value" table="sc_value_interval"/>
+       <field name="param_value" table="sc_value_interval"/>
+    </panel>
+    <panel type="form" id="sc_value_interval_form" dataSource="sc_value_interval_DS" layoutRegion="right" showOnLoad="false">
+       <title translatable="true">edit</title>
+        <action id="delete">
+            <title translatable="true">delete</title>
+        </action>
+        <action id="save">
+            <title translatable="true">save</title>
+        </action>
+        <action id="cancel">
+            <title translatable="true">cancel</title>
+            <command type="callFunction" functionName="View.panels.get('sc_value_interval_form').show(false)"/>
+        </action>
+       <field name="section_id" table="sc_value_interval" hidden="true" />
+       <field name="param_name" table="sc_value_interval" required="true"/>
+       <field name="lower_value" table="sc_value_interval"/>
+       <field name="upper_value" table="sc_value_interval"/>
+       <field name="param_value" table="sc_value_interval"/>
+       <field name="upper_symbol" table="sc_value_interval"/>
+       <field name="lower_symbol" table="sc_value_interval"/>
+       <field name="description" table="sc_value_interval"/>
+    </panel>
+</view>

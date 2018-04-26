@@ -1,0 +1,18 @@
+<view version="2.0">
+	<js file="asc-bj-usms-zzf-review-request-history.js" />
+    <title translatable="true">Review My Request</title>
+        <preferences>
+        <viewTitleBar show="true"/>
+    </preferences>
+    <tabs workflow="free" id="reviewTabs" tabRefreshPolicy="refreshOnSelect">
+        
+        <tab name="selectRequestTab" selected="true" file="asc-bj-usms-zzf-review-history-selected.axvw">
+            <title translatable="true">Select Request</title>
+        </tab>
+        
+        <tab name="view" file="asc-bj-usms-zzf-review-history-detail.axvw">
+            <title translatable="true">Detail</title>
+        </tab>
+        
+    </tabs>
+</view>

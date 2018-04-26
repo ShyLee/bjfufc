@@ -1,0 +1,118 @@
+<view version="2.0">
+	
+	<css>.prominentLabel {font-weight: bold; font-size: 12px !important; text-align: right; white-space: normal;} </css>
+	
+    <layout id="main">
+        <center id="sitePosition"/>
+        <south id="rmcatPosition" initialSize="40%" split="true"/>
+    </layout>
+    
+	<message name="total" translatable="true">Total</message>
+	<message name="noImage" translatable="true">Mei You Gai Xiao Qu Tu</message>
+	<message name="falsh_headerMessage" translatable="true">Highlighted Building:</message>
+	
+	<!-- datasource for rmcat report -->
+    <dataSource id="ds_asc-bj-usms-overall-image-bl-info-main_grid_bl">
+		<table name="bl" role="main" />
+		
+		<field table="bl" name="dwgname"  hidden="true"/>
+		<field table="bl" name="name"  hidden="true"/>
+		<field table="bl" name="bl_id" controlType="link">
+        	<command type="callFunction" functionName="highlightSelectedBuilding"/>
+        </field>	
+		<field table="bl" name="use1" controlType="link">
+        	<command type="callFunction" functionName="highlightSelectedBuilding"/>
+        </field>	
+		<field table="bl" name="area_building_manual" controlType="link">
+        	<command type="callFunction" functionName="highlightSelectedBuilding"/>
+        </field>	
+		<field table="bl" name="area_rm" controlType="link">
+        	<command type="callFunction" functionName="highlightSelectedBuilding"/>
+        </field>	
+		<field table="bl" name="manage_area" dataType="number" decimals="2">
+			<title translatable="true">Management Division Area</title>
+			<sql dialect="generic">
+				 (SELECT SUM(rm.area) FROM rm WHERE rm.bl_id=bl.bl_id and rm.rm_cat=${parameters['manageDvRes']})
+            </sql>
+		</field>
+		<field table="bl" name="teaching_area" dataType="number" decimals="2">
+			<title translatable="true">Teaching Division Area</title>
+			<sql dialect="generic">
+				(SELECT SUM(rm.area) FROM rm WHERE rm.bl_id=bl.bl_id and rm.rm_cat=${parameters['teachDvRes']})
+            </sql>
+		</field>
+		<field table="bl" name="classroom_area" dataType="number" decimals="2">
+			<title translatable="true">Classroom Area</title>
+			<sql dialect="generic">
+    	          (SELECT SUM(rm.area) FROM rm WHERE rm.bl_id=bl.bl_id and rm.rm_cat=${parameters['classroomRes']}) 
+            </sql>
+		</field>
+		<field table="bl" name="lab_area" dataType="number" decimals="2">
+			<title translatable="true">Lab Area</title>
+			<sql dialect="generic">
+    	          (SELECT SUM(rm.area) FROM rm WHERE rm.bl_id=bl.bl_id and rm.rm_cat=${parameters['labroomRes']}) 
+            </sql>
+		</field>
+		<field name="vacant_rm"  dataType="number" decimals="2">
+			<title translatable="true">Vacant Room Quantity</title>
+			<sql dialect="generic">
+    	             (SELECT COUNT(*) FROM rm WHERE  ((rm.dv_id IS NULL) OR (rm.dv_id IS NOT NULL and rm.count_em = 0 and (rm.rm_type=${parameters['officeRoomRes']} or rm.rm_type=${parameters['teachOfficeRoomRes']}))) and rm.bl_id=bl.bl_id)
+            </sql>
+		</field>
+		<field name="vacant_area"  dataType="number" decimals="2">
+			<title translatable="true">Vacant Room Area</title>
+			<sql dialect="generic">
+    	             (SELECT SUM(rm.area) FROM rm WHERE  ((rm.dv_id IS NULL) OR (rm.dv_id IS NOT NULL and rm.count_em = 0 and (rm.rm_type=${parameters['officeRoomRes']} or rm.rm_type=${parameters['teachOfficeRoomRes']}))) and rm.bl_id=bl.bl_id)
+            </sql>
+		</field>
+		
+		<parameter name="classroomRes" dataType="text" value=""/>
+		<parameter name="labroomRes" dataType="text" value=""/>
+		<parameter name="teachOfficeRoomRes" dataType="text" value=""/>
+		<parameter name="officeRoomRes" dataType="text" value=""/>
+		<parameter name="manageDvRes" dataType="text" value=""/>
+		<parameter name="teachDvRes" dataType="text" value=""/>
+		<parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="bl.use1 IN ('TE','OFF','TEOFF','TEASS','TELV') and bl.site_id=${parameters['siteIdRes']}"/>
+	</dataSource>
+	
+	<!-- dataSource for site image -->
+    <dataSource id="ds_asc-bj-usms-overall-image-bl-info-main_site">
+    	<table name="site" role="main"/>
+		
+		<!--basic info-->
+		<field table="site" name="site_id"/>
+		<field table="site" name="site_image"/>
+		
+	    <parameter name="siteIdRes" dataType="text" value=""/>
+		<restriction type="sql" sql="site.site_id=${parameters['siteIdRes']}"/>
+    </dataSource>
+	
+    <dataSource id="ds_ab-proj-projects-map_drawing_main_blHighlight">
+    	<table name="bl" role="main"/>
+        <field name="bl_id" legendKey="true"/>
+		<field name="name" />
+		<parameter name="blId" dataType="text" value=""/>
+        <restriction type="sql" sql="bl.bl_id=${parameters['blId']} "/>
+    </dataSource>
+	
+    <dataSource id="ds_ab-proj-projects-map_drawing_main_blLabel">
+        <table name="bl" role="main"/>
+        <field name="bl_id" />
+        <field name="name"/>
+    </dataSource>
+	
+	<panel type="drawing" id="locateBuilding_cadPanel_Main" layoutRegion="sitePosition"
+	 highlightDataSource="ds_ab-proj-projects-map_drawing_main_blHighlight" selectionMode="0" multiple="false"
+     labelsDataSource="ds_ab-proj-projects-map_drawing_main_blLabel" assetTypes="bl">
+        <title translatable="true"></title>
+    </panel>
+	
+	<!-- Display records from the aggregated DataSource in a grid -->
+    <panel type="grid" id="ascBjUsmsOverallOffBlInfoMain_blGrid" dataSource="ds_asc-bj-usms-overall-image-bl-info-main_grid_bl" layoutRegion="rmcatPosition">
+        <title translatable="true">Xue Xiao Suo You Ban Gong Da Lou</title>
+		<sortField name="bl_id" table="bl" ascending="true" />
+    </panel>
+    
+    <js file="asc-bj-usms-overall-image-bl-info-main.js"/>
+</view>

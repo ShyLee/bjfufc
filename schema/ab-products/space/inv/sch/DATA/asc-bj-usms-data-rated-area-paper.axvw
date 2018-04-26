@@ -1,0 +1,81 @@
+<view version="2.0">
+    
+    <message name="messageConfirmDelete" translatable="true">Are you sure you want to delete '{0}' ?</message>
+    <message name="errorDelete" translatable="true">Could not delete '{0}'.</message>
+    <message name="okMessage" translatable="true">GengXinChengGong!</message>
+    <title translatable="true">Ding Yi Xue Sheng Ding e Mian Ji</title>
+    
+    <layout id="main">
+        <west id="selectedPosition" initialSize="30%" split="true"/>
+        <center id="centerPosition"/>
+    </layout>
+    
+    <dataSource id="ds_abScUsmsDefStudentPaperArea">
+        <table name="dv" role="main"/>
+		<field table="dv" name="bu_id"/>
+        <field table="dv" name="dv_id"/>
+        <field table="dv" name="name"/>
+        <field table="dv" name="count_student"/>
+        <field table="dv" name="count_bosh"/>
+        <field table="dv" name="count_bos"/>
+		<field table="dv" name="count_shuos"/>
+        <field table="dv" name="count_benk"/>
+        <field table="dv" name="count_liuxues"/>
+		<field table="dv" name="count_zhuank"/>
+        <field table="dv" name="area_bosh"/>
+        <field table="dv" name="area_bos"/>
+        <field table="dv" name="area_benk"/>
+        <field table="dv" name="area_liuxues"/>
+		<field table="dv" name="area_zhuank"/>
+		<field table="dv" name="area_shuos"/>
+		<restriction type="sql" sql=" dv.bu_id  ${parameters['buId']}"/>
+		<parameter name="buId" dataType="verbatim" value="is not null"/>
+    </dataSource>
+    
+    <panel type="grid" id="abScUsmsDataDefAreaGrid" controlType="reportGrid" dataSource="ds_abScUsmsDefStudentPaperArea" layoutRegion="selectedPosition">
+        <title translatable="true">Select Divition</title>
+		<action id="update">
+            <title translatable="true">Updatexueshenglunwendinge</title>
+        </action>
+        <field table="dv" name="dv_id" controlType="link">
+            <command type="showPanel" panelId="abScUsmsDataDefAreaFrom"/>
+        </field>
+		<field table="dv" name="name" controlType="link">
+            <command type="showPanel" panelId="abScUsmsDataDefAreaFrom"/>
+        </field>
+    </panel>
+	
+    <panel type="form" id="abScUsmsDataDefAreaFrom" showOnLoad="false" dataSource="ds_abScUsmsDefStudentPaperArea" columns="2">
+        <action id="save">
+            <title translatable="true">Save</title>
+        </action>
+        <action id="delete">
+            <title translatable="true">Delete</title>
+			<command type="deleteRecord"/>
+			<command type="showPanel" panelId="abScUsmsDataDefArea" applyParentRestriction="false"/>
+        </action>
+		<field table="dv" name="dv_id"/>
+        <field table="dv" name="name"/>
+		<field table="dv" name="count_student"/>
+		<field></field>
+		<field>
+			<title>Include:</title>
+		</field>
+		<field></field>
+		<field table="dv" name="count_bosh"/>
+		<field table="dv" name="area_bosh"/>
+		<field table="dv" name="count_bos"/>
+		<field table="dv" name="area_bos"/>
+		<field table="dv" name="count_shuos"/>
+		<field table="dv" name="area_shuos"/>
+		<field table="dv" name="count_benk"/>
+		<field table="dv" name="area_benk"/>
+		<field table="dv" name="count_zhuank"/>
+		<field table="dv" name="area_zhuank"/>
+		<field table="dv" name="count_liuxues"/>
+		<field table="dv" name="area_liuxues"/>
+    </panel>
+    <js file="asc-bj-usms-data-rated-area-paper.js"/> 
+    <js file="asc-bj-usms-def-common.js"/>
+	<js file="asc-bj-usms-constant.js"/>
+</view>

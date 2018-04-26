@@ -1,0 +1,61 @@
+<view version="2.0">
+	<dataSource id="zwjbDs">
+		<table name="sc_zw_jb" role="main"/>
+		<field table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_name"/>
+		<field table="sc_zw_jb" name="area_zf_std"/>
+		<field table="sc_zw_jb" name="amount_wf_std"/>
+	</dataSource>
+	<panel type="grid" id="zwjbPanel" dataSource="zwjbDs"  multipleSelectionEnabled="true">
+		<action id="add">
+			<title>Add</title>
+		</action>
+		<action id="delete">
+			<title>Delete</title>
+		</action>
+		<indexField table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_id" controlType="link">
+			<command type="callFunction" functionName="zwjbController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="zw_jb_name" controlType="link">
+			<command type="callFunction" functionName="zwjbController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="area_zf_std" controlType="link">
+			<command type="callFunction" functionName="zwjbController.edit()"/>
+		</field>
+		<field table="sc_zw_jb" name="amount_wf_std" controlType="link">
+			<command type="callFunction" functionName="zwjbController.edit()"/>
+		</field>
+	</panel>
+	
+	<panel type="form" id="zwjbAddForm" dataSource="zwjbDs" showOnLoad="false">
+		<title>edit</title>
+		<action id="save">
+			<title>save</title>
+			<!-- <command type="closeDialog"/> -->
+		</action>
+		<action id="clear">
+			<title>clear</title>
+			<command type="clearForm"/>
+		</action>
+		<field table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_name"/>
+		<field table="sc_zw_jb" name="area_zf_std"/>
+		<field table="sc_zw_jb" name="amount_wf_std"/>
+	</panel>
+	<panel type="form" id="zwjbEditForm" dataSource="zwjbDs" showOnLoad="false">
+		<title>edit</title>
+		<action id="save">
+			<title>save</title>
+			<command type="closeDialog"/>
+		</action>
+		<action id="clear">
+			<title>clear</title>
+		</action>
+		<field table="sc_zw_jb" name="zw_jb_id"/>
+		<field table="sc_zw_jb" name="zw_jb_name"/>
+		<field table="sc_zw_jb" name="area_zf_std"/>
+		<field table="sc_zw_jb" name="amount_wf_std"/>
+	</panel>
+	<js file="asc-bj-usms-data-zwjb.js"/>
+</view>

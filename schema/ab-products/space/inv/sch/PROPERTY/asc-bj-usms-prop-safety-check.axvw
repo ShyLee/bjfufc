@@ -1,0 +1,277 @@
+<view version="2.0">
+	<title>wenwuanquanjiancha</title>
+	<css>
+	  .td{
+	   border-bottom:0.5mm solid #e8e8e8;
+	   border-right:0.5mm solid #e8e8e8;
+	   border-left:0.5mm solid #e8e8e8
+	  }
+	  #td1{
+	   border-top:0.5mm solid #e8e8e8
+	  }
+	</css>
+	<layout type="borderLayout" id="mainLayout">
+        <north id="top" initialSize="13%" split="true"/>
+        <center id="center" autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="bodyLayout"
+        containingLayout="mainLayout" region="center">
+        <north id="zhongjian" initialSize="26%" split="true"/>
+        <center id="right1" autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="bodyLayout1"
+        containingLayout="bodyLayout" region="center">
+        <west id="left" initialSize="40%" split="true"/>
+        <center id="right" autoScroll="true" />
+    </layout>
+	
+	<js file="asc-bj-usms-prop-safety-check.js"/>
+	
+	<dataSource id="tsRelicSafeDs">
+		<table name="ts_relic_safe" role="main"/>
+		<field  name="sequence"     table="ts_relic_safe"   dataType="text"/>
+		<field table="ts_relic_safe" name="sf_id"/>
+		<field table="ts_relic_safe" name="sf_build"/>
+		<field table="ts_relic_safe" name="sf_jc_dv"/>
+		<field table="ts_relic_safe" name="sf_bj_dv"/>
+		<field table="ts_relic_safe" name="sf_safe_mode"/>
+		<field table="ts_relic_safe" name="sf_safe_fzmode"/>
+		<field table="ts_relic_safe" name="sf_safepeople_mode"/>
+		<field table="ts_relic_safe" name="sf_wy_mode"/>
+		<field table="ts_relic_safe" name="sf_content"/>
+		<field table="ts_relic_safe" name="sf_use_dv"/>
+		<field table="ts_relic_safe" name="doc1"/>
+		<field table="ts_relic_safe" name="sf_idea"/>
+		<field table="ts_relic_safe" name="sf_tx_date"/>
+		<field table="ts_relic_safe" name="sf_tx_people"/>
+		<field table="ts_relic_safe" name="beizhu"/>
+		<field table="ts_relic_safe" name="sf_review_date"/>
+		<field table="ts_relic_safe" name="sf_question"/>
+		<field table="ts_relic_safe" name="sf_number"/>
+		
+		<field table="ts_relic_safe" name="safe_fz_people"/>
+		<field table="ts_relic_safe" name="safe_zr_people"/>
+		<field table="ts_relic_safe" name="safe_people"/>
+		<field table="ts_relic_safe" name="wy_people"/>
+	</dataSource>
+	<dataSource id="tsRelicSafeGridDs">
+		<table name="ts_relic_safe" role="main"/>
+		<field  name="sequence"     table="ts_relic_safe"   dataType="text"/>
+		<field table="ts_relic_safe" name="sf_id"/>
+		<field table="ts_relic_safe" name="sf_build"/>
+		<field table="ts_relic_safe" name="sf_jc_dv"/>
+		<field table="ts_relic_safe" name="sf_bj_dv"/>
+		<field table="ts_relic_safe" name="sf_safe_mode"/>
+		<field table="ts_relic_safe" name="sf_safe_fzmode"/>
+		<field table="ts_relic_safe" name="sf_safepeople_mode"/>
+		<field table="ts_relic_safe" name="sf_wy_mode"/>
+		<field table="ts_relic_safe" name="sf_content"/>
+		<field table="ts_relic_safe" name="sf_use_dv"/>
+		<field table="ts_relic_safe" name="doc1"/>
+		<field table="ts_relic_safe" name="sf_idea"/>
+		<field table="ts_relic_safe" name="sf_tx_date"/>
+		<field table="ts_relic_safe" name="sf_tx_people"/>
+		<field table="ts_relic_safe" name="beizhu"/>
+		<field table="ts_relic_safe" name="sf_review_date"/>
+		<field table="ts_relic_safe" name="sf_question"/>
+		<field table="ts_relic_safe" name="sf_number"/>
+		
+		<field table="ts_relic_safe" name="safe_fz_people"/>
+		<field table="ts_relic_safe" name="safe_zr_people"/>
+		<field table="ts_relic_safe" name="safe_people"/>
+		<field table="ts_relic_safe" name="wy_people"/>
+		<restriction type="sql" sql="ts_relic_safe.sf_build is not null"/>
+	</dataSource>
+	<panel type="console"
+		   id="ts_relic_safe_console"
+		   dataSource="tsRelicSafeGridDs"
+		   columns="3"
+		   layoutRegion="top">
+		
+		<title translatable="true">Filter</title>
+		
+		<field table="ts_relic_safe" name="sf_build"/>
+		<field table="ts_relic_safe" name="sf_review_date" alias="ts_relic_safe.sf_review_date.from" required="false" op="&gt;=">
+		  <title translatable="true">from</title>
+		</field>
+		<field table="ts_relic_safe" name="sf_review_date" alias="ts_relic_safe.sf_review_date.to" required="false" op="&lt;=">
+		 <title translatable="true">to</title>
+		</field>
+		<field table="ts_relic_safe" name="sf_bj_dv"/>
+		<field table="ts_relic_safe" name="sf_tx_people"/>
+		<field/>
+		<action id="show">
+			<title translatable="true">Show</title>
+			<command type="showPanel" panelId="ts_relic_safe_gird"/>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="ts_relic_safe_console"/>
+		</action>	
+		
+	</panel>
+	<panel type="grid" 
+		   id="ts_relic_safe_gird" 
+		   dataSource="tsRelicSafeGridDs"
+		   selectionEnabled="true"
+		   layoutRegion="zhongjian">
+		
+		<title translatable="true">wenwuanquanjianchajilu</title>
+		<action id="new">
+				<title translatable="true">New</title>
+		</action>
+			<field table="ts_relic_safe" name="sf_id" controlType="link">
+				<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_number" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_review_date" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_bj_dv" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_build" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_question" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="doc1" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_tx_people" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_tx_date" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+			<field table="ts_relic_safe" name="sf_content" hidden="true" controlType="link">
+			<command type="showPanel" panelId="ts_relic_safe_form"/>
+				<command type="callFunction" functionName="TsingHouseRelicSafeTabController.showCheck()"/>
+			</field>
+		
+	</panel>
+	<panel type="html" id="openhtml" layoutRegion="left">
+        <title translatable="true">jianchaneirong</title>
+        <html>
+            <form id="openform" >
+                <table id="opentable"  style="border-collapse:collapse;width:100%">
+                    <tr >
+                        <td id="td1" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td2" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td3" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td4" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td5" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td6" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td7" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td8" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td9" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td10" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td11" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td12" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td13" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td14" class="td"></td>
+                    </tr>
+                    <tr>
+                        <td id="td15" class="td"></td>
+                    </tr>
+                </table>
+            </form>
+        </html>
+	</panel>
+	
+	<panel type="form" 
+		   id="ts_relic_safe_form"
+		   dataSource="tsRelicSafeDs"
+		   columns="2"
+		   layoutRegion="right">
+		<title translatable="true">jianchajiluxiangqing</title>
+		<field table="ts_relic_safe" name="sf_number"  required="true"/>
+		<field table="ts_relic_safe" name="sf_id" hidden="true"/>
+		<field table="ts_relic_safe" name="sf_build" required="true">
+			<action>
+                <command type="selectValue" fieldNames="ts_relic_safe.sf_build"
+                        selectFieldNames="bl.bl_id" 
+					    visibleFieldNames="bl.bl_id,bl.name"
+                        showIndex="false"/>
+            </action>
+		</field>
+		<field table="ts_relic_safe" name="sf_bj_dv" required="true">
+			<action>
+                <command type="selectValue" fieldNames="ts_relic_safe.sf_bj_dv"
+                        selectFieldNames="dv.dv_id" 
+					    visibleFieldNames="dv.dv_id"
+                        showIndex="false"/>
+            </action>
+		</field>
+		<field table="ts_relic_safe" name="sf_review_date"  required="true"/>
+		<field table="ts_relic_safe" name="safe_zr_people" required="true"/>
+		<field table="ts_relic_safe" name="sf_safe_mode"/>
+		<field table="ts_relic_safe" name="safe_fz_people" required="true"/>
+		<field table="ts_relic_safe" name="sf_safe_fzmode"/>
+		<field table="ts_relic_safe" name="safe_people" required="true"/>
+		<field table="ts_relic_safe" name="sf_safepeople_mode"/>
+		<field table="ts_relic_safe" name="wy_people" required="true"/>
+		<field table="ts_relic_safe" name="sf_wy_mode"/>
+		<field table="ts_relic_safe" name="sf_content" hidden="true"/>
+		<field table="ts_relic_safe" name="sf_tx_date" required="true"/>
+		<field table="ts_relic_safe" name="sf_tx_people" readOnly="true"/>
+		<field table="ts_relic_safe" name="sf_jc_dv" value="${user.employee.organization.divisionId}" readOnly="true"/>
+			
+		<field/>
+		<field table="ts_relic_safe" name="doc1"  colspan="2" required="true"/>
+		<field table="ts_relic_safe" name="sf_question" required="true"/>
+		<field table="ts_relic_safe" name="beizhu"/>
+			
+			<action id="save">
+				<title translatable="true">Save</title>
+				<command type="saveForm"/>
+            <command type="showPanel" panelId="ts_relic_safe_gird" applyParentRestriction="false"/>
+			</action>
+			<action id="delete">
+				<title translatable="true">Delete</title>
+				<command type="deleteRecord"/>
+                <command type="showPanel" panelId="ts_relic_safe_form" show="false"/>
+                <command type="showPanel" panelId="openhtml" show="false"/>
+                <command type="showPanel" panelId="ts_relic_safe_gird" applyParentRestriction="false"/>
+			</action>
+					
+	</panel>	
+</view>

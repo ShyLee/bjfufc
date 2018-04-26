@@ -1,0 +1,47 @@
+<view version="2.0">
+    <title>Tenttui Protocol List</title>
+    
+    <dataSource id="zzfCardDs">
+        <table name="sc_zzfcard" role="main"/>
+        <tabel name="bl" role="standard"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="card_status"/>
+        <field table="sc_zzfcard" name="card_type"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="is_em"/>
+        <field table="sc_zzfcard" name="is_rc"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+		<field table="sc_zzfcard" name="ttqx"/>
+		<field table="sc_zzfcard" name="date_payrent_last"/>
+		<sortField table="sc_zzfcard" name="card_id" />
+        <sortField table="sc_zzfcard" name="em_id" />
+        <restriction type="sql" sql="card_status = 'ttz'"/>
+    </dataSource>
+    
+    <panel id="zzf_fee_detail" type="grid" dataSource="zzfCardDs">
+        <title translatable="true">Protocol List</title>
+		<indexField table="sc_zzfcard" name="card_id" />
+        <indexField table="sc_zzfcard" name="em_id" />
+        <field table="sc_zzfcard" name="card_id" hidden="true"/>
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="bl" name="name"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="card_type" hidden="true"/>
+		<field table="sc_zzfcard" name="date_payrent_last"/>
+        <field table="sc_zzfcard" name="ttqx"/>
+    </panel>
+    
+</view>

@@ -1,0 +1,15 @@
+<view version="2.0">
+	 <title translatable="true">
+        wuyegongsiguanli
+    </title>
+	 <tabs id="propTabs" tabRefreshPolicy="never">
+        <tab name="selectTab" selected="true" file="asc-bj-usms-prop-manage.axvw">
+            <title translatable="true">wuyegongsi</title>
+        </tab>
+        
+        <tab name="propManageTab" file="asc-bj-usms-prop-manage-bl.axvw">
+            <title translatable="true">wuyegongsiguanli</title>
+        </tab>
+        
+    </tabs>
+</view>

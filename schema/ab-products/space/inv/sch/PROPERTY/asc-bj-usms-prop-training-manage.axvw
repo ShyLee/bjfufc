@@ -1,0 +1,118 @@
+<view version="2.0">
+	<title>train manage</title>
+	<message name="formTitle" translatable="true">train doc : {0}</message>
+	<layout type="borderLayout" id="mainLayout">
+        <north id="top" initialSize="13%" split="true"/>
+        <center id="center" autoScroll="true"/>
+    </layout>
+    <layout type="borderLayout" id="bodyLayout"
+        containingLayout="mainLayout" region="center">
+        <west id="gridPanel" initialSize="50%" split="true"/>
+        <center id="formPanel" autoScroll="true"/>
+    </layout>
+	<dataSource id="tsRelicManageDS">
+		<table name="ts_relic_manage" role="main"/>
+		<field table="ts_relic_manage" name="doc1"/>
+		<field table="ts_relic_manage" name="mg_id"/>
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_text"/>
+		<field table="ts_relic_manage" name="mg_people"/>
+		<field table="ts_relic_manage" name="mg_date"/>
+		<field table="ts_relic_manage" name="beizhu"/>
+		<field table="ts_relic_manage" name="read_type"/>
+	</dataSource>
+	<dataSource id="trainReadDS">
+	  <table name="ts_train_read" role="main"/>
+	  <field name="pk_id" table="ts_train_read"/>
+	  <field name="mg_id" table="ts_train_read"/>
+	  <field name="is_read" table="ts_train_read"/>
+	  <field name="em_id" table="ts_train_read"/>
+	  <field name="dv_id" table="ts_train_read"/>
+	  <field name="date_read" table="ts_train_read"/>
+	</dataSource>
+	<dataSource id="tsRelicManageGridDS">
+		<table name="ts_relic_manage" role="main"/>
+		<field table="ts_relic_manage" name="doc1"/>
+		<field table="ts_relic_manage" name="mg_id"/>
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_text"/>
+		<field table="ts_relic_manage" name="mg_people"/>
+		<field table="ts_relic_manage" name="mg_date"/>
+		<field table="ts_relic_manage" name="beizhu"/>
+		<field table="ts_relic_manage" name="read_type"/>
+		<restriction type="sql" sql="mg_name is not null"/>
+	</dataSource>
+	<panel type="console" id="ts_relic_manage_console" dataSource="tsRelicManageGridDS" columns="2" layoutRegion="top"> 
+		<title translatable="true">Filter</title>
+		<action id="show">
+			<title translatable="true">Show</title>
+			<command type="showPanel" panelId="ts_relic_manage_grid"/>
+		</action>
+		<action id="clear">
+			<title translatable="true">Clear</title>
+			<command type="clearPanel" panelId="ts_relic_manage_console"/>
+		</action>
+		
+		<field table="ts_relic_manage" name="mg_name"/>
+		<field table="ts_relic_manage" name="mg_type"/>
+		<field table="ts_relic_manage" name="mg_date" alias="ts_relic_manage.mg_date.from" op="&gt;=">
+		  <title translatable="true">from</title>
+		</field>
+		<field table="ts_relic_manage" name="mg_date" alias="ts_relic_manage.mg_date.to" op="&lt;=">
+		  <title translatable="true">to</title>
+		</field>
+	</panel>
+
+	<panel type="grid" id="ts_relic_manage_grid" dataSource="tsRelicManageGridDS" showOnLoad="true" layoutRegion="gridPanel" >
+		<title translatable="true">train document list</title>
+		<action id="new">
+			<title translatable="true">New</title>
+		</action>
+		<field table="ts_relic_manage" name="mg_id"  controlType="link" hidden="false">
+			<command type="showPanel" panelId="ts_relic_manage_form"/>
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDocName()"/>
+		</field>	
+		<field table="ts_relic_manage" name="mg_name" controlType="link">
+			<command type="showPanel" panelId="ts_relic_manage_form"/>
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDocName()"/>
+		</field>	
+		<field table="ts_relic_manage" name="mg_type" controlType="link">
+			<command type="showPanel" panelId="ts_relic_manage_form"/>
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDocName()"/>
+		</field>	
+		<field table="ts_relic_manage" name="mg_date" controlType="link">
+			<command type="showPanel" panelId="ts_relic_manage_form"/>
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDocName()"/>
+		</field>	
+		<field table="ts_relic_manage" name="mg_people" controlType="link">
+			<command type="showPanel" panelId="ts_relic_manage_form"/>
+			<command type="callFunction" functionName="TsingHouseRelicManageController.showDocName()"/>
+		</field>	
+	</panel>
+	
+	<panel type="form" id="ts_relic_manage_form"  columns="2"  dataSource="tsRelicManageDS" showOnLoad="false" layoutRegion="formPanel">
+		<title translatable="true">train document</title>
+		<action id="save">
+			<title translatable="true">Save</title>
+		</action>
+		<action id="delete">
+			<title translatable="true">Delete</title>	
+			<command type="deleteRecord"/>
+           <command type="showPanel" panelId="ts_relic_manage_form" show="false"/>
+           <command type="showPanel" panelId="ts_relic_manage_grid" applyParentRestriction="false"/>
+		</action>
+		<field table="ts_relic_manage" name="mg_id"  readOnly="true" hidden="true"/>
+		<field table="ts_relic_manage" name="mg_type" required="true"/>
+		<field table="ts_relic_manage" name="mg_date" required="true"/>
+		<field table="ts_relic_manage" name="mg_name" required="true"/>
+		<field table="ts_relic_manage" name="mg_people" readOnly="true"/>
+		<field table="ts_relic_manage" name="doc1" required="true" colspan="2"/>
+		<field table="ts_relic_manage" name="mg_text" colspan="2"/>
+		<field table="ts_relic_manage" name="beizhu" colspan="2"/>
+		
+		<field/>
+	</panel>		
+   <js file="asc-bj-usms-prop-training-manage.js"/>
+</view>

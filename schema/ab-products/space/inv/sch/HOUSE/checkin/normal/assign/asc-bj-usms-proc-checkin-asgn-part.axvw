@@ -1,0 +1,83 @@
+<view version="2.0">
+      <dataSource id="show_sc_zzfcard">
+        <table name="sc_zzfcard"	role="main"/>
+        
+        <field name="card_id"	table="sc_zzfcard"/>
+		<field name="date_checkin" table="sc_zzfcard"/>
+        <field name="date_checkout_ought" table="sc_zzfcard" />
+        <field name="date_register" table="sc_zzfcard" />
+        <field name="all_payoff" table="sc_zzfcard" />
+        <field name="em_id" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard"/>
+        <field name="sex" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="date_join_work" table="sc_zzfcard"/>
+        <field name="marriage_stat" table="sc_zzfcard"/>
+        <field name="is_working_parents" table="sc_zzfcard"/>
+        <field name="po_name" table="sc_zzfcard"/>
+        <field name="po_dv_id" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard" />
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="unit_code" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="date_created" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard"/>
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="desposit_payoff"  table="sc_zzfcard" />
+        <field name="eq_desc_chkout" table="sc_zzfcard"/>
+        <field name="amount_months" table="sc_zzfcard"/>
+        <field name="date_payrent_last" table="sc_zzfcard" />
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="sponsor" table="sc_zzfcard"/>
+        <field name="sponsor_name" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="phone_home" table="sc_zzfcard"/>
+        <field name="actual_payoff" table="sc_zzfcard" />
+		<field name="doc_lease" table="sc_zzfcard" />
+		<restriction type="sql" sql="card_status='1' and cause_checkout is null"/>
+	 </dataSource>
+	 <panel type="console" dataSource="show_sc_zzfcard" id="console_show_sc_zzfcard" columns="4">  
+	 	<title>shuai xuan</title>
+		
+		<action id="show">
+			<title>shuai xuan</title>
+			<command type="callFunction" functionName="ascBjUsmsProcCheckinAsgnPartController.onShow()"/> 
+		</action>
+	
+		<action id="clear">
+			<title>qing chu</title>
+			<command type="clearPanel" panelId="console_show_sc_zzfcard"/>
+		</action>
+		
+		<field name="em_id" table="sc_zzfcard"/>
+		<field name="em_name" table="sc_zzfcard"/>
+		
+	 </panel>
+	 <panel type="grid" columns="3" id="show_sc_zzfcard_grid" dataSource="show_sc_zzfcard" >
+     
+	    <title translatable="true">he tong lie biao</title>
+	    
+		<field name="card_id"	table="sc_zzfcard" hidden="true"/>
+		<field name="date_checkin" table="sc_zzfcard" />
+	    <field name="date_checkout_ought" table="sc_zzfcard"/>
+	    <field name="em_id" table="sc_zzfcard"/>
+	    <field name="em_name" table="sc_zzfcard" />
+        <field name="cash_deposit" table="sc_zzfcard" />
+        <field name="desposit_payoff"  table="sc_zzfcard" />
+		<field name="doc_lease"  table="sc_zzfcard" controlType="link"/>
+    </panel>
+	 
+	
+	<js file="asc-bj-usms-proc-checkin-asgn-part.js"/>
+	
+</view>

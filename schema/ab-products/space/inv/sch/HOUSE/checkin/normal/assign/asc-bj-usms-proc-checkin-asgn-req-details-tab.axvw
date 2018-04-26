@@ -1,0 +1,400 @@
+<view version="2.0">
+    
+    <js file="asc-bj-usms-proc-checkin-asgn-req-details-tab.js"/>
+    <js file="asc-bj-usms-proc-common.js"/>
+    <js file="asc-bj-usms-house-common.js"/>
+   	 
+	  <layout type="borderLayout" id="main">
+         <north   autoScroll="true" split="true" initialSize="45%" />
+         <center  autoScroll="true" />
+      </layout>
+    
+      <layout type="borderLayout" id="centerLayout" containingLayout="main" region="center">
+         <north  autoScroll="true" split="true" initialSize="15%"/>
+         <center autoScroll="true"/>
+      </layout>
+	   
+	  <dataSource id="blDataSource">
+    	<table name="bl" role="main"/>
+    	<field name="bl_id" table="bl"/>
+    	<field name="name" table="bl"/>
+	  </dataSource>
+
+     <dataSource id="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabFormDS">
+        <table name="activity_log" role="main"/>
+		<table name="sc_zzfcard" role="standard"/>
+		
+		<field name="card_id" table="sc_zzfcard"/>
+		<field name="doc_lease" table="sc_zzfcard"/>
+		
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="activity_type" table="activity_log"/>
+        <field name="description" table="activity_log"/>
+        <field name="requestor" table="activity_log"/>
+        <field name="phone_requestor" table="activity_log"/>
+        <field name="priority" table="activity_log"/>
+        <field name="prob_type" table="activity_log"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="time_required" table="activity_log"/>
+        <field name="dp_id" table="activity_log"/>
+        <field name="dv_id" table="activity_log"/>
+        <field name="doc1" table="activity_log"/>
+        <field name="doc2" table="activity_log"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="rm_type" table="activity_log"/>
+        <field name="rm_name_after" table="activity_log"/>
+        <field name="area" table="activity_log"/>
+        <field name="count_rm" table="activity_log"/>
+        <field name="rm_user" table="activity_log"/>
+        <field name="project_gp_id" table="activity_log"/>
+        <field name="date_used_from" table="activity_log"/>
+        <field name="date_used_to" table="activity_log"/>
+        <field name="bl_id" table="activity_log"/>
+    </dataSource>
+    
+    <dataSource id="show_sc_zzfcard">
+        <table name="activity_log" role="main"/>
+        <table name="sc_zzfcard" role="standard"/>
+        <field name="date_checkin" table="sc_zzfcard" />
+        <field name="date_checkout_ought" table="sc_zzfcard" />
+        <field name="date_register" table="sc_zzfcard" />
+		<field name="lease_id" table="sc_zzfcard"/>
+        <field name="all_payoff" table="sc_zzfcard" />
+        <field name="em_id" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard"/>
+        <field name="sex" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="date_join_work" table="sc_zzfcard"/>
+        <field name="marriage_stat" table="sc_zzfcard"/>
+        <field name="is_working_parents" table="sc_zzfcard"/>
+        <field name="po_name" table="sc_zzfcard"/>
+        <field name="po_dv_id" table="sc_zzfcard"/>
+		<field name="po_em_id" table="sc_zzfcard"/>
+		<field name="po_identi_code" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard" />
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="unit_code" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="date_created" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard"/>
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="desposit_payoff"  table="sc_zzfcard" />
+        <field name="eq_desc_chkout" table="sc_zzfcard"/>
+        <field name="amount_months" table="sc_zzfcard"/>
+        <field name="date_payrent_last" table="sc_zzfcard" />
+		<field name="rent_pay_people" table="sc_zzfcard"/>
+        <field name="clean_pay_people" table="sc_zzfcard" />
+        
+        
+        <field name="activity_log_id" table="activity_log"/>
+        <field name="zzfcard_id" table="activity_log"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="sponsor" table="sc_zzfcard"/>
+        <field name="sponsor_name" table="sc_zzfcard"/>
+        <field name="date_required" table="activity_log"/>
+        <field name="date_used_to" table="activity_log"/>
+        <field name="date_used_from" table="activity_log"/>
+        <field table="activity_log" name="requestor"/>
+        <field name="rm_cat" table="activity_log"/>
+        <field name="requestor_name" table="activity_log"/>
+        <field table="activity_log" name="phone_requestor"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="phone_home" table="sc_zzfcard"/>
+        <field name="actual_payoff" table="sc_zzfcard" />
+		<field name="address_bt" table="sc_zzfcard" />
+		<field name="area_fuli"	table="sc_zzfcard" />
+        
+        <field name="is_rc" table="sc_zzfcard" /> 
+		<field name="sponsor_dv" table="sc_zzfcard"/>
+		<field name="yxhx" table="sc_zzfcard"/> 
+    </dataSource>
+    
+    
+    <dataSource id="sc_zzfcardDataSource">
+        <table name="sc_zzfcard" role="main"/>
+        <field name="card_id" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard"/>
+        <field name="sex" table="sc_zzfcard"/>
+        <field name="em_id" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="amount_months" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="bl_id" table="sc_zzfcard"/>
+        <field name="fl_id" table="sc_zzfcard"/>
+        <field name="rm_id" table="sc_zzfcard"/>
+        <field name="operator" table="sc_zzfcard"/>
+        <field name="card_status" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="is_em" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard" />
+        <field name="sponsor" table="sc_zzfcard"/>
+        <field name="sponsor_name" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard"/>
+        <field name="eq_desc_chkout" table="sc_zzfcard"/>
+        <field name="desposit_payoff"  table="sc_zzfcard" />
+        <field name="date_register" table="sc_zzfcard"/> 
+        <field name="date_checkin" table="sc_zzfcard"/>  
+        <field name="date_checkout_ought" table="sc_zzfcard" />
+        <field name="all_payoff" table="sc_zzfcard" />
+        <field name="actual_payoff" table="sc_zzfcard" />
+        <field name="date_payrent_last" table="sc_zzfcard" />
+		<field name="lease_id" table="sc_zzfcard" />
+		<field name="clean_pay_people" table="sc_zzfcard"/>
+		<field name="rent_pay_people" table="sc_zzfcard"/>
+		<field name="date_created" table="sc_zzfcard"/>
+		<field name="date_created_time" table="sc_zzfcard"/>
+    </dataSource>
+    
+    <dataSource id="cardMainDs">
+        <table name="sc_zzfrent" role="main"/>
+        <field name="year" table="sc_zzfrent" />
+        <field name="month" table="sc_zzfrent" />
+        <field name="operator" table="sc_zzfrent" />
+        <field name="area" table="sc_zzfrent" />
+        <field name="count_rm" table="sc_zzfrent" />
+        <field name="count_em" table="sc_zzfrent" />
+        <field name="tot_rent" table="sc_zzfrent" />
+        <field name="all_rm_count" table="sc_zzfrent" />
+        <field name="all_em_count" table="sc_zzfrent" />
+    </dataSource> 
+    <dataSource id="cardDetailDs">
+        <table name="sc_zzfrent_details" role="main"/>
+        <field name="em_id" table="sc_zzfrent_details" />
+        <field name="card_id" table="sc_zzfrent_details" />
+        <field name="year" table="sc_zzfrent_details" />
+        <field name="month" table="sc_zzfrent_details" />
+        <field name="month_rent" table="sc_zzfrent_details" />
+    </dataSource> 
+    
+    <dataSource id="RoomDs">
+        <table name="rm" role="main"/>
+        <field name="bl_id" table="rm"/>
+        <field name="fl_id" table="rm"/>
+        <field name="rm_id" table="rm"/>
+        <field name="ruzhu_status" table="rm"/>
+        <field name="owner_name" table="rm"/>
+    </dataSource>
+    
+	<panel type="form" columns="2" id="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabAttachmentForm" dataSource="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabFormDS" showOnLoad="false" layout="centerLayout" region="north">
+        <title translatable="true">Attachment</title>
+        <field name="activity_log_id" table="activity_log" hidden="true"/>
+        <field name="doc1" table="activity_log" readOnly="true">
+        	<title>Attachment</title>
+        </field>
+        <field name="doc2" table="activity_log" readOnly="true">
+        	<title>Attachment</title>
+        </field>
+		<field name="doc_lease" table="sc_zzfcard" readOnly="false"/>
+    </panel>
+    <panel type="form" columns="3" id="teacherForm" dataSource="show_sc_zzfcard" showOnLoad="false"	layout="main"	region="north">
+        <title translatable="true">Teacher Requestor</title>
+		 <action id="save">
+            <title translatable="true">Save</title>
+            <command type="callFunction" functionName="assignDetailController.onSave()"/>
+        </action>
+        <action id="approve">
+            <title translatable="true">Assign</title>
+            <command type="callFunction" functionName="assignDetailController.onAssign()"/>
+        </action>
+        <action id="back">
+            <title translatable="true">Back</title>
+            <command type="callFunction" functionName="assignDetailController.onBack()"/>
+        </action>
+		
+		<field name="activity_log_id" table="activity_log" hidden="true" readOnly="true" >
+            <title translatable="true">Service Request ID</title>
+        </field>
+        <field name="card_id" table="sc_zzfcard" hidden="true"/>
+        <field name="lease_id" table="sc_zzfcard" hidden="true"/>
+        
+		<field name="is_em" table="sc_zzfcard" hidden="true"/>
+		<field name="payment_to" table="sc_zzfcard" hidden="true"/>
+        <field name="date_used_to" table="activity_log" readOnly="true" hidden="true"/>
+        
+        <!-- <field name="rm_cat" table="activity_log" hidden="false" readOnly="true" /> -->
+        <!-- <field table="activity_log" name="requestor" readOnly="true" hidden="false"/> -->
+        
+        <field name="date_checkin" table="sc_zzfcard" readOnly="false" onchange="getTotalPayment()"/> 
+        <field name="date_checkout_ought" table="sc_zzfcard" readOnly="false" onchange="getTotalPayment()"/>
+        <field name="rent_pay_people" table="sc_zzfcard" readOnly="false"/>
+        <field name="clean_pay_people" table="sc_zzfcard" readOnly="false"/>
+	    <field name="date_register" table="sc_zzfcard" readOnly="true" /> 
+        <field name="all_payoff" table="sc_zzfcard"/>
+        <field name="em_id" table="sc_zzfcard"/>
+         <field name="em_name" table="sc_zzfcard">
+            <title translatable="true">ShenQingRen</title>
+         </field>
+        <field name="sex" table="sc_zzfcard"/>
+         <field name="identi_code" table="sc_zzfcard"/>
+        <field name="dv_name" table="sc_zzfcard"/>
+        <field name="phone" table="sc_zzfcard"/>
+        <field name="email" table="sc_zzfcard"/>
+        <field name="is_rc" table="sc_zzfcard" /> 
+        <field name="date_join_work" table="sc_zzfcard"/>
+        <field name="marriage_stat" table="sc_zzfcard"/>
+        <field name="is_working_parents" table="sc_zzfcard"/>
+        <field name="po_em_id" table="sc_zzfcard"/>
+        <field name="po_name" table="sc_zzfcard"/>
+		<field name="po_identi_code" table="sc_zzfcard" />
+		<field name="po_dv_id" table="sc_zzfcard"/>
+        <field name="curr_addr" table="sc_zzfcard"/>
+        <field name="yxhx" table="sc_zzfcard"/> 
+        <field name="unit_code" table="sc_zzfcard" />
+        <field name="bl_id" table="sc_zzfcard" hidden="true"/>
+		<field id="blName">
+			<title>Name</title>
+        </field>	
+        <field name="fl_id" table="sc_zzfcard" />
+        <field name="rm_id" table="sc_zzfcard" />
+        <field name="date_created" table="sc_zzfcard" />
+        <field name="area_lease" table="sc_zzfcard"/>
+		<field name="address_bt" table="sc_zzfcard" />
+		<field name="area_fuli"	table="sc_zzfcard" />
+        <field name="payment_to" table="sc_zzfcard" /> 
+        <field name="rent_period" table="sc_zzfcard" />
+        <field name="cash_deposit" table="sc_zzfcard" >
+             <title translatable="true">ya jin</title>
+        </field>
+        <field name="curr_rent_rate" table="sc_zzfcard" />
+         <field name="desposit_payoff"  table="sc_zzfcard" >
+        	<title translatable="true">mei yue zu jin</title>
+        </field>
+        <field name="amount_months" table="sc_zzfcard" hidden="true"/>
+        <field name="date_payrent_last" table="sc_zzfcard" hidden="true"/>
+        <field name="actual_payoff" table="sc_zzfcard"  hidden="true"/>
+        <field name="eq_desc_chkout" colspan="2" table="sc_zzfcard" readOnly="true" height="30" />
+</panel>
+    
+    <panel type="form" columns="3" id="nteacherForm" dataSource="show_sc_zzfcard" showOnLoad="false" layout="main"	region="north">
+        <title translatable="true">Requestor</title>
+		 <action id="save">
+            <title translatable="true">Save</title>
+            <command type="callFunction" functionName="assignDetailController.onSave()"/>
+        </action>
+        <action id="approve">
+            <title translatable="true">Assign</title>
+            <command type="callFunction" functionName="assignDetailController.onAssign()"/>
+        </action>
+        <action id="back">
+            <title translatable="true">Back1</title>
+            <command type="callFunction" functionName="assignDetailController.onBack()"/>
+        </action>
+		
+		<field name="activity_log_id" table="activity_log" hidden="true">
+            <title translatable="true">Service Request ID</title>
+        </field>
+		<field name="card_id" table="sc_zzfcard" hidden="true"/>
+		<field name="lease_id" table="sc_zzfcard" hidden="true"/>
+		
+		<field name="is_em" table="sc_zzfcard" hidden="true"/>
+        <field name="payment_to" table="sc_zzfcard" hidden="true"/>
+        <field name="date_used_to" table="activity_log" readOnly="true" hidden="true"/>
+        
+        <field name="date_checkin" table="sc_zzfcard" readOnly="false" required="true" onchange="getTotalPayment()"/>
+        <field name="date_checkout_ought" table="sc_zzfcard" readOnly="false" required="true" onchange="getTotalPayment()"/> 
+        <field name="rent_pay_people" table="sc_zzfcard" readOnly="false" />
+        <field name="clean_pay_people" table="sc_zzfcard" readOnly="false" />
+        <field name="date_register" table="sc_zzfcard" />
+        <field name="all_payoff" table="sc_zzfcard" />
+        <field name="sponsor" table="sc_zzfcard" />
+        <field name="sponsor_name" table="sc_zzfcard" />
+        <field name="sponsor_dv" table="sc_zzfcard"/>
+        <field name="em_name" table="sc_zzfcard" >
+            <title translatable="true">ShenQingRen</title>
+         </field>
+        <field name="sex" table="sc_zzfcard" />
+        <field name="identi_code" table="sc_zzfcard" />
+        <field name="marriage_stat" table="sc_zzfcard" />
+        <field name="phone" table="sc_zzfcard" />
+        <field name="email" table="sc_zzfcard" />
+        <field name="is_rc" table="sc_zzfcard" /> 
+        <field name="curr_addr" table="sc_zzfcard" />
+        
+        <field name="yxhx" table="sc_zzfcard"/> 
+         <field name="unit_code" table="sc_zzfcard"/>
+		<field id="blName">
+			<title>Name</title>
+        </field>	
+        <field name="bl_id" table="sc_zzfcard" hidden="false"/>
+        <field name="fl_id" table="sc_zzfcard" />
+        <field name="rm_id" table="sc_zzfcard" />
+        <field name="date_created" table="sc_zzfcard"/>
+        <field name="area_lease" table="sc_zzfcard" />
+        <field name="payment_to" table="sc_zzfcard"/>
+        <field name="rent_period" table="sc_zzfcard"/>
+        <field name="cash_deposit" table="sc_zzfcard" />
+        <field name="curr_rent_rate" table="sc_zzfcard"/>
+        <field name="desposit_payoff" table="sc_zzfcard" >
+        <title translatable="true">mei yue zu jin</title>
+        </field>
+        <field name="amount_months" table="sc_zzfcard" hidden="true"/>
+        <field name="date_payrent_last" table="sc_zzfcard"  hidden="true"/> 
+        <field name="actual_payoff" table="sc_zzfcard"  hidden="true"/>
+        <field name="eq_desc_chkout" colspan="2" table="sc_zzfcard"/>
+       <!--  <field name="zzfcard_id" table="activity_log" hidden="false"/>
+        <field name="rm_cat" table="activity_log" hidden="false" /> -->
+        <!-- <field table="activity_log" name="requestor" hidden="false"/> -->
+        
+    </panel>
+    
+    
+    <dataSource id="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabHistoryPanelDS">
+        <table name="helpdesk_step_log" role="main"/>
+        <table name="afm_wf_steps" role="standard"/>
+        <table name="em" role="standard"/>
+        
+        <field name="step_log_id" table="helpdesk_step_log"/>
+        <field name="user_name" table="helpdesk_step_log"/>
+        <field name="em_id" table="helpdesk_step_log"/>
+        <field name="name" table="em"/>
+        <field name="vn_id" table="helpdesk_step_log"/>
+        <field name="date_response" table="helpdesk_step_log"/>
+        <field name="time_response" table="helpdesk_step_log"/>
+        <field name="step" table="afm_wf_steps"/>
+        <field name="status" table="afm_wf_steps"/>
+        <field name="step_status_result" table="helpdesk_step_log"/>
+        <field name="comments" table="helpdesk_step_log"/>
+    </dataSource>
+    
+    
+    <!--以下是历史记录-->
+    <panel type="grid" id="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabHistoryPanel" controlType="reportGrid" dataSource="ascBjUsmsProcAsgnCreateReqAddAttachmentsTabHistoryPanelDS" showOnLoad="false"	layout="centerLayout" region="center">
+        <title translatable="true">History</title>
+        
+        <field name="step_log_id" table="helpdesk_step_log" hidden="true"/>
+        <field name="user_name" table="helpdesk_step_log" hidden="true"/>
+        <field name="name" table="em" hidden="true"/>
+        <field name="vn_id" table="helpdesk_step_log" hidden="true">
+            <title translatable="true">Step Responded By</title>
+        </field>
+        <field name="date_response" table="helpdesk_step_log">
+            <title translatable="true">On</title>
+        </field>
+        <field name="time_response" table="helpdesk_step_log" hidden="true"/>
+        <field name="step" table="afm_wf_steps">
+            <title translatable="true">Workflow Step</title>
+        </field>
+        <field name="step_status_result" table="helpdesk_step_log">
+            <title translatable="true">Step Status After</title>
+        </field>
+        <field name="comments" table="helpdesk_step_log">
+            <title translatable="true">Comments</title>
+        </field>
+    </panel>
+</view>

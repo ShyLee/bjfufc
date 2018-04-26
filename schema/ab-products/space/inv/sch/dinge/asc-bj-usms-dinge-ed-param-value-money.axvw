@@ -1,0 +1,114 @@
+<view version="2.0">
+    <title translatable="true">Define Dv Dinge Params</title>
+    <layout type="borderLayout" id="mainLayout">
+        <north autoScroll="true" split="true" initialSize="85"/>
+        <center/>
+    </layout>
+    <layout id="nested_center" containingLayout="mainLayout" region="center">
+        <north initialSize="86%" split="true"/>
+        <center />
+    </layout>
+    <dataSource id="sc_ts_dv_dinge_ds">
+        <table name="sc_ts_dv_dinge" role="main"/>
+        <field table="sc_ts_dv_dinge" name="area_bg"/>
+        <field table="sc_ts_dv_dinge" name="area_dazl"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge"/>
+        <field table="sc_ts_dv_dinge" name="area_dv"/>
+        <field table="sc_ts_dv_dinge" name="area_ja"/>
+        <field table="sc_ts_dv_dinge" name="area_oa"/>
+        <field table="sc_ts_dv_dinge" name="area_ta"/>
+        <field table="sc_ts_dv_dinge" name="area_teac"/>
+        <field table="sc_ts_dv_dinge" name="area_yjs"/>
+        <field table="sc_ts_dv_dinge" name="area_za"/>
+        <field table="sc_ts_dv_dinge" name="area_zdxk"/>
+        <field table="sc_ts_dv_dinge" name="comments"/>
+        <field table="sc_ts_dv_dinge" name="count_bs"/>
+        <field table="sc_ts_dv_dinge" name="count_cx"/>
+        <field table="sc_ts_dv_dinge" name="count_em_jb"/>
+        <field table="sc_ts_dv_dinge" name="count_fg"/>
+        <field table="sc_ts_dv_dinge" name="count_fl"/>
+        <field table="sc_ts_dv_dinge" name="count_fx"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+        <field table="sc_ts_dv_dinge" name="count_qz"/>
+        <field table="sc_ts_dv_dinge" name="count_ss"/>
+        <field table="sc_ts_dv_dinge" name="count_xz"/>
+        <field table="sc_ts_dv_dinge" name="count_ys"/>
+        <field table="sc_ts_dv_dinge" name="count_zc"/>
+        <field table="sc_ts_dv_dinge" name="count_zd"/>
+        <field table="sc_ts_dv_dinge" name="count_zf"/>
+        <field table="sc_ts_dv_dinge" name="count_zg"/>
+        <field table="sc_ts_dv_dinge" name="count_zl"/>
+        <field table="sc_ts_dv_dinge" name="count_zx"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"/>
+        <field table="sc_ts_dv_dinge" name="dv_name"/>
+        <field table="sc_ts_dv_dinge" name="formula_id"/>
+        <field table="sc_ts_dv_dinge" name="money_month"/>
+        <field table="sc_ts_dv_dinge" name="money_y"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge"/>
+    </dataSource>
+     <panel type='console' columns="1"  id="consolePanel"  dataSource="none" layout="mainLayout" region="north"  >
+        <title translatable="true">Place Input A Year</title>
+        <action id="show">
+            <title translatable="true">Show</title>
+        </action>
+        <action id="clear">
+            <title translatable="true">Clear</title>
+        </action>
+         <field name="year"  id="year" dataType="text" onchange="abDefineDvParamsController.verifyYear()">
+            <title translatable="true">Year</title>
+        </field>
+    </panel>
+     <panel type="grid" id="viewDvDingePanel" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false" layout="nested_center" region="north" showCounts="true">
+        <title translatable="true">Dinge Params List</title>
+        <action id="createHPatternsCat_exportTXFR">
+            <title>DATA</title>
+            <command type="exportPanel" outputType="txfr" panelId="viewDvDingePanel"/>
+        </action>  
+        <field table="sc_ts_dv_dinge" name="year_dinge" hidden="true"/>
+        <field table="sc_ts_dv_dinge" name="dv_id"  controlType="link">
+            <command type="callFunction" functionName="editDvParamsDetail"/>
+        </field>
+        <field table="sc_ts_dv_dinge" name="dv_name"  controlType="link">
+            <command type="callFunction" functionName="editDvParamsDetail"/>
+        </field>
+        <field table="sc_ts_dv_dinge" name="count_month"   controlType="link">
+            <command type="callFunction" functionName="editDvParamsDetail"/>
+        </field>
+    </panel>
+    
+    <panel type="form" id="editDvDingePanel" dataSource="sc_ts_dv_dinge_ds" showOnLoad="false"  columns="1">
+        <title translatable="true">Edit Dinge Month Params</title>
+        <action id="viewParams">
+            <title translatable="true">view params</title>
+            <command type="callFunction" functionName="abDefineDvParamsController.viewParams()"/>
+        </action>        
+        <action id="abRepairtyEdit_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="viewDvDingePanel" applyParentRestriction="false"/>
+        </action>
+        <field table="sc_ts_dv_dinge" name="dv_id" hidden="true"/>
+        <field table="sc_ts_dv_dinge" name="dv_name" hidden="true"/>
+        <field table="sc_ts_dv_dinge" name="year_dinge" hidden="true"/>
+        <field table="sc_ts_dv_dinge" name="area_dinge" hidden="true"/>
+        <field table="sc_ts_dv_dinge" name="dv_name" readOnly="true"/>
+        <field table="sc_ts_dv_dinge" name="count_month"/>
+    </panel>
+    <dataSource id="sc_dv_area_log_ds">
+        <table name="sc_dv_area_log" role="main"/>
+        <field table="sc_dv_area_log" name="area_log_id"/>
+        <field table="sc_dv_area_log" name="dv_id"/>
+        <field table="sc_dv_area_log" name="area"/>
+        <field table="sc_dv_area_log" name="month"/>
+        <field table="sc_dv_area_log" name="year"/>
+     </dataSource>
+    <panel type="grid" id="viewDvParams" dataSource="sc_dv_area_log_ds" showOnLoad="false" selectionEnabled="true">
+        <title translatable="true"></title>
+        <field table="sc_dv_area_log" name="dv_id" hidden="true"/>
+        <field table="sc_dv_area_log" name="year"/>
+        <field table="sc_dv_area_log" name="month"/>
+        <field table="sc_dv_area_log" name="area"/>
+        <sortField table="sc_dv_area_log" name="month" ascending='true'/>
+      </panel>    
+  	<js file="asc-bj-usms-dinge-ed-param-value-money.js"/>
+</view>

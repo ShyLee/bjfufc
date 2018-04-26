@@ -1,0 +1,127 @@
+<view version="2.0">
+    
+        
+    <dataSource id="ds_abScZZFRuZhu_card">
+        <table name="sc_zzfcard" role="main"/>
+        <table name="rm" role="standard"/>
+        <field table="sc_zzfcard" name="card_id"/>
+        <field table="sc_zzfcard" name="bl_id"/>
+        <field table="sc_zzfcard" name="fl_id"/>
+        <field table="sc_zzfcard" name="rm_id"/>
+        <field table="rm" name="rm_id"/>
+        <field table="sc_zzfcard" name="daxiaojian"/>
+        <field table="sc_zzfcard" name="rmsrc_situation"/>
+        
+        <field table="sc_zzfcard" name="date_checkin"/>
+        <field table="sc_zzfcard" name="date_checkout_ought"/>
+        <field table="sc_zzfcard" name="amount_months"/>
+        <field table="sc_zzfcard" name="agreement_code"/>
+        <field table="sc_zzfcard" name="date_birth"/>
+        <field table="sc_zzfcard" name="dv_name"/>
+        <field table="sc_zzfcard" name="xueli"/>
+        <field table="sc_zzfcard" name="sex"/>
+        <field table="sc_zzfcard" name="zhic_id"/>
+        <field table="sc_zzfcard" name="zhiw_id"/>
+        <field table="sc_zzfcard" name="date_join_work"/>
+        <field table="sc_zzfcard" name="date_work_begin"/>
+        <field table="sc_zzfcard" name="identi_code"/>
+        <field table="sc_zzfcard" name="phone"/>
+        <field table="sc_zzfcard" name="phone_home"/>
+        <field table="sc_zzfcard" name="email"/>
+        
+        <!-- second panel-->
+        <field table="sc_zzfcard" name="em_id"/>
+        <field table="sc_zzfcard" name="em_name"/> 
+        
+        <!-- third panel-->
+        
+        <field table="sc_zzfcard" name="area_lease"/>
+        
+        <!-- deposit panel-->
+        <restriction type="sql" sql="sc_zzfcard.card_id=${parameters['cardIdRes']}"/>
+        <parameter name="cardIdRes" dataType="text" value=""/>
+    </dataSource>
+  
+    <panel type="form" id="abScZzfRuZhuCardForm"  columns="3" dataSource="ds_abScZZFRuZhu_card">
+        <field table="sc_zzfcard" name="card_id" hidden="true"/>
+        <field table="sc_zzfcard" name="bl_id" hidden="true"/>
+        <field table="sc_zzfcard" name="fl_id" hidden="true"/>
+        <field table="sc_zzfcard" name="rm_id" hidden="true"/>
+        <field table="sc_zzfcard" name="agreement_code" readOnly="true"/>
+        <field table="sc_zzfcard" name="rmsrc_situation" readOnly="true"/>
+        <field table="sc_zzfcard" name="daxiaojian" readOnly="true"/>
+        <field table="sc_zzfcard" name="area_lease" readOnly="true"/>
+        <field table="sc_zzfcard" name="em_name" readOnly="true"/> 
+        <field table="sc_zzfcard" name="date_birth" readOnly="true">
+            <title translatable="true">ChuShengRiQi</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="dv_name" readOnly="true">
+            <title translatable="true">SuoShuDanWei</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="xueli" readOnly="true">
+            <title translatable="true">Xue Li</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="sex" readOnly="true">
+            <title translatable="true">Xing Bie</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="zhic_id" readOnly="true">
+            <title translatable="true">Zhi Cheng</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="zhiw_id" readOnly="true">
+            <title translatable="true">Zhi Wu</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="date_join_work" readOnly="true">
+            <title translatable="true">Can Jia Gong Zuo Shi Jian</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="date_work_begin" readOnly="true">
+            <title translatable="true">Lai Xiao Shi Jian</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="identi_code" readOnly="true">
+            <title translatable="true">Shen Fen Zheng Hao Ma</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="em_id" readOnly="true"/>
+        <field table="sc_zzfcard" name="phone" readOnly="true">
+            <title translatable="true">Shou Ji Hao Ma</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="phone_home" readOnly="true">
+            <title translatable="true">Gu Ding Dian Hua</title>
+        </field>
+        
+        <field table="sc_zzfcard" name="email" readOnly="true">
+            <title translatable="true">You Xiang</title>
+        </field>    
+        
+        
+        <field table="sc_zzfcard" name="date_checkin" readOnly="true"/>
+        <field table="sc_zzfcard" name="date_checkout_ought" readOnly="true"/>
+        <field>
+            <title translatable="true">Shi Fou Chao Qi</title>
+            <html>
+                <div>
+                    <input type="text" name="shifouchaoqi" value="" id="chaoqi" disabled="disabled"/>
+                </div>
+            </html>
+        </field>
+        <field>
+            <title translatable="true">Mu Qian Yue Zu Jin</title>
+            <html>
+                <div>
+                    <input type="text" name="currMonRent" value="" id="currMonRent" disabled="disabled"/>
+                </div>
+            </html>
+        </field>
+    </panel>
+    
+    <js file="asc-bj-usms-zzf-rpt-rm-card.js"/>
+    <js file="asc-bj-usms-zzf-common.js"/>
+</view>
