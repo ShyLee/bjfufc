@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_91"/>
 	<classpathentry kind="src" path="schema/ab-products/common/resources/src/main"/>
 	<classpathentry kind="src" path="schema/ab-products/common/resources/src/test"/>
 	<classpathentry kind="src" path="schema/ab-products/solutions/common/src/main"/>
@@ -32,7 +33,6 @@
 	<classpathentry kind="src" path="schema/ab-core/system-administration/common/src/main"/>
 	<classpathentry kind="src" path="schema/ab-core/system-administration/common/src/test"/>
 	<classpathentry kind="src" path="schema/ab-products/arc/src/main"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_23"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/abdera-core-0.4.0-incubating.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/abdera-extensions-json-0.4.0-incubating.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/abdera-extensions-main-0.4.0-incubating.jar"/>
@@ -226,10 +226,17 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/xmlsec-1.4.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xmlunit1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/yuicompressor-2.4.2.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.57/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.57/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/fastjson-1.1.8.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-dbutils-1.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/ant.jar"/>
+	<classpathentry kind="lib" path="lib/archibus-basic-rule-compiler.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/arc-basic.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/arc-data-upload.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-dbutils-1.6.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/fastjson-1.2.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/sch.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/zfbutie.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
